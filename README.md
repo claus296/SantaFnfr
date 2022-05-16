@@ -53,18 +53,18 @@ If using a controller on a PC, a controller with an Xbox button layout is recomm
 ### Keyboard
 * 6 - Take screenshot
   * Screenshot paths:
-    * Windows - `%APPDATA%\funkin-vasion-rewritten\screenshots`
-    * macOS - `~/Library/Application Support/funkin-vasion-rewritten/screenshots`
-	* Linux - `~/.local/share/love/funkin-vasion-rewritten/screenshots`
-	* Nintendo Switch - `./funkin-vasion-rewritten/screenshots`
+    * Windows - `%APPDATA%\vanilla-engine\screenshots`
+    * macOS - `~/Library/Application Support/vanilla-engine/screenshots`
+	* Linux - `~/.local/share/love/vanilla-engine/screenshots`
+	* Nintendo Switch - `./vanilla-engine/screenshots`
 * 7 - Open debug menu
 
 # Settings
 The settings file can be found in the following places on the following systems:
-* Windows - `%APPDATA%\funkin-vasion-rewritten\settings.ini` & `%APPDATA%\funkin-vasion-rewrittenn\settings`
-* macOS - `~/Library/Application Support/funkin-vasion-rewritten/settings.ini` & `~/Library/Application Support/funkin-vasion-rewritten/settings`
-* Linux - `~/.local/share/love/funkin-vasion-rewritten/settings.ini` & `~/.local/share/love/funkin-vasion-rewritten/settings`
-* Nintendo Switch - `./funkin-vasion-rewritten/settings.ini` & `./funkin-vasion-rewritten/settings`
+* Windows - `%APPDATA%\vanilla-engine\settings.ini` & `%APPDATA%\vanilla-engine\settings`
+* macOS - `~/Library/Application Support/vanilla-engine/settings.ini` & `~/Library/Application Support/vanilla-engine/settings`
+* Linux - `~/.local/share/love/vanilla-engine/settings.ini` & `~/.local/share/love/vanilla-engine/settings`
+* Nintendo Switch - `./vanilla-engine/settings.ini` & `./vanilla-engine/settings`
 
 # Progress
 **Menus** - 95% Complete
