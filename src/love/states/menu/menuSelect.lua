@@ -72,6 +72,10 @@ return {
         story:update(dt)
         freeplay:update(dt)
 
+        if not music:isPlaying() then
+			music:play()
+		end
+
 		if not graphics.isFading() then
 			if input:pressed("up") then
 				audio.playSound(selectSound)

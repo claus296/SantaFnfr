@@ -29,7 +29,7 @@ local songDifficulty = 2
 local selectSound = love.audio.newSource("sounds/menu/select.ogg", "static")
 local confirmSound = love.audio.newSource("sounds/menu/confirm.ogg", "static")
 
-local music = love.audio.newSource("music/menu/menu.ogg", "stream")
+music = love.audio.newSource("music/menu/menu.ogg", "stream")
 
 local function switchMenu(menu)
 	function backFunc()

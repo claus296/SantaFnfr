@@ -162,6 +162,10 @@ return {
 	end,
 
 	update = function(self, dt)
+
+        if not music:isPlaying() then
+			music:play()
+		end
 		if not graphics.isFading() then
 			if input:pressed("confirm") then
                 function confirmFunc()

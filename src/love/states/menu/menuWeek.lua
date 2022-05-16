@@ -211,7 +211,6 @@ return {
 
 	update = function(self, dt)
 
-
 		function menuFunc()
 			if weekNum ~= 7 then -- Due to senpais idlelines being smaller than the rest, we resize it
 				enemyDanceLines.sizeX, enemyDanceLines.sizeY = 0.5, 0.5
@@ -248,6 +247,9 @@ return {
 		difficultyAnim:update(dt)
 
 		if not graphics.isFading() then
+			if not music:isPlaying() then
+				music:play()
+			end
 			if input:pressed("down") then
 				audio.playSound(selectSound)
 
