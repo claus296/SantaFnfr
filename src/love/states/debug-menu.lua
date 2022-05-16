@@ -17,6 +17,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
 
+-- You do not need to mess with this file. You just need to press 7 when loaded into the game
+
 local menuID, selection
 local curDir, dirTable
 local sprite, spriteAnims, overlaySprite
@@ -165,6 +167,12 @@ return {
 		if input:pressed("back") then
 			graphics.fadeOut(0.5, love.event.quit)
 		end
+		if input:pressed("debugZoomOut") then
+			cam.sizeX, cam.sizeY = cam.sizeX - 0.05, cam.sizeY - 0.05
+		end
+		if input:pressed("debugZoomIn") then
+			cam.sizeX, cam.sizeY = cam.sizeX + 0.05, cam.sizeY + 0.05
+		end
 	end,
 
 	draw = function(self)
@@ -174,6 +182,7 @@ return {
 
 				love.graphics.push()
 					love.graphics.translate(lovesize.getWidth() / 2, lovesize.getHeight() / 2)
+					love.graphics.scale(cam.sizeX, cam.sizeY)
 
 					sprite:draw()
 					graphics.setColor(1, 1, 1, 0.5)

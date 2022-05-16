@@ -25,10 +25,19 @@ local topBop, bottomBop, santa
 
 local scaryIntro = false
 
+week5Playing = true
+
 return {
 	enter = function(self, from, songNum, songAppend)
 		cam.sizeX, cam.sizeY = 0.7, 0.7
 		camScale.x, camScale.y = 0.7, 0.7
+
+		missCounter = 0
+		noteCounter = 0
+		altScore = 0
+		uiTextColour = {0,0,0} -- Changed the UI colour to black
+
+		week5Playing = true
 
 		bpm = 100
 		useAltAnims = false
@@ -36,7 +45,7 @@ return {
 		enemyFrameTimer = 0
 		boyfriendFrameTimer = 0
 
-		sounds = {
+		sounds = { -- Since week5 doesn't use weeks:load, all of the load stuff was added here
 			countdown = {
 				three = love.audio.newSource("sounds/countdown-3.ogg", "static"),
 				two = love.audio.newSource("sounds/countdown-2.ogg", "static"),
@@ -56,6 +65,7 @@ return {
 		images = {
 			icons = love.graphics.newImage(graphics.imagePath("icons")),
 			notes = love.graphics.newImage(graphics.imagePath("notes")),
+			notesplashes = love.graphics.newImage(graphics.imagePath("noteSplashes")),
 			numbers = love.graphics.newImage(graphics.imagePath("numbers"))
 		}
 
@@ -66,6 +76,14 @@ return {
 
 		song = songNum
 		difficulty = songAppend
+
+		healthBarColorEnemy = {175,102,206}
+		healthBarColorPlayer = {49,176,209}
+
+		leftArrowSplash = love.filesystem.load("sprites/notes/noteSplashes.lua")()
+		downArrowSplash = love.filesystem.load("sprites/notes/noteSplashes.lua")()
+		upArrowSplash = love.filesystem.load("sprites/notes/noteSplashes.lua")()
+		rightArrowSplash = love.filesystem.load("sprites/notes/noteSplashes.lua")()
 
 		if song ~= 3 then
 			walls = graphics.newImage(love.graphics.newImage(graphics.imagePath("week5/walls")))
@@ -269,6 +287,7 @@ return {
 			end
 
 			weeks:updateUI(dt)
+			
 		end
 	end,
 
@@ -322,9 +341,33 @@ return {
 					if enemyArrows[i]:getAnimName() == "off" then
 						graphics.setColor(0.6, 0.6, 0.6)
 					end
+					if settings.middleScroll then
+						love.graphics.setColor(0.6,0.6,0.6,0.3)
+					end
 					enemyArrows[i]:draw()
 					graphics.setColor(1, 1, 1)
 					boyfriendArrows[i]:draw()
+
+					if hitSick then
+						if input:pressed("gameLeft") then
+							leftArrowSplash:animate("left")
+						elseif input:pressed("gameRight") then
+							rightArrowSplash:animate("right")
+						elseif input:pressed("gameUp") then
+							upArrowSplash:animate("up")
+						elseif input:pressed("gameDown") then
+							downArrowSplash:animate("down")
+						end
+					end
+					if leftArrowSplash:isAnimated() then
+						leftArrowSplash:draw()
+					elseif rightArrowSplash:isAnimated() then
+						rightArrowSplash:draw()
+					elseif upArrowSplash:isAnimated() then
+						upArrowSplash:draw()
+					elseif downArrowSplash:isAnimated() then
+						downArrowSplash:draw()
+					end
 
 					love.graphics.push()
 						love.graphics.translate(0, -musicPos)
@@ -335,6 +378,9 @@ return {
 
 								if animName == "hold" or animName == "end" then
 									graphics.setColor(1, 1, 1, 0.5)
+								end
+								if settings.middleScroll then
+									love.graphics.setColor(1,1,1,0.3)
 								end
 								enemyNotes[i][j]:draw()
 								graphics.setColor(1, 1, 1)
@@ -364,40 +410,10 @@ return {
 					love.graphics.pop()
 				end
 
-				if settings.downscroll then
-					graphics.setColor(1, 0, 0)
-					love.graphics.rectangle("fill", -500, -400, 1000, 25)
-					graphics.setColor(0, 1, 0)
-					love.graphics.rectangle("fill", 500, -400, -health * 10, 25)
-					graphics.setColor(0, 0, 0)
-					love.graphics.setLineWidth(10)
-					love.graphics.rectangle("line", -500, -400, 1000, 25)
-					love.graphics.setLineWidth(1)
-					graphics.setColor(1, 1, 1)
-				else
-					graphics.setColor(1, 0, 0)
-					love.graphics.rectangle("fill", -500, 350, 1000, 25)
-					graphics.setColor(0, 1, 0)
-					love.graphics.rectangle("fill", 500, 350, -health * 10, 25)
-					graphics.setColor(0, 0, 0)
-					love.graphics.setLineWidth(10)
-					love.graphics.rectangle("line", -500, 350, 1000, 25)
-					love.graphics.setLineWidth(1)
-					graphics.setColor(1, 1, 1)
-				end
-
 				boyfriendIcon:draw()
 				enemyIcon:draw()
 
-				if settings.downscroll then
-					graphics.setColor(0, 0, 0)
-					love.graphics.print("Score: " .. score, 300, -350)
-					graphics.setColor(1, 1, 1)
-				else
-					graphics.setColor(0, 0, 0)
-					love.graphics.print("Score: " .. score, 300, 400)
-					graphics.setColor(1, 1, 1)
-				end
+				weeks:drawHealthBar()
 
 				graphics.setColor(1, 1, 1, countdownFade[1])
 				countdown:draw()
@@ -409,8 +425,16 @@ return {
 	leave = function()
 		walls = nil
 		escalator = nil
-
+		topBop = nil
+		bottomBop = nil
+		christmasTree = nil
 		santa = nil
+		snow = nil
+		
+
+		week5Playing = false
+
+		uiTextColour = {1,1,1}
 
 		weeks:leave()
 	end

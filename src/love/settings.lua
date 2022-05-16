@@ -19,37 +19,21 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 local curOS = love.system.getOS()
 
-local settingsStr = (curOS == "NX" and [[
+-- This usually doesn't need to be messed with
+local settingsStr = (curOS == "NX" and [[ 
 ; Friday Night Funkin' Rewritten Settings (Switch)
 
-[Video]
-; Use hardware-compressed image formats to save RAM, disabling this will make the game eat your RAM for breakfast (and increase load times)
-hardwareCompression=true
-
-[Audio]
-; Master volume
-; Possible values: 0.0-1.0
-volume=1.0
-
-[Game]
-; Sets your arrow keybinds to DFJK
-dfjk=false
-
-; "Downscroll" makes arrows scroll down instead of up, and also moves some aspects of the UI around
-downscroll=false
-
-; "Kade Input" disables anti-spam, but counts "Shit" inputs as misses
-; NOTE: Currently unfinished, some aspects of this input mode still need to be implemented, like mash violations
-kadeInput=false
-
-[Advanced]
-; Show debug info on the screen
-; Possible values: false, fps, detailed
-showDebug=false
+[Keybinds]
+; Set custom keybinds
+; Look at https://love2d.org/wiki/KeyConstant for available keys
+left=a
+down=s
+up=w
+right=d
 
 ; These variables are read by the game for internal purposes, don't edit these unless you want to risk losing your current settings!
 [Data]
-settingsVer=4-nx
+settingsVer=6-nx
 ]]) or (curOS ~= "Web" and [[
 ; Friday Night Funkin' Rewritten Settings
 
@@ -64,35 +48,17 @@ fullscreen=false
 fullscreenType=desktop
 vsync=1
 
-; Use hardware-compressed image formats to save RAM, disabling this will make the game eat your RAM for breakfast (and increase load times)
-; WARNING: Don't disable this on 32-bit versions of the game, or the game will quickly run out of memory and crash (thanks to the 2 GB RAM cap)
-; NOTE: If hardware compression is not supported on your device, this option will be silently ignored
-hardwareCompression=true
-
-[Audio]
-; Master volume
-; Possible values: 0.0-1.0
-volume=1.0
-
-[Game]
-; Sets your arrow keybinds to DFJK
-dfjk=false
-
-; "Downscroll" makes arrows scroll down instead of up, and also moves some aspects of the UI around
-downscroll=false
-
-; "Kade Input" disables anti-spam, but counts "Shit" inputs as misses
-; NOTE: Currently unfinished, some aspects of this input mode still need to be implemented, like mash violations
-kadeInput=false
-
-[Advanced]
-; Show debug info on the screen
-; Possible values: false, fps, detailed
-showDebug=false
+[Keybinds]
+; Set custom keybinds
+; Look at https://love2d.org/wiki/KeyConstant for available keys
+left=a
+down=s
+up=w
+right=d
 
 ; These variables are read by the game for internal purposes, don't edit these unless you want to risk losing your current settings!
 [Data]
-settingsVer=4
+settingsVer=6
 ]])
 
 local settingsIni
@@ -106,7 +72,7 @@ if curOS == "NX" then
 	if love.filesystem.getInfo("settings.ini") then
 		settingsIni = ini.load("settings.ini")
 
-		if not settingsIni["Data"] or ini.readKey(settingsIni, "Data", "settingsVer") ~= "4-nx" then
+		if not settingsIni["Data"] or ini.readKey(settingsIni, "Data", "settingsVer") ~= "6-nx" then
 			love.filesystem.write("settings.ini", settingsStr)
 		end
 	else
@@ -115,53 +81,22 @@ if curOS == "NX" then
 
 	settingsIni = ini.load("settings.ini")
 
-	if ini.readKey(settingsIni, "Video", "hardwareCompression") == "true" then
-		settings.hardwareCompression = true
+	customBindLeft = ini.readKey(settingsIni, "Keybinds", "left")
+	customBindDown = ini.readKey(settingsIni, "Keybinds", "down")
+	customBindUp = ini.readKey(settingsIni, "Keybinds", "up")
+	customBindRight = ini.readKey(settingsIni, "Keybinds", "right")
 
-		graphics.setImageType("dds")
-	else
-		settings.hardwareCompression = false
-	end
-
-	love.audio.setVolume(tonumber(ini.readKey(settingsIni, "Audio", "volume")))
-
-    if ini.readKey(settingsIni, "Game", "dfjk") == "true" then
-		settings.dfjk = true
-	else
-		settings.dfjk = false
-	end
-
-	if ini.readKey(settingsIni, "Game", "downscroll") == "true" then
-		settings.downscroll = true
-	else
-		settings.downscroll = false
-	end
-	if ini.readKey(settingsIni, "Game", "kadeInput") == "true" then
-		settings.kadeInput = true
-	else
-		settings.kadeInput = false
-	end
-
-	if ini.readKey(settingsIni, "Advanced", "showDebug") == "fps" or ini.readKey(settingsIni, "Advanced", "showDebug") == "detailed" then
-		settings.showDebug = ini.readKey(settingsIni, "Advanced", "showDebug")
-	else
-		settings.showDebug = false
-	end
 elseif curOS == "Web" then -- For love.js, we won't bother creating and reading a settings file that can't be edited, we'll just preset some settings
 	love.window.setMode(1280, 720) -- Due to shared code, lovesize will be used even though the resolution will never change :/
-
 	settings.hardwareCompression = false
-
-	settings.dfjk = false
 	settings.downscroll = false
-	settings.kadeInput = false
-
+	settings.ghostTapping = false
 	settings.showDebug = false
 else
 	if love.filesystem.getInfo("settings.ini") then
 		settingsIni = ini.load("settings.ini")
 
-		if not settingsIni["Data"] or ini.readKey(settingsIni, "Data", "settingsVer") ~= "4" then
+		if not settingsIni["Data"] or ini.readKey(settingsIni, "Data", "settingsVer") ~= "6" then
 			love.window.showMessageBox("Warning", "The current settings file is outdated, and will now be reset.")
 
 			local success, message = love.filesystem.write("settings.ini", settingsStr)
@@ -204,41 +139,12 @@ else
 			}
 		)
 	end
-	if ini.readKey(settingsIni, "Video", "hardwareCompression") == "true" then
-		settings.hardwareCompression = true
 
-		if love.graphics.getImageFormats()["DXT5"] then
-			graphics.setImageType("dds")
-		end
-	else
-		settings.hardwareCompression = false
-	end
+	customBindLeft = ini.readKey(settingsIni, "Keybinds", "left")
+	customBindDown = ini.readKey(settingsIni, "Keybinds", "down")
+	customBindUp = ini.readKey(settingsIni, "Keybinds", "up")
+	customBindRight = ini.readKey(settingsIni, "Keybinds", "right")
 
-	love.audio.setVolume(tonumber(ini.readKey(settingsIni, "Audio", "volume")))
-
-	if ini.readKey(settingsIni, "Game", "dfjk") == "true" then
-		settings.dfjk = true
-	else
-		settings.dfjk = false
-	end
-
-	if ini.readKey(settingsIni, "Game", "downscroll") == "true" then
-		settings.downscroll = true
-	else
-		settings.downscroll = false
-	end
-
-	if ini.readKey(settingsIni, "Game", "kadeInput") == "true" then
-		settings.kadeInput = true
-	else
-		settings.kadeInput = false
-	end
-
-	if ini.readKey(settingsIni, "Advanced", "showDebug") == "fps" or ini.readKey(settingsIni, "Advanced", "showDebug") == "detailed" then
-		settings.showDebug = ini.readKey(settingsIni, "Advanced", "showDebug")
-	else
-		settings.showDebug = false
-	end
 end
 
 return settings

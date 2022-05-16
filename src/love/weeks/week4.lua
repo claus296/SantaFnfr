@@ -30,7 +30,9 @@ return {
 		enemyFrameTimer = 0
 		boyfriendFrameTimer = 0
 
-		sounds = {
+		doingWeek4 = true
+
+		sounds = { -- Since week4 does not use weeks:load, all of the load stuff is here
 			countdown = {
 				three = love.audio.newSource("sounds/countdown-3.ogg", "static"),
 				two = love.audio.newSource("sounds/countdown-2.ogg", "static"),
@@ -48,6 +50,7 @@ return {
 		images = {
 			icons = love.graphics.newImage(graphics.imagePath("icons")),
 			notes = love.graphics.newImage(graphics.imagePath("notes")),
+			notesplashes = love.graphics.newImage(graphics.imagePath("noteSplashes")),
 			numbers = love.graphics.newImage(graphics.imagePath("numbers"))
 		}
 
@@ -58,6 +61,9 @@ return {
 
 		song = songNum
 		difficulty = songAppend
+
+		healthBarColorEnemy = {216,85,142}
+		healthBarColorPlayer = {49,176,209}
 
 		sunset = graphics.newImage(love.graphics.newImage(graphics.imagePath("week4/sunset")))
 
@@ -218,8 +224,9 @@ return {
 				boyfriend:draw()
 			love.graphics.pop()
 			weeks:drawRating(1)
+			
 		love.graphics.pop()
-
+		weeks:drawHealthBar()
 		weeks:drawUI()
 	end,
 
@@ -229,6 +236,8 @@ return {
 		bgLimo = nil
 		limoDancer = nil
 		limo = nil
+
+		doingWeek4 = false
 
 		weeks:leave()
 	end

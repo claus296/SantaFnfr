@@ -30,9 +30,9 @@ for i in range(1, len(sys.argv)):
         jsondata = f.read()
 
     songdata = json.loads(jsondata.strip('\x00'))
-
     notes = songdata['song']['notes']
     arguments = ['mustHitSection', 'bpm', 'altAnim']
+
     lua = ('-- Automatically generated from ' + jsonfile + '\n'
            'return {\n'
            '\tspeed = ' + str(songdata['song']['speed']) + ',\n')

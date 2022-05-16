@@ -28,6 +28,8 @@ return {
 		song = songNum
 		difficulty = songAppend
 
+		healthBarColorEnemy = {213,126,0}
+
 		cam.sizeX, cam.sizeY = 1.1, 1.1
 		camScale.x, camScale.y = 1.1, 1.1
 
@@ -57,6 +59,8 @@ return {
 			enemy.x, enemy.y = -610, 120
 
 			enemyIcon:animate("monster", false)
+
+			healthBarColorEnemy = {243,255,110}
 
 			inst = love.audio.newSource("music/week2/monster-inst.ogg", "stream")
 			voices = love.audio.newSource("music/week2/monster-voices.ogg", "stream")
@@ -172,6 +176,7 @@ return {
 		love.graphics.pop()
 
 		weeks:drawUI()
+		weeks:drawHealthBar()
 	end,
 
 	leave = function(self)

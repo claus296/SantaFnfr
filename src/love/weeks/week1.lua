@@ -28,6 +28,8 @@ return {
 		song = songNum
 		difficulty = songAppend
 
+		healthBarColorEnemy = {175,102,206}
+
 		stageBack = graphics.newImage(love.graphics.newImage(graphics.imagePath("week1/stage-back")))
 		stageFront = graphics.newImage(love.graphics.newImage(graphics.imagePath("week1/stage-front")))
 		curtains = graphics.newImage(love.graphics.newImage(graphics.imagePath("week1/curtains")))
@@ -144,6 +146,7 @@ return {
 		love.graphics.pop()
 
 		weeks:drawUI()
+		weeks:drawHealthBar()
 	end,
 
 	leave = function(self)
