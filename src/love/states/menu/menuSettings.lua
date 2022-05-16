@@ -10,7 +10,10 @@ newlinesMoment = {
     "\n\n\n\n",
     "\n\n\n\n\n\n",
     "\n\n\n\n\n\n\n\n",
-    "\n\n\n\n\n\n\n\n\n\n\n"
+    "\n\n\n\n\n\n\n\n\n\n\n",
+    "\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+    "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+    "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
 }
 
 settingsDescriptions1 = { -- The big spaces are so it lines up lol
@@ -28,7 +31,10 @@ settingsDescriptions1 = { -- The big spaces are so it lines up lol
     "\n       \"Side Judgements\" Shows your Sicks/Goods/Bads/Shits on the left\n       side of the screen.",
 
     "Bot Play" ..
-    "\n       \"Bot Play\" Sit back and relax. Let the bot do all the playing\n       for you."
+    "\n       \"Bot Play\" Sit back and relax. Let the bot do all the playing\n       for you... 1 = Default",
+
+    "Custom Scroll Speed" ..
+    "\n       \"Custom Scroll Speed\" Allows you to set a custom scroll speed\n       for the game.",
 }
 settingsDescriptions2 = {
 
@@ -79,6 +85,7 @@ return {
                     practiceMode = settings.practiceMode,
                     noMiss = settings.noMiss,
                     noHolds = settings.noHolds,
+                    customScrollSpeed = settings.customScrollSpeed,
                     settingsVer = settingsVer
                 }
                 serialized = lume.serialize(data)
@@ -105,6 +112,7 @@ return {
                     practiceMode = settings.practiceMode,
                     noMiss = settings.noMiss,
                     noHolds = settings.noHolds,
+                    customScrollSpeed = settings.customScrollSpeed,
                     settingsVer = settingsVer
                 }
                 serialized = lume.serialize(data)
@@ -263,7 +271,7 @@ return {
                     if settingSelect ~= 1 then
                         settingSelect = settingSelect - 1
                     else
-                        settingSelect = 5
+                        settingSelect = 6
                     end
                 elseif settingsMenuState == 3 then
                     if settingSelect ~= 1 then
@@ -286,7 +294,7 @@ return {
                         settingSelect = 1
                     end
                 elseif settingsMenuState == 2 then
-                    if settingSelect ~= 5 then
+                    if settingSelect ~= 6 then
                         settingSelect = settingSelect + 1
                     else
                         settingSelect = 1
@@ -296,6 +304,18 @@ return {
                         settingSelect = settingSelect + 1
                     else
                         settingSelect = 1
+                    end
+                end
+            elseif input:pressed("right") then
+                if settingsMenuState == 2 then
+                    if settingSelect == 6 then
+                        settings.customScrollSpeed = settings.customScrollSpeed + 0.1
+                    end
+                end
+            elseif input:pressed("left") then
+                if settingsMenuState == 2 then
+                    if settingSelect == 6 then
+                        settings.customScrollSpeed = settings.customScrollSpeed - 0.1
                     end
                 end
 			end
@@ -334,6 +354,7 @@ return {
                     love.graphics.print("\n\n\n\nGhost Tapping = " .. tostring(settings.ghostTapping), -628, -100)
                     love.graphics.print("\n\n\n\n\n\nSide Judgements = " .. tostring(settings.sideJudgements), -628, -100)
                     love.graphics.print("\n\n\n\n\n\n\n\nBot Play = " .. tostring(settings.botPlay), -628, -100)
+                    love.graphics.print("\n\n\n\n\n\n\n\n\n\nCustom Scroll Speed = " .. tostring(settings.customScrollSpeed), -628, -100)
                 elseif settingsMenuState == 3 then
                     love.graphics.print("Hardware Compression = " .. tostring(settings.hardwareCompression) .. " " .. isRestartNeeded, -628, -100) 
                     love.graphics.print("\n\nShow Debug = " .. tostring(settings.showDebug), -628, -100)
