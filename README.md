@@ -3,9 +3,9 @@
 
 Friday Night Funkin' Rewritten is a rewrite of [Friday Night Funkin'](https://ninja-muffin24.itch.io/funkin) built on [LÖVE](https://love2d.org/) for Windows, macOS, Linux, and Web platforms, as well as previously unsupported platforms, like the Nintendo Switch!
 
-Friday Night Funkin' Vasion is a modification of [Friday Night Funkin' Rewritten](https://github.com/HTV04/funkin-rewritten/releases) and should not be treated as an official download for it.
+Friday Night Funkin' Vanilla Engine is a modification of [Friday Night Funkin' Rewritten](https://github.com/HTV04/funkin-rewritten/releases) and should not be treated as an official download for it.
 
-Features with Funkin' Vasion:
+Features with Funkin' Vanilla Engine:
 * Better menu
 * Custom keybinds ([read here for more available binds](https://love2d.org/wiki/KeyConstant))
 * A Settings menu
@@ -14,6 +14,7 @@ Features with Funkin' Vasion:
 * Discord RPC (Windows only)
 * Week 6 dialogue
 * Note splashes 
+* Some Gameplay modifications
 
 Friday Night Funkin' Rewritten features:
 * A rewritten engine focused on performance and playability
