@@ -87,7 +87,11 @@ return {
 			graphics.fadeOut(
 				0.5,
 				function()
-					Gamestate.switch(menu)
+					if storyMode then
+						Gamestate.switch(menuWeek)
+					else
+						Gamestate.switch(menuFreeplay)
+					end
 
 					status.setLoading(false)
 				end
