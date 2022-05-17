@@ -21,7 +21,7 @@ settingsDescriptions1 = { -- The big spaces are so it lines up lol
     "\n      \"Downscroll\" Makes arrows scroll down, and rearranges the UI.",
 
     "Middlescroll:" ..
-    "\n      \"Middlescroll\" Centers the player notefield and hides enemy's notefield",
+    "\n      \"Middlescroll\" Centers the player notefield",
 
     "Ghost Tapping:" ..
     "\n       \"Ghost Tapping\" disables anti-spam, but counts \"Shit\" inputs as\n       misses" ..
@@ -31,10 +31,10 @@ settingsDescriptions1 = { -- The big spaces are so it lines up lol
     "\n       \"Side Judgements\" Shows your judgment counts on the left\n       side of the screen.",
 
     "Bot Play" ..
-    "\n       \"Bot Play\" Sit back and relax. Let the bot do all the playing\n       for you... 1 = Default", -- ???? 1 = Default?? was this supposed to be for custom scroll speed or am i dumb
+    "\n       \"Bot Play\" Sit back and relax. Let the bot do all the playing\n       for you",
 
     "Custom Scroll Speed" ..
-    "\n       \"Custom Scroll Speed\" Allows you to set a custom scroll speed\n       for the game.",
+    "\n       \"Custom Scroll Speed\" Allows you to set a custom scroll speed\n       for the game... 1 = Default",
 }
 settingsDescriptions2 = {
 
@@ -55,7 +55,7 @@ settingsDescriptions3 = {
     "Sudden Death:" ..
     "\n       \"Sudden Death\" Too easy? Enable this to lose if you miss one note",
 
-    "No Hold Notes:" ..
+    "No Hold Notes: (TEMPORARILY DISABLED)" ..
     "\n       \"No Hold Notes\" how do you not like \n       spaghetti tho?"
 }
 
