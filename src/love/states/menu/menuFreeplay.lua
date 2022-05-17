@@ -392,6 +392,9 @@ return {
 	update = function(self, dt)
 
 		if not graphics.isFading() then
+			if not music:isPlaying() then
+				music:play()
+			end
 			if input:pressed("left") then
 				audio.playSound(selectSound)
 

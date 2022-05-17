@@ -398,7 +398,11 @@ return {
 			bpm = 100
 		end
 
-		speed = chart.speed
+		if settings.customScrollSpeed == 1 then
+			speed = chart.speed
+		else
+			speed = settings.customScrollSpeed
+		end
 		songName = chart.songName
 		needsVoices = chart.needsVoices
 
