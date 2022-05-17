@@ -176,7 +176,7 @@ return {
 			love.graphics.push()
 				love.graphics.scale(cam.sizeX, cam.sizeY)
                 love.graphics.color.printf(
-                    "Funkin' Vasion: v1.5.8\nFNFR: v1.1.0-beta2",
+                    "Vanilla Engine uhhhhh somthing\nFNFR: v1.1.0-beta2",
                     -708,
                     340, 
                     833,
@@ -184,9 +184,9 @@ return {
                     nil, 
                     1, 
                     1, 
-                    200, --R
-                    200, --G
-                    200, --B
+                    0, --R
+                    0, --G
+                    0, --B
                     1    --A
                 )
 			love.graphics.pop()

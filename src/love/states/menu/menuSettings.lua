@@ -13,25 +13,25 @@ newlinesMoment = {
     "\n\n\n\n\n\n\n\n\n\n\n",
     "\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
     "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
-    "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+    "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"  --bruh
 }
 
 settingsDescriptions1 = { -- The big spaces are so it lines up lol
     "Downscroll:" ..
-    "\n      \"Downscroll\" makes arrows scroll down instead of up, and also\n      moves some aspects of the UI around",
+    "\n      \"Downscroll\" Makes arrows scroll down, and rearranges the UI.",
 
     "Middlescroll:" ..
-    "\n      \"Middlescroll\" Puts your notes in the middle",
+    "\n      \"Middlescroll\" Centers the player notefield and hides enemy's notefield",
 
     "Ghost Tapping:" ..
     "\n       \"Ghost Tapping\" disables anti-spam, but counts \"Shit\" inputs as\n       misses" ..
     "\n\n       NOTE: Currently unfinished, some aspects of this input mode\n       still need to be implemented, like mash violations",
 
     "Side Judgements" ..
-    "\n       \"Side Judgements\" Shows your Sicks/Goods/Bads/Shits on the left\n       side of the screen.",
+    "\n       \"Side Judgements\" Shows your judgment counts on the left\n       side of the screen.",
 
     "Bot Play" ..
-    "\n       \"Bot Play\" Sit back and relax. Let the bot do all the playing\n       for you... 1 = Default",
+    "\n       \"Bot Play\" Sit back and relax. Let the bot do all the playing\n       for you... 1 = Default", -- ???? 1 = Default?? was this supposed to be for custom scroll speed or am i dumb
 
     "Custom Scroll Speed" ..
     "\n       \"Custom Scroll Speed\" Allows you to set a custom scroll speed\n       for the game.",
@@ -44,7 +44,7 @@ settingsDescriptions2 = {
 
     "Show Debug" ..
     "\n       \"Show Debug\" Shows debug info on the screen" ..
-    "\n\n       \"fps\" ONLY shows your FPS" ..
+    "\n\n       \"fps\" only displays FPS count" ..
     "\n\n       \"detailed\" shows things for debugging. (E.g. Music time,\n       Health, etc)"
 }
 settingsDescriptions3 = {
@@ -52,11 +52,11 @@ settingsDescriptions3 = {
     "Practice Mode:" ..
     "\n       \"Practice Mode\" Too hard? Enable this to not lose!",
 
-    "No Miss:" ..
-    "\n       \"No Miss\" Too easy? Enable this to lose if you miss one note",
+    "Sudden Death:" ..
+    "\n       \"Sudden Death\" Too easy? Enable this to lose if you miss one note",
 
     "No Hold Notes:" ..
-    "\n       \"No Hold Notes\" Do you hate hold notes? Well now you don't\n       have to go through the pain of hold notes!"
+    "\n       \"No Hold Notes\" how do you not like \n       spaghetti tho?"
 }
 
 local function switchMenu(menu)end
