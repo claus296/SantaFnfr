@@ -39,9 +39,9 @@ local weekDesc = { -- Add your week description here
 	"HATING SIMULATOR FT. MOAWLING"
 }
 local difficultyStrs = { 
-	"-easy",
-	"",
-	"-hard"
+	"easy",
+	"normal",
+	"hard"
 }
 
 trackNames = { -- add your songs here
