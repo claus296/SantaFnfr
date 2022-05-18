@@ -21,7 +21,7 @@ settingsDescriptions1 = { -- The big spaces are so it lines up lol
     "\n      \"Downscroll\" Makes arrows scroll down, and rearranges the UI.",
 
     "Middlescroll:" ..
-    "\n      \"Middlescroll\" Centers the player notefield and hides enemy's notefield",
+    "\n      \"Middlescroll\" Centers the player notefield",
 
     "Ghost Tapping:" ..
     "\n       \"Ghost Tapping\" disables anti-spam, but counts \"Shit\" inputs as\n       misses" ..
@@ -55,7 +55,7 @@ settingsDescriptions3 = {
     "Sudden Death:" ..
     "\n       \"Sudden Death\" Too easy? Enable this to lose if you miss one note",
 
-    "No Hold Notes:" ..
+    "No Hold Notes: (TEMPORARILY DISABLED)" ..
     "\n       \"No Hold Notes\" how do you not like \n       spaghetti tho?"
 }
 
