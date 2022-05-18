@@ -90,9 +90,9 @@ local weekMeta = { -- Add/remove weeks here
 	}
 }
 local difficultyStrs = {
-	"-easy",
-	"",
-	"-hard"
+	"easy",
+	"normal",
+	"hard"
 }
 
 local selectSound = love.audio.newSource("sounds/menu/select.ogg", "static")
