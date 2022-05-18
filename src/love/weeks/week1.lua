@@ -52,14 +52,14 @@ return {
 		weeks:load()
 
 		if song == 3 then
-			inst = love.audio.newSource("music/week1/dadbattle-inst.ogg", "stream")
-			voices = love.audio.newSource("music/week1/dadbattle-voices.ogg", "stream")
+			inst = love.audio.newSource("songs/week1/dadbattle/inst.ogg", "stream")
+			voices = love.audio.newSource("songs/week1/dadbattle/voices.ogg", "stream")
 		elseif song == 2 then
-			inst = love.audio.newSource("music/week1/fresh-inst.ogg", "stream")
-			voices = love.audio.newSource("music/week1/fresh-voices.ogg", "stream")
+			inst = love.audio.newSource("songs/week1/fresh/inst.ogg", "stream")
+			voices = love.audio.newSource("songs/week1/fresh/voices.ogg", "stream")
 		else
-			inst = love.audio.newSource("music/week1/bopeebo-inst.ogg", "stream")
-			voices = love.audio.newSource("music/week1/bopeebo-voices.ogg", "stream")
+			inst = love.audio.newSource("songs/week1/bopeebo/inst.ogg", "stream")
+			voices = love.audio.newSource("songs/week1/bopeebo/voices.ogg", "stream")
 		end
 
 		self:initUI()
@@ -71,11 +71,11 @@ return {
 		weeks:initUI()
 
 		if song == 3 then
-			weeks:generateNotes(love.filesystem.load("charts/week1/dadbattle" .. difficulty .. ".lua")())
+			weeks:generateNotes(love.filesystem.load("songs/week1/dadbattle/" .. difficulty .. ".lua")())
 		elseif song == 2 then
-			weeks:generateNotes(love.filesystem.load("charts/week1/fresh" .. difficulty .. ".lua")())
+			weeks:generateNotes(love.filesystem.load("songs/week1/fresh/" .. difficulty .. ".lua")())
 		else
-			weeks:generateNotes(love.filesystem.load("charts/week1/bopeebo" .. difficulty .. ".lua")())
+			weeks:generateNotes(love.filesystem.load("songs/week1/bopeebo/" .. difficulty .. ".lua")())
 		end
 	end,
 
