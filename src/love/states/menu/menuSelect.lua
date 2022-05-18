@@ -187,7 +187,7 @@ return {
                     0, --R
                     0, --G
                     0, --B
-                    1    --A
+                    1  --A
                 )
 			love.graphics.pop()
 		love.graphics.pop()

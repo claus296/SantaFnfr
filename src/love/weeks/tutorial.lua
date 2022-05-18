@@ -56,7 +56,7 @@ return {
 		zoom[1] = 1
 
 		inst = nil
-		voices = love.audio.newSource("music/tutorial/tutorial.ogg", "stream")
+		voices = love.audio.newSource("songs/tutorial/inst.ogg", "stream")
 
 		self:initUI()
 
@@ -66,7 +66,7 @@ return {
 	initUI = function(self)
 		weeks:initUI()
 
-		weeks:generateNotes(love.filesystem.load("charts/tutorial/tutorial" .. difficulty .. ".lua")())
+		weeks:generateNotes(love.filesystem.load("songs/tutorial/normal" .. difficulty .. ".lua")())
 	end,
 
 	update = function(self, dt)

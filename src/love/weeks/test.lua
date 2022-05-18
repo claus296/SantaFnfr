@@ -60,8 +60,8 @@ return {
 	load = function(self)
 		weeks_test:load()
 
-		inst = love.audio.newSource("music/test/test-inst.ogg", "stream")
-		voices = love.audio.newSource("music/test/test-voices.ogg", "stream")
+		inst = love.audio.newSource("songs/test/inst.ogg", "stream")
+		voices = love.audio.newSource("songs/test/voices.ogg", "stream")
 
 		self:initUI()
 
@@ -71,7 +71,7 @@ return {
 	initUI = function(self)
 		weeks_test:initUI()
 
-		weeks_test:generateNotes(love.filesystem.load("charts/test/test.lua")())
+		weeks_test:generateNotes(love.filesystem.load("songs/test/normal.lua")())
 	end,
 
 	update = function(self, dt)

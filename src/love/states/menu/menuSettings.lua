@@ -31,10 +31,10 @@ settingsDescriptions1 = { -- The big spaces are so it lines up lol
     "\n       \"Side Judgements\" Shows your judgment counts on the left\n       side of the screen.",
 
     "Bot Play" ..
-    "\n       \"Bot Play\" Sit back and relax. Let the bot do all the playing\n       for you... 1 = Default", -- ???? 1 = Default?? was this supposed to be for custom scroll speed or am i dumb
+    "\n       \"Bot Play\" Sit back and relax. Let the bot do all the playing\n       for you", 
 
     "Custom Scroll Speed" ..
-    "\n       \"Custom Scroll Speed\" Allows you to set a custom scroll speed\n       for the game.",
+    "\n       \"Custom Scroll Speed\" Allows you to set a custom scroll speed\n       for the game.   1 = Default",
 }
 settingsDescriptions2 = {
 
@@ -42,12 +42,12 @@ settingsDescriptions2 = {
     "\n       \"Hardware Compression\" Use hardware-compressed image formats\n       to save RAM, disabling this will make the game eat your RAM\n       for breakfast (and increase load times)" ..
     "\n\n       WARNING: Don't disable this on 32-bit versions of the game,\n       or the game will quickly run out of memory and crash (thanks\n       to the 2 GB RAM cap)",
 
-    "Show Debug" ..
+    "Show Debug Info" ..
     "\n       \"Show Debug\" Shows debug info on the screen" ..
     "\n\n       \"fps\" only displays FPS count" ..
     "\n\n       \"detailed\" shows things for debugging. (E.g. Music time,\n       Health, etc)"
 }
-settingsDescriptions3 = {
+settingsDescriptions3 = { 
 
     "Practice Mode:" ..
     "\n       \"Practice Mode\" Too hard? Enable this to not lose!",
