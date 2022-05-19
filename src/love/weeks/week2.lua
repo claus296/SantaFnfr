@@ -62,14 +62,14 @@ return {
 
 			healthBarColorEnemy = {243,255,110}
 
-			inst = love.audio.newSource("music/week2/monster-inst.ogg", "stream")
-			voices = love.audio.newSource("music/week2/monster-voices.ogg", "stream")
+			inst = love.audio.newSource("songs/week2/monster/inst.ogg", "stream")
+			voices = love.audio.newSource("songs/week2/monster/voices.ogg", "stream")
 		elseif song == 2 then
-			inst = love.audio.newSource("music/week2/south-inst.ogg", "stream")
-			voices = love.audio.newSource("music/week2/south-voices.ogg", "stream")
+			inst = love.audio.newSource("songs/week2/south/inst.ogg", "stream")
+			voices = love.audio.newSource("songs/week2/south/voices.ogg", "stream")
 		else
-			inst = love.audio.newSource("music/week2/spookeez-inst.ogg", "stream")
-			voices = love.audio.newSource("music/week2/spookeez-voices.ogg", "stream")
+			inst = love.audio.newSource("songs/week2/spookeez/inst.ogg", "stream")
+			voices = love.audio.newSource("songs/week2/spookeez/voices.ogg", "stream")
 		end
 
 		self:initUI()
@@ -81,11 +81,11 @@ return {
 		weeks:initUI()
 
 		if song == 3 then
-			weeks:generateNotes(love.filesystem.load("charts/week2/monster" .. difficulty .. ".lua")())
+			weeks:generateNotes(love.filesystem.load("songs/week2/monster/" .. difficulty .. ".lua")())
 		elseif song == 2 then
-			weeks:generateNotes(love.filesystem.load("charts/week2/south" .. difficulty .. ".lua")())
+			weeks:generateNotes(love.filesystem.load("songs/week2/south/" .. difficulty .. ".lua")())
 		else
-			weeks:generateNotes(love.filesystem.load("charts/week2/spookeez" .. difficulty .. ".lua")())
+			weeks:generateNotes(love.filesystem.load("songs/week2/spookeez/" .. difficulty .. ".lua")())
 		end
 	end,
 

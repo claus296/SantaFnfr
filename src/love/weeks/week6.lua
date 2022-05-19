@@ -51,12 +51,12 @@ return {
 			bfPortrait.x, bfPortrait.y = 650, 375
 			senpaiPortrait.x, senpaiPortrait.y = 650, 375
 			if song ~= 3 then
-				dialogueMusic = love.audio.newSource("music/pixel/Lunchbox.ogg", "static")
+				dialogueMusic = love.audio.newSource("songs/misc/pixel/Lunchbox.ogg", "static")
 				dialogueMusic:setLooping(true)
 
 				dialogueMusic:play()
 			else
-				dialogueMusic = love.audio.newSource("music/pixel/LunchboxScary.ogg", "static")
+				dialogueMusic = love.audio.newSource("songs/misc/pixel/LunchboxScary.ogg", "static")
 				dialogueMusic:setLooping(true)
 				dialogueMusic:play()
 			end
@@ -110,9 +110,19 @@ return {
 				{
 					"Direct contact with real humans, after being trapped in here for so long...",
 					"and HER of all people.",
-					"I'll make her father pay for what he's done to me and all the others,,,,",
+					"I'll make her father pay for what he's done to me and all the others...",
 					"I'll beat you and make you take my place.",
-					"You don't mind your bodies being borrowed right? It's only fair..."
+					"You don't mind your bodies being borrowed right? It's only fair...",
+					"fortnite battle pass", -- how long until guglio notices
+					"i just shit, out my ass",
+					"booted up my pc",
+					"cause i need need",
+					"to get that fortnite battle pass",
+					"i like fortnite, did i mention fortnite",
+					"i like fortnite",
+					"its nighttime",
+					"i mean its five o clock thats basically nighttime",
+					"do yall remember cartoon network adventurn time"
 				}
 			)
 			enemyIcon:animate("spirit", false)
@@ -145,7 +155,7 @@ return {
 				{
 					"Ah, a new fair maiden has come in search of true love!",
 					"A serenade between gentlemen shall decide where her beautiful heart shall reside.",
-					"Beep bo bop"
+					"Beep bo bop",
 				}
 			)
 		end
@@ -155,14 +165,14 @@ return {
 		weeks:load()
 
 		if song == 3 then
-			inst = love.audio.newSource("music/week6/thorns-inst.ogg", "stream")
-			voices = love.audio.newSource("music/week6/thorns-voices.ogg", "stream")
+			inst = love.audio.newSource("songs/week6/thorns/inst.ogg", "stream")
+			voices = love.audio.newSource("songs/week6/thorns/voices.ogg", "stream")
 		elseif song == 2 then
-			inst = love.audio.newSource("music/week6/roses-inst.ogg", "stream")
-			voices = love.audio.newSource("music/week6/roses-voices.ogg", "stream")
+			inst = love.audio.newSource("songs/week6/roses/inst.ogg", "stream")
+			voices = love.audio.newSource("songs/week6/roses/voices.ogg", "stream")
 		else
-			inst = love.audio.newSource("music/week6/senpai-inst.ogg", "stream")
-			voices = love.audio.newSource("music/week6/senpai-voices.ogg", "stream")
+			inst = love.audio.newSource("songs/week6/senpai/inst.ogg", "stream")
+			voices = love.audio.newSource("songs/week6/senpai/voices.ogg", "stream")
 		end
 
 
@@ -181,11 +191,11 @@ return {
 		weeks:pixelInitUI()
 
 		if song == 3 then
-			weeks:generateNotes(love.filesystem.load("charts/week6/thorns" .. difficulty .. ".lua")())
+			weeks:generateNotes(love.filesystem.load("songs/week6/thorns/" .. difficulty .. ".lua")())
 		elseif song == 2 then
-			weeks:generateNotes(love.filesystem.load("charts/week6/roses" .. difficulty .. ".lua")())
+			weeks:generateNotes(love.filesystem.load("songs/week6/roses/" .. difficulty .. ".lua")())
 		else
-			weeks:generateNotes(love.filesystem.load("charts/week6/senpai" .. difficulty .. ".lua")())
+			weeks:generateNotes(love.filesystem.load("songs/week6/senpai/" .. difficulty .. ".lua")())
 		end
 	end,
 

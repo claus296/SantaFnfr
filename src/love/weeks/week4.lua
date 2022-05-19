@@ -119,14 +119,14 @@ return {
 		weeks:load()
 
 		if song == 3 then
-			inst = love.audio.newSource("music/week4/milf-inst.ogg", "stream")
-			voices = love.audio.newSource("music/week4/milf-voices.ogg", "stream")
+			inst = love.audio.newSource("songs/week4/milf/inst.ogg", "stream")
+			voices = love.audio.newSource("songs/week4/milf/voices.ogg", "stream")
 		elseif song == 2 then
-			inst = love.audio.newSource("music/week4/high-inst.ogg", "stream")
-			voices = love.audio.newSource("music/week4/high-voices.ogg", "stream")
+			inst = love.audio.newSource("songs/week4/high/inst.ogg", "stream")
+			voices = love.audio.newSource("songs/week4/high/voices.ogg", "stream")
 		else
-			inst = love.audio.newSource("music/week4/satin-panties-inst.ogg", "stream")
-			voices = love.audio.newSource("music/week4/satin-panties-voices.ogg", "stream")
+			inst = love.audio.newSource("songs/week4/satin-panties/inst.ogg", "stream")
+			voices = love.audio.newSource("songs/week4/satin-panties/voices.ogg", "stream")
 		end
 
 		self:initUI()
@@ -138,11 +138,11 @@ return {
 		weeks:initUI()
 
 		if song == 3 then
-			weeks:generateNotes(love.filesystem.load("charts/week4/milf" .. difficulty .. ".lua")())
+			weeks:generateNotes(love.filesystem.load("songs/week4/milf/" .. difficulty .. ".lua")())
 		elseif song == 2 then
-			weeks:generateNotes(love.filesystem.load("charts/week4/high" .. difficulty .. ".lua")())
+			weeks:generateNotes(love.filesystem.load("songs/week4/high/" .. difficulty .. ".lua")())
 		else
-			weeks:generateNotes(love.filesystem.load("charts/week4/satin-panties" .. difficulty .. ".lua")())
+			weeks:generateNotes(love.filesystem.load("songs/week4/satin-panties/" .. difficulty .. ".lua")())
 		end
 	end,
 
