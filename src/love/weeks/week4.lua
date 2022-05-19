@@ -27,6 +27,8 @@ return {
 	enter = function(self, from, songNum, songAppend)
 		bpm = 100
 
+		week = 4
+
 		enemyFrameTimer = 0
 		boyfriendFrameTimer = 0
 

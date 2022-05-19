@@ -32,6 +32,8 @@ return {
 		cam.sizeX, cam.sizeY = 0.7, 0.7
 		camScale.x, camScale.y = 0.7, 0.7
 
+		week = 5
+
 		missCounter = 0
 		noteCounter = 0
 		altScore = 0

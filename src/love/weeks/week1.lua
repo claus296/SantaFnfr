@@ -25,6 +25,8 @@ return {
 	enter = function(self, from, songNum, songAppend)
 		weeks:enter()
 
+		week = 1
+
 		song = songNum
 		difficulty = songAppend
 

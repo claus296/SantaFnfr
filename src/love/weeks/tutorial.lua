@@ -28,6 +28,8 @@ return {
 	enter = function(self, from, songNum, songAppend)
 		weeks:enter()
 
+		week = 0
+
 		difficulty = songAppend
 
 		--healthBarColorPlayer = {R,G,B} -- USE 255 VALUES

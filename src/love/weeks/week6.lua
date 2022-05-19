@@ -27,6 +27,8 @@ return {
 		cam.sizeX, cam.sizeY = 0.78, 0.78
 		camScale.x, camScale.y = 0.78, 0.78
 		weeks:pixelEnter()
+
+		week = 6
 		
 		song = songNum
 		difficulty = songAppend

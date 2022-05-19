@@ -40,7 +40,11 @@ return {
 			{x = -boyfriend.x, y = -boyfriend.y, sizeX = camScale.x, sizeY = camScale.y},
 			"out-quad",
 			function()
-				inst = love.audio.newSource("music/game-over.ogg", "stream")
+				if week == 6 then
+					inst = love.audio.newSource("songs/misc/pixel/game-over.ogg", "stream")
+				else
+					inst = love.audio.newSource("songs/misc/game-over.ogg", "stream")
+				end
 				inst:setLooping(true)
 				inst:play()
 
@@ -56,7 +60,12 @@ return {
 			if input:pressed("confirm") then
 				if inst then inst:stop() end -- In case inst is nil and "confirm" is pressed before game over music starts
 
-				inst = love.audio.newSource("music/game-over-end.ogg", "stream")
+				if week == 6 then
+					inst = love.audio.newSource("songs/misc/pixel/game-over-end.ogg", "stream")
+				else
+					inst = love.audio.newSource("songs/misc/game-over-end.ogg", "stream")
+				end
+
 				inst:play()
 
 				Timer.clear()

@@ -26,6 +26,8 @@ return {
 	enter = function(self, from, songNum, songAppend)
 		weeks_test:enter()
 
+		week = -1 --idfk what to call this one
+
 		angle = {}
 
 		for i = 1, 2 do
