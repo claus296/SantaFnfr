@@ -112,19 +112,9 @@ return {
 				{
 					"Direct contact with real humans, after being trapped in here for so long...",
 					"and HER of all people.",
-					"I'll make her father pay for what he's done to me and all the others...",
+					"I'll make her father pay for what he's done to me and all the others,,,,",
 					"I'll beat you and make you take my place.",
-					"You don't mind your bodies being borrowed right? It's only fair...",
-					"fortnite battle pass", -- how long until guglio notices
-					"i just shit, out my ass",
-					"booted up my pc",
-					"cause i need need",
-					"to get that fortnite battle pass",
-					"i like fortnite, did i mention fortnite",
-					"i like fortnite",
-					"its nighttime",
-					"i mean its five o clock thats basically nighttime",
-					"do yall remember cartoon network adventurn time"
+					"You don't mind your bodies being borrowed right? It's only fair..."
 				}
 			)
 			enemyIcon:animate("spirit", false)
@@ -157,7 +147,7 @@ return {
 				{
 					"Ah, a new fair maiden has come in search of true love!",
 					"A serenade between gentlemen shall decide where her beautiful heart shall reside.",
-					"Beep bo bop",
+					"Beep bo bop"
 				}
 			)
 		end
