@@ -57,11 +57,12 @@ for i in range(1, len(sys.argv)):
         if len(j['sectionNotes']) > 0:
             lua += '\t\tsectionNotes = {\n'
             for k in j['sectionNotes']:
-                lua += ('\t\t\t{\n'
-                        '\t\t\t\tnoteTime = ' + str(k[0]) + ',\n'
-                        '\t\t\t\tnoteType = ' + str(k[1]) + ',\n'
-                        '\t\t\t\tnoteLength = ' + str(k[2]) + '\n'
-                        '\t\t\t},\n')
+                if k[1] != -1:
+                    lua += ('\t\t\t{\n'
+                            '\t\t\t\tnoteTime = ' + str(k[0]) + ',\n'
+                            '\t\t\t\tnoteType = ' + str(k[1]) + ',\n'
+                            '\t\t\t\tnoteLength = ' + str(k[2]) + '\n'
+                            '\t\t\t},\n')
             lua = (lua[:len(lua) - 3] + '}\n'
                    '\t\t}\n')
         else:
