@@ -68,10 +68,16 @@ return {
 	initUI = function(self)
 		weeks:initUI()
 
-		weeks:generateNotes(love.filesystem.load("songs/tutorial/normal" .. difficulty .. ".lua")())
+		weeks:generateNotes(love.filesystem.load("songs/tutorial/" .. difficulty .. ".lua")())
 	end,
 
 	update = function(self, dt)
+
+		currentSeconds = voices:tell("seconds") -- fuck you tutorial
+		songLenth = voices:getDuration("seconds")
+		timeLeft = songLenth - currentSeconds
+		timeLeftFixed = math.floor(timeLeft)
+		
 		oldMusicThres = musicThres
 		if countingDown or love.system.getOS() == "Web" then -- Source:tell() can't be trusted on love.js!
 			musicTime = musicTime + 1000 * dt

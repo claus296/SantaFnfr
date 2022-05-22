@@ -44,7 +44,7 @@ music:setLooping(true)
 return {
 	enter = function(self, previous)
 
-		logo = love.filesystem.load("sprites/menu/fv-logo.lua")()
+		logo = love.filesystem.load("sprites/menu/ve-logo.lua")()
 
 		girlfriendTitle = love.filesystem.load("sprites/menu/girlfriend-title.lua")()
 		titleEnter = love.filesystem.load("sprites/menu/titleEnter.lua")()
@@ -55,6 +55,7 @@ return {
 
 		titleEnter.x, titleEnter.y = 225, 350
 		songNum = 0
+		pissNum = 0
 
 		cam.sizeX, cam.sizeY = 0.9, 0.9
 		camScale.x, camScale.y = 0.9, 0.9
@@ -86,6 +87,25 @@ return {
 	end,
 
 	update = function(self, dt)
+		-- the haha funny easter egg (this was idits idea)
+		-- this doesnt work so im gonna just comment it out :(
+
+	--	if input:pressed("pissP") and pissNum == 0 then
+	--		pissNum = 1
+	--	end
+	--	if input:pressed("pissI") and pissNum == 1 then
+	--		pissNum = 2
+	--	end
+	--	if input:pressed("pissS") and pissNum == 2 then
+	--		pissNum = 3
+	--	end
+	--	if input:pressed("pissS") and pissNum == 3 then
+	--		pissNum = 4
+	--	end
+	--
+	--		if pissNum == 4 then
+	--			Gamestate.switch(menuWeek)  -- this would have something else its just gamestate switch for testing
+	--		end
 		girlfriendTitle:update(dt)
 		titleEnter:update(dt)
 		logo:update(dt)
@@ -125,6 +145,20 @@ return {
 
 				girlfriendTitle:draw()
 				titleEnter:draw()
+
+				love.graphics.printf(
+					"This is a pre-release build.\n\n"..
+					"Please report any bugs you find.",
+					-525,
+					90,
+					1200,
+					"left",
+					nil,
+					2,
+					2
+				)
+
+				--love.graphics.print(pissNum, -130, -390)   --this is only for testing dont uncomment
 
 				love.graphics.pop()
 		love.graphics.pop()

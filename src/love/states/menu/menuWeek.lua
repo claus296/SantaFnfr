@@ -193,7 +193,7 @@ return {
 					if weekNum == 5 then
 						doingWeek4 = true
 					else
-						doingWeek4 = false
+						doingWeek4 = false  -- what
 					end
 					
 					songAppend = difficultyStrs[songDifficulty]
@@ -253,7 +253,7 @@ return {
 			if input:pressed("down") then
 				audio.playSound(selectSound)
 
-				if weekNum ~= #trackNames then -- change 7 to the ammount of weeks there is (tutorial-6)
+				if weekNum ~= #trackNames then -- change 7 to the ammount of weeks there is (tutorial-6)              where tf is this 7 youre talking about
 					weekNum = weekNum + 1
 				else
 					weekNum = 1

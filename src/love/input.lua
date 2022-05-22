@@ -34,6 +34,11 @@ if love.system.getOS() == "NX" then
 			gameUp = {"axis:lefty-", "axis:righty-", "button:rightshoulder", "button:dpup", "button:y", "key:" .. customBindUp, "key:up"},
 			gameRight = {"axis:triggerright+", "axis:leftx+", "axis:rightx+", "button:dpright", "button:b", "key:" .. customBindRight, "key:right"},
 			gameBack = {"button:start", "key:escape"},
+
+			-- THE PISS EASTER EGG
+			--pissP = {"key:p"},
+			--pissI = {"key:i"},
+			--pissS = {"key:s"},
 		},
 		joystick = love.joystick.getJoysticks()[1]
 	}
@@ -54,6 +59,11 @@ else
 			gameUp = {"key:" .. customBindUp, "key:up", "axis:lefty-", "axis:righty-", "button:rightshoulder", "button:dpup", "button:y"},
 			gameRight = {"key:" .. customBindRight, "key:right", "axis:triggerright+", "axis:leftx+", "axis:rightx+", "button:dpright", "button:b"},
 			gameBack = {"key:escape", "button:start"},
+
+			-- THE PISS EASTER EGG
+			--pissP = {"key:p"},
+			--pissI = {"key:i"},
+			--pissS = {"key:s"},
 		},
 		joystick = love.joystick.getJoysticks()[1]
 	}

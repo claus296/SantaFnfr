@@ -36,6 +36,8 @@ return {
 		songNum = 0
         titleBG = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/menuBG")))
 
+        titleBG.sizeX, titleBG.sizeY = 1.1
+
         options = love.filesystem.load("sprites/menu/menuButtons.lua")()
         story = love.filesystem.load("sprites/menu/menuButtons.lua")()
         freeplay = love.filesystem.load("sprites/menu/menuButtons.lua")()
@@ -58,7 +60,7 @@ return {
         if useDiscordRPC then
             presence = {
                 state = "Choosing a mode",
-                details = "In the Gamemode Select Menu",
+                details = "In the Main Menu",
                 largeImageKey = "logo",
                 startTimestamp = now,
             }
@@ -90,14 +92,20 @@ return {
                     story:animate("story hover", true)
                     freeplay:animate("freeplay", true)
                     options:animate("options", true)
+
+                    Timer.tween(0.3, titleBG, {y = 15}, "out-quad")
                 elseif menuButton == 2 then
                     story:animate("story", true)
                     freeplay:animate("freeplay hover", true)
                     options:animate("options", true)
+
+                    Timer.tween(0.3, titleBG, {y = 0}, "out-quad")
                 elseif menuButton == 3 then
                     story:animate("story", true)
                     freeplay:animate("freeplay", true)
                     options:animate("options hover", true)
+
+                    Timer.tween(0.3, titleBG, {y = -15}, "out-quad")
                 end
 
 			elseif input:pressed("down") then
@@ -113,14 +121,20 @@ return {
                     story:animate("story hover", true)
                     freeplay:animate("freeplay", true)
                     options:animate("options", true)
+
+                    Timer.tween(0.3, titleBG, {y = 15}, "out-quad")
                 elseif menuButton == 2 then
                     story:animate("story", true)
                     freeplay:animate("freeplay hover", true)
                     options:animate("options", true)
+
+                    Timer.tween(0.3, titleBG, {y = 0}, "out-quad")
                 elseif menuButton == 3 then
                     story:animate("story", true)
                     freeplay:animate("freeplay", true)
                     options:animate("options hover", true)
+
+                    Timer.tween(0.3, titleBG, {y = -15}, "out-quad")
                 end
 
 			elseif input:pressed("confirm") then
@@ -176,7 +190,7 @@ return {
 			love.graphics.push()
 				love.graphics.scale(cam.sizeX, cam.sizeY)
                 love.graphics.color.printf(
-                    "Vanilla Engine uhhhhh somthing\nFNFR: v1.1.0-beta2",
+                    "Vanilla Engine v1.0.0 pre-release 1\nFNFR: v1.1.0-beta2",
                     -708,
                     340, 
                     833,

@@ -1126,6 +1126,13 @@ return {
 	end,
 
 	update = function(self, dt)
+
+		currentSeconds = voices:tell("seconds")
+		songLenth = voices:getDuration("seconds")
+		timeLeft = songLenth - currentSeconds
+		timeLeftFixed = math.floor(timeLeft)
+
+
 		if not doingDialogue then
 			oldMusicThres = musicThres
 			if countingDown or love.system.getOS() == "Web" then -- Source:tell() can't be trusted on love.js!
@@ -1724,7 +1731,7 @@ return {
 			love.graphics.setColor(uiTextColour[1],uiTextColour[2],uiTextColour[3])
 			accForRatingText = (altScore / (noteCounter + missCounter))
 			if accForRatingText >= 100 then
-				ratingText = "PERFECT!!!"
+				ratingText = "PERFECT!!!!" -- i added one ! so i could feel like i actually did something
 			elseif accForRatingText >= 90 then
 				ratingText = "Great!"
 			elseif accForRatingText >= 70 then
@@ -1747,6 +1754,14 @@ return {
 				ratingText = "Bruh."
 			end
 			if not pixel then
+
+
+				if settings.downscroll then
+					love.graphics.print("Time Remaining: " .. timeLeftFixed, 0, 400)
+				else
+					love.graphics.print("Time Remaining: " .. timeLeftFixed, -130, -390)
+				end
+
 				if not settings.botPlay then
 					if settings.downscroll then
 						local convertedAcc = string.format(
@@ -1855,29 +1870,30 @@ return {
 						)
 					end
 
-					--keystrokes        ADD THIS AS A SETTING
-					love.graphics.setColor(1, 1, 1)
+			--keystrokes        ADD THIS AS A SETTING
+			love.graphics.setColor(1, 1, 1)
 
-					if input:down("gameUp") then
-						love.graphics.rectangle("fill", 100, 600, 30, 30)
-					end
+			if input:down("gameUp") then
+				love.graphics.rectangle("fill", 100, 600, 30, 30)
+			end
 
-					if input:down("gameDown") then
-						love.graphics.rectangle("fill", 100, 631, 30, 30)
-					end
+			if input:down("gameDown") then
+				love.graphics.rectangle("fill", 100, 631, 30, 30)
+			end
 
-					if input:down("gameRight") then
-						love.graphics.rectangle("fill", 131, 631, 30, 30)
-					end
-					if input:down("gameLeft") then
-						love.graphics.rectangle("fill", 69, 631, 30, 30)
-					end
+			if input:down("gameRight") then
+				love.graphics.rectangle("fill", 131, 631, 30, 30)
+			end
+			
+			if input:down("gameLeft") then
+				love.graphics.rectangle("fill", 69, 631, 30, 30)
+			end
 
-					love.graphics.setColor(0, 0, 0)
-					love.graphics.rectangle("line", 100, 600, 30, 30) -- up
-					love.graphics.rectangle("line", 100, 631, 30, 30) -- down
-					love.graphics.rectangle("line", 131, 631, 30, 30) -- right
-					love.graphics.rectangle("line", 69, 631, 30, 30) -- left
+			love.graphics.setColor(0, 0, 0)
+			love.graphics.rectangle("line", 100, 600, 30, 30) -- up
+			love.graphics.rectangle("line", 100, 631, 30, 30) -- down
+			love.graphics.rectangle("line", 131, 631, 30, 30) -- right
+			love.graphics.rectangle("line", 69, 631, 30, 30) -- left
 
 		love.graphics.setColor(1, 1, 1)
 				end
