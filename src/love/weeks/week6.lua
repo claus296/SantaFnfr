@@ -321,10 +321,8 @@ return {
 		stageFront = nil
 		curtains = nil
 		pixel = false
-		font = love.graphics.newFont("fonts/vcr.ttf", 24)
-
 		love.graphics.setDefaultFilter("linear")
-
+		font = love.graphics.newFont("fonts/vcr.ttf", 24)
 		weeks:leave()
 	end
 }
