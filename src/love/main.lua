@@ -279,12 +279,12 @@ function love.keypressed(key)
 		end
 	elseif key == "-" then
 		volFade = 1
-		if love.audio.getVolume() >= 0 then
+		if love.audio.getVolume() >= -0.1 then -- weird decimals moment
 			love.audio.setVolume(love.audio.getVolume() - 0.1)
 		end
 	elseif key == "=" then
 		volFade = 1
-		if love.audio.getVolume() <= 1 then
+		if love.audio.getVolume() <= 0.9 then
 			love.audio.setVolume(love.audio.getVolume() + 0.1)
 		end
 	else
@@ -341,6 +341,13 @@ function love.draw()
 		if status.getLoading() then
 			love.graphics.print("Loading...", graphics.getWidth() - 175, graphics.getHeight() - 50)
 		end
+		love.graphics.setColor(1, 1, 1, volFade)
+		local fixVol = string.format(
+			"%.1f  ",
+			(love.audio.getVolume())
+		)
+		love.graphics.print("Volume:" .. tostring(fixVol), 1140, 0)
+		love.graphics.setColor(1, 1, 1, 1)
 	else
 		graphics.screenBase(lovesize.getWidth(), lovesize.getHeight())
 		lovesize.begin()
@@ -354,12 +361,14 @@ function love.draw()
 			end
 
 			love.graphics.setColor(1, 1, 1, volFade)
-			love.graphics.print("Volume:" .. tostring(love.audio.getVolume()), 1000, 0)
+			local fixVol = string.format(
+				"%.1f  ",
+				(love.audio.getVolume())
+			)
+			love.graphics.print("Volume:" .. tostring(fixVol), 1140, 0)
+			love.graphics.setColor(1, 1, 1, 1)
 
 		lovesize.finish()
-
-		love.graphics.setColor(1, 1, 1, 1)
-
 	end
 	graphics.screenBase(love.graphics.getWidth(), love.graphics.getHeight())
 
