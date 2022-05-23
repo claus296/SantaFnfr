@@ -109,9 +109,9 @@ function love.load()
 		settings.randomNotePlacements = data.saveSettingsMoment.randomNotePlacements
 		settings.practiceMode = data.saveSettingsMoment.practiceMode
 		settings.noMiss = data.saveSettingsMoment.noMiss
-		settings.noHolds = data.saveSettingsMoment.noHolds
 		settings.customScrollSpeed = data.saveSettingsMoment.customScrollSpeed
 		settings.keystrokes = data.saveSettingsMoment.keystrokes
+		settings.scrollUnderlayTrans = data.saveSettingsMoment.scrollUnderlayTrans
 
 		settingsVer = data.saveSettingsMoment.settingsVer
 
@@ -127,15 +127,19 @@ function love.load()
 			randomNotePlacements = settings.randomNotePlacements,
 			practiceMode = settings.practiceMode,
 			noMiss = settings.noMiss,
-			noHolds = settings.noHolds,
 			customScrollSpeed = settings.customScrollSpeed,
 			keystrokes = settings.keystrokes,
+			scrollUnderlayTrans = settings.scrollUnderlayTrans,
 			settingsVer = settingsVer
 		}
 		serialized = lume.serialize(data)
 		love.filesystem.write("settings", serialized)
 	end
-	if not love.filesystem.getInfo("settings") or settingsVer ~= 1 then
+	if settingsVer ~= 2 then
+		love.window.showMessageBox("Uh Oh!", "Settings have been reset.", "warning")
+		love.filesystem.remove("settings.data")
+	end
+	if not love.filesystem.getInfo("settings") or settingsVer ~= 2 then
 		settings.hardwareCompression = true
 		graphics.setImageType("dds")
 		settings.downscroll = false
@@ -147,10 +151,10 @@ function love.load()
 		settings.randomNotePlacements = false
 		settings.practiceMode = false
 		settings.noMiss = false
-		settings.noHolds = false
 		settings.customScrollSpeed = 1
 		settings.keystrokes = false
-		settingsVer = 1
+		settings.scrollUnderlayTrans = 0
+		settingsVer = 2
 		data = {}
 		data.saveSettingsMoment = {
 			hardwareCompression = settings.hardwareCompression,
@@ -164,17 +168,12 @@ function love.load()
 			randomNotePlacements = settings.randomNotePlacements,
 			practiceMode = settings.practiceMode,
 			noMiss = settings.noMiss,
-			noHolds = settings.noHolds,
 			customScrollSpeed = settings.customScrollSpeed,
+			scrollUnderlayTrans = settings.scrollUnderlayTrans,
 			settingsVer = settingsVer
 		}
 		serialized = lume.serialize(data)
 		love.filesystem.write("settings", serialized)
-	end
-
-	if settingsVer ~= 1 then
-		love.window.showMessageBox("Uh Oh!", "Settings have been reset.", "warning")
-		love.filesystem.remove("settings.data")
 	end
 
 

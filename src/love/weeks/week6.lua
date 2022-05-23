@@ -311,8 +311,8 @@ return {
 			weeks:drawDialogue()
 		end
 		if not doingDialogue then
-			weeks:drawUI()
 			weeks:drawHealthBar()
+			weeks:drawUI()
 		end
 	end,
 

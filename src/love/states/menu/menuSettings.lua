@@ -14,7 +14,9 @@ newlinesMoment = {
     "\n\n\n\n\n\n\n\n\n\n\n\n",
     "\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
     "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",  --bruh -- shhhhhhhh
-    "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+    "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+    "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+    "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
 }
 
 settingsDescriptions1 = { -- The big spaces are so it lines up lol
@@ -35,10 +37,13 @@ settingsDescriptions1 = { -- The big spaces are so it lines up lol
     "\n       \"Bot Play\" Sit back and relax. Let the bot do all the playing\n       for you", 
 
     "Custom Scroll Speed" ..
-    "\n       \"Custom Scroll Speed\" Allows you to set a custom scroll speed\n       for the game.   1 = Default",
+    "\n       \"Custom Scroll Speed\" Allows you to set a custom scroll speed\n       for the game.\n       1 = Default",
 
     "Keystrokes" ..
-    "\n       \"Keystrokes\" Show your keystrokes at the bottom of the screen"
+    "\n       \"Keystrokes\" Show your keystrokes at the bottom of the screen",
+
+    "Scroll Underlay" ..
+    "\n       \"Scroll Underlay\" set a opacity for a scroll underlay\n       0 = Default"
 }
 settingsDescriptions2 = {
 
@@ -57,10 +62,7 @@ settingsDescriptions3 = {
     "\n       \"Practice Mode\" Too hard? Enable this to not lose!",
 
     "Sudden Death:" ..
-    "\n       \"Sudden Death\" Too easy? Enable this to lose if you miss one note",
-
-    "No Hold Notes: (TEMPORARILY DISABLED)" ..
-    "\n       \"No Hold Notes\" how do you not like \n       spaghetti tho?"
+    "\n       \"Sudden Death\" Too easy? Enable this to lose if you miss one note"
 }
 
 local function switchMenu(menu)end
@@ -88,9 +90,9 @@ return {
                     randomNotePlacements = settings.randomNotePlacements,
                     practiceMode = settings.practiceMode,
                     noMiss = settings.noMiss,
-                    noHolds = settings.noHolds,
                     customScrollSpeed = settings.customScrollSpeed,
                     keystrokes = settings.keystrokes,
+                    scrollUnderlayTrans = settings.scrollUnderlayTrans,
                     settingsVer = settingsVer
                 }
                 serialized = lume.serialize(data)
@@ -116,9 +118,9 @@ return {
                     randomNotePlacements = settings.randomNotePlacements,
                     practiceMode = settings.practiceMode,
                     noMiss = settings.noMiss,
-                    noHolds = settings.noHolds,
                     customScrollSpeed = settings.customScrollSpeed,
                     keystrokes = settings.keystrokes,
+                    scrollUnderlayTrans = settings.scrollUnderlayTrans,
                     settingsVer = settingsVer
                 }
                 serialized = lume.serialize(data)
@@ -191,12 +193,6 @@ return {
                             else
                                 settings.noMiss = true
                             end
-                        elseif settingSelect == 3 then
-                            if not settings.noHolds then
-                                settings.noHolds = true
-                            else
-                                settings.noHolds = false
-                            end
                         end
                     elseif settingsMenuState == 2 then
                         if settingSelect == 1 then
@@ -236,6 +232,7 @@ return {
                             else
                                 settings.keystrokes = false
                             end
+                        -- 8 is scroll underlay transparency
                         end
                     elseif settingsMenuState == 3 then
                         if settingSelect == 1 then
@@ -284,7 +281,7 @@ return {
                     if settingSelect ~= 1 then
                         settingSelect = settingSelect - 1
                     else
-                        settingSelect = 7
+                        settingSelect = 8
                     end
                 elseif settingsMenuState == 3 then
                     if settingSelect ~= 1 then
@@ -307,7 +304,7 @@ return {
                         settingSelect = 1
                     end
                 elseif settingsMenuState == 2 then
-                    if settingSelect ~= 7 then
+                    if settingSelect ~= 8 then
                         settingSelect = settingSelect + 1
                     else
                         settingSelect = 1
@@ -323,12 +320,22 @@ return {
                 if settingsMenuState == 2 then
                     if settingSelect == 6 then
                         settings.customScrollSpeed = settings.customScrollSpeed + 0.1
+                    elseif settingSelect == 8 then
+                        if settings.scrollUnderlayTrans ~= 1 then
+                            settings.scrollUnderlayTrans = settings.scrollUnderlayTrans + 0.1
+                        end
                     end
                 end
             elseif input:pressed("left") then
                 if settingsMenuState == 2 then
                     if settingSelect == 6 then
                         settings.customScrollSpeed = settings.customScrollSpeed - 0.1
+                    elseif settingSelect == 8 then
+                        if settings.scrollUnderlayTrans >= 0 then
+                            settings.scrollUnderlayTrans = settings.scrollUnderlayTrans - 0.1
+                        else
+                            settings.scrollUnderlayTrans = 0
+                        end
                     end
                 end
 			end
@@ -349,31 +356,31 @@ return {
 
                 graphics.setColor(1,1,0)
                 if settingsMenuState == 0 then
-                    love.graphics.print("Gamemodes", -628, -100)
-                    love.graphics.print("\n\nGameplay", -628, -100)
-                    love.graphics.print("\n\n\n\nMisc.", -628, -100)
+                    love.graphics.print("Gamemodes", -628, -300)
+                    love.graphics.print("\n\nGameplay", -628, -300)
+                    love.graphics.print("\n\n\n\nMisc.", -628, -300)
                     if settings.hardwareCompression ~= data.saveSettingsMoment.hardwareCompression then
-                        love.graphics.print("\n\n\n\n\n\nSave settings & Restart", -628, -100)
+                        love.graphics.print("\n\n\n\n\n\nSave settings & Restart", -628, -300)
                     else
-                        love.graphics.print("\n\n\n\n\n\nSave settings", -628, -100)
+                        love.graphics.print("\n\n\n\n\n\nSave settings", -628, -300)
                     end
                 elseif settingsMenuState == 1 then
-                    love.graphics.print("Practice Mode = " .. tostring(settings.practiceMode), -628, -100)
-                    love.graphics.print("\n\nNo Miss = " .. tostring(settings.noMiss), -628, -100)
-                    love.graphics.print("\n\n\n\nNo Hold Notes = " .. tostring(settings.noHolds) .. " (Temporarily Removed.)", -628, -100)
+                    love.graphics.print("Practice Mode = " .. tostring(settings.practiceMode), -628, -300)
+                    love.graphics.print("\n\nNo Miss = " .. tostring(settings.noMiss), -628, -300)
                 elseif settingsMenuState == 2 then
-                    love.graphics.print("Downscroll = " .. tostring(settings.downscroll), -628, -100)
-                    love.graphics.print("\n\nMiddlescroll = " .. tostring(settings.middleScroll), -628, -100)
-                    love.graphics.print("\n\n\n\nGhost Tapping = " .. tostring(settings.ghostTapping), -628, -100)
-                    love.graphics.print("\n\n\n\n\n\nSide Judgements = " .. tostring(settings.sideJudgements), -628, -100)
-                    love.graphics.print("\n\n\n\n\n\n\n\nBot Play = " .. tostring(settings.botPlay), -628, -100)
-                    love.graphics.print("\n\n\n\n\n\n\n\n\n\nCustom Scroll Speed = " .. tostring(settings.customScrollSpeed), -628, -100)
-                    love.graphics.print("\n\n\n\n\n\n\n\n\n\n\n\nKeystrokes = " .. tostring(settings.keystrokes), -628, -100)
+                    love.graphics.print("Downscroll = " .. tostring(settings.downscroll), -628, -300)
+                    love.graphics.print("\n\nMiddlescroll = " .. tostring(settings.middleScroll), -628, -300)
+                    love.graphics.print("\n\n\n\nGhost Tapping = " .. tostring(settings.ghostTapping), -628, -300)
+                    love.graphics.print("\n\n\n\n\n\nSide Judgements = " .. tostring(settings.sideJudgements), -628, -300)
+                    love.graphics.print("\n\n\n\n\n\n\n\nBot Play = " .. tostring(settings.botPlay), -628, -300)
+                    love.graphics.print("\n\n\n\n\n\n\n\n\n\nCustom Scroll Speed = " .. tostring(settings.customScrollSpeed), -628, -300)
+                    love.graphics.print("\n\n\n\n\n\n\n\n\n\n\n\nKeystrokes = " .. tostring(settings.keystrokes), -628, -300)
+                    love.graphics.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\nScroll Underlay Transparency = " .. tostring(settings.scrollUnderlayTrans), -628, -300)
                 elseif settingsMenuState == 3 then
-                    love.graphics.print("Hardware Compression = " .. tostring(settings.hardwareCompression) .. " " .. isRestartNeeded, -628, -100) 
-                    love.graphics.print("\n\nShow Debug = " .. tostring(settings.showDebug), -628, -100)
+                    love.graphics.print("Hardware Compression = " .. tostring(settings.hardwareCompression) .. " " .. isRestartNeeded, -628, -300) 
+                    love.graphics.print("\n\nShow Debug = " .. tostring(settings.showDebug), -628, -300)
                 end
-                love.graphics.print(newlinesMoment[settingSelect] .. ">", -640, -100)
+                love.graphics.print(newlinesMoment[settingSelect] .. ">", -640, -300)
                 
 
                 if settingsMenuState ~= 0 then

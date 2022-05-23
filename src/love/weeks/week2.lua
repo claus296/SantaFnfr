@@ -181,8 +181,8 @@ return {
 			weeks:drawRating(0.9)
 		love.graphics.pop()
 
-		weeks:drawUI()
 		weeks:drawHealthBar()
+		weeks:drawUI()
 	end,
 
 	leave = function(self)

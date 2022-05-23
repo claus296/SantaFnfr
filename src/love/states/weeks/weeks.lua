@@ -1700,6 +1700,16 @@ return {
 	end,
 	drawHealthBar = function()
 		love.graphics.push()
+			-- Scroll underlay
+			love.graphics.push()
+				love.graphics.setColor(0,0,0,settings.scrollUnderlayTrans)
+				if settings.middleScroll then
+					love.graphics.rectangle("fill", 400, -100, 90 + 170 * 2.35, 1000)
+				else
+					love.graphics.rectangle("fill", 755, -100, 90 + 170 * 2.35, 1000)
+				end
+				love.graphics.setColor(1,1,1,1)
+			love.graphics.pop()
 			if not week5Playing then
 				love.graphics.translate(lovesize.getWidth() / 2, lovesize.getHeight() / 2)
 				love.graphics.scale(0.7, 0.7)
@@ -1757,9 +1767,17 @@ return {
 
 
 				if settings.downscroll then
-					love.graphics.print("Time Remaining: " .. timeLeftFixed, 0, 400)
+					if not settings.middleScroll then
+						love.graphics.print("Time Remaining: " .. timeLeftFixed, 0, -400)
+					else
+						love.graphics.print("Time Remaining: " .. timeLeftFixed, 605, -400)
+					end
 				else
-					love.graphics.print("Time Remaining: " .. timeLeftFixed, -130, -390)
+					if not settings.middlescroll then
+						love.graphics.print("Time Remaining: " .. timeLeftFixed, 0, 350)
+					else
+						love.graphics.print("Time Remaining: " .. timeLeftFixed, 605, 350)
+					end
 				end
 
 				if not settings.botPlay then
@@ -1874,7 +1892,7 @@ return {
 		love.graphics.pop()
 		if settings.keystrokes then
 			love.graphics.push()
-				--keystrokes        ADD THIS AS A SETTING
+				-- keystrokes
 				love.graphics.setColor(1, 1, 1)
 
 				if input:down("gameUp") then
