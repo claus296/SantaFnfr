@@ -268,6 +268,7 @@ function love.keypressed(key)
 	elseif key == "7" then
 		Gamestate.switch(debugMenu)
 	elseif key == "0" then
+		volFade = 1
 		if love.audio.getVolume() == 0 then
 			love.audio.setVolume(lastAudioVolume)
 		else
@@ -275,10 +276,12 @@ function love.keypressed(key)
 			love.audio.setVolume(0)
 		end
 	elseif key == "-" then
+		volFade = 1
 		if love.audio.getVolume() >= 0 then
 			love.audio.setVolume(love.audio.getVolume() - 0.1)
 		end
 	elseif key == "=" then
+		volFade = 1
 		if love.audio.getVolume() <= 1 then
 			love.audio.setVolume(love.audio.getVolume() + 0.1)
 		end
@@ -293,6 +296,14 @@ end
 
 function love.update(dt)
 	dt = math.min(dt, 1 / 30)
+
+	delta = love.timer.getDelta()
+
+	if volFade > 0 then
+		volFade = volFade - 0.4 * delta end
+	end
+
+	curVol = love.audio.getVolume()
 
 	input:update()
 
@@ -341,6 +352,13 @@ function love.draw()
 				love.graphics.print("Loading...", lovesize.getWidth() - 175, lovesize.getHeight() - 50)
 			end
 		lovesize.finish()
+
+		graphics.screenBase(lovesize.getWidth(), lovesize.getHeight())
+		lovesize.begin()
+			love.setColor(1, 1, 1, volFade)
+			love.graphics.print("Volume:" .. curVol, 0, -400)
+		lovesize.finish()
+
 	end
 	graphics.screenBase(love.graphics.getWidth(), love.graphics.getHeight())
 
