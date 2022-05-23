@@ -368,7 +368,7 @@ function love.draw()
 			love.graphics.setColor(1, 1, 1, volFade)
 
 
-			if tonumber(fixVol) >= 0.1 then
+			if tonumber(fixVol) >= 0.1 then                  -- fuck you guglio 
 				love.graphics.rectangle("fill", 500, 0, 8, 40)
 			end
 			if tonumber(fixVol) >= 0.2 then
