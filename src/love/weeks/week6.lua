@@ -97,7 +97,7 @@ return {
 			scaryDialogueBox = love.filesystem.load("sprites/week6/scaryDialogueBox.lua")()
 			spiritPortait = graphics.newImage(love.graphics.newImage(graphics.imagePath("week6/spiritFaceForward")))
 			if storyMode then
-				dialogueMusic = love.audio.newSource("music/pixel/LunchboxScary.ogg", "static")
+				dialogueMusic = love.audio.newSource("songs/misc/pixel/LunchboxScary.ogg", "static")
 				dialogueMusic:setLooping(true)
 				dialogueMusic:play()
 			end

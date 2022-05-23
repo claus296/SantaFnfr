@@ -10,10 +10,11 @@ newlinesMoment = {
     "\n\n\n\n",
     "\n\n\n\n\n\n",
     "\n\n\n\n\n\n\n\n",
-    "\n\n\n\n\n\n\n\n\n\n\n",
+    "\n\n\n\n\n\n\n\n\n\n",
+    "\n\n\n\n\n\n\n\n\n\n\n\n",
     "\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
-    "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
-    "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"  --bruh
+    "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",  --bruh -- shhhhhhhh
+    "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
 }
 
 settingsDescriptions1 = { -- The big spaces are so it lines up lol
@@ -35,6 +36,9 @@ settingsDescriptions1 = { -- The big spaces are so it lines up lol
 
     "Custom Scroll Speed" ..
     "\n       \"Custom Scroll Speed\" Allows you to set a custom scroll speed\n       for the game.   1 = Default",
+
+    "Keystrokes" ..
+    "\n       \"Keystrokes\" Show your keystrokes at the bottom of the screen"
 }
 settingsDescriptions2 = {
 
@@ -86,6 +90,7 @@ return {
                     noMiss = settings.noMiss,
                     noHolds = settings.noHolds,
                     customScrollSpeed = settings.customScrollSpeed,
+                    keystrokes = settings.keystrokes,
                     settingsVer = settingsVer
                 }
                 serialized = lume.serialize(data)
@@ -113,6 +118,7 @@ return {
                     noMiss = settings.noMiss,
                     noHolds = settings.noHolds,
                     customScrollSpeed = settings.customScrollSpeed,
+                    keystrokes = settings.keystrokes,
                     settingsVer = settingsVer
                 }
                 serialized = lume.serialize(data)
@@ -223,6 +229,13 @@ return {
                             else
                                 settings.botPlay = false
                             end
+                        -- 6 is scroll speed
+                        elseif settingSelect == 7 then
+                            if not settings.keystrokes then
+                                settings.keystrokes = true
+                            else
+                                settings.keystrokes = false
+                            end
                         end
                     elseif settingsMenuState == 3 then
                         if settingSelect == 1 then
@@ -271,7 +284,7 @@ return {
                     if settingSelect ~= 1 then
                         settingSelect = settingSelect - 1
                     else
-                        settingSelect = 6
+                        settingSelect = 7
                     end
                 elseif settingsMenuState == 3 then
                     if settingSelect ~= 1 then
@@ -294,7 +307,7 @@ return {
                         settingSelect = 1
                     end
                 elseif settingsMenuState == 2 then
-                    if settingSelect ~= 6 then
+                    if settingSelect ~= 7 then
                         settingSelect = settingSelect + 1
                     else
                         settingSelect = 1
@@ -355,6 +368,7 @@ return {
                     love.graphics.print("\n\n\n\n\n\nSide Judgements = " .. tostring(settings.sideJudgements), -628, -100)
                     love.graphics.print("\n\n\n\n\n\n\n\nBot Play = " .. tostring(settings.botPlay), -628, -100)
                     love.graphics.print("\n\n\n\n\n\n\n\n\n\nCustom Scroll Speed = " .. tostring(settings.customScrollSpeed), -628, -100)
+                    love.graphics.print("\n\n\n\n\n\n\n\n\n\n\n\nKeystrokes = " .. tostring(settings.keystrokes), -628, -100)
                 elseif settingsMenuState == 3 then
                     love.graphics.print("Hardware Compression = " .. tostring(settings.hardwareCompression) .. " " .. isRestartNeeded, -628, -100) 
                     love.graphics.print("\n\nShow Debug = " .. tostring(settings.showDebug), -628, -100)

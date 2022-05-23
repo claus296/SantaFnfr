@@ -111,7 +111,7 @@ function love.load()
 		settings.noMiss = data.saveSettingsMoment.noMiss
 		settings.noHolds = data.saveSettingsMoment.noHolds
 		settings.customScrollSpeed = data.saveSettingsMoment.customScrollSpeed
-
+		settings.keystrokes = data.saveSettingsMoment.keystrokes
 
 		settingsVer = data.saveSettingsMoment.settingsVer
 
@@ -129,12 +129,13 @@ function love.load()
 			noMiss = settings.noMiss,
 			noHolds = settings.noHolds,
 			customScrollSpeed = settings.customScrollSpeed,
+			keystrokes = settings.keystrokes,
 			settingsVer = settingsVer
 		}
 		serialized = lume.serialize(data)
 		love.filesystem.write("settings", serialized)
 	end
-	if not love.filesystem.getInfo("settings") or settingsVer ~= 3 then
+	if not love.filesystem.getInfo("settings") or settingsVer ~= 1 then
 		settings.hardwareCompression = true
 		graphics.setImageType("dds")
 		settings.downscroll = false
@@ -148,7 +149,8 @@ function love.load()
 		settings.noMiss = false
 		settings.noHolds = false
 		settings.customScrollSpeed = 1
-		settingsVer = 3
+		settings.keystrokes = false
+		settingsVer = 1
 		data = {}
 		data.saveSettingsMoment = {
 			hardwareCompression = settings.hardwareCompression,
@@ -170,7 +172,7 @@ function love.load()
 		love.filesystem.write("settings", serialized)
 	end
 
-	if settingsVer ~= 3 then
+	if settingsVer ~= 1 then
 		love.window.showMessageBox("Uh Oh!", "Settings have been reset.", "warning")
 		love.filesystem.remove("settings.data")
 	end
