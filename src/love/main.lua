@@ -24,6 +24,8 @@ end
 love.graphics.color = {}
 color = {}
 
+volFade = 0
+
 function love.load()
 	local curOS = love.system.getOS()
 
@@ -300,10 +302,9 @@ function love.update(dt)
 	delta = love.timer.getDelta()
 
 	if volFade > 0 then
-		volFade = volFade - 0.4 * delta end
+		volFade = volFade - 0.4 * delta
 	end
 
-	curVol = love.audio.getVolume()
 
 	input:update()
 
@@ -351,13 +352,13 @@ function love.draw()
 			if status.getLoading() then
 				love.graphics.print("Loading...", lovesize.getWidth() - 175, lovesize.getHeight() - 50)
 			end
+
+			love.graphics.setColor(1, 1, 1, volFade)
+			love.graphics.print("Volume:" .. tostring(love.audio.getVolume()), 1000, 0)
+
 		lovesize.finish()
 
-		graphics.screenBase(lovesize.getWidth(), lovesize.getHeight())
-		lovesize.begin()
-			love.setColor(1, 1, 1, volFade)
-			love.graphics.print("Volume:" .. curVol, 0, -400)
-		lovesize.finish()
+		love.graphics.setColor(1, 1, 1, 1)
 
 	end
 	graphics.screenBase(love.graphics.getWidth(), love.graphics.getHeight())
