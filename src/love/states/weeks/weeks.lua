@@ -59,7 +59,11 @@ return {
 			},
 			death = love.audio.newSource("sounds/pixel/death.ogg", "static"),
 			["text"] = love.audio.newSource("sounds/pixel/text.ogg", "static"),
-			["continue"] = love.audio.newSource("sounds/pixel/continue-text.ogg", "static")
+			["continue"] = love.audio.newSource("sounds/pixel/continue-text.ogg", "static"),
+			hitSoundLeft = love.audio.newSource("sounds/hitSound.ogg", "static"),  -- THERE IS A REAL REASON FOR THIS, IF YOU ONLY USE ONE SOUND THEN PRESSING MORE THAN ONE KEY AT THE SAME TIME WILL ONLY PLAY ONE SOUND
+			hitSoundRight = love.audio.newSource("sounds/hitSound.ogg", "static"),
+			hitSoundUp = love.audio.newSource("sounds/hitSound.ogg", "static"),
+			hitSoundDown = love.audio.newSource("sounds/hitSound.ogg", "static")
 		}
 
 		images = {
@@ -127,7 +131,11 @@ return {
 				love.audio.newSource("sounds/miss2.ogg", "static"),
 				love.audio.newSource("sounds/miss3.ogg", "static")
 			},
-			death = love.audio.newSource("sounds/death.ogg", "static")
+			death = love.audio.newSource("sounds/death.ogg", "static"),
+			hitSoundLeft = love.audio.newSource("sounds/hitSound.ogg", "static"),  -- THERE IS A REAL REASON FOR THIS, IF YOU ONLY USE ONE SOUND THEN PRESSING MORE THAN ONE KEY AT THE SAME TIME WILL ONLY PLAY ONE SOUND
+			hitSoundRight = love.audio.newSource("sounds/hitSound.ogg", "static"),
+			hitSoundUp = love.audio.newSource("sounds/hitSound.ogg", "static"),
+			hitSoundDown = love.audio.newSource("sounds/hitSound.ogg", "static")
 		}
 
 		images = {
@@ -1126,6 +1134,19 @@ return {
 	end,
 
 	update = function(self, dt)
+
+		if input:pressed("gameDown") then
+			audio.playSound(sounds.hitSoundDown)
+		end
+		if input:pressed("gameUp") then
+			audio.playSound(sounds.hitSoundUp)
+		end
+		if input:pressed("gameLeft") then
+			audio.playSound(sounds.hitSoundLeft)
+		end
+		if input:pressed("gameRight") then
+			audio.playSound(sounds.hitSoundRight)
+		end
 
 		currentSeconds = voices:tell("seconds")
 		songLenth = voices:getDuration("seconds")

@@ -365,6 +365,10 @@ function love.draw()
 				"%.1f  ",
 				(love.audio.getVolume())
 			)
+			love.graphics.setColor(0.5, 0.5, 0.5, volFade - 0.3)
+
+			love.graphics.rectangle("fill", 490, 0, 161, 50)
+
 			love.graphics.setColor(1, 1, 1, volFade)
 
 			if tonumber(fixVol) >= 0.1 then
