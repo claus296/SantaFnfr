@@ -16,7 +16,8 @@ newlinesMoment = {
     "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",  --bruh -- shhhhhhhh
     "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
     "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
-    "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+    "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+    "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
 }
 
 settingsDescriptions1 = { -- The big spaces are so it lines up lol
@@ -43,7 +44,10 @@ settingsDescriptions1 = { -- The big spaces are so it lines up lol
     "\n       \"Keystrokes\" Show your keystrokes at the bottom of the screen",
 
     "Scroll Underlay" ..
-    "\n       \"Scroll Underlay\" set a opacity for a scroll underlay\n       0 = Default"
+    "\n       \"Scroll Underlay\" set a opacity for a scroll underlay\n       0 = Default",
+
+    "Hitsounds" ..
+    "\n       \"Hitsounds\" " -- CH YOU DO THIS ONE
 }
 settingsDescriptions2 = {
 
@@ -121,6 +125,7 @@ return {
                     customScrollSpeed = settings.customScrollSpeed,
                     keystrokes = settings.keystrokes,
                     scrollUnderlayTrans = settings.scrollUnderlayTrans,
+                    hitsounds = settings.hitsounds,
                     settingsVer = settingsVer
                 }
                 serialized = lume.serialize(data)
@@ -233,6 +238,12 @@ return {
                                 settings.keystrokes = false
                             end
                         -- 8 is scroll underlay transparency
+                        elseif settingSelect == 9 then
+                            if not settings.hitsounds then
+                                settings.hitsounds = true
+                            else
+                                settings.hitsounds = false
+                            end
                         end
                     elseif settingsMenuState == 3 then
                         if settingSelect == 1 then
@@ -281,7 +292,7 @@ return {
                     if settingSelect ~= 1 then
                         settingSelect = settingSelect - 1
                     else
-                        settingSelect = 8
+                        settingSelect = 9
                     end
                 elseif settingsMenuState == 3 then
                     if settingSelect ~= 1 then
@@ -304,7 +315,7 @@ return {
                         settingSelect = 1
                     end
                 elseif settingsMenuState == 2 then
-                    if settingSelect ~= 8 then
+                    if settingSelect ~= 9 then
                         settingSelect = settingSelect + 1
                     else
                         settingSelect = 1
@@ -367,7 +378,7 @@ return {
                 elseif settingsMenuState == 1 then
                     love.graphics.print("Practice Mode = " .. tostring(settings.practiceMode), -628, -300)
                     love.graphics.print("\n\nNo Miss = " .. tostring(settings.noMiss), -628, -300)
-                elseif settingsMenuState == 2 then
+                elseif settingsMenuState == 2 then -- I need a better way for this lmfao
                     love.graphics.print("Downscroll = " .. tostring(settings.downscroll), -628, -300)
                     love.graphics.print("\n\nMiddlescroll = " .. tostring(settings.middleScroll), -628, -300)
                     love.graphics.print("\n\n\n\nGhost Tapping = " .. tostring(settings.ghostTapping), -628, -300)
@@ -376,6 +387,7 @@ return {
                     love.graphics.print("\n\n\n\n\n\n\n\n\n\nCustom Scroll Speed = " .. tostring(settings.customScrollSpeed), -628, -300)
                     love.graphics.print("\n\n\n\n\n\n\n\n\n\n\n\nKeystrokes = " .. tostring(settings.keystrokes), -628, -300)
                     love.graphics.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\nScroll Underlay Transparency = " .. tostring(settings.scrollUnderlayTrans), -628, -300)
+                    love.graphics.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHitsounds = " .. tostring(settings.hitsounds), -628, -300)
                 elseif settingsMenuState == 3 then
                     love.graphics.print("Hardware Compression = " .. tostring(settings.hardwareCompression) .. " " .. isRestartNeeded, -628, -300) 
                     love.graphics.print("\n\nShow Debug = " .. tostring(settings.showDebug), -628, -300)

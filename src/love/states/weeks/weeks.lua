@@ -164,11 +164,13 @@ return {
 				love.audio.newSource("sounds/miss2.ogg", "static"),
 				love.audio.newSource("sounds/miss3.ogg", "static")
 			},
-			death = love.audio.newSource("sounds/death.ogg", "static"),
-			hitSoundLeft = love.audio.newSource("sounds/hitSound.ogg", "static"),  -- THERE IS A REAL REASON FOR THIS, IF YOU ONLY USE ONE SOUND THEN PRESSING MORE THAN ONE KEY AT THE SAME TIME WILL ONLY PLAY ONE SOUND
-			hitSoundRight = love.audio.newSource("sounds/hitSound.ogg", "static"),
-			hitSoundUp = love.audio.newSource("sounds/hitSound.ogg", "static"),
-			hitSoundDown = love.audio.newSource("sounds/hitSound.ogg", "static")
+			hitsounds = {
+				left = love.audio.newSource("sounds/hitSound.ogg", "static"),  -- THERE IS A REAL REASON FOR THIS, IF YOU ONLY USE ONE SOUND THEN PRESSING MORE THAN ONE KEY AT THE SAME TIME WILL ONLY PLAY ONE SOUND
+				right = love.audio.newSource("sounds/hitSound.ogg", "static"),
+				up = love.audio.newSource("sounds/hitSound.ogg", "static"),
+				down = love.audio.newSource("sounds/hitSound.ogg", "static")
+			},
+			death = love.audio.newSource("sounds/death.ogg", "static")
 		}
 
 		images = {
@@ -1174,32 +1176,36 @@ return {
 
 	update = function(self, dt)
 
-		if input:pressed("gameDown") and not paused then
-			audio.playSound(sounds.hitSoundDown)
-		end
-		if input:pressed("gameUp") and not paused then
-			audio.playSound(sounds.hitSoundUp)
-		end
-		if input:pressed("gameLeft") and not paused then
-			audio.playSound(sounds.hitSoundLeft)
-		end
-		if input:pressed("gameRight") and not paused then
-			audio.playSound(sounds.hitSoundRight)
-		end
-
-		if input:pressed("gameDown") then
-			if pauseMenuSelection == 4 then
-				pauseMenuSelection = 1
-			else
-				pauseMenuSelection = pauseMenuSelection + 1
+		if settings.hitsounds then
+			if input:pressed("gameDown") and not paused then
+				audio.playSound(sounds.hitsounds.down)
+			end
+			if input:pressed("gameUp") and not paused then
+				audio.playSound(sounds.hitsounds.up)
+			end
+			if input:pressed("gameLeft") and not paused then
+				audio.playSound(sounds.hitsounds.left)
+			end
+			if input:pressed("gameRight") and not paused then
+				audio.playSound(sounds.hitsounds.right)
 			end
 		end
 
-		if input:pressed("gameUp") and paused then
-			if pauseMenuSelection == 1 then
-				pauseMenuSelection = 4 
-			else
-				pauseMenuSelection = pauseMenuSelection - 1
+		if paused then
+			if input:pressed("gameDown") then
+				if pauseMenuSelection == 4 then
+					pauseMenuSelection = 1
+				else
+					pauseMenuSelection = pauseMenuSelection + 1
+				end
+			end
+
+			if input:pressed("gameUp") and paused then
+				if pauseMenuSelection == 1 then
+					pauseMenuSelection = 4 
+				else
+					pauseMenuSelection = pauseMenuSelection - 1
+				end
 			end
 		end
 

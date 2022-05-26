@@ -83,6 +83,52 @@ function love.load()
 		isDone = false
 	end
 
+	function volumeControl()
+		-- ch's volume control stuff
+		love.graphics.setColor(1, 1, 1, volFade)
+		local fixVol = string.format(
+			"%.1f  ",
+			(love.audio.getVolume())
+		)
+		love.graphics.setColor(0.5, 0.5, 0.5, volFade - 0.3)
+
+		love.graphics.rectangle("fill", 490, 0, 161, 50)
+
+		love.graphics.setColor(1, 1, 1, volFade)
+
+		if tonumber(fixVol) >= 0.1 then
+			love.graphics.rectangle("fill", 500, 0, 8, 40)
+		end
+		if tonumber(fixVol) >= 0.2 then
+			love.graphics.rectangle("fill", 515, 0, 8, 40)
+		end
+		if tonumber(fixVol) >= 0.3 then
+			love.graphics.rectangle("fill", 530, 0, 8, 40)
+		end
+		if tonumber(fixVol) >= 0.4 then
+			love.graphics.rectangle("fill", 545, 0, 8, 40)
+		end
+		if tonumber(fixVol) >= 0.5 then
+			love.graphics.rectangle("fill", 560, 0, 8, 40)
+		end
+		if tonumber(fixVol) >= 0.6 then
+			love.graphics.rectangle("fill", 575, 0, 8, 40)
+		end
+		if tonumber(fixVol) >= 0.7 then
+			love.graphics.rectangle("fill", 590, 0, 8, 40)
+		end
+		if tonumber(fixVol) >= 0.8 then
+			love.graphics.rectangle("fill", 605, 0, 8, 40)
+		end
+		if tonumber(fixVol) >= 0.9 then
+			love.graphics.rectangle("fill", 620, 0, 8, 40)
+		end
+		if tonumber(fixVol) >= 1 then
+			love.graphics.rectangle("fill", 635, 0, 8, 40)
+		end
+		love.graphics.setColor(1, 1, 1, 1)
+	end
+
 	-- Load week data
 	weekData = {
 		require "weeks.tutorial",
@@ -114,6 +160,7 @@ function love.load()
 		settings.customScrollSpeed = data.saveSettingsMoment.customScrollSpeed
 		settings.keystrokes = data.saveSettingsMoment.keystrokes
 		settings.scrollUnderlayTrans = data.saveSettingsMoment.scrollUnderlayTrans
+		settings.hitsounds = data.saveSettingsMoment.hitsounds
 
 		settingsVer = data.saveSettingsMoment.settingsVer
 
@@ -132,16 +179,17 @@ function love.load()
 			customScrollSpeed = settings.customScrollSpeed,
 			keystrokes = settings.keystrokes,
 			scrollUnderlayTrans = settings.scrollUnderlayTrans,
+			hitsounds = settings.hitsounds,
 			settingsVer = settingsVer
 		}
 		serialized = lume.serialize(data)
 		love.filesystem.write("settings", serialized)
 	end
-	if settingsVer ~= 2 then
+	if settingsVer ~= 3 then
 		love.window.showMessageBox("Uh Oh!", "Settings have been reset.", "warning")
 		love.filesystem.remove("settings.data")
 	end
-	if not love.filesystem.getInfo("settings") or settingsVer ~= 2 then
+	if not love.filesystem.getInfo("settings") or settingsVer ~= 3 then
 		settings.hardwareCompression = true
 		graphics.setImageType("dds")
 		settings.downscroll = false
@@ -156,7 +204,8 @@ function love.load()
 		settings.customScrollSpeed = 1
 		settings.keystrokes = false
 		settings.scrollUnderlayTrans = 0
-		settingsVer = 2
+		settings.hitsounds = false
+		settingsVer = 3
 		data = {}
 		data.saveSettingsMoment = {
 			hardwareCompression = settings.hardwareCompression,
@@ -171,7 +220,9 @@ function love.load()
 			practiceMode = settings.practiceMode,
 			noMiss = settings.noMiss,
 			customScrollSpeed = settings.customScrollSpeed,
+			keystrokes = settings.keystrokes,
 			scrollUnderlayTrans = settings.scrollUnderlayTrans,
+			hitsounds = settings.hitsounds,
 			settingsVer = settingsVer
 		}
 		serialized = lume.serialize(data)
@@ -341,13 +392,7 @@ function love.draw()
 		if status.getLoading() then
 			love.graphics.print("Loading...", graphics.getWidth() - 175, graphics.getHeight() - 50)
 		end
-		love.graphics.setColor(1, 1, 1, volFade)
-		local fixVol = string.format(
-			"%.1f  ",
-			(love.audio.getVolume())
-		)
-		love.graphics.print("Volume:" .. tostring(fixVol), 1140, 0)
-		love.graphics.setColor(1, 1, 1, 1)
+		volumeControl()
 	else
 		graphics.screenBase(lovesize.getWidth(), lovesize.getHeight())
 		lovesize.begin()
@@ -359,49 +404,7 @@ function love.draw()
 			if status.getLoading() then
 				love.graphics.print("Loading...", lovesize.getWidth() - 175, lovesize.getHeight() - 50)
 			end
-
-			love.graphics.setColor(1, 1, 1, volFade)
-			local fixVol = string.format(
-				"%.1f  ",
-				(love.audio.getVolume())
-			)
-			love.graphics.setColor(0.5, 0.5, 0.5, volFade - 0.3)
-
-			love.graphics.rectangle("fill", 490, 0, 161, 50)
-
-			love.graphics.setColor(1, 1, 1, volFade)
-
-			if tonumber(fixVol) >= 0.1 then
-				love.graphics.rectangle("fill", 500, 0, 8, 40)
-			end
-			if tonumber(fixVol) >= 0.2 then
-				love.graphics.rectangle("fill", 515, 0, 8, 40)
-			end
-			if tonumber(fixVol) >= 0.3 then
-				love.graphics.rectangle("fill", 530, 0, 8, 40)
-			end
-			if tonumber(fixVol) >= 0.4 then
-				love.graphics.rectangle("fill", 545, 0, 8, 40)
-			end
-			if tonumber(fixVol) >= 0.5 then
-				love.graphics.rectangle("fill", 560, 0, 8, 40)
-			end
-			if tonumber(fixVol) >= 0.6 then
-				love.graphics.rectangle("fill", 575, 0, 8, 40)
-			end
-			if tonumber(fixVol) >= 0.7 then
-				love.graphics.rectangle("fill", 590, 0, 8, 40)
-			end
-			if tonumber(fixVol) >= 0.8 then
-				love.graphics.rectangle("fill", 605, 0, 8, 40)
-			end
-			if tonumber(fixVol) >= 0.9 then
-				love.graphics.rectangle("fill", 620, 0, 8, 40)
-			end
-			if tonumber(fixVol) >= 1 then
-				love.graphics.rectangle("fill", 635, 0, 8, 40)
-			end
-			love.graphics.setColor(1, 1, 1, 1)
+			volumeControl()
 		lovesize.finish()
 	end
 	graphics.screenBase(love.graphics.getWidth(), love.graphics.getHeight())
