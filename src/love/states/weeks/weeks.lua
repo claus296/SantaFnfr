@@ -131,8 +131,9 @@ return {
 	end,
 	enter = function(self)
 		font = love.graphics.newFont("fonts/vcr.ttf", 24)
+
 		--PAUSE MENU IMAGES
-		resume = love.graphics.newImage(graphics.imagePath("pause/resume"))
+		resume = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/resume"))) -- USE THIS FUNCTION
 		resumeH = love.graphics.newImage(graphics.imagePath("pause/resumeHover"))
 		restart = love.graphics.newImage(graphics.imagePath("pause/restart"))
 		restartH = love.graphics.newImage(graphics.imagePath("pause/restartHover"))
