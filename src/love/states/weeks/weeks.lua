@@ -45,16 +45,18 @@ return {
 		font = love.graphics.newFont("fonts/pixel.fnt")
 
 		--PAUSE MENU IMAGES
-		resume = love.graphics.newImage(graphics.imagePath("pause/resume"))
-		resumeH = love.graphics.newImage(graphics.imagePath("pause/resumeHover"))
-		restart = love.graphics.newImage(graphics.imagePath("pause/restart"))
-		restartH = love.graphics.newImage(graphics.imagePath("pause/restartHover"))
-		exit = love.graphics.newImage(graphics.imagePath("pause/exit"))
-		exitH = love.graphics.newImage(graphics.imagePath("pause/exitHover"))
-		options = love.graphics.newImage(graphics.imagePath("pause/options"))
-		optionsH = love.graphics.newImage(graphics.imagePath("pause/optionsHover"))
+		resume = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/resume"))) -- USE THIS FUNCTION
+		resumeH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/resumeHover")))
+		restart = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/restart")))
+		restartH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/restartHover")))
+		exit = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/exit")))
+		exitH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/exitHover")))
+		options = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/options")))
+		optionsH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/optionsHover")))
 						
-		resume.x, resume.y = 0, 0
+		resume.x, resume.y = 400, 120
+		resumeH.x, resumeH.y = resume.x, resume.y
+		restart.x, restart.y = 400, 270
 
 		-- weeks enter stuff
 		sounds = {
@@ -134,15 +136,22 @@ return {
 
 		--PAUSE MENU IMAGES
 		resume = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/resume"))) -- USE THIS FUNCTION
-		resumeH = love.graphics.newImage(graphics.imagePath("pause/resumeHover"))
-		restart = love.graphics.newImage(graphics.imagePath("pause/restart"))
-		restartH = love.graphics.newImage(graphics.imagePath("pause/restartHover"))
-		exit = love.graphics.newImage(graphics.imagePath("pause/exit"))
-		exitH = love.graphics.newImage(graphics.imagePath("pause/exitHover"))
-		options = love.graphics.newImage(graphics.imagePath("pause/options"))
-		optionsH = love.graphics.newImage(graphics.imagePath("pause/optionsHover"))
+		resumeH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/resumeHover")))
+		restart = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/restart")))
+		restartH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/restartHover")))
+		exit = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/exit")))
+		exitH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/exitHover")))
+		options = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/options")))
+		optionsH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/optionsHover")))
 						
-		resume.x, resume.y = 0, 0
+		resume.x, resume.y = 400, 120
+		resumeH.x, resumeH.y = resume.x, resume.y
+		restart.x, restart.y = 400, 295
+		restartH.x, restartH.y = restart.x, restart.y 
+		exit.x, exit.y = 400, 470
+		exitH.x, exitH.y = exit.x, exit.y 
+		options.x, options.y = 400, 645
+		optionsH.x, optionsH.y = options.x, options.y
 		sounds = {
 			countdown = {
 				three = love.audio.newSource("sounds/countdown-3.ogg", "static"),
@@ -1186,7 +1195,7 @@ return {
 			end
 		end
 
-		if input:pressed("gameUp") then
+		if input:pressed("gameUp") and paused then
 			if pauseMenuSelection == 1 then
 				pauseMenuSelection = 4 
 			else
@@ -1204,9 +1213,24 @@ return {
 				pauseTime = musicTime
 				paused = true
 				love.audio.pause(inst, voices)
-			else
+			end
+			--else
+			--	paused = false
+			--	love.audio.play(inst, voices)
+			--end
+		end
+
+		if paused then
+			if input:pressed("confirm") and pauseMenuSelection == 1 then
 				paused = false
 				love.audio.play(inst, voices)
+			elseif input:pressed("confirm") and pauseMenuSelection == 2 then
+				health = 0
+				paused = false
+			elseif input:pressed("confirm") and pauseMenuSelection == 3 then
+				Gamestate.swich(menuSelect)
+			elseif input:pressed("confirm") and pauseMenuSelection == 4 then
+				Gamestate.switch(menuSettings)
 			end
 		end
 
@@ -2008,12 +2032,32 @@ return {
 				love.graphics.rectangle("line", 131, 631, 30, 30) -- right
 				love.graphics.rectangle("line", 69, 631, 30, 30) -- left
 
-				resume:draw()
 
 				if paused then
 					love.graphics.setColor(0, 0, 0, 0.8)
 					love.graphics.rectangle("fill", -10000, -1000, 1000000, 1000000)
 					love.graphics.setColor(1, 1, 1)
+					if pauseMenuSelection == 1 then
+						resumeH:draw()
+						restart:draw()
+						exit:draw()
+						options:draw()
+					elseif pauseMenuSelection == 2 then
+						resume:draw()
+						restartH:draw()
+						exit:draw()
+						options:draw()
+					elseif pauseMenuSelection == 3 then
+						resume:draw()
+						restart:draw()
+						exitH:draw()
+						options:draw()
+					else
+						resume:draw()
+						restart:draw()
+						exit:draw()
+						optionsH:draw()
+					end
 				end
 				love.graphics.setColor(1, 1, 1)
 			love.graphics.pop()
