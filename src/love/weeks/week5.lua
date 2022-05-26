@@ -61,7 +61,11 @@ return {
 			},
 			death = love.audio.newSource("sounds/death.ogg", "static"),
 			lightsOff = love.audio.newSource("sounds/week5/lights-off.ogg", "static"),
-			lightsOn = love.audio.newSource("sounds/week5/lights-on.ogg", "static")
+			lightsOn = love.audio.newSource("sounds/week5/lights-on.ogg", "static"),
+			hitSoundLeft = love.audio.newSource("sounds/hitSound.ogg", "static"),  -- THERE IS A REAL REASON FOR THIS, IF YOU ONLY USE ONE SOUND THEN PRESSING MORE THAN ONE KEY AT THE SAME TIME WILL ONLY PLAY ONE SOUND
+			hitSoundRight = love.audio.newSource("sounds/hitSound.ogg", "static"),
+			hitSoundUp = love.audio.newSource("sounds/hitSound.ogg", "static"),
+			hitSoundDown = love.audio.newSource("sounds/hitSound.ogg", "static")
 		}
 
 		images = {
@@ -258,7 +262,7 @@ return {
 				end
 			end
 
-			if not (scaryIntro or countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) then
+			if not (scaryIntro or countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused then
 				if storyMode and song < 3 then
 					song = song + 1
 

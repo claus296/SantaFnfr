@@ -86,6 +86,7 @@ return {
 
 		if song == 1 and musicThres ~= oldMusicThres and math.fmod(absMusicTime + 500, 480000 / bpm) < 100 then
 			weeks:safeAnimate(boyfriend, "hey", false, 3)
+			weeks:safeAnimate(girlfriend, "cheer", false, 1)
 		end
 
 		if health >= 80 then
@@ -98,7 +99,7 @@ return {
 			end
 		end
 
-		if not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) then
+		if not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused then
 			if storyMode and song < 3 then
 				song = song + 1
 

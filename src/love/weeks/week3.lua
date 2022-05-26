@@ -24,6 +24,7 @@ local winColors, winColor
 
 return {
 	enter = function(self, from, songNum, songAppend)
+
 		weeks:enter()
 
 		week = 3
@@ -100,6 +101,9 @@ return {
 	end,
 
 	update = function(self, dt)
+
+
+
 		weeks:update(dt)
 
 		if musicThres ~= oldMusicThres and math.fmod(absMusicTime, 240000 / bpm) < 100 then
@@ -120,7 +124,7 @@ return {
 			end
 		end
 
-		if not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) then
+		if not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused then
 			if storyMode and song < 3 then
 				song = song + 1
 

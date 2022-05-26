@@ -46,7 +46,11 @@ return {
 				love.audio.newSource("sounds/miss2.ogg", "static"),
 				love.audio.newSource("sounds/miss3.ogg", "static")
 			},
-			death = love.audio.newSource("sounds/death.ogg", "static")
+			death = love.audio.newSource("sounds/death.ogg", "static"),
+			hitSoundLeft = love.audio.newSource("sounds/hitSound.ogg", "static"),  -- THERE IS A REAL REASON FOR THIS, IF YOU ONLY USE ONE SOUND THEN PRESSING MORE THAN ONE KEY AT THE SAME TIME WILL ONLY PLAY ONE SOUND
+			hitSoundRight = love.audio.newSource("sounds/hitSound.ogg", "static"),
+			hitSoundUp = love.audio.newSource("sounds/hitSound.ogg", "static"),
+			hitSoundDown = love.audio.newSource("sounds/hitSound.ogg", "static")
 		}
 
 		images = {
@@ -150,7 +154,7 @@ return {
 
 	update = function(self, dt)
 		weeks:update(dt)
-
+		
 		-- Hardcoded M.I.L.F camera scaling
 		if song == 3 and musicTime > 56000 and musicTime < 67000 and musicThres ~= oldMusicThres and math.fmod(absMusicTime, 60000 / bpm) < 100 then
 			if camScaleTimer then Timer.cancel(camScaleTimer) end
@@ -178,7 +182,7 @@ return {
 			end
 		end
 
-		if not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) then
+		if not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused then
 			if storyMode and song < 3 then
 				song = song + 1
 

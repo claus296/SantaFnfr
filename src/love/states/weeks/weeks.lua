@@ -44,6 +44,18 @@ return {
 		love.graphics.setDefaultFilter("nearest")
 		font = love.graphics.newFont("fonts/pixel.fnt")
 
+		--PAUSE MENU IMAGES
+		resume = love.graphics.newImage(graphics.imagePath("pause/resume"))
+		resumeH = love.graphics.newImage(graphics.imagePath("pause/resumeHover"))
+		restart = love.graphics.newImage(graphics.imagePath("pause/restart"))
+		restartH = love.graphics.newImage(graphics.imagePath("pause/restartHover"))
+		exit = love.graphics.newImage(graphics.imagePath("pause/exit"))
+		exitH = love.graphics.newImage(graphics.imagePath("pause/exitHover"))
+		options = love.graphics.newImage(graphics.imagePath("pause/options"))
+		optionsH = love.graphics.newImage(graphics.imagePath("pause/optionsHover"))
+						
+		resume.x, resume.y = 0, 0
+
 		-- weeks enter stuff
 		sounds = {
 			countdown = {
@@ -119,6 +131,17 @@ return {
 	end,
 	enter = function(self)
 		font = love.graphics.newFont("fonts/vcr.ttf", 24)
+		--PAUSE MENU IMAGES
+		resume = love.graphics.newImage(graphics.imagePath("pause/resume"))
+		resumeH = love.graphics.newImage(graphics.imagePath("pause/resumeHover"))
+		restart = love.graphics.newImage(graphics.imagePath("pause/restart"))
+		restartH = love.graphics.newImage(graphics.imagePath("pause/restartHover"))
+		exit = love.graphics.newImage(graphics.imagePath("pause/exit"))
+		exitH = love.graphics.newImage(graphics.imagePath("pause/exitHover"))
+		options = love.graphics.newImage(graphics.imagePath("pause/options"))
+		optionsH = love.graphics.newImage(graphics.imagePath("pause/optionsHover"))
+						
+		resume.x, resume.y = 0, 0
 		sounds = {
 			countdown = {
 				three = love.audio.newSource("sounds/countdown-3.ogg", "static"),
@@ -152,6 +175,7 @@ return {
 
 		girlfriend = love.filesystem.load("sprites/girlfriend.lua")()
 		boyfriend = love.filesystem.load("sprites/boyfriend.lua")()
+
 
 
 		rating = love.filesystem.load("sprites/rating.lua")()
@@ -193,11 +217,15 @@ return {
 	end,
 
 	load = function(self)
+
+
 		missCounter = 0
 		noteCounter = 0
 		altScore = 0
 		doingAnim = false -- for week 4 stuff
 		hitSick = false
+		paused = false
+		pauseMenuSelection = 1
 		
 		for i = 1, 4 do
 			notMissed[i] = true
@@ -250,6 +278,7 @@ return {
 		downArrowSplash = love.filesystem.load("sprites/pixel/notes/pixelSplashes.lua")()
 		upArrowSplash = love.filesystem.load("sprites/pixel/notes/pixelSplashes.lua")()
 		rightArrowSplash = love.filesystem.load("sprites/pixel/notes/pixelSplashes.lua")()
+
 
 		enemyArrows = {
 			sprites.leftArrow(),
@@ -1135,23 +1164,54 @@ return {
 
 	update = function(self, dt)
 
-		if input:pressed("gameDown") then
+		if input:pressed("gameDown") and not paused then
 			audio.playSound(sounds.hitSoundDown)
 		end
-		if input:pressed("gameUp") then
+		if input:pressed("gameUp") and not paused then
 			audio.playSound(sounds.hitSoundUp)
 		end
-		if input:pressed("gameLeft") then
+		if input:pressed("gameLeft") and not paused then
 			audio.playSound(sounds.hitSoundLeft)
 		end
-		if input:pressed("gameRight") then
+		if input:pressed("gameRight") and not paused then
 			audio.playSound(sounds.hitSoundRight)
+		end
+
+		if input:pressed("gameDown") then
+			if pauseMenuSelection == 4 then
+				pauseMenuSelection = 1
+			else
+				pauseMenuSelection = pauseMenuSelection + 1
+			end
+		end
+
+		if input:pressed("gameUp") then
+			if pauseMenuSelection == 1 then
+				pauseMenuSelection = 4 
+			else
+				pauseMenuSelection = pauseMenuSelection - 1
+			end
 		end
 
 		currentSeconds = voices:tell("seconds")
 		songLenth = voices:getDuration("seconds")
 		timeLeft = songLenth - currentSeconds
 		timeLeftFixed = math.floor(timeLeft)
+
+		if input:pressed("pause") and not countingDown then
+			if not paused then
+				pauseTime = musicTime
+				paused = true
+				love.audio.pause(inst, voices)
+			else
+				paused = false
+				love.audio.play(inst, voices)
+			end
+		end
+
+		if paused then
+			musicTime = pauseTime
+		end
 
 
 		if not doingDialogue then
@@ -1249,294 +1309,296 @@ return {
 	end,
 
 	updateUI = function(self, dt)
-		if not doingDialogue then
-			if settings.downscroll then
-				musicPos = -musicTime * 0.6 * speed
-			else
-				musicPos = musicTime * 0.6 * speed
-			end
-
-			for i = 1, 4 do
-				local enemyArrow = enemyArrows[i]
-				local boyfriendArrow = boyfriendArrows[i]
-				local enemyNote = enemyNotes[i]
-				local boyfriendNote = boyfriendNotes[i]
-				local curAnim = animList[i]
-				local curInput = inputList[i]
-
-				local noteNum = i
-
-				enemyArrow:update(dt)
-				boyfriendArrow:update(dt)
-
-				if not enemyArrow:isAnimated() then
-					enemyArrow:animate("off", false)
+		if not paused then
+			if not doingDialogue then
+				if settings.downscroll then
+					musicPos = -musicTime * 0.6 * speed
+				else
+					musicPos = musicTime * 0.6 * speed
 				end
-				if settings.botPlay then
-					if not boyfriendArrow:isAnimated() then
-						boyfriendArrow:animate("off", false)
+
+				for i = 1, 4 do
+					local enemyArrow = enemyArrows[i]
+					local boyfriendArrow = boyfriendArrows[i]
+					local enemyNote = enemyNotes[i]
+					local boyfriendNote = boyfriendNotes[i]
+					local curAnim = animList[i]
+					local curInput = inputList[i]
+
+					local noteNum = i
+
+					enemyArrow:update(dt)
+					boyfriendArrow:update(dt)
+
+					if not enemyArrow:isAnimated() then
+						enemyArrow:animate("off", false)
 					end
-				end
-
-				if #enemyNote > 0 then
-					if (not settings.downscroll and enemyNote[1].y - musicPos <= -400) or (settings.downscroll and enemyNote[1].y - musicPos >= 400) then
-						voices:setVolume(1)
-
-						enemyArrow:animate("confirm", false)
-
-						if enemyNote[1]:getAnimName() == "hold" or enemyNote[1]:getAnimName() == "end" then
-							if useAltAnims then
-								if (not enemy:isAnimated()) or enemy:getAnimName() == "idle" then self:safeAnimate(enemy, curAnim .. " alt", true, 2) end
-							else
-								if (not enemy:isAnimated()) or enemy:getAnimName() == "idle" then self:safeAnimate(enemy, curAnim, true, 2) end
-							end
-						else
-							if useAltAnims then
-								self:safeAnimate(enemy, curAnim .. " alt", false, 2)
-							else
-								self:safeAnimate(enemy, curAnim, false, 2)
-							end
+					if settings.botPlay then
+						if not boyfriendArrow:isAnimated() then
+							boyfriendArrow:animate("off", false)
 						end
-
-						table.remove(enemyNote, 1)
 					end
-				end
 
-				if #boyfriendNote > 0 then
-					if not countingDown then
-						if (not settings.downscroll and boyfriendNote[1].y - musicPos < -500) or (settings.downscroll and boyfriendNote[1].y - musicPos > 500) then
-							if not settings.botPlay then
-								if inst then voices:setVolume(0) end
+					if #enemyNote > 0 then
+						if (not settings.downscroll and enemyNote[1].y - musicPos <= -400) or (settings.downscroll and enemyNote[1].y - musicPos >= 400) then
+							voices:setVolume(1)
 
-								notMissed[noteNum] = false
+							enemyArrow:animate("confirm", false)
 
-								table.remove(boyfriendNote, 1)
-
-								if not pixel or doingWeek4 then
-									if combo >= 5 then self:safeAnimate(girlfriend, "sad", true, 1) end
-								end
-
-								hitSick = false
-
-								combo = 0
-								if not settings.noMiss then
-									health = health - 2
+							if enemyNote[1]:getAnimName() == "hold" or enemyNote[1]:getAnimName() == "end" then
+								if useAltAnims then
+									if (not enemy:isAnimated()) or enemy:getAnimName() == "idle" then self:safeAnimate(enemy, curAnim .. " alt", true, 2) end
 								else
-									health = 0
+									if (not enemy:isAnimated()) or enemy:getAnimName() == "idle" then self:safeAnimate(enemy, curAnim, true, 2) end
 								end
-
-								missCounter = missCounter + 1
-							end
-						end
-					end
-				end
-
-				if not settings.botPlay then
-					if input:down(curInput) then
-						holdingInput = true
-					else
-						holdingInput = false
-					end
-
-					if input:pressed(curInput) then
-						local success = false
-
-						if settings.ghostTapping then
-							success = true
-							hitSick = false
-						end
-
-						boyfriendArrow:animate("press", false)
-
-						if #boyfriendNote > 0 then
-							for i = 1, #boyfriendNote do
-								if boyfriendNote[i] and boyfriendNote[i]:getAnimName() == "on" then
-									if (not settings.downscroll and boyfriendNote[i].y - musicPos <= -280) or (settings.downscroll and boyfriendNote[i].y - musicPos >= 280) then
-										local notePos
-										local ratingAnim
-
-										notMissed[noteNum] = true
-
-										if settings.downscroll then
-											notePos = math.abs(400 - (boyfriendNote[i].y - musicPos))
-										else
-											notePos = math.abs(-400 - (boyfriendNote[i].y - musicPos))
-										end
-
-										voices:setVolume(1)
-
-										if notePos <= 18 then -- "Sick Plus" Note: Just for a cooler looking rating. Does not give anything special
-											score = score + 350
-											ratingAnim = "sickPlus"
-											altScore = altScore + 100.00
-											sicks = sicks + 1
-											hitSick = true
-										elseif notePos <= 38 then -- "Sick"
-											score = score + 350
-											ratingAnim = "sick"
-											altScore = altScore + 100.00
-											sicks = sicks + 1
-											hitSick = true
-										elseif notePos <= 78 then -- "Good"
-											score = score + 200
-											ratingAnim = "good"
-											altScore = altScore + 66.66
-											goods = goods + 1
-											hitSick = false
-										elseif notePos <= 98 then -- "Bad"
-											score = score + 100
-											ratingAnim = "bad"
-											altScore = altScore + 33.33
-											bads = bads + 1
-											hitSick = false
-										else -- "Shit"
-											if settings.ghostTapping then
-												success = false
-											else
-												score = score + 50
-											end
-											altScore = altScore + 1.11
-											ratingAnim = "shit"
-											shits = shits + 1
-											hitSick = false
-										end
-
-										combo = combo + 1
-
-										rating:animate(ratingAnim, false)
-										numbers[1]:animate(tostring(math.floor(combo / 100 % 10), false))
-										numbers[2]:animate(tostring(math.floor(combo / 10 % 10), false))
-										numbers[3]:animate(tostring(math.floor(combo % 10), false))
-
-										for i = 1, 5 do
-											if ratingTimers[i] then Timer.cancel(ratingTimers[i]) end
-										end
-
-										ratingVisibility[1] = 1
-										rating.y = girlfriend.y - 50
-										for i = 1, 3 do
-											numbers[i].y = girlfriend.y + 50
-										end
-
-										ratingTimers[1] = Timer.tween(2, ratingVisibility, {0})
-										ratingTimers[2] = Timer.tween(2, rating, {y = girlfriend.y - 100}, "out-elastic")
-										ratingTimers[3] = Timer.tween(2, numbers[1], {y = girlfriend.y + love.math.random(-10, 10)}, "out-elastic")
-										ratingTimers[4] = Timer.tween(2, numbers[2], {y = girlfriend.y + love.math.random(-10, 10)}, "out-elastic")
-										ratingTimers[5] = Timer.tween(2, numbers[3], {y = girlfriend.y + love.math.random(-10, 10)}, "out-elastic")
-
-										table.remove(boyfriendNote, i)
-
-										if not settings.ghostTapping or success then
-											boyfriendArrow:animate("confirm", false)
-
-											self:safeAnimate(boyfriend, curAnim, false, 3)
-											doingAnim = false
-
-											health = health + 1
-											noteCounter = noteCounter + 1
-
-											success = true
-										end
-									else
-										break
-									end
+							else
+								if useAltAnims then
+									self:safeAnimate(enemy, curAnim .. " alt", false, 2)
+								else
+									self:safeAnimate(enemy, curAnim, false, 2)
 								end
 							end
-						end
 
-						if not success then
-							if not countingDown then
+							table.remove(enemyNote, 1)
+						end
+					end
+
+					if #boyfriendNote > 0 then
+						if not countingDown then
+							if (not settings.downscroll and boyfriendNote[1].y - musicPos < -500) or (settings.downscroll and boyfriendNote[1].y - musicPos > 500) then
 								if not settings.botPlay then
-									audio.playSound(sounds.miss[love.math.random(3)])
+									if inst then voices:setVolume(0) end
 
 									notMissed[noteNum] = false
+
+									table.remove(boyfriendNote, 1)
 
 									if not pixel or doingWeek4 then
 										if combo >= 5 then self:safeAnimate(girlfriend, "sad", true, 1) end
 									end
 
-									self:safeAnimate(boyfriend, "miss " .. curAnim, false, 3)
-
 									hitSick = false
 
-									score = score - 10
 									combo = 0
 									if not settings.noMiss then
 										health = health - 2
 									else
 										health = 0
 									end
+
 									missCounter = missCounter + 1
 								end
 							end
 						end
 					end
-				end
 
-				if not settings.botPlay then
-					if notMissed[noteNum] and #boyfriendNote > 0 and input:down(curInput) and ((not settings.downscroll and boyfriendNote[1].y - musicPos <= -400) or (settings.downscroll and boyfriendNote[1].y - musicPos >= 400)) and (boyfriendNote[1]:getAnimName() == "hold" or boyfriendNote[1]:getAnimName() == "end") then
-						voices:setVolume(1)
-
-						table.remove(boyfriendNote, 1)
-
-						boyfriendArrow:animate("confirm", false)
-
-						if (not boyfriend:isAnimated()) or boyfriend:getAnimName() == "idle" then self:safeAnimate(boyfriend, curAnim, true, 3) end
-
-						health = health + 1
-					end
-
-					if input:released(curInput) then
-						boyfriendArrow:animate("off", false)
-					end
-				else
-					if #boyfriendNote > 0 and ((not settings.downscroll and boyfriendNote[1].y - musicPos <= -400) or (settings.downscroll and boyfriendNote[1].y - musicPos >= 400)) then
-						voices:setVolume(1)
-
-						boyfriendArrow:animate("confirm", false)
-
-						if boyfriendNote[1]:getAnimName() == "hold" or boyfriendNote[1]:getAnimName() == "end" then
-							if (not boyfriend:isAnimated()) or boyfriend:getAnimName() == "idle" then self:safeAnimate(boyfriend, curAnim, true, 2) end
+					if not settings.botPlay then
+						if input:down(curInput) then
+							holdingInput = true
 						else
-							self:safeAnimate(boyfriend, curAnim, false, 2)
+							holdingInput = false
 						end
 
-						table.remove(boyfriendNote, 1)
+						if input:pressed(curInput) then
+							local success = false
+
+							if settings.ghostTapping then
+								success = true
+								hitSick = false
+							end
+
+							boyfriendArrow:animate("press", false)
+
+							if #boyfriendNote > 0 then
+								for i = 1, #boyfriendNote do
+									if boyfriendNote[i] and boyfriendNote[i]:getAnimName() == "on" then
+										if (not settings.downscroll and boyfriendNote[i].y - musicPos <= -280) or (settings.downscroll and boyfriendNote[i].y - musicPos >= 280) then
+											local notePos
+											local ratingAnim
+
+											notMissed[noteNum] = true
+
+											if settings.downscroll then
+												notePos = math.abs(400 - (boyfriendNote[i].y - musicPos))
+											else
+												notePos = math.abs(-400 - (boyfriendNote[i].y - musicPos))
+											end
+
+											voices:setVolume(1)
+
+											if notePos <= 18 then -- "Sick Plus" Note: Just for a cooler looking rating. Does not give anything special
+												score = score + 350
+												ratingAnim = "sickPlus"
+												altScore = altScore + 100.00
+												sicks = sicks + 1
+												hitSick = true
+											elseif notePos <= 38 then -- "Sick"
+												score = score + 350
+												ratingAnim = "sick"
+												altScore = altScore + 100.00
+												sicks = sicks + 1
+												hitSick = true
+											elseif notePos <= 78 then -- "Good"
+												score = score + 200
+												ratingAnim = "good"
+												altScore = altScore + 66.66
+												goods = goods + 1
+												hitSick = false
+											elseif notePos <= 98 then -- "Bad"
+												score = score + 100
+												ratingAnim = "bad"
+												altScore = altScore + 33.33
+												bads = bads + 1
+												hitSick = false
+											else -- "Shit"
+												if settings.ghostTapping then
+													success = false
+												else
+													score = score + 50
+												end
+												altScore = altScore + 1.11
+												ratingAnim = "shit"
+												shits = shits + 1
+												hitSick = false
+											end
+
+											combo = combo + 1
+
+											rating:animate(ratingAnim, false)
+											numbers[1]:animate(tostring(math.floor(combo / 100 % 10), false))
+											numbers[2]:animate(tostring(math.floor(combo / 10 % 10), false))
+											numbers[3]:animate(tostring(math.floor(combo % 10), false))
+
+											for i = 1, 5 do
+												if ratingTimers[i] then Timer.cancel(ratingTimers[i]) end
+											end
+
+											ratingVisibility[1] = 1
+											rating.y = girlfriend.y - 50
+											for i = 1, 3 do
+												numbers[i].y = girlfriend.y + 50
+											end
+
+											ratingTimers[1] = Timer.tween(2, ratingVisibility, {0})
+											ratingTimers[2] = Timer.tween(2, rating, {y = girlfriend.y - 100}, "out-elastic")
+											ratingTimers[3] = Timer.tween(2, numbers[1], {y = girlfriend.y + love.math.random(-10, 10)}, "out-elastic")
+											ratingTimers[4] = Timer.tween(2, numbers[2], {y = girlfriend.y + love.math.random(-10, 10)}, "out-elastic")
+											ratingTimers[5] = Timer.tween(2, numbers[3], {y = girlfriend.y + love.math.random(-10, 10)}, "out-elastic")
+
+											table.remove(boyfriendNote, i)
+
+											if not settings.ghostTapping or success then
+												boyfriendArrow:animate("confirm", false)
+
+												self:safeAnimate(boyfriend, curAnim, false, 3)
+												doingAnim = false
+
+												health = health + 1
+												noteCounter = noteCounter + 1
+
+												success = true
+											end
+										else
+											break
+										end
+									end
+								end
+							end
+
+							if not success then
+								if not countingDown then
+									if not settings.botPlay then
+										audio.playSound(sounds.miss[love.math.random(3)])
+
+										notMissed[noteNum] = false
+
+										if not pixel or doingWeek4 then
+											if combo >= 5 then self:safeAnimate(girlfriend, "sad", true, 1) end
+										end
+
+										self:safeAnimate(boyfriend, "miss " .. curAnim, false, 3)
+
+										hitSick = false
+
+										score = score - 10
+										combo = 0
+										if not settings.noMiss then
+											health = health - 2
+										else
+											health = 0
+										end
+										missCounter = missCounter + 1
+									end
+								end
+							end
+						end
+					end
+
+					if not settings.botPlay then
+						if notMissed[noteNum] and #boyfriendNote > 0 and input:down(curInput) and ((not settings.downscroll and boyfriendNote[1].y - musicPos <= -400) or (settings.downscroll and boyfriendNote[1].y - musicPos >= 400)) and (boyfriendNote[1]:getAnimName() == "hold" or boyfriendNote[1]:getAnimName() == "end") then
+							voices:setVolume(1)
+
+							table.remove(boyfriendNote, 1)
+
+							boyfriendArrow:animate("confirm", false)
+
+							if (not boyfriend:isAnimated()) or boyfriend:getAnimName() == "idle" then self:safeAnimate(boyfriend, curAnim, true, 3) end
+
+							health = health + 1
+						end
+
+						if input:released(curInput) then
+							boyfriendArrow:animate("off", false)
+						end
+					else
+						if #boyfriendNote > 0 and ((not settings.downscroll and boyfriendNote[1].y - musicPos <= -400) or (settings.downscroll and boyfriendNote[1].y - musicPos >= 400)) then
+							voices:setVolume(1)
+
+							boyfriendArrow:animate("confirm", false)
+
+							if boyfriendNote[1]:getAnimName() == "hold" or boyfriendNote[1]:getAnimName() == "end" then
+								if (not boyfriend:isAnimated()) or boyfriend:getAnimName() == "idle" then self:safeAnimate(boyfriend, curAnim, true, 2) end
+							else
+								self:safeAnimate(boyfriend, curAnim, false, 2)
+							end
+
+							table.remove(boyfriendNote, 1)
+						end
 					end
 				end
-			end
 
-			if health > 100 then
-				health = 100
-			elseif health > 20 and boyfriendIcon:getAnimName() == "boyfriend losing" then
-				boyfriendIcon:animate("boyfriend", false)
-			elseif health <= 0 then -- Game over
-				health = 0
-				if not settings.practiceMode then
-					Gamestate.push(gameOver)
+				if health > 100 then
+					health = 100
+				elseif health > 20 and boyfriendIcon:getAnimName() == "boyfriend losing" then
+					boyfriendIcon:animate("boyfriend", false)
+				elseif health <= 0 then -- Game over
+					health = 0
+					if not settings.practiceMode then
+						Gamestate.push(gameOver)
+					end
+				elseif health <= 20 and boyfriendIcon:getAnimName() == "boyfriend" then
+					boyfriendIcon:animate("boyfriend losing", false)
 				end
-			elseif health <= 20 and boyfriendIcon:getAnimName() == "boyfriend" then
-				boyfriendIcon:animate("boyfriend losing", false)
-			end
 
-			enemyIcon.x = 425 - health * 10
-			boyfriendIcon.x = 585 - health * 10
+				enemyIcon.x = 425 - health * 10
+				boyfriendIcon.x = 585 - health * 10
 
-			if not countingDown then
-				if musicThres ~= oldMusicThres and math.fmod(absMusicTime, 60000 / bpm) < 100 then
-					if enemyIconTimer then Timer.cancel(enemyIconTimer) end
-					if boyfriendIconTimer then Timer.cancel(boyfriendIconTimer) end
+				if not countingDown then
+					if musicThres ~= oldMusicThres and math.fmod(absMusicTime, 60000 / bpm) < 100 then
+						if enemyIconTimer then Timer.cancel(enemyIconTimer) end
+						if boyfriendIconTimer then Timer.cancel(boyfriendIconTimer) end
 
-					enemyIconTimer = Timer.tween((60 / bpm) / 16, enemyIcon, {sizeX = 1.75, sizeY = 1.75}, "out-quad", function() enemyIconTimer = Timer.tween((60 / bpm), enemyIcon, {sizeX = 1.5, sizeY = 1.5}, "out-quad") end)
-					boyfriendIconTimer = Timer.tween((60 / bpm) / 16, boyfriendIcon, {sizeX = -1.75, sizeY = 1.75}, "out-quad", function() boyfriendIconTimer = Timer.tween((60 / bpm), boyfriendIcon, {sizeX = -1.5, sizeY = 1.5}, "out-quad") end)
+						enemyIconTimer = Timer.tween((60 / bpm) / 16, enemyIcon, {sizeX = 1.75, sizeY = 1.75}, "out-quad", function() enemyIconTimer = Timer.tween((60 / bpm), enemyIcon, {sizeX = 1.5, sizeY = 1.5}, "out-quad") end)
+						boyfriendIconTimer = Timer.tween((60 / bpm) / 16, boyfriendIcon, {sizeX = -1.75, sizeY = 1.75}, "out-quad", function() boyfriendIconTimer = Timer.tween((60 / bpm), boyfriendIcon, {sizeX = -1.5, sizeY = 1.5}, "out-quad") end)
+					end
 				end
-			end
 
-			if not countingDown and input:pressed("gameBack") then
-				if inst then inst:stop() end
-				voices:stop()
+				if not countingDown and input:pressed("gameBack") then
+					if inst then inst:stop() end
+					voices:stop()
 
-				storyMode = false
+					storyMode = false
+				end
 			end
 		end
 	end,
@@ -1577,8 +1639,15 @@ return {
 				if settings.middleScroll then
 					love.graphics.setColor(0.6,0.6,0.6,0.3)
 				end
+				if paused then 
+					love.graphics.setColor(0.6,0.6,0.6,0.3)
+				end
 				enemyArrows[i]:draw()
-				graphics.setColor(1, 1, 1)
+				if paused then 
+					love.graphics.setColor(0.6,0.6,0.6,0.3)
+				else
+					love.graphics.setColor(1, 1, 1, 1)
+				end
 				boyfriendArrows[i]:draw()
 				if hitSick then
 					if not settings.botPlay then
@@ -1937,7 +2006,14 @@ return {
 				love.graphics.rectangle("line", 100, 631, 30, 30) -- down
 				love.graphics.rectangle("line", 131, 631, 30, 30) -- right
 				love.graphics.rectangle("line", 69, 631, 30, 30) -- left
-				
+
+				resume:draw()
+
+				if paused then
+					love.graphics.setColor(0, 0, 0, 0.8)
+					love.graphics.rectangle("fill", -10000, -1000, 1000000, 1000000)
+					love.graphics.setColor(1, 1, 1)
+				end
 				love.graphics.setColor(1, 1, 1)
 			love.graphics.pop()
 		end
