@@ -1228,7 +1228,7 @@ return {
 				health = 0
 				paused = false
 			elseif input:pressed("confirm") and pauseMenuSelection == 3 then
-				Gamestate.swich(menuSelect)
+				Gamestate.switch(menuSelect)
 			elseif input:pressed("confirm") and pauseMenuSelection == 4 then
 				Gamestate.switch(menuSettings)
 			end
