@@ -2017,7 +2017,7 @@ return {
 				love.graphics.setColor(1, 1, 1)
 
 				if input:down("gameUp") then
-					love.graphics.rectangle("fill", 100, 600, 30, 30)
+					love.graphics.rectangle("fill", 131, 631, 30, 30) 
 				end
 				
 				if input:down("gameDown") then
@@ -2025,7 +2025,7 @@ return {
 				end
 				
 				if input:down("gameRight") then
-					love.graphics.rectangle("fill", 131, 631, 30, 30)
+					love.graphics.rectangle("fill", 162, 631, 30, 30)
 				end
 								
 				if input:down("gameLeft") then
@@ -2033,10 +2033,16 @@ return {
 				end
 				
 				love.graphics.setColor(0, 0, 0)
-				love.graphics.rectangle("line", 100, 600, 30, 30) -- up
-				love.graphics.rectangle("line", 100, 631, 30, 30) -- down
-				love.graphics.rectangle("line", 131, 631, 30, 30) -- right
+
 				love.graphics.rectangle("line", 69, 631, 30, 30) -- left
+				love.graphics.rectangle("line", 100, 631, 30, 30) -- down
+				love.graphics.rectangle("line", 131, 631, 30, 30) -- up
+				love.graphics.rectangle("line", 162, 631, 30, 30) -- right
+
+				love.graphics.color.printf(customBindLeft, 74, 626, 20, "left", nil, 1.5, 1.5, 255, 255, 255)  -- left
+				love.graphics.color.printf(customBindDown, 105, 626, 20, "left", nil, 1.5, 1.5, 255, 255, 255)  -- down
+				love.graphics.color.printf(customBindUp, 136, 626, 20, "left", nil, 1.5, 1.5, 255, 255, 255)  -- up
+				love.graphics.color.printf(customBindRight, 167, 626, 20, "left", nil, 1.5, 1.5, 255, 255, 255)  -- right
 
 				love.graphics.setColor(1, 1, 1)
 			love.graphics.pop()
