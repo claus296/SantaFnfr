@@ -43,8 +43,16 @@ music:setLooping(true)
 
 return {
 	enter = function(self, previous)
-
+		function logoRotate()
+			Timer.tween(0.9, logo, {orientation = 0.15}, "in-out-back", function()
+				Timer.tween(0.9, logo, {orientation = -0.15}, "in-out-back", function()
+					logoRotate()
+				end)
+			end)
+		end
+		menuBPM = 102
 		logo = love.filesystem.load("sprites/menu/ve-logo.lua")()
+		logoRotate()
 
 		girlfriendTitle = love.filesystem.load("sprites/menu/girlfriend-title.lua")()
 		titleEnter = love.filesystem.load("sprites/menu/titleEnter.lua")()
@@ -87,25 +95,6 @@ return {
 	end,
 
 	update = function(self, dt)
-		-- the haha funny easter egg (this was idits idea)
-		-- this doesnt work so im gonna just comment it out :(
-
-	--	if input:pressed("pissP") and pissNum == 0 then
-	--		pissNum = 1
-	--	end
-	--	if input:pressed("pissI") and pissNum == 1 then
-	--		pissNum = 2
-	--	end
-	--	if input:pressed("pissS") and pissNum == 2 then
-	--		pissNum = 3
-	--	end
-	--	if input:pressed("pissS") and pissNum == 3 then
-	--		pissNum = 4
-	--	end
-	--
-	--		if pissNum == 4 then
-	--			Gamestate.switch(menuWeek)  -- this would have something else its just gamestate switch for testing
-	--		end
 		girlfriendTitle:update(dt)
 		titleEnter:update(dt)
 		logo:update(dt)
