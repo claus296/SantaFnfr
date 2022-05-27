@@ -2038,7 +2038,9 @@ return {
 				love.graphics.rectangle("line", 131, 631, 30, 30) -- right
 				love.graphics.rectangle("line", 69, 631, 30, 30) -- left
 
-
+				love.graphics.setColor(1, 1, 1)
+			love.graphics.pop()
+			love.graphics.push()
 				if paused then
 					love.graphics.setColor(0, 0, 0, 0.8)
 					love.graphics.rectangle("fill", -10000, -1000, 1000000, 1000000)
@@ -2065,7 +2067,6 @@ return {
 						optionsH:draw()
 					end
 				end
-				love.graphics.setColor(1, 1, 1)
 			love.graphics.pop()
 		end
 	end,
