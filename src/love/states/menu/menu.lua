@@ -161,8 +161,8 @@ return { -- test push
 					1200,
 					"left",
 					nil,
-					2,
-					2
+					1.6,
+					1.6
 				)
 
 				--love.graphics.print(pissNum, -130, -390)   --this is only for testing dont uncomment
