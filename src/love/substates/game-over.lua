@@ -111,7 +111,11 @@ return {
 				love.graphics.scale(cam.sizeX, cam.sizeY)
 				love.graphics.translate(cam.x, cam.y)
 
-				boyfriend:draw()
+				if not pixel then
+					boyfriend:draw()
+				else
+					boyfriend:udraw()
+				end
 			love.graphics.pop()
 		love.graphics.pop()
 	end
