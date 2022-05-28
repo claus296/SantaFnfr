@@ -401,11 +401,7 @@ return {
 					love.graphics.push()
 						love.graphics.translate(0, -musicPos)
 
-						for j = #enemyNotes[i
-						
-						
-						
-						], 1, -1 do
+						for j = #enemyNotes[i], 1, -1 do
 							if (not settings.downscroll and enemyNotes[i][j].y - musicPos <= 560) or (settings.downscroll and enemyNotes[i][j].y - musicPos >= -560) then
 								local animName = enemyNotes[i][j]:getAnimName()
 
