@@ -43,12 +43,13 @@ return {
             if story.y == 400 then
                 Timer.tween(1, options, {y = 200}, "out-expo")
             end
+            Timer.tween(0.3, titleBG, {y = 15}, "out-quad")
         end
 		menuButton = 1
 		songNum = 0
         titleBG = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/menuBG")))
 
-        titleBG.sizeX, titleBG.sizeY = 1.1
+        titleBG.sizeX, titleBG.sizeY = 1.2
 
         options = love.filesystem.load("sprites/menu/menuButtons.lua")()
         story = love.filesystem.load("sprites/menu/menuButtons.lua")()
@@ -64,6 +65,21 @@ return {
 
 		cam.sizeX, cam.sizeY = 0.9, 0.9
 		camScale.x, camScale.y = 0.9, 0.9
+        Timer.after(
+            0.8,
+            function()
+                Timer.tween(
+                    0.42,
+                    camScale,
+                    {
+                        x = 1,
+                        y = 1
+                    },
+                    "out-expo"
+                )
+            end
+        )
+        
 
 		switchMenu(1)
 
@@ -194,7 +210,10 @@ return {
 		love.graphics.push()
 			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
 
-			titleBG:draw()
+            love.graphics.push()
+                love.graphics.scale(camScale.x, camScale.y)
+			    titleBG:draw()
+            love.graphics.pop()
 
             story:draw()
             options:draw()
@@ -203,7 +222,8 @@ return {
 			love.graphics.push()
 				love.graphics.scale(cam.sizeX, cam.sizeY)
                 love.graphics.color.printf(
-                    "Vanilla Engine v1.0.0 pre-release 1\nFNFR: v1.1.0-beta2",
+                    "Vanilla Engine v1.0.0 pre-release 1" ..
+                    "\nFNFR: v1.1.0-beta2",
                     -708,
                     340, 
                     833,
