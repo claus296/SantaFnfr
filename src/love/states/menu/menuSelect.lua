@@ -49,7 +49,7 @@ return {
 		songNum = 0
         titleBG = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/menuBG")))
 
-        titleBG.sizeX, titleBG.sizeY = 1.2
+        titleBG.sizeX, titleBG.sizeY = 1.15
 
         options = love.filesystem.load("sprites/menu/menuButtons.lua")()
         story = love.filesystem.load("sprites/menu/menuButtons.lua")()
