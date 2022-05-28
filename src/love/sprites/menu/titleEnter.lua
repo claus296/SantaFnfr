@@ -81,5 +81,5 @@ return graphics.newSprite(
         ["pressed"] = {start = 1, stop = 9, speed = 24, offsetX = 0, offsetY = 0}
     },
     "anim",
-    false
+    true
 )

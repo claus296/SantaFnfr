@@ -41,7 +41,7 @@ end
 
 music:setLooping(true)
 
-return { -- test push
+return {
 	enter = function(self, previous)
 
 		function tweenMenu()
@@ -52,7 +52,7 @@ return { -- test push
 				Timer.tween(1, titleEnter, {y = 350}, "out-expo")
 			end
 			if girlfriendTitle.x == 500 then
-				Timer.tween(1, girlfriendTitle, {x = 325}, "out-expo")
+				Timer.tween(1, girlfriendTitle, {x = 400}, "out-expo")
 			end
 		end
 
@@ -75,13 +75,10 @@ return { -- test push
 		logoRotate()
 		tweenMenu()
 
-        titleEnter:animate("anim", true)
-
 		girlfriendTitle.x, girlfriendTitle.y = 325, 65
 
 		titleEnter.x, titleEnter.y = 225, 350
 		songNum = 0
-		pissNum = 0  -- :skull:
 
 		cam.sizeX, cam.sizeY = 0.9, 0.9
 		camScale.x, camScale.y = 0.9, 0.9
@@ -164,8 +161,6 @@ return { -- test push
 					1.6,
 					1.6
 				)
-
-				--love.graphics.print(pissNum, -130, -390)   --this is only for testing dont uncomment
 
 				love.graphics.pop()
 		love.graphics.pop()
