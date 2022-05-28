@@ -155,7 +155,7 @@ return {
 		if useDiscordRPC then
 			presence = {
 				state = "Changing Settings",
-				details = "In the Settings Menu",
+				details = "In the Settings Menu",     -- yeah thats what you do in the settings menu   why tf else would you be in the settings menu
 				largeImageKey = "logo",
 				startTimestamp = now,
 			}

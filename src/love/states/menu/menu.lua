@@ -43,27 +43,45 @@ music:setLooping(true)
 
 return {
 	enter = function(self, previous)
+
+		function tweenMenu()
+			if logo.y == -300 then 
+				Timer.tween(1, logo, {y = -125}, "out-expo")
+			end
+			if titleEnter.y == 450 then 
+				Timer.tween(1, titleEnter, {y = 350}, "out-expo")
+			end
+			if girlfriendTitle.x == 500 then
+				Timer.tween(1, girlfriendTitle, {x = 325}, "out-expo")
+			end
+		end
+
 		function logoRotate()
-			Timer.tween(0.9, logo, {orientation = 0.15}, "in-out-back", function()
-				Timer.tween(0.9, logo, {orientation = -0.15}, "in-out-back", function()
+			Timer.tween(2, logo, {orientation = 0.15}, "in-out-back", function()
+				Timer.tween(2, logo, {orientation = -0.15}, "in-out-back", function()
 					logoRotate()
 				end)
 			end)
 		end
 		menuBPM = 102
 		logo = love.filesystem.load("sprites/menu/ve-logo.lua")()
-		logoRotate()
-
 		girlfriendTitle = love.filesystem.load("sprites/menu/girlfriend-title.lua")()
 		titleEnter = love.filesystem.load("sprites/menu/titleEnter.lua")()
+
+		girlfriendTitle.x, girlfriendTitle.y = 500, 65
+		titleEnter.x, titleEnter.y = 225, 450
+		logo.x, logo.y = -350, -300
+
+		logoRotate()
+		tweenMenu()
+
         titleEnter:animate("anim", true)
-		logo.x, logo.y = -350, -125
 
 		girlfriendTitle.x, girlfriendTitle.y = 325, 65
 
 		titleEnter.x, titleEnter.y = 225, 350
 		songNum = 0
-		pissNum = 0
+		pissNum = 0  -- :skull:
 
 		cam.sizeX, cam.sizeY = 0.9, 0.9
 		camScale.x, camScale.y = 0.9, 0.9
@@ -75,7 +93,7 @@ return {
 
 		if useDiscordRPC then
 			presence = {
-				state = "Press Enter",
+				state = "Press Enter", 
 				details = "In the Menu",
 				largeImageKey = "logo",
 				startTimestamp = now,

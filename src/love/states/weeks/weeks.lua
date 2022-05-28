@@ -1229,18 +1229,17 @@ return {
 
 		if paused then
 			musicTime = pauseTime
-			if input:pressed("confirm") and pauseMenuSelection == 1 then
+			if input:pressed("confirm") and pauseMenuSelection == 1 then -- resume button
 				paused = false
 				love.audio.play(inst, voices)
-			elseif input:pressed("confirm") and pauseMenuSelection == 2 then
+			elseif input:pressed("confirm") and pauseMenuSelection == 2 then -- restart button 
 				Gamestate.push(gameOver)
-			elseif input:pressed("confirm") and pauseMenuSelection == 3 then
+			elseif input:pressed("confirm") and pauseMenuSelection == 3 then --  exit button 
 				paused = false
 				if inst then inst:stop() end
 				voices:stop()
-
 				storyMode = false
-			elseif input:pressed("confirm") and pauseMenuSelection == 4 then
+			elseif input:pressed("confirm") and pauseMenuSelection == 4 then -- options button
 				Gamestate.switch(menuSettings)
 			end
 		end
