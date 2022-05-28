@@ -122,6 +122,16 @@ local function switchMenu(menu)
 			else
 				weekNum = (weekNum > 1) and weekNum - 1 or #weekMeta
 			end
+			Timer.tween(
+				0.8,
+				freeColour, 
+				{
+					[1] = freeplayColours[weekNum][1],
+					[2] = freeplayColours[weekNum][2],
+					[3] = freeplayColours[weekNum][3]
+				}, 
+				"linear"
+			)
 		end
 		function rightFunc()
 			if menuState == 3 then
@@ -131,6 +141,16 @@ local function switchMenu(menu)
 			else
 				weekNum = (weekNum < #weekMeta) and weekNum + 1 or 1
 			end
+			Timer.tween(
+				0.8,
+				freeColour, 
+				{
+					[1] = freeplayColours[weekNum][1],
+					[2] = freeplayColours[weekNum][2],
+					[3] = freeplayColours[weekNum][3]
+				}, 
+				"linear"
+			)
 		end
 		function confirmFunc()
 			if pressedUp ~= 10 then
@@ -238,6 +258,16 @@ function leftFunc()
 	else
 		weekNum = (weekNum > 1) and weekNum - 1 or #weekMeta
 	end
+	Timer.tween(
+		0.8,
+		freeColour, 
+		{
+			[1] = freeplayColours[weekNum][1],
+			[2] = freeplayColours[weekNum][2],
+			[3] = freeplayColours[weekNum][3]
+		}, 
+		"linear"
+	)
 end
 function rightFunc()
 	if menuState == 3 then
@@ -247,6 +277,16 @@ function rightFunc()
 	else
 		weekNum = (weekNum < #weekMeta) and weekNum + 1 or 1
 	end
+	Timer.tween(
+		0.8,
+		freeColour, 
+		{
+			[1] = freeplayColours[weekNum][1],
+			[2] = freeplayColours[weekNum][2],
+			[3] = freeplayColours[weekNum][3]
+		}, 
+		"linear"
+	)
 end
 function confirmFunc()
 	if pressedUp ~= 10 then
@@ -360,20 +400,40 @@ return {
 		love.graphics.setDefaultFilter("nearest")
 		pbf = love.filesystem.load("sprites/pixel/boyfriend.lua")()
 		love.graphics.setDefaultFilter("linear")
+		freeColour = {
+			255,255,255
+		}
+		freeplayColours = {
+			{146,0,68}, -- Tutorial
+			{129,100,223}, -- Week 1
+			{30,45,60}, -- Week 2
+			{131,19,73}, -- Week 3
+			{222,132,190}, -- Week 4
+			{141,184,225}, -- Week 5
+			{225,106,169} -- Week 6
+		}
+		Timer.tween(
+			0.8,
+			freeColour, 
+			{
+				[1] = freeplayColours[1][1],
+				[2] = freeplayColours[1][2],
+				[3] = freeplayColours[1][3]
+			}, 
+			"linear"
+		)
 
 		bf:animate("idle", true)
 		
 		bf.x = 375
-		pbf.x = -375
-
-		pbf.y = -45
+		pbf.x, pbf.y = -375, -45
 
 		cam.sizeX, cam.sizeY = 0.9, 0.9
 		camScale.x, camScale.y = 0.9, 0.9
 
 		switchMenu(1)
 
-		menuBG = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/title-bg")))
+		menuBG = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/menuDesat")))
 
 		graphics.setFade(0)
 		graphics.fadeIn(0.5)
@@ -436,6 +496,7 @@ return {
 		love.graphics.push()
 			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
 
+			love.graphics.setColorF(freeColour[1], freeColour[2], freeColour[3])
 			menuBG:draw()
 
 			if pressedUp == 10 then
