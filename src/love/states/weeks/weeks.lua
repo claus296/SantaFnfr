@@ -56,7 +56,12 @@ return {
 						
 		resume.x, resume.y = 400, 120
 		resumeH.x, resumeH.y = resume.x, resume.y
-		restart.x, restart.y = 400, 270
+		restart.x, restart.y = 400, 295
+		restartH.x, restartH.y = restart.x, restart.y 
+		exit.x, exit.y = 400, 470
+		exitH.x, exitH.y = exit.x, exit.y 
+		options.x, options.y = 400, 645
+		optionsH.x, optionsH.y = options.x, options.y
 
 		-- weeks enter stuff
 		sounds = {
@@ -1220,30 +1225,25 @@ return {
 				paused = true
 				love.audio.pause(inst, voices)
 			end
-			--else
-			--	paused = false
-			--	love.audio.play(inst, voices)
-			--end
-		end
-
-		if paused then
-			if input:pressed("confirm") and pauseMenuSelection == 1 then
-				paused = false
-				love.audio.play(inst, voices)
-			elseif input:pressed("confirm") and pauseMenuSelection == 2 then
-				health = 0
-				paused = false
-			elseif input:pressed("confirm") and pauseMenuSelection == 3 then
-				Gamestate.switch(menuSelect)
-			elseif input:pressed("confirm") and pauseMenuSelection == 4 then
-				Gamestate.switch(menuSettings)
-			end
 		end
 
 		if paused then
 			musicTime = pauseTime
-		end
+			if input:pressed("confirm") and pauseMenuSelection == 1 then
+				paused = false
+				love.audio.play(inst, voices)
+			elseif input:pressed("confirm") and pauseMenuSelection == 2 then
+				Gamestate.push(gameOver)
+			elseif input:pressed("confirm") and pauseMenuSelection == 3 then
+				paused = false
+				if inst then inst:stop() end
+				voices:stop()
 
+				storyMode = false
+			elseif input:pressed("confirm") and pauseMenuSelection == 4 then
+				Gamestate.switch(menuSettings)
+			end
+		end
 
 		if not doingDialogue then
 			oldMusicThres = musicThres
@@ -1732,32 +1732,34 @@ return {
 						wasReleased4 = true
 					end
 				end
-
-				if not pixel then
-					if leftArrowSplash:isAnimated() then
-						leftArrowSplash:draw()
-					end
-					if rightArrowSplash:isAnimated() then
-						rightArrowSplash:draw()
-					end
-					if upArrowSplash:isAnimated() then
-						upArrowSplash:draw()
-					end
-					if downArrowSplash:isAnimated() then
-						downArrowSplash:draw()
-					end
-				else
-					if leftArrowSplash:isAnimated() then
-						leftArrowSplash:udraw()
-					end
-					if rightArrowSplash:isAnimated() then
-						rightArrowSplash:udraw()
-					end
-					if upArrowSplash:isAnimated() then
-						upArrowSplash:udraw()
-					end
-					if downArrowSplash:isAnimated() then
-						downArrowSplash:udraw()
+				
+				if not paused then
+					if not pixel then
+						if leftArrowSplash:isAnimated() then
+							leftArrowSplash:draw()
+						end
+						if rightArrowSplash:isAnimated() then
+							rightArrowSplash:draw()
+						end
+						if upArrowSplash:isAnimated() then
+							upArrowSplash:draw()
+						end
+						if downArrowSplash:isAnimated() then
+							downArrowSplash:draw()
+						end
+					else
+						if leftArrowSplash:isAnimated() then
+							leftArrowSplash:udraw()
+						end
+						if rightArrowSplash:isAnimated() then
+							rightArrowSplash:udraw()
+						end
+						if upArrowSplash:isAnimated() then
+							upArrowSplash:udraw()
+						end
+						if downArrowSplash:isAnimated() then
+							downArrowSplash:udraw()
+						end
 					end
 				end
 				

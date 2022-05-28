@@ -73,6 +73,50 @@ return {
 
 	update = function(self, dt)
 
+		if paused then
+			if input:pressed("gameDown") then
+				if pauseMenuSelection == 4 then
+					pauseMenuSelection = 1
+				else
+					pauseMenuSelection = pauseMenuSelection + 1
+				end
+			end
+
+			if input:pressed("gameUp") and paused then
+				if pauseMenuSelection == 1 then
+					pauseMenuSelection = 4 
+				else
+					pauseMenuSelection = pauseMenuSelection - 1
+				end
+			end
+		end
+
+		if input:pressed("pause") and not countingDown then
+			if not paused then
+				pauseTime = musicTime
+				paused = true
+				love.audio.pause(voices)
+			end
+		end
+
+		if paused then
+			musicTime = pauseTime
+			if input:pressed("confirm") and pauseMenuSelection == 1 then
+				paused = false
+				love.audio.play(voices)
+			elseif input:pressed("confirm") and pauseMenuSelection == 2 then
+				Gamestate.push(gameOver)
+			elseif input:pressed("confirm") and pauseMenuSelection == 3 then
+				paused = false
+				if inst then inst:stop() end
+				voices:stop()
+
+				storyMode = false
+			elseif input:pressed("confirm") and pauseMenuSelection == 4 then
+				Gamestate.switch(menuSettings)
+			end
+		end
+
 		currentSeconds = voices:tell("seconds") -- fuck you tutorial
 		songLenth = voices:getDuration("seconds")
 		timeLeft = songLenth - currentSeconds

@@ -34,6 +34,25 @@ return {
 
 		week = 5
 
+		--PAUSE MENU IMAGES
+		resume = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/resume"))) -- USE THIS FUNCTION
+		resumeH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/resumeHover")))
+		restart = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/restart")))
+		restartH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/restartHover")))
+		exit = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/exit")))
+		exitH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/exitHover")))
+		options = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/options")))
+		optionsH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/optionsHover")))
+								
+		resume.x, resume.y = 400, 120
+		resumeH.x, resumeH.y = resume.x, resume.y
+		restart.x, restart.y = 400, 295
+		restartH.x, restartH.y = restart.x, restart.y 
+		exit.x, exit.y = 400, 470
+		exitH.x, exitH.y = exit.x, exit.y 
+		options.x, options.y = 400, 645
+		optionsH.x, optionsH.y = options.x, options.y
+
 		missCounter = 0
 		noteCounter = 0
 		altScore = 0
