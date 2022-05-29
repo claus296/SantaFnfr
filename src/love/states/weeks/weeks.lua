@@ -2047,35 +2047,35 @@ return {
 
 				love.graphics.setColor(1, 1, 1)
 			love.graphics.pop()
-			love.graphics.push()
-				if paused then
-					love.graphics.setColor(0, 0, 0, 0.8)
-					love.graphics.rectangle("fill", -10000, -1000, 1000000, 1000000)
-					love.graphics.setColor(1, 1, 1)
-					if pauseMenuSelection == 1 then
-						resumeH:draw()
-						restart:draw()
-						exit:draw()
-						options:draw()
-					elseif pauseMenuSelection == 2 then
-						resume:draw()
-						restartH:draw()
-						exit:draw()
-						options:draw()
-					elseif pauseMenuSelection == 3 then
-						resume:draw()
-						restart:draw()
-						exitH:draw()
-						options:draw()
-					else
-						resume:draw()
-						restart:draw()
-						exit:draw()
-						optionsH:draw()
-					end
-				end
-			love.graphics.pop()
 		end
+		love.graphics.push()
+		if paused then
+			love.graphics.setColor(0, 0, 0, 0.8)
+			love.graphics.rectangle("fill", -10000, -1000, 1000000, 1000000)
+			love.graphics.setColor(1, 1, 1)
+			if pauseMenuSelection == 1 then
+				resumeH:draw()
+				restart:draw()
+				exit:draw()
+				options:draw()
+			elseif pauseMenuSelection == 2 then
+				resume:draw()
+				restartH:draw()
+				exit:draw()
+				options:draw()
+			elseif pauseMenuSelection == 3 then
+				resume:draw()
+				restart:draw()
+				exitH:draw()
+				options:draw()
+			else
+				resume:draw()
+				restart:draw()
+				exit:draw()
+				optionsH:draw()
+			end
+		end
+	love.graphics.pop()
 	end,
 
 	drawDialogue = function()
