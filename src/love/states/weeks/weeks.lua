@@ -1277,10 +1277,6 @@ return {
 				love.audio.pause(inst, voices)
 				tweenPauseButtons()
 				love.audio.play(breakfast)
-			--	pauseVolume[1] = 0
-			--	breakfast:setVolume(pauseVolume[1])
-			--	love.audio.play(breakfast)
-			--	Timer.tween(4, pauseVolume, {[1] = 1}, "linear")
 			end
 		end
 

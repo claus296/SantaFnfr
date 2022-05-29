@@ -160,6 +160,8 @@ function love.load()
 		settings.customScrollSpeed = data.saveSettingsMoment.customScrollSpeed
 		settings.keystrokes = data.saveSettingsMoment.keystrokes
 		settings.scrollUnderlayTrans = data.saveSettingsMoment.scrollUnderlayTrans
+		settings.instVol = data.saveSettingsMoment.instVol
+		settings.vocalsVol = data.saveSettingsMoment.vocalsVol
 		settings.hitsounds = data.saveSettingsMoment.hitsounds
 
 		settingsVer = data.saveSettingsMoment.settingsVer
@@ -180,16 +182,18 @@ function love.load()
 			keystrokes = settings.keystrokes,
 			scrollUnderlayTrans = settings.scrollUnderlayTrans,
 			hitsounds = settings.hitsounds,
+			instVol = settings.instVol,
+			vocalsVol = settings.vocalsVol,
 			settingsVer = settingsVer
 		}
 		serialized = lume.serialize(data)
 		love.filesystem.write("settings", serialized)
 	end
-	if settingsVer ~= 3 then
+	if settingsVer ~= 4 then
 		love.window.showMessageBox("Uh Oh!", "Settings have been reset.", "warning")
 		love.filesystem.remove("settings.data")
 	end
-	if not love.filesystem.getInfo("settings") or settingsVer ~= 3 then
+	if not love.filesystem.getInfo("settings") or settingsVer ~= 4 then
 		settings.hardwareCompression = true
 		graphics.setImageType("dds")
 		settings.downscroll = false
@@ -205,7 +209,9 @@ function love.load()
 		settings.keystrokes = false
 		settings.scrollUnderlayTrans = 0
 		settings.hitsounds = false
-		settingsVer = 3
+		settings.instVol = 1
+		settings.vocalsVol = 1
+		settingsVer = 4
 		data = {}
 		data.saveSettingsMoment = {
 			hardwareCompression = settings.hardwareCompression,
@@ -222,7 +228,10 @@ function love.load()
 			customScrollSpeed = settings.customScrollSpeed,
 			keystrokes = settings.keystrokes,
 			scrollUnderlayTrans = settings.scrollUnderlayTrans,
+			instVol = settings.instVol,
+			vocalsVol = settings.vocalsVol,
 			hitsounds = settings.hitsounds,
+			
 			settingsVer = settingsVer
 		}
 		serialized = lume.serialize(data)

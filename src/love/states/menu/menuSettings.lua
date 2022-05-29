@@ -58,7 +58,15 @@ settingsDescriptions2 = {
     "Show Debug Info" ..
     "\n       \"Show Debug\" Shows debug info on the screen" ..
     "\n\n       \"fps\" only displays FPS count" ..
-    "\n\n       \"detailed\" shows things for debugging. (E.g. Music time,\n       Health, etc)"
+    "\n\n       \"detailed\" shows things for debugging. (E.g. Music time,\n       Health, etc)",
+
+    "Instrumental Volume" .. 
+    "\n       \"Instrumental Volume\" Raise or lower the volume of the Instrumental" ..
+    "\n\n       1 is full",
+
+    "Vocals Volume" ..
+    "\n       \"Vocals Volume\" Raise or lower the volume of the Vocals" ..
+    "\n\n       1 is full"
 }
 settingsDescriptions3 = { 
 
@@ -97,6 +105,8 @@ return {
                     customScrollSpeed = settings.customScrollSpeed,
                     keystrokes = settings.keystrokes,
                     scrollUnderlayTrans = settings.scrollUnderlayTrans,
+                    vocalsVol = settings.vocalsVol,
+                    instVol = settings.instVol,
                     settingsVer = settingsVer
                 }
                 serialized = lume.serialize(data)
@@ -126,6 +136,8 @@ return {
                     keystrokes = settings.keystrokes,
                     scrollUnderlayTrans = settings.scrollUnderlayTrans,
                     hitsounds = settings.hitsounds,
+                    vocalsVol = settings.vocalsVol,
+                    instVol = settings.instVol,
                     settingsVer = settingsVer
                 }
                 serialized = lume.serialize(data)
@@ -298,7 +310,7 @@ return {
                     if settingSelect ~= 1 then
                         settingSelect = settingSelect - 1
                     else
-                        settingSelect = 2
+                        settingSelect = 4
                     end
                 end
             elseif input:pressed("down") then
@@ -321,7 +333,7 @@ return {
                         settingSelect = 1
                     end
                 elseif settingsMenuState == 3 then
-                    if settingSelect ~= 2 then
+                    if settingSelect ~= 4 then
                         settingSelect = settingSelect + 1
                     else
                         settingSelect = 1
@@ -336,6 +348,12 @@ return {
                             settings.scrollUnderlayTrans = settings.scrollUnderlayTrans + 0.1
                         end
                     end
+                elseif settingsMenuState == 3 then
+                    if settingSelect == 3 then
+                        settings.instVol = settings.instVol + 0.1
+                    elseif settingSelect == 4 then
+                        settings.vocalsVol = settings.vocalsVol + 0.1
+                    end
                 end
             elseif input:pressed("left") then
                 if settingsMenuState == 2 then
@@ -347,6 +365,12 @@ return {
                         else
                             settings.scrollUnderlayTrans = 0
                         end
+                    end
+                elseif settingsMenuState == 3 then
+                    if settingSelect == 3 then
+                        settings.instVol = settings.instVol - 0.1
+                    elseif settingSelect == 4 then
+                        settings.vocalsVol = settings.vocalsVol - 0.1
                     end
                 end
 			end
@@ -391,6 +415,8 @@ return {
                 elseif settingsMenuState == 3 then
                     love.graphics.print("Hardware Compression = " .. tostring(settings.hardwareCompression) .. " " .. isRestartNeeded, -628, -300) 
                     love.graphics.print("\n\nShow Debug = " .. tostring(settings.showDebug), -628, -300)
+                    love.graphics.print("\n\n\n\nInstrumental Volume = " .. tostring(settings.instVol), -628, -300)
+                    love.graphics.print("\n\n\n\n\n\nVocals Volume = " .. tostring(settings.vocalsVol), -628, -300)
                 end
                 love.graphics.print(newlinesMoment[settingSelect] .. ">", -640, -300)
                 
