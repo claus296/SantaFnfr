@@ -1214,6 +1214,44 @@ return {
 			end
 		end
 
+
+        function tweenPauseButtons()
+			resume.x, resume.y = -1000, 120
+			resumeH.x, resumeH.y = resume.x, resume.y
+			restart.x, restart.y = -1000, 295
+			restartH.x, restartH.y = restart.x, restart.y 
+			exit.x, exit.y = -1000, 470
+			exitH.x, exitH.y = exit.x, exit.y 
+			options.x, options.y = -1000, 645
+			optionsH.x, optionsH.y = options.x, options.y
+
+
+            if resume.x == -1000 then
+                Timer.tween(1, resume, {x = 550}, "out-back")
+            end
+            if resumeH.x == -1000 then
+                Timer.tween(1, resumeH, {x = 550}, "out-back")
+            end
+            if restart.x == -1000 then
+                Timer.tween(1.2, restart, {x = 500}, "out-back")
+            end
+			if restartH.x == -1000 then
+                Timer.tween(1.2, restartH, {x = 500}, "out-back")
+            end
+			if exit.x == -1000 then
+                Timer.tween(1.4, exit, {x = 450}, "out-back")
+            end
+			if exitH.x == -1000 then
+                Timer.tween(1.4, exitH, {x = 450}, "out-back")
+            end
+			if options.x == -1000 then
+                Timer.tween(1.6, options, {x = 400}, "out-back")
+            end
+			if optionsH.x == -1000 then
+                Timer.tween(1.6, optionsH, {x = 400}, "out-back")
+            end
+        end
+
 		currentSeconds = voices:tell("seconds")
 		songLenth = voices:getDuration("seconds")
 		timeLeft = songLenth - currentSeconds
@@ -1224,6 +1262,7 @@ return {
 				pauseTime = musicTime
 				paused = true
 				love.audio.pause(inst, voices)
+				tweenPauseButtons()
 			end
 		end
 
