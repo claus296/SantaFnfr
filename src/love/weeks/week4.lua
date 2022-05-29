@@ -65,11 +65,14 @@ return {
 				love.audio.newSource("sounds/miss2.ogg", "static"),
 				love.audio.newSource("sounds/miss3.ogg", "static")
 			},
+			hitsounds = {
+				left = love.audio.newSource("sounds/hitSound.ogg", "static"),  -- THERE IS A REAL REASON FOR THIS, IF YOU ONLY USE ONE SOUND THEN PRESSING MORE THAN ONE KEY AT THE SAME TIME WILL ONLY PLAY ONE SOUND
+				right = love.audio.newSource("sounds/hitSound.ogg", "static"),
+				up = love.audio.newSource("sounds/hitSound.ogg", "static"),
+				down = love.audio.newSource("sounds/hitSound.ogg", "static")
+			},
 			death = love.audio.newSource("sounds/death.ogg", "static"),
-			hitSoundLeft = love.audio.newSource("sounds/hitSound.ogg", "static"),  -- THERE IS A REAL REASON FOR THIS, IF YOU ONLY USE ONE SOUND THEN PRESSING MORE THAN ONE KEY AT THE SAME TIME WILL ONLY PLAY ONE SOUND
-			hitSoundRight = love.audio.newSource("sounds/hitSound.ogg", "static"),
-			hitSoundUp = love.audio.newSource("sounds/hitSound.ogg", "static"),
-			hitSoundDown = love.audio.newSource("sounds/hitSound.ogg", "static")
+			breakfast = love.audio.newSource("songs/misc/breakfast.ogg", "stream")
 		}
 
 		images = {

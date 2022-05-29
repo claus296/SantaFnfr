@@ -76,13 +76,15 @@ return {
 				love.audio.newSource("sounds/pixel/miss2.ogg", "static"),
 				love.audio.newSource("sounds/pixel/miss3.ogg", "static")
 			},
+			hitsounds = {
+				left = love.audio.newSource("sounds/hitSound.ogg", "static"),  -- THERE IS A REAL REASON FOR THIS, IF YOU ONLY USE ONE SOUND THEN PRESSING MORE THAN ONE KEY AT THE SAME TIME WILL ONLY PLAY ONE SOUND
+				right = love.audio.newSource("sounds/hitSound.ogg", "static"),
+				up = love.audio.newSource("sounds/hitSound.ogg", "static"),
+				down = love.audio.newSource("sounds/hitSound.ogg", "static")
+			},
 			death = love.audio.newSource("sounds/pixel/death.ogg", "static"),
 			["text"] = love.audio.newSource("sounds/pixel/text.ogg", "static"),
 			["continue"] = love.audio.newSource("sounds/pixel/continue-text.ogg", "static"),
-			hitSoundLeft = love.audio.newSource("sounds/hitSound.ogg", "static"),  -- THERE IS A REAL REASON FOR THIS, IF YOU ONLY USE ONE SOUND THEN PRESSING MORE THAN ONE KEY AT THE SAME TIME WILL ONLY PLAY ONE SOUND
-			hitSoundRight = love.audio.newSource("sounds/hitSound.ogg", "static"),
-			hitSoundUp = love.audio.newSource("sounds/hitSound.ogg", "static"),
-			hitSoundDown = love.audio.newSource("sounds/hitSound.ogg", "static")
 		}
 
 		images = {
@@ -97,9 +99,15 @@ return {
 			numbers = love.filesystem.load("sprites/pixel/numbers.lua")
 		}
 
+		pauseVolume = {
+			vol = 0
+		}
+
 		girlfriend = love.filesystem.load("sprites/pixel/girlfriend.lua")()
 		boyfriend = love.filesystem.load("sprites/pixel/boyfriend.lua")()
 		fakeBoyfriend = love.filesystem.load("sprites/pixel/boyfriend-dead.lua")()
+
+		breakfast = love.audio.newSource("songs/misc/breakfast.ogg", "stream")
 
 		pixel = true
 
@@ -175,7 +183,7 @@ return {
 				up = love.audio.newSource("sounds/hitSound.ogg", "static"),
 				down = love.audio.newSource("sounds/hitSound.ogg", "static")
 			},
-			death = love.audio.newSource("sounds/death.ogg", "static")
+			death = love.audio.newSource("sounds/death.ogg", "static"),
 		}
 
 		images = {
@@ -190,8 +198,13 @@ return {
 			numbers = love.filesystem.load("sprites/numbers.lua")
 		}
 
+		pauseVolume = {
+			vol = 0
+		}
+
 		girlfriend = love.filesystem.load("sprites/girlfriend.lua")()
 		boyfriend = love.filesystem.load("sprites/boyfriend.lua")()
+		breakfast = love.audio.newSource("songs/misc/breakfast.ogg", "stream")
 
 
 
@@ -1263,6 +1276,11 @@ return {
 				paused = true
 				love.audio.pause(inst, voices)
 				tweenPauseButtons()
+				love.audio.play(breakfast)
+			--	pauseVolume[1] = 0
+			--	breakfast:setVolume(pauseVolume[1])
+			--	love.audio.play(breakfast)
+			--	Timer.tween(4, pauseVolume, {[1] = 1}, "linear")
 			end
 		end
 
@@ -1281,6 +1299,8 @@ return {
 			elseif input:pressed("confirm") and pauseMenuSelection == 4 then -- options button
 				Gamestate.switch(menuSettings)
 			end
+		else
+			love.audio.stop(breakfast)
 		end
 
 		if not doingDialogue then
@@ -1711,7 +1731,7 @@ return {
 				if paused then 
 					love.graphics.setColor(0.6,0.6,0.6,0.3)
 				end
-				enemyArrows[i]:draw()
+				enemyArrows[i]:draw()--ate
 				if paused then 
 					love.graphics.setColor(0.6,0.6,0.6,0.3)
 				else
