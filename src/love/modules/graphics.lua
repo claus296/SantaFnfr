@@ -105,42 +105,32 @@ return {
 			udraw = function(self,sizeX,sizeY) -- auto upscale pixel images
 				local x = self.x
 				local y = self.y
+				local sizeX, sizeY = sizeX or 7, sizeY or 7
 
 				if options and options.floored then
 					x = math.floor(x)
 					y = math.floor(y)
 				end
 
-				if sizeX == nil or sizeY == nil then
-					love.graphics.draw(
-						image,
-						self.x,
-						self.y,
-						self.orientation,
-						7,
-						7,
-						math.floor(width / 2) + self.offsetX,
-						math.floor(height / 2) + self.offsetY,
-						self.shearX,
-						self.shearY
-					)
-				else
-					love.graphics.draw(
-						image,
-						self.x,
-						self.y,
-						self.orientation,
-						sizeX,
-						sizeY,
-						math.floor(width / 2) + self.offsetX,
-						math.floor(height / 2) + self.offsetY,
-						self.shearX,
-						self.shearY
-					)
-				end
+				love.graphics.draw(
+					image,
+					self.x,
+					self.y,
+					self.orientation,
+					sizeX,
+					sizeY,
+					math.floor(width / 2) + self.offsetX,
+					math.floor(height / 2) + self.offsetY,
+					self.shearX,
+					self.shearY
+				)
 			end,
 
 			cdraw = function(self,R,G,B,A)
+				local R = R or 255
+				local G = G or 255
+				local B = B or 255
+				local A = A or 1
 				love.graphics.setColorF(R,G,B,A)
 				local x = self.x
 				local y = self.y
@@ -166,42 +156,31 @@ return {
 			end,
 			
 			cudraw = function(self,R,G,B,A,sizeX,sizeY) -- Colour draw for pixel assets
+				local R = R or 255
+				local G = G or 255
+				local B = B or 255
+				local A = A or 1
 				love.graphics.setColorF(R,G,B,A)
 				local x = self.x
 				local y = self.y
+				local sizeX, sizeY = sizeX or 7, sizeY or 7
 
 				if options and options.floored then
 					x = math.floor(x)
 					y = math.floor(y)
 				end
-
-				if sizeX == nil or sizeY == nil then
-					love.graphics.draw(
-						image,
-						self.x,
-						self.y,
-						self.orientation,
-						7,
-						7,
-						math.floor(width / 2) + self.offsetX,
-						math.floor(height / 2) + self.offsetY,
-						self.shearX,
-						self.shearY
-					)
-				else
-					love.graphics.draw(
-						image,
-						self.x,
-						self.y,
-						self.orientation,
-						sizeX,
-						sizeY,
-						math.floor(width / 2) + self.offsetX,
-						math.floor(height / 2) + self.offsetY,
-						self.shearX,
-						self.shearY
-					)
-				end
+				love.graphics.draw(
+					image,
+					self.x,
+					self.y,
+					self.orientation,
+					sizeX,
+					sizeY,
+					math.floor(width / 2) + self.offsetX,
+					math.floor(height / 2) + self.offsetY,
+					self.shearX,
+					self.shearY
+				)
 				love.graphics.setColor(1,1,1,1)
 			end
 		}
@@ -355,6 +334,7 @@ return {
 
 			udraw = function(self,sizeX, sizeY)
 				local flooredFrame = math.floor(frame)
+				local sizeX, sizeY = sizeX or 7, sizeY or 7
 
 				if flooredFrame <= anim.stop then
 					local x = self.x
@@ -387,39 +367,27 @@ return {
 						end
 					end
 
-					if sizeX == nil or sizeY == nil then
-						love.graphics.draw(
-							sheet,
-							frames[flooredFrame],
-							x,
-							y,
-							self.orientation,
-							7,
-							7,
-							width + anim.offsetX + self.offsetX,
-							height + anim.offsetY + self.offsetY,
-							self.shearX,
-							self.shearY
-						)
-					else
-						love.graphics.draw(
-							sheet,
-							frames[flooredFrame],
-							x,
-							y,
-							self.orientation,
-							sizeX,
-							sizeY,
-							width + anim.offsetX + self.offsetX,
-							height + anim.offsetY + self.offsetY,
-							self.shearX,
-							self.shearY
-						)
-					end
+					love.graphics.draw(
+						sheet,
+						frames[flooredFrame],
+						x,
+						y,
+						self.orientation,
+						sizeX,
+						sizeY,
+						width + anim.offsetX + self.offsetX,
+						height + anim.offsetY + self.offsetY,
+						self.shearX,
+						self.shearY
+					)
 				end
 			end,
 
 			cdraw = function(self,R,G,B,A)
+				local R = R or 255
+				local G = G or 255
+				local B = B or 255
+				local A = A or 1
 				love.graphics.setColorF(R,G,B,A)
 				local flooredFrame = math.floor(frame)
 
@@ -472,8 +440,13 @@ return {
 			end,
 			
 			cudraw = function(self,R,G,B,A,sizeX,sizeY) -- Colour draw for pixel assets
+				local R = R or 255
+				local G = G or 255
+				local B = B or 255
+				local A = A or 1
 				love.graphics.setColorF(R,G,B,A)
 				local flooredFrame = math.floor(frame)
+				local sizeX, sizeY = sizeX or 7, sizeY or 7
 
 				if flooredFrame <= anim.stop then
 					local x = self.x
@@ -506,35 +479,19 @@ return {
 						end
 					end
 
-					if sizeX == nil or sizeY == nil then
-						love.graphics.draw(
-							sheet,
-							frames[flooredFrame],
-							x,
-							y,
-							self.orientation,
-							7,
-							7,
-							width + anim.offsetX + self.offsetX,
-							height + anim.offsetY + self.offsetY,
-							self.shearX,
-							self.shearY
-						)
-					else
-						love.graphics.draw(
-							sheet,
-							frames[flooredFrame],
-							x,
-							y,
-							self.orientation,
-							sizeX,
-							sizeY,
-							width + anim.offsetX + self.offsetX,
-							height + anim.offsetY + self.offsetY,
-							self.shearX,
-							self.shearY
-						)
-					end
+					love.graphics.draw(
+						sheet,
+						frames[flooredFrame],
+						x,
+						y,
+						self.orientation,
+						sizeX,
+						sizeY,
+						width + anim.offsetX + self.offsetX,
+						height + anim.offsetY + self.offsetY,
+						self.shearX,
+						self.shearY
+					)
 				end
 				love.graphics.setColor(1,1,1,1)
 			end
