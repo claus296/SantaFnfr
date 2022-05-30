@@ -15,43 +15,6 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-
-
-
-
-
-
-
-
-
-		if weekNum == 1 then
-			if weekButtonY[1] == 220 or weekButton[1] == 820 then
-				Timer.tween(1, weekButtonY, {[1] = 220, [2] = 320, [3] = 420, [4] = 520, [5] = 620, [7] = 820})
-			end
-		elseif weekNum == 2 then
-			if weekButtonY[1] ~= 320 then
-				Timer.tween(1, weekButtonY, {[1] = 320, [2] = 420, [3] = 520, [4] = 620, [5] = 720, [7] = 920})
-			end
-		elseif weekNum == 3 then
-			if weekButtonY[1] ~= 420 then
-				Timer.tween(1, weekButtonY, {[1] = 420, [2] = 520, [3] = 620, [4] = 720, [5] = 820, [7] = 920})
-			end
-		elseif weekNum == 4 then
-			if weekButtonY[1] ~= 520 then
-				Timer.tween(1, weekButtonY, {[1] = 520, [2] = 620, [3] = 720, [4] = 820, [5] = 920, [7] = 1020})
-			end
-		elseif weekNum == 5 then
-			Timer.tween(1, weekButtonY, {[1] = 620, [2] = 720, [3] = 820, [4] = 920, [5] = 1020, [7] = 1100})
-		elseif weekNum == 6 then
-			Timer.tween(1, weekButtonY, {[1] = 720, [2] = 820, [3] = 920, [4] = 1020, [5] = 1100, [7] = 1220})
-		else 
-			Timer.tween(1, weekButtonY, {[1] = 820, [2] = 920, [3] = 1020, [4] = 1100, [5] = 1220, [7] = 1320})
-		end
-
-
-
-
 ------------------------------------------------------------------------------]]
 
 local upFunc, downFunc, confirmFunc, backFunc, drawFunc, menuFunc, menuDesc, trackNames
@@ -197,25 +160,10 @@ return {
 
 		difficultyAnim.x, difficultyAnim.y = 400, 220
 
-		-- Week Images
-		-- Just add a new images here
-		tutorial = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/week0")))
-		week1 = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/week1")))
-		week2 = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/week2")))
-		week3 = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/week3")))
-		week4 = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/week4")))
-		week5 = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/week5")))
-		week6 = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/week6")))
-
-		weekImages = { -- Images are preloaded
-			tutorial,
-			week1,
-			week2,
-			week3,
-			week4,
-			week5,
-			week6
-		}
+		weekImages = {}
+		for i = 1, #weekDesc do
+			table.insert(weekImages, graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/week" .. i-1))))
+		end
 
 		bfDanceLines:animate("boyfriend", true)
 		gfDanceLines:animate("girlfriend", true)
@@ -283,14 +231,9 @@ return {
 	update = function(self, dt)
 
 
-
-		tutorial.y = weekButtonY[1]
-		week1.y = weekButtonY[2]
-		week2.y = weekButtonY[3]
-		week3.y = weekButtonY[4]
-		week4.y = weekButtonY[5]
-		week5.y = weekButtonY[6]
-		week6.y = weekButtonY[7]
+		for i = 1, #weekDesc do
+			weekImages[i].y = weekButtonY[i]
+		end
 
 
 		function menuFunc()
@@ -335,7 +278,7 @@ return {
 			if input:pressed("down") then
 				audio.playSound(selectSound)
 
-				if weekNum ~= #trackNames then -- change 7 to the ammount of weeks there is (tutorial-6)              where tf is this 7 youre talking about
+				if weekNum ~= #trackNames then -- change 7 to the ammount of weeks there is (tutorial-6)              where tf is this 7 youre talking about         tutorial counts as a week dumbo
 					weekNum = weekNum + 1
 					Timer.tween(
 						0.1,
@@ -347,14 +290,16 @@ return {
 						}, 
 						"linear"
 					)
+					for i = 1, 7 do
+						Timer.tween(0.2, weekButtonY, { [i] = weekButtonY[i] - 100}, "out-expo")
+					end
+				else
+					weekNum = 1
+					for i = 1, 7 do
+						Timer.tween(0.2, weekButtonY, { [i] = 120 + 100*i}, "out-expo")
+					end
 				end
-				--else
-				--	weekNum = 1
-				--end
 				menuFunc()
-				if weekNum ~= #trackNames then
-					Timer.tween(0.2, weekButtonY, { [1] = weekButtonY[1] - 100, [2] = weekButtonY[2] - 100, [3] = weekButtonY[3] - 100, [4] = weekButtonY[4] - 100, [5] = weekButtonY[5] - 100, [6] = weekButtonY[6] - 100, [7] = weekButtonY[7] - 100}, "out-expo")
-				end
 			elseif input:pressed("up") then
 				audio.playSound(selectSound)
 
@@ -370,16 +315,15 @@ return {
 						}, 
 						"linear"
 					)
+					for i = 1, 7 do
+						Timer.tween(0.2, weekButtonY, { [i] = weekButtonY[i] + 100 }, "out-expo")
+					end
+				else
+					weekNum = #trackNames
+					Timer.tween(0.2, weekButtonY, { [1] = 220 - 600, [2] = 220 - 500, [3] = 220 - 400, [4] = 220 - 300, [5] = 220 - 200, [6] = 220 - 100, [7] = 220 }, "out-expo")
+					-- gross workaround but whatever
 				end
-				--else
-				--	weekNum = #trackNames
-				--end
 				menuFunc()
-
-
-				if weekNum > 1 then
-					Timer.tween(0.2, weekButtonY, { [1] = weekButtonY[1] + 100, [2] = weekButtonY[2] + 100, [3] = weekButtonY[3] + 100, [4] = weekButtonY[4] + 100, [5] = weekButtonY[5] + 100, [6] = weekButtonY[6] + 100, [7] = weekButtonY[7] + 100}, "out-expo")
-				end
 			elseif input:pressed("left") then
 				audio.playSound(selectSound)
 
@@ -420,13 +364,9 @@ return {
 
 			love.graphics.push()
 				love.graphics.scale(cam.sizeX, cam.sizeY)
-				tutorial:draw()
-				week1:draw()
-				week2:draw()
-				week3:draw()
-				week4:draw()
-				week5:draw()
-				week6:draw()
+				for i = 1, 7 do
+					weekImages[i]:draw()
+				end
 
 				love.graphics.setColor(0, 0, 0)
 				
@@ -444,14 +384,6 @@ return {
 				end
 				bfDanceLines:draw()
 				gfDanceLines:draw()
-				--if weekNum ~= 1 then
-				--	weekBefore:draw()
-				--end
-				--currentWeek:draw()
-				--if weekNum ~= #trackNames then
-				--	weekAfter:draw()
-				--end
-
 
 				love.graphics.printf(weekDesc[weekNum], -585, -395, 853, "right", nil, 1.5, 1.5)
 				if weekNum ~= 1 then
@@ -465,19 +397,11 @@ return {
 	end,
 
 	leave = function(self)
-		week0 = nil
-		week1 = nil
-		week2 = nil
-		week3 = nil
-		week4 = nil
-		week5 = nil
-		week6 = nil
 		enemyDanceLines = nil
 		bfDanceLines = nil
 		gfDanceLines = nil
 		titleBG = nil
 		difficultyAnim = nil
-		weekImages = nil
 		Timer.clear()
 	end
 }
