@@ -15,6 +15,7 @@ Features with Funkin' Vanilla Engine:
 * Week 6 dialogue
 * Note splashes 
 * Some Gameplay modifications
+* Pausing
 
 Friday Night Funkin' Rewritten features:
 * A rewritten engine focused on performance and playability
@@ -71,8 +72,8 @@ The settings file can be found in the following places on the following systems:
 **Menus** - 95% Complete
 * The menu is almost done just need to clean up some code and add transitions
 
-**Game Engine** - 95% Complete
-* No pause menu yet.
+**Game Engine** - 98% Complete
+* A few more small changes are stil needed, but its very close
 
 **Weeks** - ~6/8 Complete
 * Tutorial + Weeks 1-5 are implemented.

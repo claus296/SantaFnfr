@@ -1,7 +1,7 @@
-## FV Functions
+## Functions
 
 #### (Replace "object" with things you want to change)
-
+#### Also note that these settings are NOT available in base FNFR
 ## Image Functions
 ```lua
 object:udraw()
