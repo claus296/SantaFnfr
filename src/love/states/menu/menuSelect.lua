@@ -179,6 +179,8 @@ return {
                             status.setLoading(false)
                         end
 	            	)
+                    Timer.tween(0.9, freeplay, {y = 700}, "out-expo")
+                    Timer.tween(0.9, options, {y = 700}, "out-expo")
                 elseif menuButton == 2 then
                     status.setLoading(true)
                     graphics.fadeOut(
@@ -188,6 +190,8 @@ return {
                             status.setLoading(false)
                         end
 	            	)
+                    Timer.tween(0.9, story, {y = -700}, "out-expo")
+                    Timer.tween(0.9, options, {y = 700}, "out-expo")
                 elseif menuButton == 3 then
                     status.setLoading(true)
                     graphics.fadeOut(
@@ -197,7 +201,10 @@ return {
                             status.setLoading(false)
                         end
 	            	)
+                    Timer.tween(0.9, freeplay, {y = -700}, "out-expo")
+                    Timer.tween(0.9, story, {y = -700}, "out-expo")
                 end
+                Timer.tween(1.1, camScale, {x = 4, y = 4}, "linear")
 			elseif input:pressed("back") then
 				audio.playSound(selectSound)
 
