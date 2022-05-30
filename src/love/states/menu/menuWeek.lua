@@ -276,6 +276,16 @@ return {
 					end
 				else
 					weekNum = 1
+					Timer.tween(
+						0.1,
+						freeColour, 
+						{
+							[1] = freeplayColours[weekNum][1],
+							[2] = freeplayColours[weekNum][2],
+							[3] = freeplayColours[weekNum][3]
+						}, 
+						"linear"
+					)
 					for i = 1, 7 do
 						Timer.tween(0.2, weekButtonY, { [i] = 120 + 100*i}, "out-expo")
 					end
@@ -301,6 +311,16 @@ return {
 					end
 				else
 					weekNum = #trackNames
+					Timer.tween(
+						0.1,
+						freeColour, 
+						{
+							[1] = freeplayColours[weekNum][1],
+							[2] = freeplayColours[weekNum][2],
+							[3] = freeplayColours[weekNum][3]
+						}, 
+						"linear"
+					)
 					Timer.tween(0.2, weekButtonY, { [1] = 220 - 600, [2] = 220 - 500, [3] = 220 - 400, [4] = 220 - 300, [5] = 220 - 200, [6] = 220 - 100, [7] = 220 }, "out-expo")
 					-- gross workaround but whatever
 				end
