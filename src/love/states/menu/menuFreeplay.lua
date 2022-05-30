@@ -123,7 +123,7 @@ local function switchMenu(menu)
 				weekNum = (weekNum > 1) and weekNum - 1 or #weekMeta
 			end
 			Timer.tween(
-				0.8,
+				0.2,
 				freeColour, 
 				{
 					[1] = freeplayColours[weekNum][1],
@@ -142,7 +142,7 @@ local function switchMenu(menu)
 				weekNum = (weekNum < #weekMeta) and weekNum + 1 or 1
 			end
 			Timer.tween(
-				0.8,
+				0.2,
 				freeColour, 
 				{
 					[1] = freeplayColours[weekNum][1],
@@ -413,7 +413,7 @@ return {
 			{225,106,169} -- Week 6
 		}
 		Timer.tween(
-			0.8,
+			0.2,
 			freeColour, 
 			{
 				[1] = freeplayColours[1][1],
