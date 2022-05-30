@@ -73,6 +73,7 @@ The settings file can be found in the following places on the following systems:
 * The menu is almost done just need to clean up some code and add transitions
 
 **Game Engine** - 98% Complete
+* A few more small changes are stil needed, but its very close
 
 **Weeks** - ~6/8 Complete
 * Tutorial + Weeks 1-5 are implemented.
