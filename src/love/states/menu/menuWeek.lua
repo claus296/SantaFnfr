@@ -80,16 +80,6 @@ trackNames = { -- add your songs here
 	}
 }
 
-weekButtonY = {
-	[1] = 220,
-	[2] = 320,
-	[3] = 420,
-	[4] = 520,
-	[5] = 620,
-	[6] = 720,
-	[7] = 820
-}
-
 local selectSound = love.audio.newSource("sounds/menu/select.ogg", "static")
 local confirmSound = love.audio.newSource("sounds/menu/confirm.ogg", "static")
 
@@ -101,6 +91,16 @@ return {
 	enter = function(self, previous)
 		songNum = 0
 		weekNum = 1	
+
+		weekButtonY = {
+			[1] = 220,
+			[2] = 320,
+			[3] = 420,
+			[4] = 520,
+			[5] = 620,
+			[6] = 720,
+			[7] = 820
+		}
 
 		cam.sizeX, cam.sizeY = 0.9, 0.9
 		camScale.x, camScale.y = 0.9, 0.9
@@ -169,17 +169,6 @@ return {
 		gfDanceLines:animate("girlfriend", true)
 		enemyDanceLines:animate("week1", true)
 
-
-		---if weekNum ~= 1 then
-		---	weekBefore = weekImages[weekNum - 1]
-		---	weekBefore.y = 130
-		--end
-		--weekImages[weekNum].y = 220
-		--if weekNum ~= #trackNames then
-		--	weekAfter = weekImages[weekNum + 1]
-		--	weekAfter.y = 320
-		--end
-
 		switchMenu(1)
 
 		graphics.setFade(0)
@@ -245,14 +234,6 @@ return {
 
 			weekBefore = weekImages[weekNum - 1]
 			weekAfter = weekImages[weekNum + 1]
-
-			--if weekNum ~= 1 then
-			--	weekBefore.y = 130
-			--end
-			--weekImages[weekNum].y = 220
-			--if weekNum ~= #trackNames then
-			--	weekAfter.y = 320
-			--end
 
 			enemyDanceLines:animate("week" .. weekNum, true)
 		end
