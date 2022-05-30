@@ -61,7 +61,7 @@ settingsDescriptions2 = {
     "\n\n       \"detailed\" shows things for debugging. (E.g. Music time,\n       Health, etc)",
 
     "Instrumental Volume" .. 
-    "\n       \"Instrumental Volume\" Raise or lower the volume of the Instrumental" ..
+    "\n       \"Instrumental Volume\" Raise or lower the volume of the\n       Instrumental" ..
     "\n\n       1 is full",
 
     "Vocals Volume" ..
@@ -272,6 +272,8 @@ return {
                             elseif settings.showDebug == "detailed" then
                                 settings.showDebug = false
                             end
+                            -- 3 is inst volume
+                            -- 4 is vocals volume
                         end
                     end
                 end
