@@ -68,55 +68,12 @@ return {
 		girlfriendTitle = love.filesystem.load("sprites/menu/girlfriend-title.lua")()
 		titleEnter = love.filesystem.load("sprites/menu/titleEnter.lua")()
 
-		whiteRectangle1 = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/whiteRectangle")))
-		whiteRectangle2 = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/whiteRectangle")))
-		whiteRectangle3 = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/whiteRectangle")))
-		whiteRectangle4 = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/whiteRectangle")))
-		whiteRectangle5 = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/whiteRectangle")))
-		whiteRectangle6 = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/whiteRectangle")))
-		whiteRectangle7 = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/whiteRectangle")))
-		whiteRectangle8 = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/whiteRectangle")))
-		whiteRectangle9 = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/whiteRectangle")))
-		whiteRectangle10 = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/whiteRectangle")))
-		whiteRectangle11= graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/whiteRectangle")))
-		whiteRectangle12 = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/whiteRectangle")))
-		whiteRectangle13 = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/whiteRectangle")))
-		whiteRectangle14 = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/whiteRectangle")))
-		whiteRectangle15 = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/whiteRectangle")))   -- sorry guglio 
-
-
-
-		whiteRectangle1.x = -680
-		whiteRectangle2.x = -580
-		whiteRectangle3.x = -480
-		whiteRectangle4.x = -380
-		whiteRectangle5.x = -280
-		whiteRectangle6.x = -180
-		whiteRectangle7.x = -80
-		whiteRectangle8.x = 20
-		whiteRectangle9.x = 120
-		whiteRectangle10.x = 220
-		whiteRectangle11.x = 320
-		whiteRectangle12.x = 420
-		whiteRectangle13.x = 520
-		whiteRectangle14.x = 620
-		whiteRectangle15.x = 720
-
-		whiteRectangle1.y = -1000
-		whiteRectangle2.y = -1000
-		whiteRectangle3.y = -1000
-		whiteRectangle4.y = -1000
-		whiteRectangle5.y = -1000
-		whiteRectangle6.y = -1000
-		whiteRectangle7.y = -1000
-		whiteRectangle8.y = -1000
-		whiteRectangle9.y = -1000
-		whiteRectangle10.y = -1000
-		whiteRectangle11.y = -1000
-		whiteRectangle12.y = -1000
-		whiteRectangle13.y = -1000
-		whiteRectangle14.y = -1000
-		whiteRectangle15.y = -1000
+		whiteRectangles = {}
+		for i = 1, 15 do
+			table.insert(whiteRectangles, graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/whiteRectangle"))))
+			whiteRectangles[i].x = -780 + 100*i
+			whiteRectangles[i].y = -1000
+		end
 
 		girlfriendTitle.x, girlfriendTitle.y = 500, 65
 		titleEnter.x, titleEnter.y = 225, 450
@@ -168,21 +125,9 @@ return {
 			if input:pressed("confirm") then
 				audio.playSound(confirmSound)
 
-				Timer.tween(0.1, whiteRectangle1, {y = 0}, "linear")
-				Timer.tween(0.12, whiteRectangle2, {y = 0}, "linear")
-				Timer.tween(0.13, whiteRectangle3, {y = 0}, "linear")
-				Timer.tween(0.2, whiteRectangle4, {y = 0}, "linear")
-				Timer.tween(0.22, whiteRectangle5, {y = 0}, "linear")
-				Timer.tween(0.23, whiteRectangle6, {y = 0}, "linear")
-				Timer.tween(0.3, whiteRectangle7, {y = 0}, "linear")
-				Timer.tween(0.32, whiteRectangle8, {y = 0}, "linear")
-				Timer.tween(0.33, whiteRectangle9, {y = 0}, "linear")
-				Timer.tween(0.4, whiteRectangle10, {y = 0}, "linear")
-				Timer.tween(0.42, whiteRectangle11, {y = 0}, "linear")
-				Timer.tween(0.43, whiteRectangle12, {y = 0}, "linear")
-				Timer.tween(0.5, whiteRectangle13, {y = 0}, "linear")
-				Timer.tween(0.52, whiteRectangle14, {y = 0}, "linear")
-				Timer.tween(0.53, whiteRectangle15, {y = 0}, "linear")  -- yes i know this is horrible
+				for i = 1, 15 do
+					Timer.tween(0.5 + 0.1 + 0.01*i, whiteRectangles[i], {y = 0}, "linear")
+				end
 
 				titleEnter:animate("pressed", true)
 				Timer.after(0.6, 
@@ -218,37 +163,24 @@ return {
 
 				--love.graphics.setColor(1, 63 / 255, 172 / 255, 0.9)
 				love.graphics.setColor(1, 1, 1, 0.9)
-				whiteRectangle1:draw()
-				whiteRectangle2:draw()
-				whiteRectangle3:draw()
-				whiteRectangle4:draw()
-				whiteRectangle5:draw()
-				whiteRectangle6:draw()
-				whiteRectangle7:draw()
-				whiteRectangle8:draw()
-				whiteRectangle9:draw()
-				whiteRectangle10:draw()
-				whiteRectangle11:draw()
-				whiteRectangle12:draw()
-				whiteRectangle13:draw()
-				whiteRectangle14:draw()
-				whiteRectangle15:draw()
-
+				for i = 1, 15 do
+					whiteRectangles[i]:draw()
+				end
 				love.graphics.setColor(1, 1, 1)
 
-				--love.graphics.printf(
-				--	"This is a pre-release build.\n\n"..
-				--	"Please report any bugs you find.",
-				--	-525,
-				--	90,
-				--	1200,
-				--	"left",
-				--	nil,
-				--	1.6,
-				--	1.6
-				--)
+				love.graphics.printf(
+					"This is a pre-release build.\n\n"..
+					"Please report any bugs you find.",
+					-525,
+					90,
+					1200,
+					"left",
+					nil,
+					1.6,
+					1.6
+				)
 
-				love.graphics.pop()
+			love.graphics.pop()
 		love.graphics.pop()
 	end,
 
@@ -256,21 +188,6 @@ return {
 		girlfriendTitle = nil
 		titleEnter = nil
 		logo = nil
-		whiteRectangle1 = nil
-		whiteRectangle2 = nil
-		whiteRectangle3 = nil
-		whiteRectangle4 = nil
-		whiteRectangle5 = nil
-		whiteRectangle6 = nil
-		whiteRectangle7 = nil
-		whiteRectangle8 = nil
-		whiteRectangle9 = nil
-		whiteRectangle10 = nil
-		whiteRectangle11 = nil
-		whiteRectangle12 = nil
-		whiteRectangle13 = nil
-		whiteRectangle14 = nil
-		whiteRectangle15 = nil
 
 		Timer.clear()
 	end
