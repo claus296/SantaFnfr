@@ -32,7 +32,7 @@ end
 
 return {
 	enter = function(self, previous)
-
+        changingMenu = false
         function tweenButtons()
             if story.y == 400 then
                 Timer.tween(1, story, {y = -200}, "out-expo")

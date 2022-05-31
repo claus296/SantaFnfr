@@ -64,6 +64,7 @@ return {
 			end)
 		end
 		menuBPM = 102
+		changingMenu = false
 		logo = love.filesystem.load("sprites/menu/ve-logo.lua")()
 		girlfriendTitle = love.filesystem.load("sprites/menu/girlfriend-title.lua")()
 		titleEnter = love.filesystem.load("sprites/menu/titleEnter.lua")()
@@ -123,20 +124,22 @@ return {
 
 		if not graphics.isFading() then
 			if input:pressed("confirm") then
-				audio.playSound(confirmSound)
-
-				for i = 1, 15 do
-					Timer.tween(0.5 + 0.1 + 0.03*i, whiteRectangles[i], {y = 0}, "linear",
-						function()
-							if i == 15 then
-								Gamestate.switch(menuSelect)
-								status.setLoading(false)
+				
+				if not changingMenu then
+					titleEnter:animate("pressed", true)
+					audio.playSound(confirmSound)
+					changingMenu = true
+					for i = 1, 15 do
+						Timer.tween(0.5 + 0.1 + 0.03*i, whiteRectangles[i], {y = 0}, "linear",
+							function()
+								if i == 15 then
+									Gamestate.switch(menuSelect)
+									status.setLoading(false)
+								end
 							end
-						end
-					)
+						)
+					end
 				end
-
-				titleEnter:animate("pressed", true)
 			elseif input:pressed("back") then
 				audio.playSound(selectSound)
 
@@ -158,7 +161,7 @@ return {
 				titleEnter:draw()
 
 				--love.graphics.setColor(1, 63 / 255, 172 / 255, 0.9)
-				love.graphics.setColor(1, 1, 1, 0.9)
+				love.graphics.setColor(0, 0, 0, 0.9)
 				for i = 1, 15 do
 					whiteRectangles[i]:draw()
 				end
