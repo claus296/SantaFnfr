@@ -126,21 +126,17 @@ return {
 				audio.playSound(confirmSound)
 
 				for i = 1, 15 do
-					Timer.tween(0.5 + 0.1 + 0.01*i, whiteRectangles[i], {y = 0}, "linear")
-				end
-
-				titleEnter:animate("pressed", true)
-				Timer.after(0.6, 
-					function()
-						graphics.fadeOut(
-							0.3,
-							function()
+					Timer.tween(0.5 + 0.1 + 0.03*i, whiteRectangles[i], {y = 0}, "linear",
+						function()
+							if i == 15 then
 								Gamestate.switch(menuSelect)
 								status.setLoading(false)
 							end
-						)
-					end
-				)	
+						end
+					)
+				end
+
+				titleEnter:animate("pressed", true)
 			elseif input:pressed("back") then
 				audio.playSound(selectSound)
 
