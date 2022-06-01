@@ -30,17 +30,21 @@ local function switchMenu(menu)
 	menuState = 1
 end
 
-return {
+return { -- this menu went from depressing to even more depressing (I am sorry modders)
 	enter = function(self, previous)
         changingMenu = false
+        tweenedFreeplay = false
         function tweenButtons()
-            if story.y == 400 then
+            if story.y == -400 then
                 Timer.tween(1, story, {y = -200}, "out-expo")
             end
-            if freeplay.y == 400 then
-                Timer.tween(1, freeplay, {y = 0}, "out-expo")
+            if freeplayR.x == 400 then
+                Timer.tween(1, freeplayR, {x = 120}, "out-expo")
             end
-            if story.y == 400 then
+            if freeplayL.x == -400 then
+                Timer.tween(1, freeplayL, {x = -120}, "out-expo", function() tweenedFreeplay = true end)
+            end
+            if options.y == 400 then
                 Timer.tween(1, options, {y = 200}, "out-expo")
             end
             Timer.tween(0.3, titleBG, {y = 15}, "out-quad")
@@ -53,14 +57,21 @@ return {
 
         options = love.filesystem.load("sprites/menu/menuButtons.lua")()
         story = love.filesystem.load("sprites/menu/menuButtons.lua")()
+        freeplayR = love.filesystem.load("sprites/menu/menuButtons.lua")()
+        freeplayL = love.filesystem.load("sprites/menu/menuButtons.lua")()
         freeplay = love.filesystem.load("sprites/menu/menuButtons.lua")()
+
         story:animate("story hover", true)
+        freeplayR:animate("freeplayR", true)
+        freeplayL:animate("freeplayL", true)
         freeplay:animate("freeplay", true)
         options:animate("options", true)
 
-        story.y = 400
-        freeplay.y = 400
+        story.y = -400
+        freeplayR.y, freeplayL.y = 0
         options.y = 400
+        freeplayR.x, freeplayL.x = 400, -400
+        freeplay.y = 0
         tweenButtons()
 
 		cam.sizeX, cam.sizeY = 0.9, 0.9
@@ -101,6 +112,8 @@ return {
 	update = function(self, dt)
         options:update(dt)
         story:update(dt)
+        freeplayR:update(dt)
+        freeplayL:update(dt)
         freeplay:update(dt)
 
         if not music:isPlaying() then
@@ -149,18 +162,24 @@ return {
                 if menuButton == 1 then
                     story:animate("story hover", true)
                     freeplay:animate("freeplay", true)
+                    freeplayL:animate("freeplayL", true)
+                    freeplayR:animate("freeplayR", true)
                     options:animate("options", true)
 
                     Timer.tween(0.3, titleBG, {y = 15}, "out-quad")
                 elseif menuButton == 2 then
                     story:animate("story", true)
                     freeplay:animate("freeplay hover", true)
+                    freeplayL:animate("freeplayL hover", true)
+                    freeplayR:animate("freeplayR hover", true)
                     options:animate("options", true)
 
                     Timer.tween(0.3, titleBG, {y = 0}, "out-quad")
                 elseif menuButton == 3 then
                     story:animate("story", true)
                     freeplay:animate("freeplay", true)
+                    freeplayL:animate("freeplayL", true)
+                    freeplayR:animate("freeplayR", true)
                     options:animate("options hover", true)
 
                     Timer.tween(0.3, titleBG, {y = -15}, "out-quad")
@@ -169,7 +188,7 @@ return {
 			elseif input:pressed("confirm") then
 				audio.playSound(confirmSound)
 
-				--confirmFunc()
+				Timer.tween(0.3, titleBG, {y = 0}, "out-quad")
                 if menuButton == 1 then
                     status.setLoading(true)
                     graphics.fadeOut(
@@ -179,7 +198,10 @@ return {
                             status.setLoading(false)
                         end
 	            	)
-                    Timer.tween(0.9, freeplay, {y = 700}, "out-expo")
+                    tweenedFreeplay = false
+                    Timer.tween(0.9, story, {y = 0}, "out-expo")
+                    Timer.tween(0.9, freeplayR, {x = 1000}, "out-expo")
+                    Timer.tween(0.9, freeplayL, {x = -1000}, "out-expo")
                     Timer.tween(0.9, options, {y = 700}, "out-expo")
                 elseif menuButton == 2 then
                     status.setLoading(true)
@@ -201,7 +223,10 @@ return {
                             status.setLoading(false)
                         end
 	            	)
-                    Timer.tween(0.9, freeplay, {y = -700}, "out-expo")
+                    tweenedFreeplay = false
+                    Timer.tween(0.9, options, {y = 0}, "out-expo")
+                    Timer.tween(0.9, freeplayR, {x = 1000}, "out-expo")
+                    Timer.tween(0.9, freeplayL, {x = -1000}, "out-expo")
                     Timer.tween(0.9, story, {y = -700}, "out-expo")
                 end
                 Timer.tween(1.1, camScale, {x = 4, y = 4}, "linear")
@@ -224,7 +249,12 @@ return {
 
             story:draw()
             options:draw()
-            freeplay:draw()
+            if not tweenedFreeplay then
+                freeplayR:draw()
+                freeplayL:draw()
+            else
+                freeplay:draw()
+            end
 
 			love.graphics.push()
 				love.graphics.scale(cam.sizeX, cam.sizeY)
