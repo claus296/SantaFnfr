@@ -113,7 +113,7 @@ return {
 
 		rating = love.filesystem.load("sprites/pixel/rating.lua")()
 
-		rating.sizeX, rating.sizeY = 0.75, 0.75
+		rating.sizeX, ratarroing.sizeY = 0.75, 0.75
 		numbers = {}
 		for i = 1, 3 do
 			numbers[i] = sprites.numbers()
@@ -396,6 +396,21 @@ return {
 		downArrowSplash = love.filesystem.load("sprites/notes/noteSplashes.lua")()
 		upArrowSplash = love.filesystem.load("sprites/notes/noteSplashes.lua")()
 		rightArrowSplash = love.filesystem.load("sprites/notes/noteSplashes.lua")()
+
+
+		--[[
+
+		sprites.leftArrow = love.filesystem.load("sprites/notes/circles/left-arrow.lua")
+		sprites.downArrow = love.filesystem.load("sprites/notes/circles/down-arrow.lua")
+		sprites.upArrow = love.filesystem.load("sprites/notes/circles/up-arrow.lua")
+		sprites.rightArrow = love.filesystem.load("sprites/notes/circles/right-arrow.lua")
+
+		leftArrowSplash = love.filesystem.load("sprites/notes/noteSplashes.lua")()
+		downArrowSplash = love.filesystem.load("sprites/notes/noteSplashes.lua")()
+		upArrowSplash = love.filesystem.load("sprites/notes/noteSplashes.lua")()
+		rightArrowSplash = love.filesystem.load("sprites/notes/noteSplashes.lua")()
+		]]
+
 
 		enemyArrows = {
 			sprites.leftArrow(),
