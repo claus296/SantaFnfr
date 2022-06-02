@@ -113,7 +113,7 @@ return {
 
 		rating = love.filesystem.load("sprites/pixel/rating.lua")()
 
-		rating.sizeX, ratarroing.sizeY = 0.75, 0.75
+		rating.sizeX, rating.sizeY = 0.75, 0.75
 		numbers = {}
 		for i = 1, 3 do
 			numbers[i] = sprites.numbers()

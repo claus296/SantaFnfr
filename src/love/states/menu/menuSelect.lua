@@ -1,18 +1,14 @@
 --[[----------------------------------------------------------------------------
 This file is part of Friday Night Funkin' Rewritten
-
 Copyright (C) 2021  HTV04
-
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
-
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
-
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
@@ -30,21 +26,17 @@ local function switchMenu(menu)
 	menuState = 1
 end
 
-return { -- this menu went from depressing to even more depressing (I am sorry modders)
+return {
 	enter = function(self, previous)
         changingMenu = false
-        tweenedFreeplay = false
         function tweenButtons()
-            if story.y == -400 then
+            if story.y == 400 then
                 Timer.tween(1, story, {y = -200}, "out-expo")
             end
-            if freeplayR.x == 400 then
-                Timer.tween(1, freeplayR, {x = 120}, "out-expo")
+            if freeplay.y == 400 then
+                Timer.tween(1, freeplay, {y = 0}, "out-expo")
             end
-            if freeplayL.x == -400 then
-                Timer.tween(1, freeplayL, {x = -120}, "out-expo", function() tweenedFreeplay = true end)
-            end
-            if options.y == 400 then
+            if story.y == 400 then
                 Timer.tween(1, options, {y = 200}, "out-expo")
             end
             Timer.tween(0.3, titleBG, {y = 15}, "out-quad")
@@ -57,21 +49,14 @@ return { -- this menu went from depressing to even more depressing (I am sorry m
 
         options = love.filesystem.load("sprites/menu/menuButtons.lua")()
         story = love.filesystem.load("sprites/menu/menuButtons.lua")()
-        freeplayR = love.filesystem.load("sprites/menu/menuButtons.lua")()
-        freeplayL = love.filesystem.load("sprites/menu/menuButtons.lua")()
         freeplay = love.filesystem.load("sprites/menu/menuButtons.lua")()
-
         story:animate("story hover", true)
-        freeplayR:animate("freeplayR", true)
-        freeplayL:animate("freeplayL", true)
         freeplay:animate("freeplay", true)
         options:animate("options", true)
 
-        story.y = -400
-        freeplayR.y, freeplayL.y = 0
+        story.y = 400
+        freeplay.y = 400
         options.y = 400
-        freeplayR.x, freeplayL.x = 400, -400
-        freeplay.y = 0
         tweenButtons()
 
 		cam.sizeX, cam.sizeY = 0.9, 0.9
@@ -112,8 +97,6 @@ return { -- this menu went from depressing to even more depressing (I am sorry m
 	update = function(self, dt)
         options:update(dt)
         story:update(dt)
-        freeplayR:update(dt)
-        freeplayL:update(dt)
         freeplay:update(dt)
 
         if not music:isPlaying() then
@@ -162,24 +145,18 @@ return { -- this menu went from depressing to even more depressing (I am sorry m
                 if menuButton == 1 then
                     story:animate("story hover", true)
                     freeplay:animate("freeplay", true)
-                    freeplayL:animate("freeplayL", true)
-                    freeplayR:animate("freeplayR", true)
                     options:animate("options", true)
 
                     Timer.tween(0.3, titleBG, {y = 15}, "out-quad")
                 elseif menuButton == 2 then
                     story:animate("story", true)
                     freeplay:animate("freeplay hover", true)
-                    freeplayL:animate("freeplayL hover", true)
-                    freeplayR:animate("freeplayR hover", true)
                     options:animate("options", true)
 
                     Timer.tween(0.3, titleBG, {y = 0}, "out-quad")
                 elseif menuButton == 3 then
                     story:animate("story", true)
                     freeplay:animate("freeplay", true)
-                    freeplayL:animate("freeplayL", true)
-                    freeplayR:animate("freeplayR", true)
                     options:animate("options hover", true)
 
                     Timer.tween(0.3, titleBG, {y = -15}, "out-quad")
@@ -188,7 +165,7 @@ return { -- this menu went from depressing to even more depressing (I am sorry m
 			elseif input:pressed("confirm") then
 				audio.playSound(confirmSound)
 
-				Timer.tween(0.3, titleBG, {y = 0}, "out-quad")
+				--confirmFunc()
                 if menuButton == 1 then
                     status.setLoading(true)
                     graphics.fadeOut(
@@ -198,10 +175,8 @@ return { -- this menu went from depressing to even more depressing (I am sorry m
                             status.setLoading(false)
                         end
 	            	)
-                    tweenedFreeplay = false
                     Timer.tween(0.9, story, {y = 0}, "out-expo")
-                    Timer.tween(0.9, freeplayR, {x = 1000}, "out-expo")
-                    Timer.tween(0.9, freeplayL, {x = -1000}, "out-expo")
+                    Timer.tween(0.9, freeplay, {y = 700}, "out-expo")
                     Timer.tween(0.9, options, {y = 700}, "out-expo")
                 elseif menuButton == 2 then
                     status.setLoading(true)
@@ -223,10 +198,8 @@ return { -- this menu went from depressing to even more depressing (I am sorry m
                             status.setLoading(false)
                         end
 	            	)
-                    tweenedFreeplay = false
+                    Timer.tween(0.9, freeplay, {y = -700}, "out-expo")
                     Timer.tween(0.9, options, {y = 0}, "out-expo")
-                    Timer.tween(0.9, freeplayR, {x = 1000}, "out-expo")
-                    Timer.tween(0.9, freeplayL, {x = -1000}, "out-expo")
                     Timer.tween(0.9, story, {y = -700}, "out-expo")
                 end
                 Timer.tween(1.1, camScale, {x = 4, y = 4}, "linear")
@@ -249,12 +222,7 @@ return { -- this menu went from depressing to even more depressing (I am sorry m
 
             story:draw()
             options:draw()
-            if not tweenedFreeplay then
-                freeplayR:draw()
-                freeplayL:draw()
-            else
-                freeplay:draw()
-            end
+            freeplay:draw()
 
 			love.graphics.push()
 				love.graphics.scale(cam.sizeX, cam.sizeY)

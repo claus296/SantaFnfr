@@ -13,241 +13,369 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
 
-local leftFunc, rightFunc, confirmFunc, backFunc, drawFunc
+local upFunc, downFunc, confirmFunc, backFunc, drawFunc, menuFunc, menuDesc, trackNames
 
 local menuState
 
-local menuButton
+local menuNum = 1
+
+weekNum = 1
+local songNum, songAppend
+local songDifficulty = 2
+
+local tutorial, week1, week2, week3, week4, week5, week6
+
+local weekDesc = { -- Add your week description here
+	"LEARN TO FUNK",
+	"DADDY DEAREST",
+	"SPOOKY MONTH",
+	"PICO",
+	"MOMMY MUST MURDER",
+	"RED SNOW",
+	"HATING SIMULATOR FT. MOAWLING"
+}
+local difficultyStrs = { 
+	"easy",
+	"normal",
+	"hard"
+}
+
+trackNames = { -- add your songs here
+	{
+		"\nTutorial"
+	},
+	{
+		"\nBopeebo",
+		"\nFresh",
+		"\nDad-Battle"
+	},
+	{
+		"\nSpookeez",
+		"\nSouth",
+		"\nMonster"
+	},
+	{
+		"\nPico",
+		"\nPhilly",
+		"\nBlammed"
+	},
+	{
+		"\nSatin-Panties",
+		"\nHigh",
+		"\nM.I.L.F"
+	},
+	{
+		"\nCocoa",
+		"\nEggnog",
+		"\nWinter-Horrorland"
+	},
+	{
+		"\nSenpai",
+		"\nRoses",
+		"\nThorns"
+	}
+}
 
 local selectSound = love.audio.newSource("sounds/menu/select.ogg", "static")
 local confirmSound = love.audio.newSource("sounds/menu/confirm.ogg", "static")
 
 local function switchMenu(menu)
-	menuState = 1
+
 end
 
 return {
 	enter = function(self, previous)
-        changingMenu = false
-        function tweenButtons()
-            if story.y == 400 then
-                Timer.tween(1, story, {y = -200}, "out-expo")
-            end
-            if freeplay.y == 400 then
-                Timer.tween(1, freeplay, {y = 0}, "out-expo")
-            end
-            if story.y == 400 then
-                Timer.tween(1, options, {y = 200}, "out-expo")
-            end
-            Timer.tween(0.3, titleBG, {y = 15}, "out-quad")
-        end
-		menuButton = 1
 		songNum = 0
-        titleBG = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/menuBG")))
+		weekNum = 1	
 
-        titleBG.sizeX, titleBG.sizeY = 1.15
+		weekButtonY = {
+			[1] = 220,
+			[2] = 320,
+			[3] = 420,
+			[4] = 520,
+			[5] = 620,
+			[6] = 720,
+			[7] = 820
+		}
 
-        options = love.filesystem.load("sprites/menu/menuButtons.lua")()
-        story = love.filesystem.load("sprites/menu/menuButtons.lua")()
-        freeplay = love.filesystem.load("sprites/menu/menuButtons.lua")()
-        story:animate("story hover", true)
-        freeplay:animate("freeplay", true)
-        options:animate("options", true)
-
-        story.y = 400
-        freeplay.y = 400
-        options.y = 400
-        tweenButtons()
+		function colourTween()
+			Timer.tween(
+				0.1,
+				freeColour, 
+				{
+					[1] = freeplayColours[weekNum][1],
+					[2] = freeplayColours[weekNum][2],
+					[3] = freeplayColours[weekNum][3]
+				}, 
+				"linear"
+			)
+		end
 
 		cam.sizeX, cam.sizeY = 0.9, 0.9
 		camScale.x, camScale.y = 0.9, 0.9
-        Timer.after(
-            0.8,
-            function()
-                Timer.tween(
-                    0.42,
-                    camScale,
-                    {
-                        x = 1,
-                        y = 1
-                    },
-                    "out-expo"
-                )
-            end
-        )
-        
+
+		if useDiscordRPC then -- Set a custom RPC here
+			presence = {
+				state = "Choosing A Week",
+				details = "In the Week Select Menu",
+				largeImageKey = "logo",
+				startTimestamp = now,
+			}
+			nextPresenceUpdate = 0
+		end
+
+		freeColour = {
+			255,255,255
+		}
+		freeplayColours = {
+			{146,0,68}, -- Tutorial
+			{129,100,223}, -- Week 1
+			{30,45,60}, -- Week 2
+			{131,19,73}, -- Week 3
+			{222,132,190}, -- Week 4
+			{141,184,225}, -- Week 5
+			{225,106,169} -- Week 6
+		}
+		Timer.tween(
+			0.8,
+			freeColour, 
+			{
+				[1] = freeplayColours[1][1],
+				[2] = freeplayColours[1][2],
+				[3] = freeplayColours[1][3]
+			}, 
+			"linear"
+		)
+
+		
+		titleBG = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/weekMenu")))
+
+		enemyDanceLines = love.filesystem.load("sprites/menu/idlelines.lua")()
+
+		difficultyAnim = love.filesystem.load("sprites/menu/difficulty.lua")()
+
+		bfDanceLines = love.filesystem.load("sprites/menu/idlelines.lua")()
+
+		gfDanceLines = love.filesystem.load("sprites/menu/idlelines.lua")()
+
+		enemyDanceLines.x, enemyDanceLines.y = -375, -170
+		enemyDanceLines.sizeX, enemyDanceLines.sizeY = 0.5, 0.5
+
+		bfDanceLines.sizeX, bfDanceLines.sizeY = 0.7, 0.7
+		gfDanceLines.sizeX, gfDanceLines.sizeY = 0.5, 0.5
+
+		bfDanceLines.x, bfDanceLines.y = 0, -150
+		gfDanceLines.x, gfDanceLines.y = 375, -170
+
+		difficultyAnim.x, difficultyAnim.y = 400, 220
+
+		weekImages = {}
+		for i = 1, #weekDesc do
+			table.insert(weekImages, graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/week" .. i-1))))
+		end
+
+		bfDanceLines:animate("boyfriend", true)
+		gfDanceLines:animate("girlfriend", true)
+		enemyDanceLines:animate("week1", true)
 
 		switchMenu(1)
 
 		graphics.setFade(0)
 		graphics.fadeIn(0.5)
 
-        if useDiscordRPC then
-            presence = {
-                state = "Choosing a mode",
-                details = "In the Main Menu",
-                largeImageKey = "logo",
-                startTimestamp = now,
-            }
-            nextPresenceUpdate = 0
-        end
+		function confirmFunc()
+			menu:musicStop()
+			songNum = 1
 
+			status.setLoading(true)
+
+			graphics.fadeOut(
+				0.5,
+				function()
+					if useDiscordRPC then
+						presence = {
+							state = "Selected a week",
+							details = "Playing a week",
+							largeImageKey = "logo",
+							startTimestamp = now,
+						}
+						nextPresenceUpdate = 0
+					end
+
+					if weekNum == 6 then
+						week5Playing = true
+					else
+						week5Playing = false
+					end
+					if weekNum == 5 then
+						doingWeek4 = true
+					else
+						doingWeek4 = false  -- what
+					end
+					
+					songAppend = difficultyStrs[songDifficulty]
+
+					storyMode = true
+
+					Gamestate.switch(weekData[weekNum], songNum, songAppend, weekNum, trackNames)
+
+					status.setLoading(false)
+				end
+			)
+		end
+		
 	end,
 
 	update = function(self, dt)
-        options:update(dt)
-        story:update(dt)
-        freeplay:update(dt)
 
-        if not music:isPlaying() then
-			music:play()
+
+		for i = 1, #weekDesc do
+			weekImages[i].y = weekButtonY[i]
 		end
 
+
+		function menuFunc()
+			if weekNum ~= 7 then -- Due to senpais idlelines being smaller than the rest, we resize it
+				enemyDanceLines.sizeX, enemyDanceLines.sizeY = 0.5, 0.5
+			elseif weekNum == 7 then
+				enemyDanceLines.sizeX, enemyDanceLines.sizeY = 1, 1
+			end
+
+			weekBefore = weekImages[weekNum - 1]
+			weekAfter = weekImages[weekNum + 1]
+
+			enemyDanceLines:animate("week" .. weekNum, true)
+		end
+		
+		enemyDanceLines:update(dt)
+		bfDanceLines:update(dt)
+		gfDanceLines:update(dt)
+
+		if songDifficulty == 1 then
+			difficultyAnim:animate("easy", true)
+		elseif songDifficulty == 2 then
+			difficultyAnim:animate("normal", true)
+		elseif songDifficulty == 3 then
+			difficultyAnim:animate("hard", true)
+		end
+
+		difficultyAnim:update(dt)
+
 		if not graphics.isFading() then
-			if input:pressed("up") then
+			if not music:isPlaying() then
+				music:play()
+			end
+			if input:pressed("down") then
 				audio.playSound(selectSound)
 
-                if menuButton ~= 1 then
-                    menuButton = menuButton - 1
-                else
-                    menuButton = 3
-                end -- change 3 to the amount of options there are.
-
-                if menuButton == 1 then
-                    story:animate("story hover", true)
-                    freeplay:animate("freeplay", true)
-                    options:animate("options", true)
-
-                    Timer.tween(0.3, titleBG, {y = 15}, "out-quad")
-                elseif menuButton == 2 then
-                    story:animate("story", true)
-                    freeplay:animate("freeplay hover", true)
-                    options:animate("options", true)
-
-                    Timer.tween(0.3, titleBG, {y = 0}, "out-quad")
-                elseif menuButton == 3 then
-                    story:animate("story", true)
-                    freeplay:animate("freeplay", true)
-                    options:animate("options hover", true)
-
-                    Timer.tween(0.3, titleBG, {y = -15}, "out-quad")
-                end
-
-			elseif input:pressed("down") then
+				if weekNum ~= #trackNames then -- change 7 to the ammount of weeks there is (tutorial-6)              where tf is this 7 youre talking about         tutorial counts as a week dumbo
+					weekNum = weekNum + 1
+					colourTween()
+					for i = 1, 7 do
+						Timer.tween(0.2, weekButtonY, { [i] = weekButtonY[i] - 100}, "out-expo")
+					end
+				else
+					weekNum = 1
+					colourTween()
+					for i = 1, 7 do
+						Timer.tween(0.2, weekButtonY, { [i] = 120 + 100*i}, "out-expo")
+					end
+				end
+				menuFunc()
+			elseif input:pressed("up") then
 				audio.playSound(selectSound)
 
-                if menuButton ~= 3 then
-                    menuButton = menuButton + 1
-                else
-                    menuButton = 1
-                end
+				if weekNum ~= 1 then
+					weekNum = weekNum - 1
+					colourTween()
+					for i = 1, 7 do
+						Timer.tween(0.2, weekButtonY, { [i] = weekButtonY[i] + 100 }, "out-expo")
+					end
+				else
+					weekNum = #trackNames
+					colourTween()
+					Timer.tween(0.2, weekButtonY, { [1] = 220 - 600, [2] = 220 - 500, [3] = 220 - 400, [4] = 220 - 300, [5] = 220 - 200, [6] = 220 - 100, [7] = 220 }, "out-expo")
+					-- gross workaround but whatever
+				end
+				menuFunc()
+			elseif input:pressed("left") then
+				audio.playSound(selectSound)
 
-                if menuButton == 1 then
-                    story:animate("story hover", true)
-                    freeplay:animate("freeplay", true)
-                    options:animate("options", true)
+				if songDifficulty ~= 1 then
+					songDifficulty = songDifficulty - 1
+				else
+					songDifficulty = 3 
+				end
 
-                    Timer.tween(0.3, titleBG, {y = 15}, "out-quad")
-                elseif menuButton == 2 then
-                    story:animate("story", true)
-                    freeplay:animate("freeplay hover", true)
-                    options:animate("options", true)
+			elseif input:pressed("right") then
+				audio.playSound(selectSound)
 
-                    Timer.tween(0.3, titleBG, {y = 0}, "out-quad")
-                elseif menuButton == 3 then
-                    story:animate("story", true)
-                    freeplay:animate("freeplay", true)
-                    options:animate("options hover", true)
-
-                    Timer.tween(0.3, titleBG, {y = -15}, "out-quad")
-                end
+				if songDifficulty ~= 3 then
+					songDifficulty = songDifficulty + 1
+				else
+					songDifficulty = 1
+				end
 
 			elseif input:pressed("confirm") then
 				audio.playSound(confirmSound)
+                bfDanceLines:animate("boyfriend confirm", false)
 
-				--confirmFunc()
-                if menuButton == 1 then
-                    status.setLoading(true)
-                    graphics.fadeOut(
-                        0.3,
-                        function()
-                            Gamestate.switch(menuWeek)
-                            status.setLoading(false)
-                        end
-	            	)
-                    Timer.tween(0.9, freeplay, {y = 700}, "out-expo")
-                    Timer.tween(0.9, options, {y = 700}, "out-expo")
-                elseif menuButton == 2 then
-                    status.setLoading(true)
-                    graphics.fadeOut(
-                        0.3,
-                        function()
-                            Gamestate.switch(menuFreeplay)
-                            status.setLoading(false)
-                        end
-	            	)
-                    Timer.tween(0.9, story, {y = -700}, "out-expo")
-                    Timer.tween(0.9, options, {y = 700}, "out-expo")
-                elseif menuButton == 3 then
-                    status.setLoading(true)
-                    graphics.fadeOut(
-                        0.3,
-                        function()
-                            Gamestate.switch(menuSettings)
-                            status.setLoading(false)
-                        end
-	            	)
-                    Timer.tween(0.9, freeplay, {y = -700}, "out-expo")
-                    Timer.tween(0.9, story, {y = -700}, "out-expo")
-                end
-                Timer.tween(1.1, camScale, {x = 4, y = 4}, "linear")
+				confirmFunc()
 			elseif input:pressed("back") then
 				audio.playSound(selectSound)
 
-				Gamestate.switch(menu)
+				Gamestate.switch(menuSelect)
 			end
 		end
+		currentWeek = weekImages[weekNum]
 	end,
 
 	draw = function(self)
 		love.graphics.push()
 			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
 
-            love.graphics.push()
-                love.graphics.scale(camScale.x, camScale.y)
-			    titleBG:draw()
-            love.graphics.pop()
-
-            story:draw()
-            options:draw()
-            freeplay:draw()
+			titleBG:draw()
 
 			love.graphics.push()
 				love.graphics.scale(cam.sizeX, cam.sizeY)
-                love.graphics.color.printf(
-                    "Vanilla Engine v1.0.0 pre-release 1" ..
-                    "\nFNFR: v1.1.0-beta2",
-                    -708,
-                    340, 
-                    833,
-                    "left", 
-                    nil, 
-                    1, 
-                    1, 
-                    0, --R
-                    0, --G
-                    0, --B
-                    1  --A
-                )
+				for i = 1, 7 do
+					weekImages[i]:draw()
+				end
+
+				love.graphics.setColor(0, 0, 0)
+				
+				love.graphics.rectangle("fill", -1000, -351, 2500, -100) 
+
+				love.graphics.setColorF(freeColour[1], freeColour[2], freeColour[3])
+
+				love.graphics.rectangle("fill", -1000, -351, 2500, 411) 
+
+				love.graphics.setColor(1, 1, 1)
+
+				difficultyAnim:draw()
+				if weekNum ~= 1 then
+					enemyDanceLines:draw()
+				end
+				bfDanceLines:draw()
+				gfDanceLines:draw()
+
+				love.graphics.printf(weekDesc[weekNum], -585, -395, 853, "right", nil, 1.5, 1.5)
+				if weekNum ~= 1 then
+					love.graphics.color.printf("TRACKS" .. trackNames[weekNum][1] .. trackNames[weekNum][2] .. trackNames[weekNum][3], -1050, 140, 853, "center", nil, 1.5, 1.5, 255, 117, 172)
+				else
+					love.graphics.color.printf("TRACKS" .. trackNames[weekNum][1], -1050, 140, 853, "center", nil, 1.5, 1.5, 255, 117, 172)
+				end
+
 			love.graphics.pop()
 		love.graphics.pop()
 	end,
 
 	leave = function(self)
-        titleBG = nil
-        story = nil
-        freeplay = nil
-        options = nil
+		enemyDanceLines = nil
+		bfDanceLines = nil
+		gfDanceLines = nil
+		titleBG = nil
+		difficultyAnim = nil
 		Timer.clear()
 	end
 }
