@@ -28,9 +28,10 @@ return {
 		if inst then inst:stop() end
 		voices:stop()
 
-		audio.playSound(sounds["death"])
+		if not pauseRestart then   -- because i too lazy to make the restart work properly so i just make it use gameover code    it works but guglio gonna be mad at me lmao
+			audio.playSound(sounds["death"])
 
-		boyfriend:animate("dies", false)
+			boyfriend:animate("dies", false)
 
 		Timer.clear()
 
@@ -57,29 +58,34 @@ return {
 		local boyfriend = fakeBoyfriend or boyfriend
 
 		if not graphics.isFading() then
-			if input:pressed("confirm") then
+			if input:pressed("confirm") or instantRestart or pauseRestart then
 				if inst then inst:stop() end -- In case inst is nil and "confirm" is pressed before game over music starts
+				if pauseRestart then
+					breakfast:stop()
+				end
 
 				if week == 6 then
 					inst = love.audio.newSource("songs/misc/pixel/game-over-end.ogg", "stream")
 				else
 					inst = love.audio.newSource("songs/misc/game-over-end.ogg", "stream")
 				end
-
 				inst:play()
-
 				Timer.clear()
 
 				cam.x, cam.y = -boyfriend.x, -boyfriend.y
-
-				boyfriend:animate("dead confirm", false)
-
+				if not pauseRestart then
+					boyfriend:animate("dead confirm", false)
+				end
 				graphics.fadeOut(
 					3,
 					function()
 						Gamestate.pop()
 
 						fromState:load()
+						
+						if pauseRestart then
+							pauseRestart = false
+						end
 					end
 				)
 			elseif input:pressed("gameBack") then
@@ -111,10 +117,12 @@ return {
 				love.graphics.scale(cam.sizeX, cam.sizeY)
 				love.graphics.translate(cam.x, cam.y)
 
-				if not pixel then
-					boyfriend:draw()
-				else
-					boyfriend:udraw()
+				if not pauseRestart then
+					if not pixel then
+						boyfriend:draw()
+					else
+						boyfriend:udraw()
+					end
 				end
 			love.graphics.pop()
 		love.graphics.pop()

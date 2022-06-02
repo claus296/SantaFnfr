@@ -1301,6 +1301,7 @@ return {
 				paused = false
 				love.audio.play(inst, voices)
 			elseif input:pressed("confirm") and pauseMenuSelection == 2 then -- restart button 
+				pauseRestart = true
 				Gamestate.push(gameOver)
 			elseif input:pressed("confirm") and pauseMenuSelection == 3 then --  exit button 
 				paused = false
