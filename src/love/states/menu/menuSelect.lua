@@ -175,6 +175,7 @@ return {
                             status.setLoading(false)
                         end
 	            	)
+                    Timer.tween(0.9, story, {y = 0}, "out-expo")
                     Timer.tween(0.9, freeplay, {y = 700}, "out-expo")
                     Timer.tween(0.9, options, {y = 700}, "out-expo")
                 elseif menuButton == 2 then
@@ -198,6 +199,7 @@ return {
                         end
 	            	)
                     Timer.tween(0.9, freeplay, {y = -700}, "out-expo")
+                    Timer.tween(0.9, options, {y = 0}, "out-expo")
                     Timer.tween(0.9, story, {y = -700}, "out-expo")
                 end
                 Timer.tween(1.1, camScale, {x = 4, y = 4}, "linear")
