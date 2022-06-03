@@ -72,7 +72,9 @@ return {
 				down = love.audio.newSource("sounds/hitSound.ogg", "static")
 			},
 			death = love.audio.newSource("sounds/death.ogg", "static"),
-			breakfast = love.audio.newSource("songs/misc/breakfast.ogg", "stream")
+			breakfast = love.audio.newSource("songs/misc/breakfast.ogg", "stream"),
+			["text"] = love.audio.newSource("sounds/pixel/text.ogg", "static"),
+			["continue"] = love.audio.newSource("sounds/pixel/continue-text.ogg", "static"),
 		}
 
 		images = {

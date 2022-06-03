@@ -87,7 +87,9 @@ return {
 			death = love.audio.newSource("sounds/death.ogg", "static"),
 			lightsOff = love.audio.newSource("sounds/week5/lights-off.ogg", "static"),
 			lightsOn = love.audio.newSource("sounds/week5/lights-on.ogg", "static"),
-			breakfast = love.audio.newSource("songs/misc/breakfast.ogg", "stream")
+			breakfast = love.audio.newSource("songs/misc/breakfast.ogg", "stream"),
+			["text"] = love.audio.newSource("sounds/pixel/text.ogg", "static"),
+			["continue"] = love.audio.newSource("sounds/pixel/continue-text.ogg", "static"),
 		}
 
 		images = {

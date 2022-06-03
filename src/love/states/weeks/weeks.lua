@@ -83,6 +83,7 @@ return {
 				down = love.audio.newSource("sounds/hitSound.ogg", "static")
 			},
 			death = love.audio.newSource("sounds/pixel/death.ogg", "static"),
+			breakfast = love.audio.newSource("songs/misc/breakfast.ogg", "stream"),
 			["text"] = love.audio.newSource("sounds/pixel/text.ogg", "static"),
 			["continue"] = love.audio.newSource("sounds/pixel/continue-text.ogg", "static"),
 		}
@@ -106,8 +107,6 @@ return {
 		girlfriend = love.filesystem.load("sprites/pixel/girlfriend.lua")()
 		boyfriend = love.filesystem.load("sprites/pixel/boyfriend.lua")()
 		fakeBoyfriend = love.filesystem.load("sprites/pixel/boyfriend-dead.lua")()
-
-		breakfast = love.audio.newSource("songs/misc/breakfast.ogg", "stream")
 
 		pixel = true
 
@@ -184,6 +183,9 @@ return {
 				down = love.audio.newSource("sounds/hitSound.ogg", "static")
 			},
 			death = love.audio.newSource("sounds/death.ogg", "static"),
+			breakfast = love.audio.newSource("songs/misc/breakfast.ogg", "stream"),
+			["text"] = love.audio.newSource("sounds/pixel/text.ogg", "static"),
+			["continue"] = love.audio.newSource("sounds/pixel/continue-text.ogg", "static"),
 		}
 
 		images = {
@@ -204,7 +206,6 @@ return {
 
 		girlfriend = love.filesystem.load("sprites/girlfriend.lua")()
 		boyfriend = love.filesystem.load("sprites/boyfriend.lua")()
-		breakfast = love.audio.newSource("songs/misc/breakfast.ogg", "stream")
 
 
 
@@ -1291,7 +1292,7 @@ return {
 				paused = true
 				love.audio.pause(inst, voices)
 				tweenPauseButtons()
-				love.audio.play(breakfast)
+				love.audio.play(sounds.breakfast)
 			end
 		end
 
@@ -1312,7 +1313,7 @@ return {
 				Gamestate.switch(menuSettings)
 			end
 		else
-			love.audio.stop(breakfast)
+			love.audio.stop(sounds.breakfast)
 		end
 
 		if not doingDialogue then
