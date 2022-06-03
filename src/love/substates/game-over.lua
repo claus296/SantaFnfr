@@ -30,9 +30,8 @@ return {
 
 		if not pauseRestart then   -- because i too lazy to make the restart work properly so i just make it use gameover code    it works but guglio gonna be mad at me lmao
 			audio.playSound(sounds["death"])
-
 			boyfriend:animate("dies", false)
-
+		end
 		Timer.clear()
 
 		Timer.tween(
