@@ -1475,9 +1475,7 @@ return {
 
 									table.remove(boyfriendNote, 1)
 
-									if not pixel or doingWeek4 then
-										if combo >= 5 then self:safeAnimate(girlfriend, "sad", true, 1) end
-									end
+									if girlfriend:isAnimName("sad") then if combo >= 5 then self:safeAnimate(girlfriend, "sad", true, 1) end end
 
 									hitSick = false
 
@@ -1614,9 +1612,7 @@ return {
 
 										notMissed[noteNum] = false
 
-										if not pixel or doingWeek4 then
-											if combo >= 5 then self:safeAnimate(girlfriend, "sad", true, 1) end
-										end
+										if girlfriend:isAnimName("sad") then if combo >= 5 then self:safeAnimate(girlfriend, "sad", true, 1) end end
 
 										self:safeAnimate(boyfriend, "miss " .. curAnim, false, 3)
 
@@ -1904,7 +1900,7 @@ return {
 				end
 				love.graphics.setColor(1,1,1,1)
 			love.graphics.pop()
-			if not week5Playing then
+			if week ~= 5 then
 				love.graphics.translate(lovesize.getWidth() / 2, lovesize.getHeight() / 2)
 				love.graphics.scale(0.7, 0.7)
 			end

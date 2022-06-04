@@ -165,17 +165,6 @@ local function switchMenu(menu)
 
 							storyMode = false
 
-							if weekNum == 6 then
-								week5Playing = true
-							else
-								week5Playing = false
-							end
-							if weekNum == 5 then
-								doingWeek4 = true
-							else
-								doingWeek4 = false
-							end
-
 							menu:musicStop()
 
 							Gamestate.switch(weekData[weekNum], songNum, songAppend)
@@ -300,17 +289,6 @@ function confirmFunc()
 					songAppend = difficultyStrs[songDifficulty]
 
 					storyMode = false
-
-					if weekNum == 6 then
-						week5Playing = true
-					else
-						week5Playing = false
-					end
-					if weekNum == 5 then
-						doingWeek4 = true
-					else
-						doingWeek4 = false
-					end
 
 					menu:musicStop()
 

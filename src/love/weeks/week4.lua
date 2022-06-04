@@ -51,8 +51,6 @@ return {
 		enemyFrameTimer = 0
 		boyfriendFrameTimer = 0
 
-		doingWeek4 = true
-
 		sounds = { -- Since week4 does not use weeks:load, all of the load stuff is here
 			countdown = {
 				three = love.audio.newSource("sounds/countdown-3.ogg", "static"),
@@ -270,8 +268,6 @@ return {
 		bgLimo = nil
 		limoDancer = nil
 		limo = nil
-
-		doingWeek4 = false
 
 		weeks:leave()
 	end

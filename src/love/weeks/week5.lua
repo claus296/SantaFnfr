@@ -25,8 +25,6 @@ local topBop, bottomBop, santa
 
 local scaryIntro = false
 
-week5Playing = true
-
 return {
 	enter = function(self, from, songNum, songAppend)
 		cam.sizeX, cam.sizeY = 0.7, 0.7
@@ -57,8 +55,6 @@ return {
 		noteCounter = 0
 		altScore = 0
 		uiTextColour = {0,0,0} -- Changed the UI colour to black
-
-		week5Playing = true
 
 		bpm = 100
 		useAltAnims = false
@@ -465,9 +461,6 @@ return {
 		santa = nil
 		snow = nil
 		
-
-		week5Playing = false
-
 		uiTextColour = {1,1,1}
 
 		weeks:leave()
