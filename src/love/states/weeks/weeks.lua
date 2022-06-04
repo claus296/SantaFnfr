@@ -190,7 +190,7 @@ return {
 
 		images = {
 			icons = love.graphics.newImage(graphics.imagePath("icons")),
-			notes = love.graphics.newImage(graphics.imagePath("notes")),
+			notes = love.graphics.newImage(graphics.imagePath(noteskins[settings.noteSkins])),
 			notesplashes = love.graphics.newImage(graphics.imagePath("noteSplashes")),
 			numbers = love.graphics.newImage(graphics.imagePath("numbers"))
 		}
@@ -388,10 +388,10 @@ return {
 
 		local curInput = inputList[i]
 
-		sprites.leftArrow = love.filesystem.load("sprites/notes/left-arrow.lua")
-		sprites.downArrow = love.filesystem.load("sprites/notes/down-arrow.lua")
-		sprites.upArrow = love.filesystem.load("sprites/notes/up-arrow.lua")
-		sprites.rightArrow = love.filesystem.load("sprites/notes/right-arrow.lua")
+		sprites.leftArrow = love.filesystem.load("sprites/notes/" .. noteskins[settings.noteSkins] .. "/left-arrow.lua")
+		sprites.downArrow = love.filesystem.load("sprites/notes/" .. noteskins[settings.noteSkins] .. "/down-arrow.lua")
+		sprites.upArrow = love.filesystem.load("sprites/notes/" .. noteskins[settings.noteSkins] .. "/up-arrow.lua")
+		sprites.rightArrow = love.filesystem.load("sprites/notes/" .. noteskins[settings.noteSkins] .. "/right-arrow.lua")
 
 		leftArrowSplash = love.filesystem.load("sprites/notes/noteSplashes.lua")()
 		downArrowSplash = love.filesystem.load("sprites/notes/noteSplashes.lua")()

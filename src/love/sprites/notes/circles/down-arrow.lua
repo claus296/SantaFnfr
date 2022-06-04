@@ -18,7 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
 
 return graphics.newSprite(
-	images.circles,
+	images.notes,
 	-- Automatically generated from Circles.xml
 	{
 		{x = 2, y = 2, width = 152, height = 152, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 1: arrowDOWN0000
@@ -73,7 +73,7 @@ return graphics.newSprite(
 
 	{
 		["off"] = {start = 1, stop = 1, speed = 0, offsetX = 0, offsetY = 0},
-		["on"] = {start = 12, stop = 15, speed = 0, offsetX = 0, offsetY = 0},
+		["on"] = {start = 5, stop = 5, speed = 0, offsetX = 0, offsetY = 0},
 		["end"] = {start = 7, stop = 7, speed = 0, offsetX = 0, offsetY = 0},
 		["hold"] = {start = 6, stop = 6, speed = 0, offsetX = 0, offsetY = 0},
 		["confirm"] = {start = 8, stop = 11, speed = 24, offsetX = 0, offsetY = 0},

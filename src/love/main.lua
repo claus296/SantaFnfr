@@ -140,6 +140,11 @@ function love.load()
 		require "weeks.week6"
 	}
 
+	noteskins = {
+		"arrows",
+		"circles"
+	}
+
 	testSong = require "weeks.test" -- Test song easter egg
 
 	-- You don't need to mess with this unless you are adding a custom setting (Will nil be default (AKA. False)) --
@@ -163,6 +168,7 @@ function love.load()
 		settings.instVol = data.saveSettingsMoment.instVol
 		settings.vocalsVol = data.saveSettingsMoment.vocalsVol
 		settings.hitsounds = data.saveSettingsMoment.hitsounds
+		settings.noteSkins = data.saveSettingsMoment.noteSkins
 
 		settingsVer = data.saveSettingsMoment.settingsVer
 
@@ -184,16 +190,17 @@ function love.load()
 			hitsounds = settings.hitsounds,
 			instVol = settings.instVol,
 			vocalsVol = settings.vocalsVol,
+			noteSkins = settings.noteSkins,
 			settingsVer = settingsVer
 		}
 		serialized = lume.serialize(data)
 		love.filesystem.write("settings", serialized)
 	end
-	if settingsVer ~= 4 then
+	if settingsVer ~= 5 then
 		love.window.showMessageBox("Uh Oh!", "Settings have been reset.", "warning")
 		love.filesystem.remove("settings.data")
 	end
-	if not love.filesystem.getInfo("settings") or settingsVer ~= 4 then
+	if not love.filesystem.getInfo("settings") or settingsVer ~= 5 then
 		settings.hardwareCompression = true
 		graphics.setImageType("dds")
 		settings.downscroll = false
@@ -211,7 +218,8 @@ function love.load()
 		settings.hitsounds = false
 		settings.instVol = 1
 		settings.vocalsVol = 1
-		settingsVer = 4
+		settings.noteSkins = 1
+		settingsVer = 5
 		data = {}
 		data.saveSettingsMoment = {
 			hardwareCompression = settings.hardwareCompression,
@@ -231,6 +239,7 @@ function love.load()
 			instVol = settings.instVol,
 			vocalsVol = settings.vocalsVol,
 			hitsounds = settings.hitsounds,
+			noteSkins = settings.noteSkins,
 			
 			settingsVer = settingsVer
 		}

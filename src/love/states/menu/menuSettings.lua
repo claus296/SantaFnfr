@@ -47,7 +47,10 @@ settingsDescriptions1 = { -- The big spaces are so it lines up lol
     "\n       \"Scroll Underlay\" set a opacity for a scroll underlay\n       0 = Default",
 
     "Hitsounds" ..
-    "\n       \"Hitsounds\" " -- CH YOU DO THIS ONE
+    "\n       \"Hitsounds\" ", -- CH YOU DO THIS ONE
+
+    "Noteskins" ..
+    "\n       \"Noteskins\" "
 }
 settingsDescriptions2 = {
 
@@ -107,6 +110,7 @@ return {
                     scrollUnderlayTrans = settings.scrollUnderlayTrans,
                     vocalsVol = settings.vocalsVol,
                     instVol = settings.instVol,
+                    noteSkins = settings.noteSkins,
                     settingsVer = settingsVer
                 }
                 serialized = lume.serialize(data)
@@ -138,6 +142,7 @@ return {
                     hitsounds = settings.hitsounds,
                     vocalsVol = settings.vocalsVol,
                     instVol = settings.instVol,
+                    noteSkins = settings.noteSkins,
                     settingsVer = settingsVer
                 }
                 serialized = lume.serialize(data)
@@ -257,6 +262,7 @@ return {
                                 settings.hitsounds = false
                             end
                         end
+                        -- 10 is noteskins
                     elseif settingsMenuState == 3 then
                         if settingSelect == 1 then
                             if settings.hardwareCompression then
@@ -306,7 +312,7 @@ return {
                     if settingSelect ~= 1 then
                         settingSelect = settingSelect - 1
                     else
-                        settingSelect = 9
+                        settingSelect = 10
                     end
                 elseif settingsMenuState == 3 then
                     if settingSelect ~= 1 then
@@ -329,7 +335,7 @@ return {
                         settingSelect = 1
                     end
                 elseif settingsMenuState == 2 then
-                    if settingSelect ~= 9 then
+                    if settingSelect ~= 10 then
                         settingSelect = settingSelect + 1
                     else
                         settingSelect = 1
@@ -349,6 +355,10 @@ return {
                         if settings.scrollUnderlayTrans ~= 1 then
                             settings.scrollUnderlayTrans = settings.scrollUnderlayTrans + 0.1
                         end
+                    elseif settingSelect == 10 then
+                        if settings.noteSkins ~= #noteskins then
+                            settings.noteSkins = settings.noteSkins + 1
+                        end
                     end
                 elseif settingsMenuState == 3 then
                     if settingSelect == 3 then
@@ -366,6 +376,10 @@ return {
                             settings.scrollUnderlayTrans = settings.scrollUnderlayTrans - 0.1
                         else
                             settings.scrollUnderlayTrans = 0
+                        end
+                    elseif settingSelect == 10 then
+                        if settings.noteSkins ~= 1 then
+                            settings.noteSkins = settings.noteSkins - 1
                         end
                     end
                 elseif settingsMenuState == 3 then
@@ -414,6 +428,7 @@ return {
                     love.graphics.print("\n\n\n\n\n\n\n\n\n\n\n\nKeystrokes = " .. tostring(settings.keystrokes), -628, -300)
                     love.graphics.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\nScroll Underlay Transparency = " .. tostring(settings.scrollUnderlayTrans), -628, -300)
                     love.graphics.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHitsounds = " .. tostring(settings.hitsounds), -628, -300)
+                    love.graphics.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNoteskin = " .. tostring(noteskins[settings.noteSkins]), -628, -300)
                 elseif settingsMenuState == 3 then
                     love.graphics.print("Hardware Compression = " .. tostring(settings.hardwareCompression) .. " " .. isRestartNeeded, -628, -300) 
                     love.graphics.print("\n\nShow Debug = " .. tostring(settings.showDebug), -628, -300)
