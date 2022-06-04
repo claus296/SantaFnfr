@@ -53,8 +53,7 @@ return graphics.newSprite(
 		{x = 709, y = 3265, width = 712, height = 646, offsetX = -2, offsetY = -3, offsetWidth = 774, offsetHeight = 649} -- 30: GF Dancing Beat Hair blowing CAR0029
 	},
 	{
-		["idle"] = {start = 1, stop = 30, speed = 24, offsetX = 0, offsetY = 0},
-		["sad"] = {start = 1, stop = 30, speed = 24, offsetX = 0, offsetY = 0} -- Temporary workaround
+		["idle"] = {start = 1, stop = 30, speed = 24, offsetX = 0, offsetY = 0}
 	},
 	"idle",
 	false
