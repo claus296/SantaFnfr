@@ -252,6 +252,13 @@ return {
 			getAnimName = function(self)
 				return anim.name
 			end,
+			isAnimName = function(self, animName)
+				if anims[animName] then
+					return true
+				else
+					return false
+				end
+			end,
 			setAnimSpeed = function(self, speed)
 				anim.speed = speed
 			end,

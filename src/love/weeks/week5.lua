@@ -25,8 +25,6 @@ local topBop, bottomBop, santa
 
 local scaryIntro = false
 
-week5Playing = true
-
 return {
 	enter = function(self, from, songNum, songAppend)
 		cam.sizeX, cam.sizeY = 0.7, 0.7
@@ -58,8 +56,6 @@ return {
 		altScore = 0
 		uiTextColour = {0,0,0} -- Changed the UI colour to black
 
-		week5Playing = true
-
 		bpm = 100
 		useAltAnims = false
 
@@ -87,7 +83,9 @@ return {
 			death = love.audio.newSource("sounds/death.ogg", "static"),
 			lightsOff = love.audio.newSource("sounds/week5/lights-off.ogg", "static"),
 			lightsOn = love.audio.newSource("sounds/week5/lights-on.ogg", "static"),
-			breakfast = love.audio.newSource("songs/misc/breakfast.ogg", "stream")
+			breakfast = love.audio.newSource("songs/misc/breakfast.ogg", "stream"),
+			["text"] = love.audio.newSource("sounds/pixel/text.ogg", "static"),
+			["continue"] = love.audio.newSource("sounds/pixel/continue-text.ogg", "static"),
 		}
 
 		images = {
@@ -463,9 +461,6 @@ return {
 		santa = nil
 		snow = nil
 		
-
-		week5Playing = false
-
 		uiTextColour = {1,1,1}
 
 		weeks:leave()

@@ -201,17 +201,6 @@ return {
 						}
 						nextPresenceUpdate = 0
 					end
-
-					if weekNum == 6 then
-						week5Playing = true
-					else
-						week5Playing = false
-					end
-					if weekNum == 5 then
-						doingWeek4 = true
-					else
-						doingWeek4 = false  -- what
-					end
 					
 					songAppend = difficultyStrs[songDifficulty]
 

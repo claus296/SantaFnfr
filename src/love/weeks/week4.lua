@@ -51,8 +51,6 @@ return {
 		enemyFrameTimer = 0
 		boyfriendFrameTimer = 0
 
-		doingWeek4 = true
-
 		sounds = { -- Since week4 does not use weeks:load, all of the load stuff is here
 			countdown = {
 				three = love.audio.newSource("sounds/countdown-3.ogg", "static"),
@@ -72,7 +70,9 @@ return {
 				down = love.audio.newSource("sounds/hitSound.ogg", "static")
 			},
 			death = love.audio.newSource("sounds/death.ogg", "static"),
-			breakfast = love.audio.newSource("songs/misc/breakfast.ogg", "stream")
+			breakfast = love.audio.newSource("songs/misc/breakfast.ogg", "stream"),
+			["text"] = love.audio.newSource("sounds/pixel/text.ogg", "static"),
+			["continue"] = love.audio.newSource("sounds/pixel/continue-text.ogg", "static"),
 		}
 
 		images = {
@@ -268,8 +268,6 @@ return {
 		bgLimo = nil
 		limoDancer = nil
 		limo = nil
-
-		doingWeek4 = false
 
 		weeks:leave()
 	end

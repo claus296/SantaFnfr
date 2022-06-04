@@ -83,6 +83,7 @@ return {
 				down = love.audio.newSource("sounds/hitSound.ogg", "static")
 			},
 			death = love.audio.newSource("sounds/pixel/death.ogg", "static"),
+			breakfast = love.audio.newSource("songs/misc/breakfast.ogg", "stream"),
 			["text"] = love.audio.newSource("sounds/pixel/text.ogg", "static"),
 			["continue"] = love.audio.newSource("sounds/pixel/continue-text.ogg", "static"),
 		}
@@ -106,8 +107,6 @@ return {
 		girlfriend = love.filesystem.load("sprites/pixel/girlfriend.lua")()
 		boyfriend = love.filesystem.load("sprites/pixel/boyfriend.lua")()
 		fakeBoyfriend = love.filesystem.load("sprites/pixel/boyfriend-dead.lua")()
-
-		breakfast = love.audio.newSource("songs/misc/breakfast.ogg", "stream")
 
 		pixel = true
 
@@ -184,6 +183,9 @@ return {
 				down = love.audio.newSource("sounds/hitSound.ogg", "static")
 			},
 			death = love.audio.newSource("sounds/death.ogg", "static"),
+			breakfast = love.audio.newSource("songs/misc/breakfast.ogg", "stream"),
+			["text"] = love.audio.newSource("sounds/pixel/text.ogg", "static"),
+			["continue"] = love.audio.newSource("sounds/pixel/continue-text.ogg", "static"),
 		}
 
 		images = {
@@ -204,7 +206,6 @@ return {
 
 		girlfriend = love.filesystem.load("sprites/girlfriend.lua")()
 		boyfriend = love.filesystem.load("sprites/boyfriend.lua")()
-		breakfast = love.audio.newSource("songs/misc/breakfast.ogg", "stream")
 
 
 
@@ -1291,7 +1292,7 @@ return {
 				paused = true
 				love.audio.pause(inst, voices)
 				tweenPauseButtons()
-				love.audio.play(breakfast)
+				love.audio.play(sounds.breakfast)
 			end
 		end
 
@@ -1312,7 +1313,7 @@ return {
 				Gamestate.switch(menuSettings)
 			end
 		else
-			love.audio.stop(breakfast)
+			love.audio.stop(sounds.breakfast)
 		end
 
 		if not doingDialogue then
@@ -1474,9 +1475,7 @@ return {
 
 									table.remove(boyfriendNote, 1)
 
-									if not pixel or doingWeek4 then
-										if combo >= 5 then self:safeAnimate(girlfriend, "sad", true, 1) end
-									end
+									if girlfriend:isAnimName("sad") then if combo >= 5 then self:safeAnimate(girlfriend, "sad", true, 1) end end
 
 									hitSick = false
 
@@ -1613,9 +1612,7 @@ return {
 
 										notMissed[noteNum] = false
 
-										if not pixel or doingWeek4 then
-											if combo >= 5 then self:safeAnimate(girlfriend, "sad", true, 1) end
-										end
+										if girlfriend:isAnimName("sad") then if combo >= 5 then self:safeAnimate(girlfriend, "sad", true, 1) end end
 
 										self:safeAnimate(boyfriend, "miss " .. curAnim, false, 3)
 
@@ -1903,7 +1900,7 @@ return {
 				end
 				love.graphics.setColor(1,1,1,1)
 			love.graphics.pop()
-			if not week5Playing then
+			if week ~= 5 then
 				love.graphics.translate(lovesize.getWidth() / 2, lovesize.getHeight() / 2)
 				love.graphics.scale(0.7, 0.7)
 			end
