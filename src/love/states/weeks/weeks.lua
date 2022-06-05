@@ -1565,9 +1565,9 @@ return {
 											combo = combo + 1
 
 											rating:animate(ratingAnim, false)
-											numbers[1]:animate(tostring(math.floor(combo / 100 % 10), false))
-											numbers[2]:animate(tostring(math.floor(combo / 10 % 10), false))
-											numbers[3]:animate(tostring(math.floor(combo % 10), false))
+											numbers[1]:animate(tostring(math.floor(combo / 100 % 10), false)) -- 100's
+											numbers[2]:animate(tostring(math.floor(combo / 10 % 10), false)) -- 10's
+											numbers[3]:animate(tostring(math.floor(combo % 10), false)) -- 1's
 
 											for i = 1, 5 do
 												if ratingTimers[i] then Timer.cancel(ratingTimers[i]) end
@@ -1581,9 +1581,13 @@ return {
 
 											ratingTimers[1] = Timer.tween(2, ratingVisibility, {0})
 											ratingTimers[2] = Timer.tween(2, rating, {y = girlfriend.y - 100}, "out-elastic")
-											ratingTimers[3] = Timer.tween(2, numbers[1], {y = girlfriend.y + love.math.random(-10, 10)}, "out-elastic")
-											ratingTimers[4] = Timer.tween(2, numbers[2], {y = girlfriend.y + love.math.random(-10, 10)}, "out-elastic")
-											ratingTimers[5] = Timer.tween(2, numbers[3], {y = girlfriend.y + love.math.random(-10, 10)}, "out-elastic")
+											if combo >= 100 then
+												ratingTimers[3] = Timer.tween(2, numbers[1], {y = girlfriend.y + love.math.random(-10, 10)}, "out-elastic") -- 100's
+											end
+											if combo >= 10 then
+												ratingTimers[4] = Timer.tween(2, numbers[2], {y = girlfriend.y + love.math.random(-10, 10)}, "out-elastic") -- 10's
+											end
+											ratingTimers[5] = Timer.tween(2, numbers[3], {y = girlfriend.y + love.math.random(-10, 10)}, "out-elastic") -- 1's
 
 											table.remove(boyfriendNote, i)
 
@@ -1712,14 +1716,22 @@ return {
 			graphics.setColor(1, 1, 1, ratingVisibility[1])
 			if not pixel then
 				rating:draw()
-				for i = 1, 3 do
-					numbers[i]:draw()
+				if combo >= 100 then
+					numbers[1]:draw()
 				end
+				if combo >= 10 then
+					numbers[2]:draw()
+				end
+				numbers[3]:draw()
 			else
 				rating:udraw(6, 6)
-				for i = 1, 3 do
-					numbers[i]:udraw(6, 6)
+				if combo >= 100 then
+					numbers[1]:udraw(6,6)
 				end
+				if combo >= 10 then
+					numbers[2]:udraw(6,6)
+				end
+				numbers[3]:udraw(6,6)
 			end
 			graphics.setColor(1, 1, 1)
 		love.graphics.pop()
@@ -1740,12 +1752,12 @@ return {
 				if paused then 
 					love.graphics.setColor(0.6,0.6,0.6,0.3)
 				end
-				enemyArrows[i]:draw()--ate
 				if paused then 
 					love.graphics.setColor(0.6,0.6,0.6,0.3)
 				else
 					love.graphics.setColor(1, 1, 1, 1)
 				end
+				enemyArrows[i]:draw()--ate
 				boyfriendArrows[i]:draw()
 				if hitSick then
 					if not settings.botPlay then
