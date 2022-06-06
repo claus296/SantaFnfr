@@ -114,12 +114,13 @@ return {
                     scrollUnderlayTrans = settings.scrollUnderlayTrans,
                     vocalsVol = settings.vocalsVol,
                     instVol = settings.instVol,
+                    hitsoundsVol = settings.hitsoundsVol,
                     noteSkins = settings.noteSkins,
                     settingsVer = settingsVer
                 }
                 serialized = lume.serialize(data)
                 love.filesystem.write("settings", serialized)
-                love.window.showMessageBox("Settings Saved!", "Settings saved. Funkin Vasion will now restart to make sure your settings saved")
+                love.window.showMessageBox("Settings Saved!", "Settings saved. Vanilla Engine will now restart to make sure your settings saved")
                 love.event.quit("restart")
             else
                 data = {}
@@ -146,6 +147,7 @@ return {
                     hitsounds = settings.hitsounds,
                     vocalsVol = settings.vocalsVol,
                     instVol = settings.instVol,
+                    hitsoundVol = settings.hitsoundVol,
                     noteSkins = settings.noteSkins,
                     settingsVer = settingsVer
                 }
