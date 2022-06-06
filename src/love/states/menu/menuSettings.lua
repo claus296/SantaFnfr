@@ -65,11 +65,15 @@ settingsDescriptions2 = {
 
     "Instrumental Volume" .. 
     "\n       \"Instrumental Volume\" Raise or lower the volume of the\n       Instrumental" ..
-    "\n\n       1 is full",
+    "\n\n       1 = Default",
 
     "Vocals Volume" ..
     "\n       \"Vocals Volume\" Raise or lower the volume of the Vocals" ..
-    "\n\n       1 is full"
+    "\n\n       1 = Default",
+
+    "Hitsounds Volume" ..
+    "\n       \"Hitsounds Volume\" Raise or lower the volume of the\n       Hitsounds" ..
+    "\n\n       1 = Default",
 }
 settingsDescriptions3 = { 
 
@@ -280,6 +284,7 @@ return {
                             end
                             -- 3 is inst volume
                             -- 4 is vocals volume
+                            -- 5 is hitsounds volume
                         end
                     end
                 end
@@ -318,7 +323,7 @@ return {
                     if settingSelect ~= 1 then
                         settingSelect = settingSelect - 1
                     else
-                        settingSelect = 4
+                        settingSelect = 5
                     end
                 end
             elseif input:pressed("down") then
@@ -341,7 +346,7 @@ return {
                         settingSelect = 1
                     end
                 elseif settingsMenuState == 3 then
-                    if settingSelect ~= 4 then
+                    if settingSelect ~= 5 then
                         settingSelect = settingSelect + 1
                     else
                         settingSelect = 1
@@ -365,6 +370,8 @@ return {
                         settings.instVol = settings.instVol + 0.1
                     elseif settingSelect == 4 then
                         settings.vocalsVol = settings.vocalsVol + 0.1
+                    elseif settingSelect == 5 then
+                        settings.hitsoundVol = settings.hitsoundVol + 0.1
                     end
                 end
             elseif input:pressed("left") then
@@ -387,6 +394,8 @@ return {
                         settings.instVol = settings.instVol - 0.1
                     elseif settingSelect == 4 then
                         settings.vocalsVol = settings.vocalsVol - 0.1
+                    elseif settingSelect == 5 then
+                        settings.hitsoundVol = settings.hitsoundVol - 0.1
                     end
                 end
 			end
@@ -434,6 +443,7 @@ return {
                     love.graphics.print("\n\nShow Debug = " .. tostring(settings.showDebug), -628, -300)
                     love.graphics.print("\n\n\n\nInstrumental Volume = " .. tostring(settings.instVol), -628, -300)
                     love.graphics.print("\n\n\n\n\n\nVocals Volume = " .. tostring(settings.vocalsVol), -628, -300)
+                    love.graphics.print("\n\n\n\n\n\n\n\nHitsounds Volume = " .. tostring(settings.hitsoundVol), -628, -300)
                 end
                 love.graphics.print(newlinesMoment[settingSelect] .. ">", -640, -300)
                 

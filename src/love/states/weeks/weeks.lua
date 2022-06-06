@@ -87,6 +87,12 @@ return {
 			["text"] = love.audio.newSource("sounds/pixel/text.ogg", "static"),
 			["continue"] = love.audio.newSource("sounds/pixel/continue-text.ogg", "static"),
 		}
+		if settings.hitsounds then
+			sounds.hitsounds.left:setVolume(settings.hitsoundVol)
+			sounds.hitsounds.right:setVolume(settings.hitsoundVol)
+			sounds.hitsounds.up:setVolume(settings.hitsoundVol)
+			sounds.hitsounds.down:setVolume(settings.hitsoundVol)
+		end
 
 		images = {
 			icons = love.graphics.newImage(graphics.imagePath("icons")),
@@ -1190,7 +1196,11 @@ return {
 										previousFrameTime = love.timer.getTime() * 1000
 										musicTime = 0
 
-										if inst then inst:play() end
+										voices:setVolume(settings.vocalsVol)
+										if inst then 
+											inst:setVolume(settings.instVol)
+											inst:play() 
+										end
 										voices:play()
 									end
 								)

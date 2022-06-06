@@ -168,6 +168,7 @@ function love.load()
 		settings.instVol = data.saveSettingsMoment.instVol
 		settings.vocalsVol = data.saveSettingsMoment.vocalsVol
 		settings.hitsounds = data.saveSettingsMoment.hitsounds
+		settings.hitsoundVol = data.saveSettingsMoment.hitsoundVol
 		settings.noteSkins = data.saveSettingsMoment.noteSkins
 
 		settingsVer = data.saveSettingsMoment.settingsVer
@@ -190,17 +191,18 @@ function love.load()
 			hitsounds = settings.hitsounds,
 			instVol = settings.instVol,
 			vocalsVol = settings.vocalsVol,
+			hitsoundVol = settings.hitsoundVol,
 			noteSkins = settings.noteSkins,
 			settingsVer = settingsVer
 		}
 		serialized = lume.serialize(data)
 		love.filesystem.write("settings", serialized)
 	end
-	if settingsVer ~= 5 then
+	if settingsVer ~= 1 then
 		love.window.showMessageBox("Uh Oh!", "Settings have been reset.", "warning")
 		love.filesystem.remove("settings.data")
 	end
-	if not love.filesystem.getInfo("settings") or settingsVer ~= 5 then
+	if not love.filesystem.getInfo("settings") or settingsVer ~= 1 then
 		settings.hardwareCompression = true
 		graphics.setImageType("dds")
 		settings.downscroll = false
@@ -218,8 +220,9 @@ function love.load()
 		settings.hitsounds = false
 		settings.instVol = 1
 		settings.vocalsVol = 1
+		settings.hitsoundVol = 1
 		settings.noteSkins = 1
-		settingsVer = 5
+		settingsVer = 1
 		data = {}
 		data.saveSettingsMoment = {
 			hardwareCompression = settings.hardwareCompression,
@@ -239,6 +242,7 @@ function love.load()
 			instVol = settings.instVol,
 			vocalsVol = settings.vocalsVol,
 			hitsounds = settings.hitsounds,
+			hitsoundVol = settings.hitsoundVol,
 			noteSkins = settings.noteSkins,
 			
 			settingsVer = settingsVer

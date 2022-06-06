@@ -73,6 +73,20 @@ return {
 
 	update = function(self, dt)
 
+		if settings.hitsounds then
+			if input:pressed("gameDown") and not paused then
+				audio.playSound(sounds.hitsounds.down)
+			end
+			if input:pressed("gameUp") and not paused then
+				audio.playSound(sounds.hitsounds.up)
+			end
+			if input:pressed("gameLeft") and not paused then
+				audio.playSound(sounds.hitsounds.left)
+			end
+			if input:pressed("gameRight") and not paused then
+				audio.playSound(sounds.hitsounds.right)
+			end
+		end
 		if paused then
 			if input:pressed("gameDown") then
 				if pauseMenuSelection == 4 then
@@ -179,6 +193,10 @@ return {
 
 		girlfriend:update(dt)
 		boyfriend:update(dt)
+		upArrowSplash:update(dt)
+		downArrowSplash:update(dt)
+		leftArrowSplash:update(dt)
+		rightArrowSplash:update(dt)
 
 		if musicThres ~= oldMusicThres and math.fmod(absMusicTime, 120000 / bpm) < 100 then
 			spriteTimers[1] = math.max(spriteTimers[1], spriteTimers[2]) -- Gross hack, but whatever
