@@ -27,11 +27,11 @@ lovefile:
 	@rm -rf build/lovefile
 	@mkdir -p build/lovefile
 
-	@cd src/love; zip -r -9 ../../build/lovefile/funkin-vasion-rewritten.love .
+	@cd src/love; zip -r -9 ../../build/lovefile/vanilla-engine.love .
 
 	@mkdir -p build/release
-	@rm -f build/release/funkin-vasion-rewritten-lovefile.zip
-	@cd build/lovefile; zip -9 -r ../release/funkin-vasion-rewritten-lovefile.zip .
+	@rm -f build/release/vanilla-engine-lovefile.zip
+	@cd build/lovefile; zip -9 -r ../release/vanilla-engine-lovefile.zip .
 
 win64: lovefile
 	@rm -rf build/win64
@@ -47,11 +47,11 @@ win64: lovefile
 	@cp resources/win64/love/msvcr120.dll build/win64
 	@cp resources/win64/love/discord-rpc.dll build/win64
 
-	@cat resources/win64/love/love.exe build/lovefile/funkin-vasion-rewritten.love > build/win64/funkin-vasion-rewritten.exe
+	@cat resources/win64/love/love.exe build/lovefile/vanilla-engine.love > build/win64/vanilla-engine.exe
 
 	@mkdir -p build/release
-	@rm -f build/release/funkin-vasion-rewritten-win64.zip
-	@cd build/win64; zip -9 -r ../release/funkin-vasion-rewritten-win64.zip .
+	@rm -f build/release/vanilla-engine-win64.zip
+	@cd build/win64; zip -9 -r ../release/vanilla-engine-win64.zip .
 
 win32: lovefile
 	@rm -rf build/win32
@@ -67,11 +67,11 @@ win32: lovefile
 	@cp resources/win32/love/msvcr120.dll build/win32
 	@cp resources/win32/love/discord-rpc.dll build/win32
 
-	@cat resources/win32/love/love.exe build/lovefile/funkin-vasion-rewritten.love > build/win32/funkin-vasion-rewritten.exe
+	@cat resources/win32/love/love.exe build/lovefile/vanilla-engine.love > build/win32/vanilla-engine.exe
 
 	@mkdir -p build/release
-	@rm -f build/release/funkin-vasion-rewritten-win32.zip
-	@cd build/win32; zip -9 -r ../release/funkin-vasion-rewritten-win32.zip .
+	@rm -f build/release/vanilla-engine-win32.zip
+	@cd build/win32; zip -9 -r ../release/vanilla-engine-win32.zip .
 
 macos: lovefile
 	@rm -rf build/macos
@@ -79,29 +79,29 @@ macos: lovefile
 
 	@cp -r resources/macos/love.app/. "build/macos/Friday Night Funkin' Rewritten.app"
 
-	@cp build/lovefile/funkin-vasion-rewritten.love "build/macos/Friday Night Funkin' Rewritten.app/Contents/Resources"
+	@cp build/lovefile/vanilla-engine.love "build/macos/Friday Night Funkin' Rewritten.app/Contents/Resources"
 
 	@mkdir -p build/release
-	@rm -f build/release/funkin-vasion-rewritten-macos.zip
-	@cd build/macos; zip -9 -r ../release/funkin-vasion-rewritten-macos.zip .
+	@rm -f build/release/vanilla-engine-macos.zip
+	@cd build/macos; zip -9 -r ../release/vanilla-engine-macos.zip .
 
 switch: lovefile
 	@rm -rf build/switch
-	@mkdir -p build/switch/switch/funkin-vasion-rewritten
+	@mkdir -p build/switch/switch/vanilla-engine
 
-	@nacptool --create "Friday Night Funkin' Vasion Rewritten" GameVasion "$(shell cat version.txt)" build/switch/funkin-vasion-rewritten.nacp
+	@nacptool --create "Friday Night Funkin' Vanilla Engine" "Guglio & Clothing Hanger" "$(shell cat version.txt)" build/switch/vanilla-engine.nacp
 
 	@mkdir build/switch/romfs
-	@cp build/lovefile/funkin-vasion-rewritten.love build/switch/romfs/game.love
+	@cp build/lovefile/vanilla-engine.love build/switch/romfs/game.love
 
-	@elf2nro resources/switch/love.elf build/switch/switch/funkin-vasion-rewritten/funkin-vasion-rewritten.nro --icon=resources/switch/icon.jpg --nacp=build/switch/funkin-vasion-rewritten.nacp --romfsdir=build/switch/romfs
+	@elf2nro resources/switch/love.elf build/switch/switch/vanilla-engine/vanilla-engine.nro --icon=resources/switch/icon.jpg --nacp=build/switch/vanilla-engine.nacp --romfsdir=build/switch/romfs
 
 	@rm -r build/switch/romfs
-	@rm build/switch/funkin-vasion-rewritten.nacp
+	@rm build/switch/vanilla-engine.nacp
 
 	@mkdir -p build/release
-	@rm -f build/release/funkin-vasion-rewritten-switch.zip
-	@cd build/switch; zip -9 -r ../release/funkin-vasion-rewritten-switch.zip .
+	@rm -f build/release/vanilla-engine-switch.zip
+	@cd build/switch; zip -9 -r ../release/vanilla-engine-switch.zip .
 
 clean:
 	@rm -rf build
