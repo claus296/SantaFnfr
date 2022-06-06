@@ -90,7 +90,7 @@ return {
 
 		images = {
 			icons = love.graphics.newImage(graphics.imagePath("icons")),
-			notes = love.graphics.newImage(graphics.imagePath("notes")),
+			notes = love.graphics.newImage(graphics.imagePath(noteskins[settings.noteSkins])),
 			notesplashes = love.graphics.newImage(graphics.imagePath("noteSplashes")),
 			numbers = love.graphics.newImage(graphics.imagePath("numbers"))
 		}
