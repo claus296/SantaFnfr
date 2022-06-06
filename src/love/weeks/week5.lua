@@ -367,6 +367,17 @@ return {
 				love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
 				love.graphics.scale(0.7, 0.7)
 
+				love.graphics.push()
+					love.graphics.translate(-graphics.getWidth() / 2 - 240, -graphics.getHeight() / 2 - 75)
+					love.graphics.scale(1.37,1.37)
+					love.graphics.setColor(0,0,0,settings.scrollUnderlayTrans)
+					if settings.middleScroll then
+						love.graphics.rectangle("fill", 400, -100, 90 + 170 * 2.35, 1000)
+					else
+						love.graphics.rectangle("fill", 755, -100, 90 + 170 * 2.35, 1000)
+					end
+					love.graphics.setColor(1,1,1,1)
+				love.graphics.pop()
 				for i = 1, 4 do
 					if enemyArrows[i]:getAnimName() == "off" then
 						graphics.setColor(0.6, 0.6, 0.6)
@@ -438,7 +449,7 @@ return {
 						end
 						graphics.setColor(1, 1, 1)
 					love.graphics.pop()
-				end
+					end
 
 				boyfriendIcon:draw()
 				enemyIcon:draw()

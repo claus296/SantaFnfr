@@ -60,7 +60,7 @@ return {
 			if input:pressed("confirm") or instantRestart or pauseRestart then
 				if inst then inst:stop() end -- In case inst is nil and "confirm" is pressed before game over music starts
 				if pauseRestart then
-					breakfast:stop()
+					sounds.breakfast:stop()
 				end
 
 				if week == 6 then

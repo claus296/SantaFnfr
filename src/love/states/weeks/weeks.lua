@@ -1245,40 +1245,77 @@ return {
 
 
         function tweenPauseButtons()
-			resume.x, resume.y = -1000, 120
-			resumeH.x, resumeH.y = resume.x, resume.y
-			restart.x, restart.y = -1000, 295
-			restartH.x, restartH.y = restart.x, restart.y 
-			exit.x, exit.y = -1000, 470
-			exitH.x, exitH.y = exit.x, exit.y 
-			options.x, options.y = -1000, 645
-			optionsH.x, optionsH.y = options.x, options.y
+			if week ~= 5 then
+				resume.x, resume.y = -1000, 120
+				resumeH.x, resumeH.y = resume.x, resume.y
+				restart.x, restart.y = -1000, 295
+				restartH.x, restartH.y = restart.x, restart.y 
+				exit.x, exit.y = -1000, 470
+				exitH.x, exitH.y = exit.x, exit.y 
+				options.x, options.y = -1000, 645
+				optionsH.x, optionsH.y = options.x, options.y
 
 
-            if resume.x == -1000 then
-                Timer.tween(1, resume, {x = 550}, "out-back")
-            end
-            if resumeH.x == -1000 then
-                Timer.tween(1, resumeH, {x = 550}, "out-back")
-            end
-            if restart.x == -1000 then
-                Timer.tween(1.2, restart, {x = 500}, "out-back")
-            end
-			if restartH.x == -1000 then
-                Timer.tween(1.2, restartH, {x = 500}, "out-back")
-            end
-			if exit.x == -1000 then
-                Timer.tween(1.4, exit, {x = 450}, "out-back")
-            end
-			if exitH.x == -1000 then
-                Timer.tween(1.4, exitH, {x = 450}, "out-back")
-            end
-			if options.x == -1000 then
-                Timer.tween(1.6, options, {x = 400}, "out-back")
-            end
-			if optionsH.x == -1000 then
-                Timer.tween(1.6, optionsH, {x = 400}, "out-back")
-            end
+				if resume.x == -1000 then
+					Timer.tween(1, resume, {x = 550}, "out-back")
+				end
+				if resumeH.x == -1000 then
+					Timer.tween(1, resumeH, {x = 550}, "out-back")
+				end
+				if restart.x == -1000 then
+					Timer.tween(1.2, restart, {x = 500}, "out-back")
+				end
+				if restartH.x == -1000 then
+					Timer.tween(1.2, restartH, {x = 500}, "out-back")
+				end
+				if exit.x == -1000 then
+					Timer.tween(1.4, exit, {x = 450}, "out-back")
+				end
+				if exitH.x == -1000 then
+					Timer.tween(1.4, exitH, {x = 450}, "out-back")
+				end
+				if options.x == -1000 then
+					Timer.tween(1.6, options, {x = 400}, "out-back")
+				end
+				if optionsH.x == -1000 then
+					Timer.tween(1.6, optionsH, {x = 400}, "out-back")
+				end
+			else
+				resume.x, resume.y = -2500, 120 - 900
+				resumeH.x, resumeH.y = resume.x, resume.y
+				restart.x, restart.y = -2500, 295 - 900
+				restartH.x, restartH.y = restart.x, restart.y 
+				exit.x, exit.y = -2500, 470 - 900
+				exitH.x, exitH.y = exit.x, exit.y 
+				options.x, options.y = -2500, 645 - 900
+				optionsH.x, optionsH.y = options.x, options.y
+
+
+				if resume.x == -2500 then
+					Timer.tween(1, resume, {x = -1750}, "out-back")
+				end
+				if resumeH.x == -2500 then
+					Timer.tween(1, resumeH, {x = -1750}, "out-back")
+				end
+				if restart.x == -2500 then
+					Timer.tween(1.2, restart, {x = -1700}, "out-back")
+				end
+				if restartH.x == -2500 then
+					Timer.tween(1.2, restartH, {x = -1700}, "out-back")
+				end
+				if exit.x == -2500 then
+					Timer.tween(1.4, exit, {x = -1650}, "out-back")
+				end
+				if exitH.x == -2500 then
+					Timer.tween(1.4, exitH, {x = -1650}, "out-back")
+				end
+				if options.x == -2500 then
+					Timer.tween(1.6, options, {x = -1600}, "out-back")
+				end
+				if optionsH.x == -2500 then
+					Timer.tween(1.6, optionsH, {x = -1600}, "out-back")
+				end
+			end
         end
 
 		currentSeconds = voices:tell("seconds")
@@ -1857,7 +1894,7 @@ return {
 								graphics.setColor(1, 1, 1, 0.5)
 							end
 							if pixel then
-								if settings.downscroll and animName == "end" then
+								if settings.downscroll and enemyNotes[i][j]:getAnimName() == "end" then
 									enemyNotes[i][j]:udraw(7,-7)
 								else
 									enemyNotes[i][j]:udraw()
@@ -1903,15 +1940,17 @@ return {
 	drawHealthBar = function()
 		love.graphics.push()
 			-- Scroll underlay
-			love.graphics.push()
-				love.graphics.setColor(0,0,0,settings.scrollUnderlayTrans)
-				if settings.middleScroll then
-					love.graphics.rectangle("fill", 400, -100, 90 + 170 * 2.35, 1000)
-				else
-					love.graphics.rectangle("fill", 755, -100, 90 + 170 * 2.35, 1000)
+			if week ~= 5 then
+				love.graphics.push()
+					love.graphics.setColor(0,0,0,settings.scrollUnderlayTrans)
+					if settings.middleScroll then
+						love.graphics.rectangle("fill", 400, -100, 90 + 170 * 2.35, 1000)
+					else
+						love.graphics.rectangle("fill", 755, -100, 90 + 170 * 2.35, 1000)
+					end
+					love.graphics.setColor(1,1,1,1)
+				love.graphics.pop()
 				end
-				love.graphics.setColor(1,1,1,1)
-			love.graphics.pop()
 			if week ~= 5 then
 				love.graphics.translate(lovesize.getWidth() / 2, lovesize.getHeight() / 2)
 				love.graphics.scale(0.7, 0.7)
@@ -2130,8 +2169,12 @@ return {
 		end
 		love.graphics.push()
 		if paused then
+			if week == 5 then
+				love.graphics.translate(lovesize.getWidth() / 2, lovesize.getHeight() / 2)
+				love.graphics.scale(0.7, 0.7)
+			end
 			love.graphics.setColor(0, 0, 0, 0.8)
-			love.graphics.rectangle("fill", -10000, -1000, 1000000, 1000000)
+			love.graphics.rectangle("fill", -10000, -2000, 25000, 10000)
 			love.graphics.setColor(1, 1, 1)
 			if pauseMenuSelection == 1 then
 				resumeH:draw()
