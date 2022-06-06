@@ -48,6 +48,19 @@ return {
 		THETHING[1] = 1
 		THETHING[2] = 1
 		THETHING[3] = 0
+		function funnyNotes()
+			Timer.tween(
+				0.7, THETHING, {[1] = -1}, "out-back", function()
+					Timer.after(0.7, function()
+						Timer.tween(0.7, THETHING, {[1] = 1}, "out-back", function()
+							Timer.after(0.7, function()
+								funnyNotes()
+							end)
+						end)
+					end)
+				end)
+		end
+		funnyNotes()
 		sounds = {
 			countdown = {
 				three = love.audio.newSource("sounds/countdown-3.ogg", "static"),
@@ -1613,6 +1626,7 @@ return {
 		
 			love.graphics.translate(lovesize.getWidth() / 2, lovesize.getHeight() / 2)
 			love.graphics.scale(0.7, 0.7)
+			love.graphics.scale(1, THETHING[1])
 
 			--[[
 			if input:down("gameLeft") then
