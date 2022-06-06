@@ -310,6 +310,7 @@ return {
 		goods = 0
 		bads = 0
 		shits = 0
+		hitCounter = 0
 
 		local curInput = inputList[i]
 
@@ -398,6 +399,7 @@ return {
 		goods = 0
 		bads = 0
 		shits = 0
+		hitCounter = 0
 
 		local curInput = inputList[i]
 
@@ -410,21 +412,6 @@ return {
 		downArrowSplash = love.filesystem.load("sprites/notes/noteSplashes.lua")()
 		upArrowSplash = love.filesystem.load("sprites/notes/noteSplashes.lua")()
 		rightArrowSplash = love.filesystem.load("sprites/notes/noteSplashes.lua")()
-
-
-		--[[
-
-		sprites.leftArrow = love.filesystem.load("sprites/notes/circles/left-arrow.lua")
-		sprites.downArrow = love.filesystem.load("sprites/notes/circles/down-arrow.lua")
-		sprites.upArrow = love.filesystem.load("sprites/notes/circles/up-arrow.lua")
-		sprites.rightArrow = love.filesystem.load("sprites/notes/circles/right-arrow.lua")
-
-		leftArrowSplash = love.filesystem.load("sprites/notes/noteSplashes.lua")()
-		downArrowSplash = love.filesystem.load("sprites/notes/noteSplashes.lua")()
-		upArrowSplash = love.filesystem.load("sprites/notes/noteSplashes.lua")()
-		rightArrowSplash = love.filesystem.load("sprites/notes/noteSplashes.lua")()
-		]]
-
 
 		enemyArrows = {
 			sprites.leftArrow(),
@@ -1226,6 +1213,8 @@ return {
 	end,
 
 	update = function(self, dt)
+
+		hitCounter = (sicks + goods + bads + shits)
 
 		if settings.hitsounds then
 			if input:pressed("gameDown") and not paused then
@@ -2064,15 +2053,15 @@ return {
 						)
 						if noteCounter + missCounter <= 0 then
 							if (math.floor((altScore / (noteCounter + missCounter)) / 3.5)) >= 100 then
-								love.graphics.printf("Score: " .. score .. " | Misses: " .. missCounter .. " | Accuracy: 0% | ???", -385, 400, 800, "center")
+								love.graphics.printf("Score: " .. score .. " | Misses: " .. missCounter .. " | Hits: " .. hitCounter .. " | Accuracy: 0% | ???", -385, 400, 800, "center")
 							else
-								love.graphics.printf("Score: " .. score .. " | Misses: " .. missCounter .. " | Accuracy: 0% | ???", -385, 400, 800, "center")
+								love.graphics.printf("Score: " .. score .. " | Misses: " .. missCounter .. " | Hits: " .. hitCounter .. " | Accuracy: 0% | ???", -385, 400, 800, "center")
 							end
 						else
 							if (math.floor((altScore / (noteCounter + missCounter)) / 3.5)) >= 100 then
-								love.graphics.printf("Score: " .. score .. " | Misses: " .. missCounter .. " | Accuracy: 100% | PERFECT!!!", -385, 400, 800, "center")
+								love.graphics.printf("Score: " .. score .. " | Misses: " .. missCounter .. " | Hits: " .. hitCounter .. " | Accuracy: 100% | PERFECT!!!", -385, 400, 800, "center")
 							else
-								love.graphics.printf("Score: " .. score .. " | Misses: " .. missCounter .. " | Accuracy: " .. convertedAcc .. " | Rating: " .. ratingText, -385, 400, 800, "center")
+								love.graphics.printf("Score: " .. score .. " | Misses: " .. missCounter .. " | Hits: " .. hitCounter .. " | Accuracy: " .. convertedAcc .. " | Rating: " .. ratingText, -385, 400, 800, "center")
 							end
 						end
 					end
@@ -2099,15 +2088,15 @@ return {
 						)
 						if noteCounter + missCounter <= 0 then
 							if (math.floor((altScore / (noteCounter + missCounter)) / 3.5)) >= 100 then
-								love.graphics.printf("Score: " .. score .. " | Misses: " .. missCounter .. " | Accuracy: 0% | ???", -1750, -350, 1000, "center", nil, 3.5, 3.5)
+								love.graphics.printf("Score: " .. score .. " | Misses: " .. missCounter .. " | Hits: " .. hitCounter .. " | Accuracy: 0% | ???", -1750, -350, 1000, "center", nil, 3.5, 3.5)
 							else
-								love.graphics.printf("Score: " .. score .. " | Misses: " .. missCounter .. " | Accuracy: 0% | ???", -1750, -350, 1000, "center", nil, 3.5, 3.5)
+								love.graphics.printf("Score: " .. score .. " | Misses: " .. missCounter .. " | Hits: " .. hitCounter .. " | Accuracy: 0% | ???", -1750, -350, 1000, "center", nil, 3.5, 3.5)
 							end
 						else
 							if (math.floor((altScore / (noteCounter + missCounter)) / 3.5)) >= 100 then
-								love.graphics.printf("Score: " .. score .. " | Misses: " .. missCounter .. " | Accuracy: 100% | PERFECT!!!", -1750, -350, 1000, "center", nil, 3.5, 3.5)
+								love.graphics.printf("Score: " .. score .. " | Misses: " .. missCounter .. " | Hits: " .. hitCounter .. " | Accuracy: 100% | PERFECT!!!", -1750, -350, 1000, "center", nil, 3.5, 3.5)
 							else
-								love.graphics.printf("Score: " .. score .. " | Misses: " .. missCounter .. " | Accuracy: " .. convertedAcc .. " | Rating: " .. ratingText, -1750, -350, 1000, "center", nil, 3.5, 3.5)
+								love.graphics.printf("Score: " .. score .. " | Misses: " .. missCounter .. " | Hits: " .. hitCounter .. " | Accuracy: " .. convertedAcc .. " | Rating: " .. ratingText, -1750, -350, 1000, "center", nil, 3.5, 3.5)
 							end
 						end
 					else
@@ -2117,15 +2106,15 @@ return {
 						)
 						if noteCounter + missCounter <= 0 then
 							if (math.floor((altScore / (noteCounter + missCounter)) / 3.5)) >= 100 then
-								love.graphics.printf("Score: " .. score .. " | Misses: " .. missCounter .. " | Accuracy: 0% | ???", -1750, 400, 1000, "center", 0, 3.5, 3.5)
+								love.graphics.printf("Score: " .. score .. " | Misses: " .. missCounter .. " | Hits: " .. hitCounter .. " | Accuracy: 0% | ???", -1750, 400, 1000, "center", 0, 3.5, 3.5)
 							else
-								love.graphics.printf("Score: " .. score .. " | Misses: " .. missCounter .. " | Accuracy: 0% | ???", -1750, 400, 1000, "center", 0, 3.5, 3.5)
+								love.graphics.printf("Score: " .. score .. " | Misses: " .. missCounter .. " | Hits: " .. hitCounter .. " | Accuracy: 0% | ???", -1750, 400, 1000, "center", 0, 3.5, 3.5)
 							end
 						else
 							if (math.floor((altScore / (noteCounter + missCounter)) / 3.5)) >= 100 then
-								love.graphics.printf("Score: " .. score .. " Misses: " .. missCounter .. " | Accuracy: 100% | PERFECT!!!", -1750, 400, 1000, "center", 0, 3.5, 3.5)
+								love.graphics.printf("Score: " .. score .. " Misses: " .. missCounter .. " | Hits: " .. hitCounter .. " | Accuracy: 100% | PERFECT!!!", -1750, 400, 1000, "center", 0, 3.5, 3.5)
 							else
-								love.graphics.printf("Score: " .. score .. " Misses: " .. missCounter .. " | Accuracy: " .. convertedAcc .. " | Rating: " .. ratingText, -1750, 400, 1000, "center", 0, 3.5, 3.5)
+								love.graphics.printf("Score: " .. score .. " Misses: " .. missCounter .. " | Hits: " .. hitCounter .. " | Accuracy: " .. convertedAcc .. " | Rating: " .. ratingText, -1750, 400, 1000, "center", 0, 3.5, 3.5)
 							end
 						end
 					end
