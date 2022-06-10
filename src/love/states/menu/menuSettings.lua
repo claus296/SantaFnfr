@@ -383,10 +383,10 @@ return {
                             settings.vocalsVol = 1
                         end
                     elseif settingSelect == 5 then
-                        if settings.hitsoundsVol < 1 then
-                            settings.hitsoundsVol = settings.hitsoundsVol + 0.05
+                        if settings.hitsoundVol < 1 then
+                            settings.hitsoundVol = settings.hitsoundVol + 0.05
                         else
-                            settings.hitsoundsVol = 1
+                            settings.hitsoundVol = 1
                         end
                     end
                 end
