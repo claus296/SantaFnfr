@@ -198,11 +198,11 @@ function love.load()
 		serialized = lume.serialize(data)
 		love.filesystem.write("settings", serialized)
 	end
-	if settingsVer ~= 2 then
+	if settingsVer ~= 3 then
 		love.window.showMessageBox("Uh Oh!", "Settings have been reset.", "warning")
 		love.filesystem.remove("settings.data")
 	end
-	if not love.filesystem.getInfo("settings") or settingsVer ~= 2 then
+	if not love.filesystem.getInfo("settings") or settingsVer ~= 3 then
 		settings.hardwareCompression = true
 		graphics.setImageType("dds")
 		settings.downscroll = false
@@ -222,7 +222,7 @@ function love.load()
 		settings.vocalsVol = 1
 		settings.hitsoundVol = 1
 		settings.noteSkins = 1
-		settingsVer = 2
+		settingsVer = 3
 		data = {}
 		data.saveSettingsMoment = {
 			hardwareCompression = settings.hardwareCompression,

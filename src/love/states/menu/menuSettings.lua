@@ -357,10 +357,12 @@ return {
             elseif input:pressed("right") then
                 if settingsMenuState == 2 then
                     if settingSelect == 6 then
-                        settings.customScrollSpeed = settings.customScrollSpeed + 0.1
+                        settings.customScrollSpeed = settings.customScrollSpeed + 0.05
                     elseif settingSelect == 8 then
-                        if settings.scrollUnderlayTrans ~= 1 then
-                            settings.scrollUnderlayTrans = settings.scrollUnderlayTrans + 0.1
+                        if settings.scrollUnderlayTrans < 1 then
+                            settings.scrollUnderlayTrans = settings.scrollUnderlayTrans + 0.05
+                        else
+                            settings.scrollUnderlayTrans = 1
                         end
                     elseif settingSelect == 10 then
                         if settings.noteSkins ~= #noteskins then
@@ -369,20 +371,36 @@ return {
                     end
                 elseif settingsMenuState == 3 then
                     if settingSelect == 3 then
-                        settings.instVol = settings.instVol + 0.1
+                        if settings.instVol < 1 then
+                            settings.instVol = settings.instVol + 0.05
+                        else
+                            settings.instVol = 1
+                        end
                     elseif settingSelect == 4 then
-                        settings.vocalsVol = settings.vocalsVol + 0.1
+                        if settings.vocalsVol < 1 then
+                            settings.vocalsVol = settings.vocalsVol + 0.05
+                        else
+                            settings.vocalsVol = 1
+                        end
                     elseif settingSelect == 5 then
-                        settings.hitsoundVol = settings.hitsoundVol + 0.1
+                        if settings.hitsoundsVol < 1 then
+                            settings.hitsoundsVol = settings.hitsoundsVol + 0.05
+                        else
+                            settings.hitsoundsVol = 1
+                        end
                     end
                 end
             elseif input:pressed("left") then
                 if settingsMenuState == 2 then
                     if settingSelect == 6 then
-                        settings.customScrollSpeed = settings.customScrollSpeed - 0.1
+                        if settings.customScrollSpeed > 0.05 then
+                            settings.customScrollSpeed = settings.customScrollSpeed - 0.05
+                        else
+                            settings.customScrollSpeed = 0.05
+                        end
                     elseif settingSelect == 8 then
-                        if settings.scrollUnderlayTrans >= 0 then
-                            settings.scrollUnderlayTrans = settings.scrollUnderlayTrans - 0.1
+                        if settings.scrollUnderlayTrans > 0 then
+                            settings.scrollUnderlayTrans = settings.scrollUnderlayTrans - 0.05
                         else
                             settings.scrollUnderlayTrans = 0
                         end
@@ -393,11 +411,23 @@ return {
                     end
                 elseif settingsMenuState == 3 then
                     if settingSelect == 3 then
-                        settings.instVol = settings.instVol - 0.1
+                        if settings.instVol > 0 then
+                            settings.instVol = settings.instVol - 0.05
+                        else
+                            settings.instVol = 0
+                        end
                     elseif settingSelect == 4 then
-                        settings.vocalsVol = settings.vocalsVol - 0.1
+                        if settings.vocalsVol > 0 then
+                            settings.vocalsVol = settings.vocalsVol - 0.05
+                        else
+                            settings.vocalsVol = 0
+                        end
                     elseif settingSelect == 5 then
-                        settings.hitsoundVol = settings.hitsoundVol - 0.1
+                        if settings.hitsoundVol > 0 then
+                            settings.hitsoundVol = settings.hitsoundVol - 0.05
+                        else
+                            settings.hitsoundVol = 0
+                        end
                     end
                 end
 			end
