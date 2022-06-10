@@ -50,10 +50,10 @@ return {
 		THETHING[3] = 0
 		function funnyNotes()
 			Timer.tween(
-				0.7, THETHING, {[1] = -1}, "out-back", function()
+				0.7, THETHING, {[1] = -1}, "linear", function()
 					Timer.after(0.7, function()
-						Timer.tween(0.7, THETHING, {[1] = 1}, "out-back", function()
-							Timer.after(0.7, function()
+						Timer.tween(0.7, THETHING, {[1] = 1}, "linear", function()
+							Timer.after(0.4, function()
 								funnyNotes()
 							end)
 						end)
@@ -79,7 +79,7 @@ return {
 		love.graphics.setDefaultFilter("nearest")
 		images = {
 			icons = love.graphics.newImage(graphics.imagePath("icons")),
-			notes = love.graphics.newImage(graphics.imagePath("notes")),
+			notes = love.graphics.newImage(graphics.imagePath("arrows")),
 			notesp = love.graphics.newImage(graphics.imagePath("pixel/notes")),
 			notesplashes = love.graphics.newImage(graphics.imagePath("noteSplashes")),
 			numbers = love.graphics.newImage(graphics.imagePath("numbers"))
@@ -1663,13 +1663,14 @@ return {
 
 				if enemyArrows[i]:getAnimName() == "off" then
 					graphics.setColor(0.6, 0.6, 0.6)
+					enemyArrows[i]:udraw(7,THETHING[1]*7)
 				end
 				if settings.middleScroll then
 					love.graphics.setColor(0.6,0.6,0.6,0.3)
 				end
 				--love.graphics.scale(1, -1)
 				graphics.setColor(1, 1, 1)
-				boyfriendArrows[i]:draw()
+				boyfriendArrows[i]:udraw(1, THETHING[1])
 				if hitSick then
 					if not settings.botPlay then
 						if input:pressed("gameLeft") then
@@ -1768,7 +1769,7 @@ return {
 								if settings.middleScroll then
 									graphics.setColor(1, 1, 1, 0.5)
 								end
-								enemyNotes[i][j]:draw()
+								enemyNotes[i][j]:udraw(7, THETHING[1]*7)
 								--love.graphics.scale(1, -1)
 							end
 							graphics.setColor(1, 1, 1)
@@ -1790,7 +1791,7 @@ return {
 									graphics.setColor(1, 1, 1, math.min(1, (500 + (boyfriendNotes[i][j].y - musicPos)) / 75))
 								end
 							end
-							boyfriendNotes[i][j]:draw()
+							boyfriendNotes[i][j]:udraw(1,THETHING[1])
 						end
 					end
 					graphics.setColor(1, 1, 1)
