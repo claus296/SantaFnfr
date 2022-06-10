@@ -23,8 +23,6 @@ weekNum = 1
 local songNum, songAppend
 local songDifficulty = 2
 
-local tutorial, week1, week2, week3, week4, week5, week6
-
 local weekDesc = { -- Add your week description here
 	"LEARN TO FUNK",
 	"DADDY DEAREST",
@@ -260,13 +258,13 @@ return {
 				if weekNum ~= #trackNames then -- change 7 to the ammount of weeks there is (tutorial-6)              where tf is this 7 youre talking about         tutorial counts as a week dumbo
 					weekNum = weekNum + 1
 					colourTween()
-					for i = 1, 7 do
+					for i = 1, #weekDesc do
 						Timer.tween(0.2, weekButtonY, { [i] = weekButtonY[i] - 100}, "out-expo")
 					end
 				else
 					weekNum = 1
 					colourTween()
-					for i = 1, 7 do
+					for i = 1, #weekDesc do
 						Timer.tween(0.2, weekButtonY, { [i] = 120 + 100*i}, "out-expo")
 					end
 				end
@@ -277,14 +275,15 @@ return {
 				if weekNum ~= 1 then
 					weekNum = weekNum - 1
 					colourTween()
-					for i = 1, 7 do
+					for i = 1, #weekDesc do
 						Timer.tween(0.2, weekButtonY, { [i] = weekButtonY[i] + 100 }, "out-expo")
 					end
 				else
 					weekNum = #trackNames
 					colourTween()
-					Timer.tween(0.2, weekButtonY, { [1] = 220 - 600, [2] = 220 - 500, [3] = 220 - 400, [4] = 220 - 300, [5] = 220 - 200, [6] = 220 - 100, [7] = 220 }, "out-expo")
-					-- gross workaround but whatever
+					for i = 1, #weekDesc do
+						Timer.tween(0.2, weekButtonY, { [i] = 220 - (700 - 100*i)}, "out-expo")
+					end
 				end
 				menuFunc()
 			elseif input:pressed("left") then
@@ -327,7 +326,7 @@ return {
 
 			love.graphics.push()
 				love.graphics.scale(cam.sizeX, cam.sizeY)
-				for i = 1, 7 do
+				for i = 1, #weekDesc do
 					weekImages[i]:draw()
 				end
 
