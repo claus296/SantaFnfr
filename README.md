@@ -17,7 +17,7 @@ Features with Funkin' Vanilla Engine:
 * Some Gameplay modifications
 * Pausing
 
-Join Vanilla Engines's Discord server for updates and other stuff:  
+Join Vanilla Engines's Discord server for updates and other stuff: https://discord.gg/TBF3HkXWhq
 
 Friday Night Funkin' Rewritten features:
 * A rewritten engine focused on performance and playability
