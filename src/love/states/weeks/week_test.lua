@@ -1658,13 +1658,36 @@ return {
 			--love.graphics.rotate(-0.3)
 
 
+			if enemyArrows[1]:getAnimName() == "off" then
+				graphics.setColor(0.6, 0.6, 0.6)
+				love.graphics.scale(1, -1)
+				enemyArrows[1]:udraw(7, THETHING[1]*7)
+				love.graphics.scale(1, -1)
+				graphics.setColor(1, 1, 1)
+			end
+			if enemyArrows[2]:getAnimName() == "off" then
+				graphics.setColor(0.6, 0.6, 0.6)
+				love.graphics.scale(1, -1)
+				enemyArrows[2]:udraw(7, THETHING[1]*7)
+				love.graphics.scale(1, -1)
+				graphics.setColor(1, 1, 1)
+			end
+			if enemyArrows[3]:getAnimName() == "off" then
+				graphics.setColor(0.6, 0.6, 0.6)
+				love.graphics.scale(1, -1)
+				enemyArrows[3]:udraw(7, THETHING[1]*7)
+				love.graphics.scale(1, -1)
+				graphics.setColor(1, 1, 1)
+			end
+			if enemyArrows[4]:getAnimName() == "off" then
+				graphics.setColor(0.6, 0.6, 0.6)
+				love.graphics.scale(1, -1)
+				enemyArrows[4]:udraw(7, THETHING[1]*7)
+				love.graphics.scale(1, -1)
+				graphics.setColor(1, 1, 1)
+			end
 			for i = 1, 4 do
 				--love.graphics.rotate(40 * i)
-
-				if enemyArrows[i]:getAnimName() == "off" then
-					graphics.setColor(0.6, 0.6, 0.6)
-					enemyArrows[i]:udraw(7,THETHING[1]*7)
-				end
 				if settings.middleScroll then
 					love.graphics.setColor(0.6,0.6,0.6,0.3)
 				end
@@ -1757,9 +1780,8 @@ return {
 					
 					love.graphics.translate(0, -musicPos)
 
+					--love.graphics.scale(1, -1)
 					for j = #enemyNotes[i], 1, -1 do
-							--love.graphics.scale(1,-1)
-							--love.graphics.scale(1, -1)
 							if (not settings.downscroll and enemyNotes[i][j].y - musicPos <= 560) or (settings.downscroll and enemyNotes[i][j].y - musicPos >= -560) then
 								local animName = enemyNotes[i][j]:getAnimName()
 
@@ -1770,10 +1792,11 @@ return {
 									graphics.setColor(1, 1, 1, 0.5)
 								end
 								enemyNotes[i][j]:udraw(7, THETHING[1]*7)
-								--love.graphics.scale(1, -1)
+								
 							end
 							graphics.setColor(1, 1, 1)
 					end
+					--love.graphics.scale(1, -1)
 					for j = #boyfriendNotes[i], 1, -1 do
 						if (not settings.downscroll and boyfriendNotes[i][j].y - musicPos <= 560) or (settings.downscroll and boyfriendNotes[i][j].y - musicPos >= -560) then
 							local animName = boyfriendNotes[i][j]:getAnimName()
