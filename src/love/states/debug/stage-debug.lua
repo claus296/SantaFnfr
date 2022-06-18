@@ -69,9 +69,9 @@ return {
                     boyfriend.x = boyfriend.x + 1
                 end
                 -- GF Positions
-                if key == "t" then
+                if key == "g" then
                     girlfriend.y = girlfriend.y + 1
-                elseif key == "g" then
+                elseif key == "t" then
                     girlfriend.y = girlfriend.y - 1
                 elseif key == "f" then
                     girlfriend.x = girlfriend.x - 1
@@ -79,9 +79,9 @@ return {
                     girlfriend.x = girlfriend.x + 1
                 end
                 -- Enemy Positions
-                if key == "i" then
+                if key == "k" then
                     enemy.y = enemy.y + 1
-                elseif key == "k" then
+                elseif key == "i" then
                     enemy.y = enemy.y - 1
                 elseif key == "j" then
                     enemy.x = enemy.x - 1
