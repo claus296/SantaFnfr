@@ -24,26 +24,14 @@ local stageBack, stageFront, curtains
 return {
 	enter = function(self, from, songNum, songAppend)
 		weeks:enter()
+		stages["stage"]:enter()
 
 		week = 1
 
 		song = songNum
 		difficulty = songAppend
 
-		healthBarColorEnemy = {175,102,206}
-
-		stageBack = graphics.newImage(love.graphics.newImage(graphics.imagePath("week1/stage-back")))
-		stageFront = graphics.newImage(love.graphics.newImage(graphics.imagePath("week1/stage-front")))
-		curtains = graphics.newImage(love.graphics.newImage(graphics.imagePath("week1/curtains")))
-
-		stageFront.y = 400
-		curtains.y = -100
-
-		enemy = love.filesystem.load("sprites/week1/daddy-dearest.lua")()
-
-		girlfriend.x, girlfriend.y = 30, -90
-		enemy.x, enemy.y = -380, -110
-		boyfriend.x, boyfriend.y = 260, 100
+		healthBarColorEnemy = {175,102,206}		
 
 		enemyIcon:animate("daddy dearest", false)
 
@@ -52,6 +40,7 @@ return {
 
 	load = function(self)
 		weeks:load()
+		stages["stage"]:load()
 
 		if song == 3 then
 			inst = love.audio.newSource("songs/week1/dadbattle/inst.ogg", "stream")
@@ -83,6 +72,7 @@ return {
 
 	update = function(self, dt)
 		weeks:update(dt)
+		stages["stage"]:update(dt)
 
 		if song == 1 and musicThres ~= oldMusicThres and math.fmod(absMusicTime + 500, 480000 / bpm) < 100 then
 			weeks:safeAnimate(boyfriend, "hey", false, 3)
@@ -130,25 +120,8 @@ return {
 			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
 			love.graphics.scale(cam.sizeX, cam.sizeY)
 
-			love.graphics.push()
-				love.graphics.translate(cam.x * 0.9, cam.y * 0.9)
+			stages["stage"]:draw()
 
-				stageBack:draw()
-				stageFront:draw()
-
-				girlfriend:draw()
-			love.graphics.pop()
-			love.graphics.push()
-				love.graphics.translate(cam.x, cam.y)
-
-				enemy:draw()
-				boyfriend:draw()
-			love.graphics.pop()
-			love.graphics.push()
-				love.graphics.translate(cam.x * 1.1, cam.y * 1.1)
-
-				curtains:draw()
-			love.graphics.pop()
 			weeks:drawRating(0.9)
 		love.graphics.pop()
 
@@ -157,10 +130,7 @@ return {
 	end,
 
 	leave = function(self)
-		stageBack = nil
-		stageFront = nil
-		curtains = nil
-
+		stages["stage"]:leave()
 		weeks:leave()
 	end
 }

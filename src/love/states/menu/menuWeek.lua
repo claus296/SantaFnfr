@@ -327,15 +327,15 @@ return {
 					weekImages[i]:draw()
 				end
 
-				love.graphics.setColor(0, 0, 0)
+				graphics.setColor(0, 0, 0)
 				
 				love.graphics.rectangle("fill", -1000, -351, 2500, -100) 
 
-				love.graphics.setColorF(freeColour[1], freeColour[2], freeColour[3])
+				graphics.setColorF(freeColour[1], freeColour[2], freeColour[3])
 
 				love.graphics.rectangle("fill", -1000, -351, 2500, 411) 
 
-				love.graphics.setColor(1, 1, 1)
+				graphics.setColor(1, 1, 1)
 
 				difficultyAnim:draw()
 				if weekNum ~= 1 then
@@ -344,7 +344,7 @@ return {
 				bfDanceLines:draw()
 				gfDanceLines:draw()
 
-				love.graphics.printf(weekDesc[weekNum], -585, -395, 853, "right", nil, 1.5, 1.5)
+				love.graphics.color.printf(weekDesc[weekNum], -585, -395, 853, "right", nil, 1.5, 1.5)
 				--[[
 				if weekNum ~= 1 then
 					love.graphics.color.printf("TRACKS" .. trackNames[weekNum][1] .. trackNames[weekNum][2] .. trackNames[weekNum][3], -1050, 140, 853, "center", nil, 1.5, 1.5, 255, 117, 172)

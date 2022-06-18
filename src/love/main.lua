@@ -51,20 +51,33 @@ function love.load()
 
 	-- Load states
 	clickStart = require "states.click-start"
-	debugMenu = require "states.debug-menu"
 
-	-- Load weeks
+	debugMenu = require "states.debug.debugMenu"
+	spriteDebug = require "states.debug.sprite-debug"
+	stageDebug = require "states.debug.stage-debug"
+	
+
+	-- Load menus
 	menu = require "states.menu.menu"
 	menuWeek = require "states.menu.menuWeek"
 	menuSelect = require "states.menu.menuSelect"
 	menuFreeplay = require "states.menu.menuFreeplay"
 	menuSettings = require "states.menu.menuSettings"
 
+	-- Load stages
+	stages = {
+		["stage"] = require "stages.stage",
+		["hauntedHouse"] = require "stages.hauntedHouse",
+		["city"] = require "stages.city",
+		["sunset"] = require "stages.sunset",
+		["mall"] = require "stages.mall",
+		["school"] = require "stages.school",
+		["test"] = require "stages.test",
+	}
+
 	-- Load weeks
 	weeks = require "states.weeks.weeks"
 	weeks_test = require "states.weeks.week_test"
-	--week7 = require "states.weeks.weeks7" -- since week7 has some wack changes, use a different weeks.lua file
-	-- Too lazy to remove all assets from week7, so i just keep it in.
 
 	-- Load substates
 	gameOver = require "substates.game-over"
@@ -303,17 +316,17 @@ function love.load()
 	end
 end
 function love.graphics.setColorF(R,G,B,A)
-	R, G, B = R/255, G/255, B/255 -- convert 255 values to work with the setColor
-	graphics.setColor(R,G,B,A) -- Alpha is not converted because using 255 alpha can be strange (I much rather 0-1 values lol)
+	local R, G, B = R/255 or 1, G/255 or 1, B/255 or 1 -- convert 255 values to work with the setColor
+	graphics.setColor(R,G,B,A or 1) -- Alpha is not converted because using 255 alpha can be strange (I much rather 0-1 values lol)
 end
 function love.graphics.color.print(text,x,y,r,sx,sy,R,G,B,A,ox,oy,kx,ky)
-    graphics.setColorF(R,G,B,A)
+    graphics.setColorF(R or 255,G or 255,B or 255,A or 1)
     love.graphics.print(text,x,y,r,sx,sy,a,ox,oy,kx,ky) -- When I learn the code for remaking love.graphics.print() I will update it (Although this works too)
     love.graphics.setColorF(255,255,255,1)
 end
 
 function love.graphics.color.printf(text,x,y,limit,align,r,sx,sy,R,G,B,A,ox,oy,kx,ky)
-    graphics.setColorF(R,G,B,A)
+    graphics.setColorF(R or 255,G or 255,B or 255,A or 1)
     love.graphics.printf(text,x,y,limit,align,r,sx,sy,ox,oy,kx,ky) -- Part 2
     love.graphics.setColorF(255,255,255,1)
 end

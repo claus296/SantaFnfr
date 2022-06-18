@@ -17,17 +17,17 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
 
-local song, difficulty
+local difficulty
 
 local dialogueBox, senpaiPortrait, bfPortrait
-local school, sky, street, trees, treesBack, petals, freaks, spiritPortait, angrySenpaiBox, scaryDialogueBox
+local spiritPortait, angrySenpaiBox, scaryDialogueBox
 
 return {
 	enter = function(self, from, songNum, songAppend)
 		cam.sizeX, cam.sizeY = 0.78, 0.78
 		camScale.x, camScale.y = 0.78, 0.78
 		weeks:pixelEnter()
-
+		stages["school"]:enter()
 		week = 6
 		
 		song = songNum
@@ -65,21 +65,8 @@ return {
 		end
 
 		if song ~= 3 then
-			sky = graphics.newImage(love.graphics.newImage(graphics.imagePath("week6/sky")))
-			school = graphics.newImage(love.graphics.newImage(graphics.imagePath("week6/school")))
-			street = graphics.newImage(love.graphics.newImage(graphics.imagePath("week6/street")))
-			treesBack = graphics.newImage(love.graphics.newImage(graphics.imagePath("week6/trees-back")))
-
-			trees = love.filesystem.load("sprites/week6/trees.lua")()
-			petals = love.filesystem.load("sprites/week6/petals.lua")()
-			freaks = love.filesystem.load("sprites/week6/freaks.lua")()
-
 			enemyIcon:animate("senpai", false)
 		end
-
-		girlfriend.x, girlfriend.y = 30, -50
-		boyfriend.x, boyfriend.y = 300, 190
-		fakeBoyfriend.x, fakeBoyfriend.y = 300, 190
 
 		self:load()
 	end,
@@ -90,12 +77,11 @@ return {
 		else
 			doingDialogue = false
 		end
+		stages["school"]:load()
 		if song == 3 then
-			school = love.filesystem.load("sprites/week6/evil-school.lua")()
-			enemy = love.filesystem.load("sprites/week6/spirit.lua")()
-
 			scaryDialogueBox = love.filesystem.load("sprites/week6/scaryDialogueBox.lua")()
 			spiritPortait = graphics.newImage(love.graphics.newImage(graphics.imagePath("week6/spiritFaceForward")))
+
 			if storyMode then
 				dialogueMusic = love.audio.newSource("songs/misc/pixel/LunchboxScary.ogg", "static")
 				dialogueMusic:setLooping(true)
@@ -121,8 +107,6 @@ return {
 
 			healthBarColorEnemy = {255,60,110}
 		elseif song == 2 then
-			enemy = love.filesystem.load("sprites/week6/senpai-angry.lua")()
-
 			angrySenpaiBox = love.filesystem.load("sprites/week6/angrySenpaiBox.lua")()
 			angrySenpaiBox.x, angrySenpaiBox.y = 650, 375
 
@@ -139,10 +123,7 @@ return {
 				angry_text_box = love.audio.newSource("sounds/pixel/ANGRY_TEXT_BOX.ogg", "static")
 				angry_text_box:play()
 			end
-
-			freaks:animate("dissuaded", true)
 		else
-			enemy = love.filesystem.load("sprites/week6/senpai.lua")()
 			setDialogue(
 				{
 					"Ah, a new fair maiden has come in search of true love!",
@@ -151,8 +132,6 @@ return {
 				}
 			)
 		end
-
-		enemy.x, enemy.y = -340, -20
 
 		weeks:load()
 
@@ -193,14 +172,7 @@ return {
 
 	update = function(self, dt)
 		weeks:update(dt)
-
-		if song ~= 3 then
-			petals:update(dt)
-			trees:update(dt)
-			freaks:update(dt)
-		else
-			school:update(dt)
-		end
+		stages["school"]:update(dt)
 
 		if doingDialogue then
 			weeks:doDialogue(dt)
@@ -259,34 +231,8 @@ return {
 			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
 			love.graphics.scale(cam.sizeX, cam.sizeY)
 
-			love.graphics.push()
-				love.graphics.translate(cam.x * 0.9, cam.y * 0.9)
+			stages["school"]:draw()
 
-				if song ~= 3 then
-					sky:udraw()
-				end
-
-				school:udraw()
-				if song ~= 3 then
-					street:udraw()
-					treesBack:udraw()
-
-					trees:udraw()
-					petals:udraw()
-					freaks:udraw()
-				end
-				girlfriend:udraw()
-			love.graphics.pop()
-			love.graphics.push()
-				love.graphics.translate(cam.x, cam.y)
-
-				enemy:udraw()
-				boyfriend:udraw()
-			love.graphics.pop()
-			love.graphics.push()
-				love.graphics.translate(cam.x * 1.1, cam.y * 1.1)
-
-			love.graphics.pop()
 			weeks:drawRating(0.9)
 		love.graphics.pop()
 		if doingDialogue then -- Doing this cuz i'm stupid as shit
@@ -317,10 +263,9 @@ return {
 	end,
 
 	leave = function(self)
-		stageBack = nil
-		stageFront = nil
-		curtains = nil
+		stages["school"]:leave()
 		pixel = false
+		song = nil
 		love.graphics.setDefaultFilter("linear")
 		font = love.graphics.newFont("fonts/vcr.ttf", 24)
 		weeks:leave()

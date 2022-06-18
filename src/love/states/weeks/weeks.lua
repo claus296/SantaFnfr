@@ -1790,17 +1790,25 @@ return {
 					graphics.setColor(0.6, 0.6, 0.6)
 				end
 				if settings.middleScroll then
-					love.graphics.setColor(0.6,0.6,0.6,0.3)
+					if paused then 
+						love.graphics.setColor(0.6,0.6,0.6,0.3)
+					else
+						love.graphics.setColor(0.6,0.6,0.6,0.3)
+					end
+				else
+					if paused then 
+						love.graphics.setColor(0.6,0.6,0.6,0.3)
+					else
+						love.graphics.setColor(1,1,1)
+					end
 				end
-				if paused then 
-					love.graphics.setColor(0.6,0.6,0.6,0.3)
-				end
+				
+				enemyArrows[i]:draw()--ate
 				if paused then 
 					love.graphics.setColor(0.6,0.6,0.6,0.3)
 				else
 					love.graphics.setColor(1, 1, 1, 1)
 				end
-				enemyArrows[i]:draw()--ate
 				boyfriendArrows[i]:draw()
 				if hitSick then
 					if not settings.botPlay then

@@ -26,117 +26,15 @@ local bgLimo, limoDancer, limo
 return {
 	enter = function(self, from, songNum, songAppend)
 		bpm = 100
-
 		week = 4
-
-		--PAUSE MENU IMAGES
-		resume = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/resume"))) -- USE THIS FUNCTION
-		resumeH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/resumeHover")))
-		restart = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/restart")))
-		restartH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/restartHover")))
-		exit = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/exit")))
-		exitH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/exitHover")))
-		options = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/options")))
-		optionsH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/optionsHover")))
-						
-		resume.x, resume.y = 400, 120
-		resumeH.x, resumeH.y = resume.x, resume.y
-		restart.x, restart.y = 400, 295
-		restartH.x, restartH.y = restart.x, restart.y 
-		exit.x, exit.y = 400, 470
-		exitH.x, exitH.y = exit.x, exit.y 
-		options.x, options.y = 400, 645
-		optionsH.x, optionsH.y = options.x, options.y
-
-		enemyFrameTimer = 0
-		boyfriendFrameTimer = 0
-
-		sounds = { -- Since week4 does not use weeks:load, all of the load stuff is here
-			countdown = {
-				three = love.audio.newSource("sounds/countdown-3.ogg", "static"),
-				two = love.audio.newSource("sounds/countdown-2.ogg", "static"),
-				one = love.audio.newSource("sounds/countdown-1.ogg", "static"),
-				go = love.audio.newSource("sounds/countdown-go.ogg", "static")
-			},
-			miss = {
-				love.audio.newSource("sounds/miss1.ogg", "static"),
-				love.audio.newSource("sounds/miss2.ogg", "static"),
-				love.audio.newSource("sounds/miss3.ogg", "static")
-			},
-			hitsounds = {
-				left = love.audio.newSource("sounds/hitSound.ogg", "static"),  -- THERE IS A REAL REASON FOR THIS, IF YOU ONLY USE ONE SOUND THEN PRESSING MORE THAN ONE KEY AT THE SAME TIME WILL ONLY PLAY ONE SOUND
-				right = love.audio.newSource("sounds/hitSound.ogg", "static"),
-				up = love.audio.newSource("sounds/hitSound.ogg", "static"),
-				down = love.audio.newSource("sounds/hitSound.ogg", "static")
-			},
-			death = love.audio.newSource("sounds/death.ogg", "static"),
-			breakfast = love.audio.newSource("songs/misc/breakfast.ogg", "stream"),
-			["text"] = love.audio.newSource("sounds/pixel/text.ogg", "static"),
-			["continue"] = love.audio.newSource("sounds/pixel/continue-text.ogg", "static"),
-		}
-
-		images = {
-			icons = love.graphics.newImage(graphics.imagePath("icons")),
-			notes = love.graphics.newImage(graphics.imagePath(noteskins[settings.noteSkins])),
-			notesplashes = love.graphics.newImage(graphics.imagePath("noteSplashes")),
-			numbers = love.graphics.newImage(graphics.imagePath("numbers"))
-		}
-
-		sprites = {
-			icons = love.filesystem.load("sprites/icons.lua"),
-			numbers = love.filesystem.load("sprites/numbers.lua")
-		}
+		weeks:enter()
+		stages["sunset"]:enter()
 
 		song = songNum
 		difficulty = songAppend
 
 		healthBarColorEnemy = {216,85,142}
 		healthBarColorPlayer = {49,176,209}
-
-		sunset = graphics.newImage(love.graphics.newImage(graphics.imagePath("week4/sunset")))
-
-		bgLimo = love.filesystem.load("sprites/week4/bg-limo.lua")()
-		limoDancer = love.filesystem.load("sprites/week4/limo-dancer.lua")()
-		girlfriend = love.filesystem.load("sprites/week4/girlfriend.lua")()
-		limo = love.filesystem.load("sprites/week4/limo.lua")()
-		enemy = love.filesystem.load("sprites/week4/mommy-mearest.lua")()
-		boyfriend = love.filesystem.load("sprites/week4/boyfriend.lua")()
-		rating = love.filesystem.load("sprites/rating.lua")()
-		fakeBoyfriend = love.filesystem.load("sprites/boyfriend.lua")() -- Used for game over
-
-		fakeBoyfriend.x, fakeBoyfriend.y = 350, -100
-		bgLimo.y = 250
-		limoDancer.y = -130
-		girlfriend.x, girlfriend.y = 30, -50
-		limo.y = 375
-		enemy.x, enemy.y = -380, -10
-		boyfriend.x, boyfriend.y = 340, -100
-
-		rating = love.filesystem.load("sprites/rating.lua")()
-
-		rating.sizeX, rating.sizeY = 0.75, 0.75
-		numbers = {}
-		for i = 1, 3 do
-			numbers[i] = sprites.numbers()
-
-			numbers[i].sizeX, numbers[i].sizeY = 0.5, 0.5
-		end
-
-		enemyIcon = sprites.icons()
-		boyfriendIcon = sprites.icons()
-
-		if settings.downscroll then
-			enemyIcon.y = -400
-			boyfriendIcon.y = -400
-		else
-			enemyIcon.y = 350
-			boyfriendIcon.y = 350
-		end
-		enemyIcon.sizeX, enemyIcon.sizeY = 1.5, 1.5
-		boyfriendIcon.sizeX, boyfriendIcon.sizeY = -1.5, 1.5
-
-		countdownFade = {}
-		countdown = love.filesystem.load("sprites/countdown.lua")()
 
 		enemyIcon:animate("mommy mearest", false)
 
@@ -145,6 +43,7 @@ return {
 
 	load = function(self)
 		weeks:load()
+		stages["sunset"]:load()
 
 		if song == 3 then
 			inst = love.audio.newSource("songs/week4/milf/inst.ogg", "stream")
@@ -176,22 +75,13 @@ return {
 
 	update = function(self, dt)
 		weeks:update(dt)
+		stages["sunset"]:update(dt)
 		
 		-- Hardcoded M.I.L.F camera scaling
 		if song == 3 and musicTime > 56000 and musicTime < 67000 and musicThres ~= oldMusicThres and math.fmod(absMusicTime, 60000 / bpm) < 100 then
 			if camScaleTimer then Timer.cancel(camScaleTimer) end
 
 			camScaleTimer = Timer.tween((60 / bpm) / 16, cam, {sizeX = camScale.x * 1.05, sizeY = camScale.y * 1.05}, "out-quad", function() camScaleTimer = Timer.tween((60 / bpm), cam, {sizeX = camScale.x, sizeY = camScale.y}, "out-quad") end)
-		end
-
-		bgLimo:update(dt)
-		limoDancer:update(dt)
-		limo:update(dt)
-
-		if musicThres ~= oldMusicThres and math.fmod(absMusicTime, 120000 / bpm) < 100 then
-			limoDancer:animate("anim", false)
-
-			limoDancer:setAnimSpeed(14.4 / (60 / bpm))
 		end
 
 		if health >= 80 then
@@ -235,26 +125,8 @@ return {
 			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
 			love.graphics.scale(cam.sizeX, cam.sizeY)
 
-			love.graphics.push()
-				love.graphics.translate(cam.x * 0.5, cam.y * 0.5)
-
-				sunset:draw()
-
-				bgLimo:draw()
-				for i = -475, 725, 400 do
-					limoDancer.x = i
-
-					limoDancer:draw()
-				end
-			love.graphics.pop()
-			love.graphics.push()
-				love.graphics.translate(cam.x, cam.y)
-
-				girlfriend:draw()
-				limo:draw()
-				enemy:draw()
-				boyfriend:draw()
-			love.graphics.pop()
+			stages["sunset"]:draw()
+			
 			weeks:drawRating(1)
 			
 		love.graphics.pop()
@@ -263,12 +135,7 @@ return {
 	end,
 
 	leave = function()
-		sunset = nil
-
-		bgLimo = nil
-		limoDancer = nil
-		limo = nil
-
+		stages["sunset"]:leave()
 		weeks:leave()
 	end
 }
