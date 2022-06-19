@@ -25,6 +25,7 @@ love.graphics.color = {}
 color = {}
 
 volFade = 0
+fullscreen = false
 
 function love.load()
 	local curOS = love.system.getOS()
@@ -373,6 +374,10 @@ function love.keypressed(key)
 		if love.audio.getVolume() <= 0.9 then
 			love.audio.setVolume(love.audio.getVolume() + 0.1)
 		end
+	elseif key == "f11" then
+		fullscreen = not fullscreen
+		love.window.setFullscreen(fullscreen, fstype)
+		love.resize(love.graphics.getDimensions())
 	else
 		Gamestate.keypressed(key)
 	end
@@ -391,6 +396,11 @@ function love.update(dt)
 		volFade = volFade - 0.4 * delta
 	end
 
+	--if fullscreen then
+	--	t.screen.fullscreen = true
+	--else
+	--	t.screen.fullscreen = false
+	--end
 
 	input:update()
 
