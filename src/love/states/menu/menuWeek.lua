@@ -40,37 +40,37 @@ local difficultyStrs = {
 
 trackNames = { -- add your songs here
 	{
-		"\nTutorial"
+		"Tutorial"
 	},
 	{
-		"\nBopeebo",
-		"\nFresh",
-		"\nDad-Battle"
+		"Bopeebo",
+		"Fresh",
+		"Dad-Battle"
 	},
 	{
-		"\nSpookeez",
-		"\nSouth",
-		"\nMonster"
+		"Spookeez",
+		"South",
+		"Monster"
 	},
 	{
-		"\nPico",
-		"\nPhilly",
-		"\nBlammed"
+		"Pico",
+		"Philly",
+		"Blammed"
 	},
 	{
-		"\nSatin-Panties",
-		"\nHigh",
-		"\nM.I.L.F"
+		"Satin-Panties",
+		"High",
+		"M.I.L.F"
 	},
 	{
-		"\nCocoa",
-		"\nEggnog",
-		"\nWinter-Horrorland"
+		"Cocoa",
+		"Eggnog",
+		"Winter-Horrorland"
 	},
 	{
-		"\nSenpai",
-		"\nRoses",
-		"\nThorns"
+		"Senpai",
+		"Roses",
+		"Thorns"
 	}
 }
 
@@ -214,12 +214,9 @@ return {
 	end,
 
 	update = function(self, dt)
-
-
 		for i = 1, #weekDesc do
 			weekImages[i].y = weekButtonY[i]
 		end
-
 
 		function menuFunc()
 			if weekNum ~= 7 then -- Due to senpais idlelines being smaller than the rest, we resize it
@@ -330,15 +327,15 @@ return {
 					weekImages[i]:draw()
 				end
 
-				love.graphics.setColor(0, 0, 0)
+				graphics.setColor(0, 0, 0)
 				
 				love.graphics.rectangle("fill", -1000, -351, 2500, -100) 
 
-				love.graphics.setColorF(freeColour[1], freeColour[2], freeColour[3])
+				graphics.setColorF(freeColour[1], freeColour[2], freeColour[3])
 
 				love.graphics.rectangle("fill", -1000, -351, 2500, 411) 
 
-				love.graphics.setColor(1, 1, 1)
+				graphics.setColor(1, 1, 1)
 
 				difficultyAnim:draw()
 				if weekNum ~= 1 then
@@ -347,11 +344,17 @@ return {
 				bfDanceLines:draw()
 				gfDanceLines:draw()
 
-				love.graphics.printf(weekDesc[weekNum], -585, -395, 853, "right", nil, 1.5, 1.5)
+				love.graphics.color.printf(weekDesc[weekNum], -585, -395, 853, "right", nil, 1.5, 1.5)
+				--[[
 				if weekNum ~= 1 then
 					love.graphics.color.printf("TRACKS" .. trackNames[weekNum][1] .. trackNames[weekNum][2] .. trackNames[weekNum][3], -1050, 140, 853, "center", nil, 1.5, 1.5, 255, 117, 172)
 				else
 					love.graphics.color.printf("TRACKS" .. trackNames[weekNum][1], -1050, 140, 853, "center", nil, 1.5, 1.5, 255, 117, 172)
+				end
+				--]]
+				love.graphics.color.printf("TRACKS", -1050, 140, 853, "center", nil, 1.5, 1.5, 255, 117, 172)
+				for trackLength = 1, #trackNames[weekNum] do
+					love.graphics.color.printf(trackNames[weekNum][trackLength], -1050, 135 + (35 * trackLength), 853, "center", nil, 1.5, 1.5, 255, 117, 172)
 				end
 
 			love.graphics.pop()

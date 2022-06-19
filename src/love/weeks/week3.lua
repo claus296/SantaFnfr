@@ -24,8 +24,8 @@ local winColors, winColor
 
 return {
 	enter = function(self, from, songNum, songAppend)
-
 		weeks:enter()
+		stages["city"]:enter()
 
 		week = 3
 
@@ -37,33 +37,6 @@ return {
 		cam.sizeX, cam.sizeY = 1, 1
 		camScale.x, camScale.y = 1, 1
 
-		winColors = {
-			{49, 162, 253}, -- Blue
-			{49, 253, 140}, -- Green
-			{251, 51, 245}, -- Magenta
-			{253, 69, 49}, -- Orange
-			{251, 166, 51}, -- Yellow
-		}
-		winColor = 1
-
-		sky = graphics.newImage(love.graphics.newImage(graphics.imagePath("week3/sky")))
-		city = graphics.newImage(love.graphics.newImage(graphics.imagePath("week3/city")))
-		cityWindows = graphics.newImage(love.graphics.newImage(graphics.imagePath("week3/city-windows")))
-		behindTrain = graphics.newImage(love.graphics.newImage(graphics.imagePath("week3/behind-train")))
-		street = graphics.newImage(love.graphics.newImage(graphics.imagePath("week3/street")))
-
-		behindTrain.y = -100
-		behindTrain.sizeX, behindTrain.sizeY = 1.25, 1.25
-		street.y = -100
-		street.sizeX, street.sizeY = 1.25, 1.25
-
-		enemy = love.filesystem.load("sprites/week3/pico-enemy.lua")()
-
-		girlfriend.x, girlfriend.y = -70, -140
-		enemy.x, enemy.y = -480, 50
-		enemy.sizeX = -1 -- Reverse, reverse!
-		boyfriend.x, boyfriend.y = 165, 50
-
 		enemyIcon:animate("pico", false)
 
 		self:load()
@@ -71,6 +44,7 @@ return {
 
 	load = function(self)
 		weeks:load()
+		stages["city"]:load()
 
 		if song == 3 then
 			inst = love.audio.newSource("songs/week3/blammed/inst.ogg", "stream")
@@ -101,18 +75,8 @@ return {
 	end,
 
 	update = function(self, dt)
-
-
-
 		weeks:update(dt)
-
-		if musicThres ~= oldMusicThres and math.fmod(absMusicTime, 240000 / bpm) < 100 then
-			winColor = winColor + 1
-
-			if winColor > 5 then
-				winColor = 1
-			end
-		end
+		stages["city"]:update(dt)	
 
 		if health >= 80 then
 			if enemyIcon:getAnimName() == "pico" then
@@ -151,37 +115,12 @@ return {
 	end,
 
 	draw = function(self)
-		local curWinColor = winColors[winColor]
-
 		love.graphics.push()
 			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
 			love.graphics.scale(cam.sizeX, cam.sizeY)
 
-			love.graphics.push()
-				love.graphics.translate(cam.x * 0.25, cam.y * 0.25)
+			stages["city"]:draw()
 
-				sky:draw()
-			love.graphics.pop()
-			love.graphics.push()
-				love.graphics.translate(cam.x * 0.5, cam.y * 0.5)
-
-				city:draw()
-				cityWindows:cdraw(curWinColor[1], curWinColor[2], curWinColor[3])
-			love.graphics.pop()
-			love.graphics.push()
-				love.graphics.translate(cam.x * 0.9, cam.y * 0.9)
-
-				behindTrain:draw()
-				street:draw()
-
-				girlfriend:draw()
-			love.graphics.pop()
-			love.graphics.push()
-				love.graphics.translate(cam.x, cam.y)
-
-				enemy:draw()
-				boyfriend:draw()
-			love.graphics.pop()
 			weeks:drawRating(0.9)
 		love.graphics.pop()
 
@@ -190,12 +129,7 @@ return {
 	end,
 
 	leave = function(self)
-		sky = nil
-		city = nil
-		cityWindows = nil
-		behindTrain = nil
-		street = nil
-
+		stages["city"]:leave()
 		weeks:leave()
 	end
 }

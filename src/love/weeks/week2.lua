@@ -19,11 +19,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 local song, difficulty
 
-local hauntedHouse
-
 return {
 	enter = function(self, from, songNum, songAppend)
 		weeks:enter()
+		stages.hauntedHouse:enter()
 
 		week = 2
 
@@ -40,13 +39,6 @@ return {
 			love.audio.newSource("sounds/week2/thunder2.ogg", "static")
 		}
 
-		hauntedHouse = love.filesystem.load("sprites/week2/haunted-house.lua")()
-		enemy = love.filesystem.load("sprites/week2/skid-and-pump.lua")()
-
-		girlfriend.x, girlfriend.y = -200, 50
-		enemy.x, enemy.y = -610, 140
-		boyfriend.x, boyfriend.y = 30, 240
-
 		enemyIcon:animate("skid and pump", false)
 
 		self:load()
@@ -54,16 +46,13 @@ return {
 
 	load = function(self)
 		weeks:load()
+		stages.hauntedHouse:load()
 
 		if song == 3 then
-			enemy = love.filesystem.load("sprites/week2/monster.lua")()
-
-			enemy.x, enemy.y = -610, 120
-
-			enemyIcon:animate("monster", false)
-
 			healthBarColorEnemy = {243,255,110}
-
+			enemy = love.filesystem.load("sprites/week2/monster.lua")()
+			enemy.x, enemy.y = -610, 120
+            enemyIcon:animate("monster", false)
 			inst = love.audio.newSource("songs/week2/monster/inst.ogg", "stream")
 			voices = love.audio.newSource("songs/week2/monster/voices.ogg", "stream")
 		elseif song == 2 then
@@ -93,19 +82,7 @@ return {
 
 	update = function(self, dt)
 		weeks:update(dt)
-
-		hauntedHouse:update(dt)
-
-		if not hauntedHouse:isAnimated() then
-			hauntedHouse:animate("normal", false)
-		end
-		if song == 1 and musicThres ~= oldMusicThres and math.fmod(absMusicTime, 60000 * (love.math.random(17) + 7) / bpm) < 100 then
-			audio.playSound(sounds["thunder"][love.math.random(2)])
-
-			hauntedHouse:animate("lightning", false)
-			weeks:safeAnimate(girlfriend, "fear", true, 1)
-			weeks:safeAnimate(boyfriend, "shaking", true, 3)
-		end
+		stages["hauntedHouse"]:update(dt)
 
 		if song ~= 3 and musicThres ~= oldMusicThres and math.fmod(absMusicTime, 60000 / bpm) < 100 then
 			if enemy:getAnimName() == "idle" then
@@ -166,18 +143,8 @@ return {
 			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
 			love.graphics.scale(cam.sizeX, cam.sizeY)
 
-			love.graphics.push()
-				love.graphics.translate(cam.x * 0.9, cam.y * 0.9)
-
-				hauntedHouse:draw()
-				girlfriend:draw()
-			love.graphics.pop()
-			love.graphics.push()
-				love.graphics.translate(cam.x, cam.y)
-
-				enemy:draw()
-				boyfriend:draw()
-			love.graphics.pop()
+			stages.hauntedHouse:draw()
+			
 			weeks:drawRating(0.9)
 		love.graphics.pop()
 
@@ -186,8 +153,7 @@ return {
 	end,
 
 	leave = function(self)
-		hauntedHouse = nil
-
+		stages.hauntedHouse:leave()
 		weeks:leave()
 	end
 }
