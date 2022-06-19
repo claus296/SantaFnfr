@@ -43,7 +43,7 @@ function love.load()
 	-- Load modules
 	status = require "modules.status"
 	audio = require "modules.audio"
-	graphics = require "modules.graphics"
+	graphics = require "modules.graphics"             -- sorry guglio for this push it literally changes nothing i needed to test something
 
 	-- Load settings
 	settings = require "settings"
