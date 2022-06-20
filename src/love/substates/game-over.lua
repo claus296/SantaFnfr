@@ -34,6 +34,17 @@ return {
 		end
 		Timer.clear()
 
+		if week == 7 then
+			tankSound = love.audio.newSource("sounds/week7/tankmanDeathSounds/" .. love.math.random(1, 25) .. ".mp3", "static")
+			tankSound:setVolume(2.0)
+			Timer.after(
+				0.2,
+				function()
+					tankSound:play()
+				end
+			)
+		end
+
 		Timer.tween(
 			2,
 			cam,

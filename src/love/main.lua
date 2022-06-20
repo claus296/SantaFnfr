@@ -72,12 +72,13 @@ function love.load()
 		["sunset"] = require "stages.sunset",
 		["mall"] = require "stages.mall",
 		["school"] = require "stages.school",
-		["test"] = require "stages.test",
+		["tank"] = require "stages.tank",
 	}
 
 	-- Load weeks
 	weeks = require "states.weeks.weeks"
-	weeks_test = require "states.weeks.week_test"
+	weeks7 = require "states.weeks.weeks7" -- Week7 goes slkjdfhbskdljgfbskdjfgb so it uses a new weeks file
+	weeks_test = require "states.weeks.week_test" -- Not updated, just used when I want to fuck around - Guglio
 
 	-- Load substates
 	gameOver = require "substates.game-over"
@@ -150,7 +151,8 @@ function love.load()
 		require "weeks.week3",
 		require "weeks.week4",
 		require "weeks.week5",
-		require "weeks.week6"
+		require "weeks.week6",
+		require "weeks.week7",
 	}
 
 	noteskins = {

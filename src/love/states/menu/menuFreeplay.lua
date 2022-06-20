@@ -86,6 +86,14 @@ local weekMeta = { -- Add/remove weeks here
 			"Senpai",
 			"Roses",
 			"Thorns"
+		},
+	},
+	{
+		"Week 7",
+		{
+			"Ugh",
+			"Guns",
+			"Stress"
 		}
 	}
 }
@@ -388,7 +396,8 @@ return {
 			{131,19,73}, -- Week 3
 			{222,132,190}, -- Week 4
 			{141,184,225}, -- Week 5
-			{225,106,169} -- Week 6
+			{225,106,169}, -- Week 6
+			{50,50,50}, -- Week 7
 		}
 		Timer.tween(
 			0.2,

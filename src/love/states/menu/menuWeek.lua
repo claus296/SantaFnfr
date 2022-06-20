@@ -30,7 +30,8 @@ local weekDesc = { -- Add your week description here
 	"PICO",
 	"MOMMY MUST MURDER",
 	"RED SNOW",
-	"HATING SIMULATOR FT. MOAWLING"
+	"HATING SIMULATOR FT. MOAWLING",
+	"TANKMAN"
 }
 local difficultyStrs = { 
 	"easy",
@@ -71,6 +72,11 @@ trackNames = { -- add your songs here
 		"Senpai",
 		"Roses",
 		"Thorns"
+	},
+	{
+		"Ugh",
+		"Guns",
+		"Stress"
 	}
 }
 
@@ -93,7 +99,8 @@ return {
 			[4] = 520,
 			[5] = 620,
 			[6] = 720,
-			[7] = 820
+			[7] = 820,
+			[8] = 920
 		}
 
 		function colourTween()
@@ -132,7 +139,8 @@ return {
 			{131,19,73}, -- Week 3
 			{222,132,190}, -- Week 4
 			{141,184,225}, -- Week 5
-			{225,106,169} -- Week 6
+			{225,106,169}, -- Week 6
+			{50,50,50} -- Week 7
 		}
 		Timer.tween(
 			0.8,
@@ -168,7 +176,7 @@ return {
 		difficultyAnim.x, difficultyAnim.y = 400, 220
 
 		weekImages = {}
-		for i = 1, #weekDesc do
+		for i = 1, #weekDesc-1 do
 			table.insert(weekImages, graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/week" .. i-1))))
 		end
 
@@ -214,7 +222,7 @@ return {
 	end,
 
 	update = function(self, dt)
-		for i = 1, #weekDesc do
+		for i = 1, #weekDesc-1 do
 			weekImages[i].y = weekButtonY[i]
 		end
 
@@ -252,16 +260,16 @@ return {
 			if input:pressed("down") then
 				audio.playSound(selectSound)
 
-				if weekNum ~= #trackNames then -- change 7 to the ammount of weeks there is (tutorial-6)              where tf is this 7 youre talking about         tutorial counts as a week dumbo
+				if weekNum ~= #trackNames then
 					weekNum = weekNum + 1
 					colourTween()
-					for i = 1, #weekDesc do
+					for i = 1, #weekDesc-1 do
 						Timer.tween(0.2, weekButtonY, { [i] = weekButtonY[i] - 100}, "out-expo")
 					end
 				else
 					weekNum = 1
 					colourTween()
-					for i = 1, #weekDesc do
+					for i = 1, #weekDesc-1 do
 						Timer.tween(0.2, weekButtonY, { [i] = 120 + 100*i}, "out-expo")
 					end
 				end
@@ -272,13 +280,13 @@ return {
 				if weekNum ~= 1 then
 					weekNum = weekNum - 1
 					colourTween()
-					for i = 1, #weekDesc do
+					for i = 1, #weekDesc-1 do
 						Timer.tween(0.2, weekButtonY, { [i] = weekButtonY[i] + 100 }, "out-expo")
 					end
 				else
 					weekNum = #trackNames
 					colourTween()
-					for i = 1, #weekDesc do
+					for i = 1, #weekDesc-1 do
 						Timer.tween(0.2, weekButtonY, { [i] = 220 - (700 - 100*i)}, "out-expo")
 					end
 				end
@@ -323,7 +331,7 @@ return {
 
 			love.graphics.push()
 				love.graphics.scale(cam.sizeX, cam.sizeY)
-				for i = 1, #weekDesc do
+				for i = 1, #weekDesc-1 do
 					weekImages[i]:draw()
 				end
 
@@ -345,13 +353,7 @@ return {
 				gfDanceLines:draw()
 
 				love.graphics.color.printf(weekDesc[weekNum], -585, -395, 853, "right", nil, 1.5, 1.5)
-				--[[
-				if weekNum ~= 1 then
-					love.graphics.color.printf("TRACKS" .. trackNames[weekNum][1] .. trackNames[weekNum][2] .. trackNames[weekNum][3], -1050, 140, 853, "center", nil, 1.5, 1.5, 255, 117, 172)
-				else
-					love.graphics.color.printf("TRACKS" .. trackNames[weekNum][1], -1050, 140, 853, "center", nil, 1.5, 1.5, 255, 117, 172)
-				end
-				--]]
+
 				love.graphics.color.printf("TRACKS", -1050, 140, 853, "center", nil, 1.5, 1.5, 255, 117, 172)
 				for trackLength = 1, #trackNames[weekNum] do
 					love.graphics.color.printf(trackNames[weekNum][trackLength], -1050, 135 + (35 * trackLength), 853, "center", nil, 1.5, 1.5, 255, 117, 172)

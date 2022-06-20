@@ -39,15 +39,6 @@ tools/funkin-json-special/*
 art/*.png
 art/*.xml
 
-# Unreleased week7 stuff
-src/love/weeks/week7.lua
-src/love/states/weeks/weeks7.lua
-src/love/sprites/week7
-src/love/images/png/week7
-src/love/images/dds/week7
-src/love/sounds/week7
-src/love/music/week7
-
 # STOP UPLOADING SHORTCUTS CH
 *.lnk
 
