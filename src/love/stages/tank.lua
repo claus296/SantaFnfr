@@ -24,7 +24,7 @@ return {
         stageImages[2].sizeX, stageImages[2].sizeY = 1.3, 1.3
         stageImages[2].y = 100
 
-        picoSpeaker.x, picoSpeaker.y = 105, 160
+        picoSpeaker.x, picoSpeaker.y = 105, 110
 		girlfriend.x, girlfriend.y = 15, 190
 		enemy.x, enemy.y = -560, 339
 		boyfriend.x, boyfriend.y = 460, 423
@@ -66,7 +66,21 @@ return {
     love.graphics.push()
         love.graphics.translate(cam.x, cam.y)
 
-        enemy:draw()
+        if not cutscene then
+            enemy:draw()
+        end
+        if cutscene then
+            if song ~= 3 then
+                if tankCutscene[1]:isAnimated() then
+                    tankCutscene[1]:draw()
+                end
+                if song == 1 then
+                    if not tankCutscene[1]:isAnimated() then
+                        tankCutscene[2]:draw()
+                    end
+                end
+            end
+        end
         boyfriend:draw()
         for i = 6, 11 do
             stageImages[i]:draw()

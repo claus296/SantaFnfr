@@ -947,7 +947,7 @@ return {
 			love.audio.stop(sounds.breakfast)
 		end
 
-		if not doingDialogue then
+		if not doingDialogue and not cutscene and not video:isPlaying() then
 			oldMusicThres = musicThres
 			if countingDown or love.system.getOS() == "Web" then -- Source:tell() can't be trusted on love.js!
 				musicTime = musicTime + 1000 * dt
@@ -1048,7 +1048,7 @@ return {
 
 	updateUI = function(self, dt)
 		if not paused then
-			if not doingDialogue then
+			if not doingDialogue and not cutscene and not video:isPlaying() then
 				if settings.downscroll then
 					musicPos = -musicTime * 0.6 * speed
 				else

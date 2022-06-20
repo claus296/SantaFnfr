@@ -26,6 +26,16 @@ return {
 
 		week = 7
 
+		if storyMode then
+			video = love.graphics.newVideo("videos/stressCutscene.ogv") -- placeholder
+			cutscene = true
+			didCountdown = false
+			tankCutscene = {}
+			musicPos = 0
+			cam.sizeX, cam.sizeY = 1.1, 1.1
+			camScale.x, camScale.y = 1.1, 1.1
+		end
+
 		song = songNum
 		difficulty = songAppend
 
@@ -41,24 +51,190 @@ return {
 		stages["tank"]:load()
 
 		if song == 3 then
+			-- holy fuck this one will be PAINFUL
+			-- will use a video temporarily until I actually add it
 			boyfriend = love.filesystem.load("sprites/week7/bfAndGF.lua")()
 			boyfriend.x, boyfriend.y = 380, 410
 			fakeBoyfriend = love.filesystem.load("sprites/week7/gfdead.lua")()
 			fakeBoyfriend.x, fakeBoyfriend.y = 380, 410
+
+			if storyMode then
+				musicPos = 0
+				video:play()
+			end
 
 			inst = love.audio.newSource("songs/week7/stress/inst.ogg", "stream")
 			voices = love.audio.newSource("songs/week7/stress/voices.ogg", "stream")
 		elseif song == 2 then
 			inst = love.audio.newSource("songs/week7/guns/inst.ogg", "stream")
 			voices = love.audio.newSource("songs/week7/guns/voices.ogg", "stream")
+			if storyMode then
+				cutscene = true
+				tankCutsceneAudio = love.audio.newSource("sounds/cutscenes/tank/tankSong2.ogg", "static")
+				tankCutscene[1] = love.filesystem.load("sprites/cutscenes/guns-talk.lua")()
+
+				cam.x, cam.y = 100, -165
+				cam.sizeX, cam.sizeY = 1.1, 1.1
+				camScale.x, camScale.y = 1.1, 1.1
+				tankCutscene[1].x, tankCutscene[1].y = enemy.x, enemy.y - 25
+				tankCutsceneAudio:play()
+				tankCutscene[1]:animate("talk", false)
+				Timer.after(
+					4.12,
+					function()
+						girlfriend:animate("sad", false)
+						Timer.tween(
+							0.8, 
+							cam,
+							{
+								x = girlfriend.x,
+								y = girlfriend.y - 120
+							},
+							"out-quad",
+							function()
+								Timer.tween(
+									0.4,
+									cam,
+									{
+										x = 100,
+										y = -165
+									},
+									"out-quad"
+								)
+								Timer.tween(
+									0.4, 
+									cam,
+									{
+										sizeX = 1,
+										sizeY = 1
+									},
+									"out-quad"
+								)
+								Timer.tween(
+									0.4, 
+									camScale,
+									{
+										x = 1,
+										y = 1
+									},
+									"out-quad"
+								)
+							end
+						)
+						Timer.tween(
+							0.2, 
+							cam,
+							{
+								sizeX = 1.4,
+								sizeY = 1.4
+							},
+							"out-quad"
+						)
+						Timer.tween(
+							0.2, 
+							camScale,
+							{
+								x = 1.4,
+								y = 1.4
+							},
+							"out-quad"
+						)
+					end
+				)
+				Timer.after(
+					11.507,
+					function()
+						tankCutscene[1] = nil
+						weeks7:setupCountdown()
+						cutscene = false
+						cam.sizeX, cam.sizeY = 1, 1
+						camScale.x, camScale.y = 1, 1
+					end
+				)
+			end
 		else
 			inst = love.audio.newSource("songs/week7/ugh/inst.ogg", "stream")
 			voices = love.audio.newSource("songs/week7/ugh/voices.ogg", "stream")
+			if storyMode then
+				tankCutsceneAudio = love.audio.newSource("sounds/cutscenes/tank/wellWellWell.ogg", "static")
+				tankCutsceneAudio2 = love.audio.newSource("sounds/cutscenes/tank/killYou.ogg", "static")
+
+				bfBeep = love.audio.newSource("sounds/cutscenes/tank/bfBeep.ogg", "static")
+
+				for i = 1, 2 do 
+					tankCutscene[i] = love.filesystem.load("sprites/cutscenes/ugh-talk-" .. i .. ".lua")()
+					tankCutscene[i].x, tankCutscene[i].y = enemy.x, enemy.y - 25
+				end
+				cam.x, cam.y = 100, -165
+				tankCutsceneAudio:play()
+				tankCutscene[1]:animate("talk", false)
+				Timer.after(
+					3.357,
+					function()
+						Timer.tween(
+							0.5,
+							cam,
+							{
+								x = -boyfriend.x - 75
+							},
+							"out-quad",
+							function()
+								Timer.after(
+									0.1,
+									function()
+										bfBeep:play()
+										boyfriend:animate("up", false)
+										Timer.after(
+											0.42,
+											function()
+												boyfriend:animate("idle", false)
+												Timer.tween(
+													0.5,
+													cam,
+													{
+														x = -enemy.x - 75
+													},
+													"out-quad",
+													function()
+														Timer.after(
+															0.12,
+															function()
+																tankCutscene[2]:animate("talk", false)
+																tankCutsceneAudio2:play()
+																Timer.after(
+																	6.1,
+																	function()
+																		for i = 1, 2 do
+																			tankCutscene[i] = nil
+																		end
+																		weeks7:setupCountdown()
+																		cutscene = false
+																		cam.sizeX, cam.sizeY = 1, 1
+																		camScale.x, camScale.y = 1, 1
+																	end
+																)
+															end
+														)
+													end
+												)
+											end
+										)
+									end
+								)
+							end
+						)
+						
+						
+					end
+				)
+			end
 		end
 
 		self:initUI()
 
-		weeks7:setupCountdown()
+		if not cutscene then
+			weeks7:setupCountdown()
+		end
 	end,
 
 	initUI = function(self)
@@ -77,6 +253,33 @@ return {
 	update = function(self, dt)
 		weeks7:update(dt)
 		stages["tank"]:update(dt)
+
+		if cutscene then
+			girlfriend:update(dt) -- updating here cuz moment
+			boyfriend:update(dt)
+			if song ~= 3 then
+				tankCutscene[1]:update(dt)
+			end
+			if song == 1 then
+				if not tankCutscene[1]:isAnimated() then
+					tankCutscene[2]:update(dt)
+				end
+			elseif song == 2 then
+				if girlfriend:getAnimName() == "sad" and not girlfriend:isAnimated() then
+					girlfriend:animate("idle", false)
+				end
+			end
+		end
+
+		if song == 3 then
+			if not video:isPlaying() and not didCountdown then
+				cam.sizeX, cam.sizeY = 1, 1
+				camScale.x, camScale.y = 1, 1
+				weeks7:setupCountdown()
+				didCountdown = true
+				cutscene = false
+			end
+		end
 
 		if song == 1 then
 			if musicTime >= 5620 then
@@ -127,7 +330,7 @@ return {
 			end
 		end
 
-		if not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused then
+		if not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused and not cutscene then
 			if storyMode and song < 3 then
 				song = song + 1
 
@@ -160,11 +363,18 @@ return {
 
 			stages["tank"]:draw()
 
-			weeks7:drawRating(0.9)
+			if not cutscene then
+				weeks7:drawRating(0.9)
+			end
 		love.graphics.pop()
 
-		weeks7:drawHealthBar()
-		weeks7:drawUI()
+		if not cutscene then
+			weeks7:drawHealthBar()
+			weeks7:drawUI()
+		end
+		if song == 3 and video:isPlaying() then
+			love.graphics.draw(video, 0, 0)
+		end
 	end,
 
 	leave = function(self)
