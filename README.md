@@ -71,17 +71,17 @@ The settings file can be found in the following places on the following systems:
 * Nintendo Switch - `./vanilla-engine/settings.ini` & `./vanilla-engine/settings`
 
 # Progress
-**Menus** - 95% Complete
-* The menu is almost done just need to clean up some code and add transitions
+**Menus** - 96% Complete
+* The menu is almost done, just need to clean up some code and add transitions
 
 **Game Engine** - 98% Complete
 * A few more small changes are stil needed, but its very close
 
-**Weeks** - ~6/8 Complete
+**Weeks** - ~7/9 Complete
 * Tutorial + Weeks 1-5 are implemented.
 * Week 3's train is not implemented yet.
 * Week 4's passing car is not implemented yet.
-* Weeks 7 is not implemented yet.
+* Weeks 7's Tankmen running and Tank is not implemented yet.
 
 # License
 *Friday Night Funkin' Rewritten* is licensed under the terms of the GNU General Public License v3, with the exception of most of the images, music, and sounds, which are proprietary. While FNF Rewritten's code is FOSS, use its assets at your own risk.
