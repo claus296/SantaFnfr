@@ -26,8 +26,8 @@ return {
 
 		week = 7
 
+		video = love.graphics.newVideo("videos/stressCutscene.ogv") -- placeholder
 		if storyMode then
-			video = love.graphics.newVideo("videos/stressCutscene.ogv") -- placeholder
 			cutscene = true
 			didCountdown = false
 			tankCutscene = {}
