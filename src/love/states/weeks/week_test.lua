@@ -44,6 +44,10 @@ local notMissed = {}
 
 return {
 	enter = function(self)
+		arrowPos = {
+			[1] = 100,
+			[2] = -925
+		}
 		THETHING = {}
 		THETHING[1] = 1
 		THETHING[2] = 1
@@ -60,6 +64,32 @@ return {
 					end)
 				end)
 		end
+		function funnyMoveNotes()
+			Timer.tween(
+				1.5,
+				arrowPos,
+				{
+					[1] = -925,
+					[2] = 100
+				},
+				"linear",
+				function()
+					Timer.tween(
+						1.5,
+						arrowPos,
+						{
+							[1] = 100,
+							[2] = -925
+						},
+						"linear",
+						function()
+							funnyMoveNotes()
+						end
+					)
+				end
+			)
+		end
+		funnyMoveNotes()
 		funnyNotes()
 		sounds = {
 			countdown = {
@@ -298,25 +328,13 @@ return {
 		}
 
 		for i = 1, 4 do
-			if not settings.middleScroll then
-				enemyArrows[i].x = -925 + 165 * i 
-				boyfriendArrows[i].x = 100 + 165 * i 
-				leftArrowSplash.x = 100 + 165 * 1 + 5
-				downArrowSplash.x = 100 + 165 * 2 + 5
-				upArrowSplash.x =  100 + 165 * 3 + 5
-				rightArrowSplash.x = 100 + 165 * 4 + 5
-			else
-				boyfriendArrows[i].x = -410 + 165 * i
-				-- ew stuff
-				enemyArrows[1].x = -925 + 165 * 1 
-				enemyArrows[2].x = -925 + 165 * 2
-				enemyArrows[3].x = 100 + 165 * 3
-				enemyArrows[4].x = 100 + 165 * 4
-				leftArrowSplash.x = -440 + 165 * 1 + 5
-				downArrowSplash.x = -440 + 165 * 2 + 5
-				upArrowSplash.x =  -440 + 165 * 3 + 5
-				rightArrowSplash.x = -440 + 165 * 4 + 5
-			end
+			enemyArrows[i].x = arrowPos[2] + 165 * i 
+			boyfriendArrows[i].x = arrowPos[1] + 165 * i 
+			leftArrowSplash.x = arrowPos[1] + 165 * 1 + 5
+			downArrowSplash.x = arrowPos[1] + 165 * 2 + 5
+			upArrowSplash.x =  arrowPos[1] + 165 * 3 + 5
+			rightArrowSplash.x = arrowPos[1] + 165 * 4 + 5
+
 			if settings.downscroll then
 				enemyArrows[i].y = 400
 				boyfriendArrows[i].y = 400
@@ -1626,8 +1644,6 @@ return {
 		
 			love.graphics.translate(lovesize.getWidth() / 2, lovesize.getHeight() / 2)
 			love.graphics.scale(0.7, 0.7)
-			love.graphics.scale(1, THETHING[1])
-
 			--[[
 			if input:down("gameLeft") then
 				THETHING[1] = -1
@@ -1660,30 +1676,22 @@ return {
 
 			if enemyArrows[1]:getAnimName() == "off" then
 				graphics.setColor(0.6, 0.6, 0.6)
-				love.graphics.scale(1, -1)
-				enemyArrows[1]:udraw(7, THETHING[1]*7)
-				love.graphics.scale(1, -1)
+				enemyArrows[1]:udraw()
 				graphics.setColor(1, 1, 1)
 			end
 			if enemyArrows[2]:getAnimName() == "off" then
 				graphics.setColor(0.6, 0.6, 0.6)
-				love.graphics.scale(1, -1)
-				enemyArrows[2]:udraw(7, THETHING[1]*7)
-				love.graphics.scale(1, -1)
+				enemyArrows[2]:udraw()
 				graphics.setColor(1, 1, 1)
 			end
 			if enemyArrows[3]:getAnimName() == "off" then
 				graphics.setColor(0.6, 0.6, 0.6)
-				love.graphics.scale(1, -1)
-				enemyArrows[3]:udraw(7, THETHING[1]*7)
-				love.graphics.scale(1, -1)
+				enemyArrows[3]:udraw()
 				graphics.setColor(1, 1, 1)
 			end
 			if enemyArrows[4]:getAnimName() == "off" then
 				graphics.setColor(0.6, 0.6, 0.6)
-				love.graphics.scale(1, -1)
-				enemyArrows[4]:udraw(7, THETHING[1]*7)
-				love.graphics.scale(1, -1)
+				enemyArrows[4]:udraw()
 				graphics.setColor(1, 1, 1)
 			end
 			for i = 1, 4 do
@@ -1691,9 +1699,8 @@ return {
 				if settings.middleScroll then
 					love.graphics.setColor(0.6,0.6,0.6,0.3)
 				end
-				--love.graphics.scale(1, -1)
 				graphics.setColor(1, 1, 1)
-				boyfriendArrows[i]:udraw(1, THETHING[1])
+				boyfriendArrows[i]:draw(1, THETHING[1])
 				if hitSick then
 					if not settings.botPlay then
 						if input:pressed("gameLeft") then
@@ -1780,24 +1787,26 @@ return {
 					
 					love.graphics.translate(0, -musicPos)
 
-					--love.graphics.scale(1, -1)
 					for j = #enemyNotes[i], 1, -1 do
-							if (not settings.downscroll and enemyNotes[i][j].y - musicPos <= 560) or (settings.downscroll and enemyNotes[i][j].y - musicPos >= -560) then
-								local animName = enemyNotes[i][j]:getAnimName()
+						enemyNotes[i][j].x = arrowPos[2] + 165 * i 
+						enemyArrows[i].x = arrowPos[2] + 165 * i
+						if (not settings.downscroll and enemyNotes[i][j].y - musicPos <= 560) or (settings.downscroll and enemyNotes[i][j].y - musicPos >= -560) then
+							local animName = enemyNotes[i][j]:getAnimName()
 
-								if animName == "hold" or animName == "end" then
-									graphics.setColor(1, 1, 1, 0.5)
-								end
-								if settings.middleScroll then
-									graphics.setColor(1, 1, 1, 0.5)
-								end
-								enemyNotes[i][j]:udraw(7, THETHING[1]*7)
-								
+							if animName == "hold" or animName == "end" then
+								graphics.setColor(1, 1, 1, 0.5)
 							end
-							graphics.setColor(1, 1, 1)
+							if settings.middleScroll then
+								graphics.setColor(1, 1, 1, 0.5)
+							end
+							enemyNotes[i][j]:udraw()
+								
+						end
+						graphics.setColor(1, 1, 1)
 					end
-					--love.graphics.scale(1, -1)
 					for j = #boyfriendNotes[i], 1, -1 do
+						boyfriendNotes[i][j].x = arrowPos[2] + 165 * i
+						boyfriendArrows[i].x = arrowPos[2] + 165 * i
 						if (not settings.downscroll and boyfriendNotes[i][j].y - musicPos <= 560) or (settings.downscroll and boyfriendNotes[i][j].y - musicPos >= -560) then
 							local animName = boyfriendNotes[i][j]:getAnimName()
 
@@ -1814,7 +1823,7 @@ return {
 									graphics.setColor(1, 1, 1, math.min(1, (500 + (boyfriendNotes[i][j].y - musicPos)) / 75))
 								end
 							end
-							boyfriendNotes[i][j]:udraw(1,THETHING[1])
+							boyfriendNotes[i][j]:draw(1,THETHING[1])
 						end
 					end
 					graphics.setColor(1, 1, 1)
