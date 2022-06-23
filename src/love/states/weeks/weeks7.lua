@@ -74,23 +74,13 @@ return {
 				love.audio.newSource("sounds/miss3.ogg", "static")
 			},
 			hitsounds = {
-				left = love.audio.newSource("sounds/hitSound.ogg", "static"),  -- THERE IS A REAL REASON FOR THIS, IF YOU ONLY USE ONE SOUND THEN PRESSING MORE THAN ONE KEY AT THE SAME TIME WILL ONLY PLAY ONE SOUND
-				right = love.audio.newSource("sounds/hitSound.ogg", "static"),
-				up = love.audio.newSource("sounds/hitSound.ogg", "static"),
-				down = love.audio.newSource("sounds/hitSound.ogg", "static")
+				love.audio.newSource("sounds/hitSound.ogg", "static")
 			},
 			death = love.audio.newSource("sounds/death.ogg", "static"),
 			breakfast = love.audio.newSource("songs/misc/breakfast.ogg", "stream"),
 			["text"] = love.audio.newSource("sounds/pixel/text.ogg", "static"),
 			["continue"] = love.audio.newSource("sounds/pixel/continue-text.ogg", "static"),
 		}
-		if settings.hitsounds then
-			sounds.hitsounds.left:setVolume(settings.hitsoundVol)
-			sounds.hitsounds.right:setVolume(settings.hitsoundVol)
-			sounds.hitsounds.up:setVolume(settings.hitsoundVol)
-			sounds.hitsounds.down:setVolume(settings.hitsoundVol)
-		end
-
 
 		images = {
 			icons = love.graphics.newImage(graphics.imagePath("icons")),
@@ -804,21 +794,6 @@ return {
 
 		hitCounter = (sicks + goods + bads + shits)
 
-		if settings.hitsounds then
-			if input:pressed("gameDown") and not paused then
-				audio.playSound(sounds.hitsounds.down)
-			end
-			if input:pressed("gameUp") and not paused then
-				audio.playSound(sounds.hitsounds.up)
-			end
-			if input:pressed("gameLeft") and not paused then
-				audio.playSound(sounds.hitsounds.left)
-			end
-			if input:pressed("gameRight") and not paused then
-				audio.playSound(sounds.hitsounds.right)
-			end
-		end
-
 		if paused then
 			if input:pressed("gameDown") then
 				if pauseMenuSelection == 4 then
@@ -1153,6 +1128,19 @@ return {
 						end
 
 						if input:pressed(curInput) then
+							if settings.hitsounds then
+								if sounds.hitsounds[#sounds.hitsounds]:isPlaying() then
+									sounds.hitsounds[#sounds.hitsounds] = sounds.hitsounds[#sounds.hitsounds]:clone()
+									sounds.hitsounds[#sounds.hitsounds]:play()
+								else
+									sounds.hitsounds[#sounds.hitsounds]:play()
+								end
+								for hit = 2, #sounds.hitsounds do
+									if not sounds.hitsounds[hit]:isPlaying() then
+										sounds.hitsounds[hit] = nil -- Nil afterwords to prevent memory leak
+									end --                             maybe, idk how love2d works lmfao
+								end
+							end
 							local success = false
 
 							if settings.ghostTapping then
