@@ -1,5 +1,5 @@
 return {
-    enter = function()
+    enter = function() -- TODO: Fix this stage
         stageImages = {
             graphics.newImage(love.graphics.newImage(graphics.imagePath("week4/sunset"))),
             love.filesystem.load("sprites/week4/bg-limo.lua")(), -- bg-limo
