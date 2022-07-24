@@ -24,9 +24,7 @@ local spiritPortait, angrySenpaiBox, scaryDialogueBox
 
 return {
 	enter = function(self, from, songNum, songAppend)
-		pauseColorR = 225 / 255
-		pauseColorG = 106 / 255
-		pauseColorB = 169 / 255
+		pauseColor = {225, 106, 169}
 		cam.sizeX, cam.sizeY = 0.78, 0.78
 		camScale.x, camScale.y = 0.78, 0.78
 		weeks:pixelEnter()

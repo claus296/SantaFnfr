@@ -24,9 +24,7 @@ local winColors, winColor
 
 return {
 	enter = function(self, from, songNum, songAppend)
-		pauseColorR = 131 / 255
-		pauseColorG = 19 / 255
-		pauseColorB = 73 / 255
+		pauseColor = {131, 19, 73}
 		weeks:enter()
 		stages["city"]:enter()
 
