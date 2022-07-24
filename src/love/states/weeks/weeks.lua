@@ -2184,7 +2184,7 @@ return {
 		end
 		love.graphics.push()
 		if paused then
-			love.graphics.setColor(pauseColorR, pauseColorG, pauseColorB)
+			graphics.setColorF(pauseColor[1], pauseColor[2], pauseColor[3])
 			pauseCurtain:draw()
 			if week == 5 then
 				love.graphics.translate(lovesize.getWidth() / 2, lovesize.getHeight() / 2)

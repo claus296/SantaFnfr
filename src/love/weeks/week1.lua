@@ -23,9 +23,7 @@ local stageBack, stageFront, curtains
 
 return {
 	enter = function(self, from, songNum, songAppend)
-		pauseColorR = 129 / 255
-		pauseColorG = 100 / 255
-		pauseColorB = 223 / 255
+		pauseColor = {129, 100, 223}
 		weeks:enter()
 		stages["stage"]:enter()
 

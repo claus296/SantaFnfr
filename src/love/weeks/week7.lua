@@ -21,9 +21,7 @@ local difficulty
 
 return {
 	enter = function(self, from, songNum, songAppend)
-		pauseColorR = 50 / 255
-		pauseColorG = 50 / 255
-		pauseColorB = 50 / 255
+		pauseColor = {50, 50, 50}
 		weeks7:enter() -- oh my fucking god why
 		stages["tank"]:enter()
 

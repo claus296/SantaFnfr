@@ -25,9 +25,7 @@ local bgLimo, limoDancer, limo
 
 return {
 	enter = function(self, from, songNum, songAppend)
-		pauseColorR = 222 / 255
-		pauseColorG = 132 / 255
-		pauseColorB = 190 / 255
+		pauseColor = {222, 132, 190}
 		bpm = 100
 		week = 4
 		weeks:enter()

@@ -26,6 +26,7 @@ return {
 		pauseColorR = 141 / 255
 		pauseColorG = 184 / 255
 		pauseColorB = 225 / 255
+		pauseColor = {141, 184, 225}
 		cam.sizeX, cam.sizeY = 0.7, 0.7
 		camScale.x, camScale.y = 0.7, 0.7
 

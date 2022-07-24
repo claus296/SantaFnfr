@@ -56,7 +56,6 @@ function love.load()
 	spriteDebug = require "states.debug.sprite-debug"
 	stageDebug = require "states.debug.stage-debug"
 	
-
 	-- Load menus
 	menu = require "states.menu.menu"
 	menuWeek = require "states.menu.menuWeek"
@@ -87,6 +86,7 @@ function love.load()
 	-- When adding custom colour for the health bar. Make sure to use 255 RGB values. It will automatically convert it for you.
 	healthBarColorPlayer = {49,176,209} -- BF's icon colour
 	healthBarColorEnemy = {165,0,77} -- GF's icon colour
+	pauseColor = {0,0,0,0.5} -- Pause screen colour
 
 	function setDialogue(strList)
 		dialogueList = strList

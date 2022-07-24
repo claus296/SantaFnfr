@@ -26,10 +26,7 @@ local zoom = {}
 
 return {
 	enter = function(self, from, songNum, songAppend)
-
-		pauseColorR = 146 / 255
-		pauseColorG = 0
-		pauseColorB = 68 / 255
+		pauseColor = {146, 0, 68}
 
 		weeks:enter()
 

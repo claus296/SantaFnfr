@@ -21,9 +21,7 @@ local song, difficulty
 
 return {
 	enter = function(self, from, songNum, songAppend)
-		pauseColorR = 30 / 255
-		pauseColorG = 45 / 255
-		pauseColorB = 60 / 255
+		pauseColor = {30, 45, 60}
 
 		weeks:enter()
 		stages.hauntedHouse:enter()
