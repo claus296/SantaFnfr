@@ -21,6 +21,10 @@ local song, difficulty
 
 return {
 	enter = function(self, from, songNum, songAppend)
+		pauseColorR = 30 / 255
+		pauseColorG = 45 / 255
+		pauseColorB = 60 / 255
+
 		weeks:enter()
 		stages.hauntedHouse:enter()
 
@@ -149,7 +153,9 @@ return {
 		love.graphics.pop()
 
 		weeks:drawHealthBar()
-		weeks:drawUI()
+		if not paused then
+			weeks:drawUI()
+		end
 	end,
 
 	leave = function(self)

@@ -24,6 +24,9 @@ local spiritPortait, angrySenpaiBox, scaryDialogueBox
 
 return {
 	enter = function(self, from, songNum, songAppend)
+		pauseColorR = 225 / 255
+		pauseColorG = 106 / 255
+		pauseColorB = 169 / 255
 		cam.sizeX, cam.sizeY = 0.78, 0.78
 		camScale.x, camScale.y = 0.78, 0.78
 		weeks:pixelEnter()
@@ -258,7 +261,9 @@ return {
 		end
 		if not doingDialogue then
 			weeks:drawHealthBar()
-			weeks:drawUI()
+			if not paused then
+				weeks:drawUI()
+			end
 		end
 	end,
 

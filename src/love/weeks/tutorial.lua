@@ -26,6 +26,11 @@ local zoom = {}
 
 return {
 	enter = function(self, from, songNum, songAppend)
+
+		pauseColorR = 146 / 255
+		pauseColorG = 0
+		pauseColorB = 68 / 255
+
 		weeks:enter()
 
 		week = 0
@@ -270,7 +275,9 @@ return {
 		love.graphics.pop()
 
 		weeks:drawHealthBar()
-		weeks:drawUI()
+		if not paused then
+			weeks:drawUI()
+		end
 	end,
 
 	leave = function(self)

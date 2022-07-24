@@ -21,7 +21,10 @@ local difficulty
 
 return {
 	enter = function(self, from, songNum, songAppend)
-		weeks7:enter()
+		pauseColorR = 50 / 255
+		pauseColorG = 50 / 255
+		pauseColorB = 50 / 255
+		weeks7:enter() -- oh my fucking god why
 		stages["tank"]:enter()
 
 		week = 7
@@ -370,7 +373,10 @@ return {
 
 		if not cutscene then
 			weeks7:drawHealthBar()
-			weeks7:drawUI()
+			if not paused then
+
+				weeks7:drawUI()
+			end
 		end
 		if song == 3 and video:isPlaying() then
 			love.graphics.draw(video, 0, 0)

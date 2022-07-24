@@ -23,6 +23,9 @@ local stageBack, stageFront, curtains
 
 return {
 	enter = function(self, from, songNum, songAppend)
+		pauseColorR = 129 / 255
+		pauseColorG = 100 / 255
+		pauseColorB = 223 / 255
 		weeks:enter()
 		stages["stage"]:enter()
 
@@ -126,7 +129,9 @@ return {
 		love.graphics.pop()
 
 		weeks:drawHealthBar()
-		weeks:drawUI()
+		if not paused then
+			weeks:drawUI()
+		end
 	end,
 
 	leave = function(self)

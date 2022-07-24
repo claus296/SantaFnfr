@@ -53,6 +53,8 @@ return {
 		exitH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/exitHover")))
 		options = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/options")))
 		optionsH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/optionsHover")))
+		pauseCurtain = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/curtain")))
+		pausedGraphic = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/paused")))
 						
 		resume.x, resume.y = 400, 120
 		resumeH.x, resumeH.y = resume.x, resume.y
@@ -62,6 +64,10 @@ return {
 		exitH.x, exitH.y = exit.x, exit.y 
 		options.x, options.y = 400, 645
 		optionsH.x, optionsH.y = options.x, options.y
+		pauseCurtain.x, pauseCurtain.y = 300, -1000
+		pausedGraphic.x, pausedGraphic.y = 2000, 150
+
+		pausedGraphic.sizeX, pausedGraphic.sizeY = 0.6, 0.6
 
 		-- weeks enter stuff
 		sounds = {
@@ -152,6 +158,8 @@ return {
 		exitH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/exitHover")))
 		options = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/options")))
 		optionsH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/optionsHover")))
+		pauseCurtain = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/curtain")))
+		pausedGraphic = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/paused")))
 						
 		resume.x, resume.y = 400, 120
 		resumeH.x, resumeH.y = resume.x, resume.y
@@ -161,6 +169,10 @@ return {
 		exitH.x, exitH.y = exit.x, exit.y 
 		options.x, options.y = 400, 645
 		optionsH.x, optionsH.y = options.x, options.y
+		pauseCurtain.x, pauseCurtain.y = 300, -1000
+		pausedGraphic.x, pausedGraphic.y = 2000, 150
+
+		pausedGraphic.sizeX, pausedGraphic.sizeY = 0.6, 0.6
 		sounds = {
 			countdown = {
 				three = love.audio.newSource("sounds/countdown-3.ogg", "static"),
@@ -1224,6 +1236,8 @@ return {
 				exitH.x, exitH.y = exit.x, exit.y 
 				options.x, options.y = -1000, 645
 				optionsH.x, optionsH.y = options.x, options.y
+				pauseCurtain.y = -1000
+				pausedGraphic.x = 2000
 
 
 				if resume.x == -1000 then
@@ -1250,8 +1264,14 @@ return {
 				if optionsH.x == -1000 then
 					Timer.tween(1.6, optionsH, {x = 400}, "out-back")
 				end
+				if pauseCurtain.y == -1000 then
+					Timer.tween(1, pauseCurtain, {y = 320}, "out-expo")
+				end
+				if pausedGraphic.x == 2000 then
+					Timer.tween(0.5, pausedGraphic, {x = 1200}, "out-quad")
+				end
 			else
-				resume.x, resume.y = -2500, 120 - 900
+				resume.x, resume.y = -2500, 120 - 900         -- im fucking crying
 				resumeH.x, resumeH.y = resume.x, resume.y
 				restart.x, restart.y = -2500, 295 - 900
 				restartH.x, restartH.y = restart.x, restart.y 
@@ -1779,14 +1799,18 @@ return {
 						love.graphics.setColor(1,1,1)
 					end
 				end
-				
-				enemyArrows[i]:draw()--ate
+
+				if not paused then
+					enemyArrows[i]:draw()--ate         guglio why did you type ate here
+				end
 				if paused then 
 					love.graphics.setColor(0.6,0.6,0.6,0.3)
 				else
 					love.graphics.setColor(1, 1, 1, 1)
 				end
-				boyfriendArrows[i]:draw()
+				if not paused then
+					boyfriendArrows[i]:draw()
+				end
 				if hitSick then
 					if not settings.botPlay then
 						if input:pressed("gameLeft") then
@@ -2160,6 +2184,8 @@ return {
 		end
 		love.graphics.push()
 		if paused then
+			love.graphics.setColor(pauseColorR, pauseColorG, pauseColorB)
+			pauseCurtain:draw()
 			if week == 5 then
 				love.graphics.translate(lovesize.getWidth() / 2, lovesize.getHeight() / 2)
 				love.graphics.scale(0.7, 0.7)
@@ -2188,6 +2214,7 @@ return {
 				exit:draw()
 				optionsH:draw()
 			end
+			pausedGraphic:draw()
 		end
 	love.graphics.pop()
 	end,

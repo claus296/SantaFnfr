@@ -23,6 +23,9 @@ local scaryIntro = false
 
 return {
 	enter = function(self, from, songNum, songAppend)
+		pauseColorR = 141 / 255
+		pauseColorG = 184 / 255
+		pauseColorB = 225 / 255
 		cam.sizeX, cam.sizeY = 0.7, 0.7
 		camScale.x, camScale.y = 0.7, 0.7
 
@@ -177,6 +180,8 @@ return {
 		if not scaryIntro then
 			stages["mall"]:drawUI()
 		end
+
+		--where in fuck is drawui guglio can we PLEASE just rewrite week 5 PLEASE WEEK 5 IS PAINFUL LIKE THIS PLEASE LETS REWRITE IT
 	end,
 
 	leave = function()
