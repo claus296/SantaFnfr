@@ -81,6 +81,7 @@ function love.load()
 
 	-- Load substates
 	gameOver = require "substates.game-over"
+	settingsKeybinds = require "substates.settings-keybinds" -- Coming soon
 
 	uiTextColour = {1,1,1} -- Set a custom UI colour (Put it in the weeks file to change it for only that week)
 	-- When adding custom colour for the health bar. Make sure to use 255 RGB values. It will automatically convert it for you.

@@ -234,17 +234,21 @@ return {
 			end,
 
 			animate = function(self, animName, loopAnim)
-				anim.name = animName
-				anim.start = anims[animName].start
-				anim.stop = anims[animName].stop
-				anim.speed = anims[animName].speed
-				anim.offsetX = anims[animName].offsetX
-				anim.offsetY = anims[animName].offsetY
+				if isAnimName(animName) then
+					anim.name = animName
+					anim.start = anims[animName].start
+					anim.stop = anims[animName].stop
+					anim.speed = anims[animName].speed
+					anim.offsetX = anims[animName].offsetX
+					anim.offsetY = anims[animName].offsetY
 
-				frame = anim.start
-				isLooped = loopAnim
+					frame = anim.start
+					isLooped = loopAnim
 
-				isAnimated = true
+					isAnimated = true
+				else
+					print("Error: " .. animName .. " is not a valid animation name.")
+				end
 			end,
 			getAnims = function(self)
 				return anims
