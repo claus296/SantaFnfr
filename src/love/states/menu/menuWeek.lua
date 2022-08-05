@@ -263,13 +263,13 @@ return {
 				if weekNum ~= #trackNames then
 					weekNum = weekNum + 1
 					colourTween()
-					for i = 1, #weekDesc-1 do
+					for i = 1, #weekDesc do
 						Timer.tween(0.2, weekButtonY, { [i] = weekButtonY[i] - 100}, "out-expo")
 					end
 				else
 					weekNum = 1
 					colourTween()
-					for i = 1, #weekDesc-1 do
+					for i = 1, #weekDesc do
 						Timer.tween(0.2, weekButtonY, { [i] = 120 + 100*i}, "out-expo")
 					end
 				end
@@ -280,14 +280,14 @@ return {
 				if weekNum ~= 1 then
 					weekNum = weekNum - 1
 					colourTween()
-					for i = 1, #weekDesc-1 do
+					for i = 1, #weekDesc do
 						Timer.tween(0.2, weekButtonY, { [i] = weekButtonY[i] + 100 }, "out-expo")
 					end
 				else
 					weekNum = #trackNames
 					colourTween()
-					for i = 1, #weekDesc-1 do
-						Timer.tween(0.2, weekButtonY, { [i] = 220 - (700 - 100*i)}, "out-expo")
+					for i = 1, #weekDesc do
+						Timer.tween(0.2, weekButtonY, { [i] = 120 - (700 - 100*i)}, "out-expo")
 					end
 				end
 				menuFunc()
