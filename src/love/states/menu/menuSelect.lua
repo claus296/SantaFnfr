@@ -227,7 +227,7 @@ return {
 			love.graphics.push()
 				love.graphics.scale(cam.sizeX, cam.sizeY)
                 love.graphics.color.printf(
-                    "Vanilla Engine v1.0.0 pre-release 1" ..
+                    "Vanilla Engine v1.0.0 pre-release 2" ..
                     "\nFNFR: v1.1.0-beta2",
                     -708,
                     340, 
