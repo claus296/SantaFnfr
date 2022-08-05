@@ -23,6 +23,8 @@ desktop: lovefile win64 win32 macos
 
 console: lovefile switch
 
+main: lovefile win64 switch
+
 lovefile:
 	@rm -rf build/lovefile
 	@mkdir -p build/lovefile
@@ -33,7 +35,7 @@ lovefile:
 	@rm -f build/release/vanilla-engine-lovefile.zip
 	@cd build/lovefile; zip -9 -r ../release/vanilla-engine-lovefile.zip .
 
-win64: lovefile
+win64:
 	@rm -rf build/win64
 	@mkdir -p build/win64
 
@@ -85,7 +87,7 @@ macos: lovefile
 	@rm -f build/release/vanilla-engine-macos.zip
 	@cd build/macos; zip -9 -r ../release/vanilla-engine-macos.zip .
 
-switch: lovefile
+switch:
 	@rm -rf build/switch
 	@mkdir -p build/switch/switch/vanilla-engine
 
