@@ -234,7 +234,7 @@ return {
 			end,
 
 			animate = function(self, animName, loopAnim)
-				if isAnimName(animName) then
+				if self:isAnimName(animName) then
 					anim.name = animName
 					anim.start = anims[animName].start
 					anim.stop = anims[animName].stop

@@ -1404,6 +1404,11 @@ return {
 
 				camScaleTimer = Timer.tween((60 / bpm) / 16, cam, {sizeX = camScale.x * 1.05, sizeY = camScale.y * 1.05}, "out-quad", function() camScaleTimer = Timer.tween((60 / bpm), cam, {sizeX = camScale.x, sizeY = camScale.y}, "out-quad") end)
 			end
+			if musicThres ~= oldMusicThres and math.fmod(absMusicTime, (240000*2) / bpm) < 100 then
+				if uiScaleTimer then Timer.cancel(uiScaleTimer) end
+
+				uiScaleTimer = Timer.tween((60 / bpm) / 16, uiScale, {sizeX = uiScale.x * 1.05, sizeY = uiScale.y * 1.05}, "out-quad", function() uiScaleTimer = Timer.tween((60 / bpm), uiScale, {sizeX = uiScale.x, sizeY = uiScale.y}, "out-quad") end)
+			end
 
 			girlfriend:update(dt)
 			enemy:update(dt)
@@ -1730,8 +1735,8 @@ return {
 						if enemyIconTimer then Timer.cancel(enemyIconTimer) end
 						if boyfriendIconTimer then Timer.cancel(boyfriendIconTimer) end
 
-						enemyIconTimer = Timer.tween((60 / bpm) / 16, enemyIcon, {sizeX = 1.75, sizeY = 1.75}, "out-quad", function() enemyIconTimer = Timer.tween((60 / bpm), enemyIcon, {sizeX = 1.5, sizeY = 1.5}, "out-quad") end)
-						boyfriendIconTimer = Timer.tween((60 / bpm) / 16, boyfriendIcon, {sizeX = -1.75, sizeY = 1.75}, "out-quad", function() boyfriendIconTimer = Timer.tween((60 / bpm), boyfriendIcon, {sizeX = -1.5, sizeY = 1.5}, "out-quad") end)
+						enemyIconTimer = Timer.tween((60 / bpm) / 16, enemyIcon, {sizeX = 1.75, sizeY = 1.75, orientation = 0.15}, "out-quad", function() enemyIconTimer = Timer.tween((60 / bpm), enemyIcon, {sizeX = 1.5, sizeY = 1.5, orientation = 0}, "out-quad") end)
+						boyfriendIconTimer = Timer.tween((60 / bpm) / 16, boyfriendIcon, {sizeX = -1.75, sizeY = 1.75, orientation = -0.15}, "out-quad", function() boyfriendIconTimer = Timer.tween((60 / bpm), boyfriendIcon, {sizeX = -1.5, sizeY = 1.5, orientation = 0}, "out-quad") end)
 					end
 				end
 
@@ -1781,6 +1786,7 @@ return {
 		love.graphics.push()
 			love.graphics.translate(lovesize.getWidth() / 2, lovesize.getHeight() / 2)
 			love.graphics.scale(0.7, 0.7)
+			love.graphics.scale(uiScale.sizeX, uiScale.sizeY)
 
 			for i = 1, 4 do
 				if enemyArrows[i]:getAnimName() == "off" then
@@ -1969,6 +1975,7 @@ return {
 			if week ~= 5 then
 				love.graphics.translate(lovesize.getWidth() / 2, lovesize.getHeight() / 2)
 				love.graphics.scale(0.7, 0.7)
+				love.graphics.scale(uiScale.sizeX, uiScale.sizeY)
 			end
 			if settings.downscroll then
 				graphics.setColor(healthBarColorEnemy[1]/255, healthBarColorEnemy[2]/255, healthBarColorEnemy[3]/255)
@@ -2148,6 +2155,7 @@ return {
 		love.graphics.pop()
 		if settings.keystrokes then
 			love.graphics.push()
+				love.graphics.scale(uiScale.sizeX, uiScale.sizeY)
 				-- keystrokes
 				love.graphics.setColor(1, 1, 1)
 
@@ -2189,6 +2197,7 @@ return {
 			if week == 5 then
 				love.graphics.translate(lovesize.getWidth() / 2, lovesize.getHeight() / 2)
 				love.graphics.scale(0.7, 0.7)
+				love.graphics.scale(uiScale.sizeX, uiScale.sizeY)
 			end
 			love.graphics.setColor(0, 0, 0, 0.8)
 			love.graphics.rectangle("fill", -10000, -2000, 25000, 10000)
