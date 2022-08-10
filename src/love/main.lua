@@ -32,6 +32,8 @@ function love.load()
 	local selectSound = love.audio.newSource("sounds/menu/select.ogg", "static")
 	local confirmSound = love.audio.newSource("sounds/menu/confirm.ogg", "static")
 
+	if love.filesystem.getInfo("version.txt") then __VERSION__ = love.filesystem.read("version.txt") else __VERSION__ = "UNKNOWN" end
+
 	-- Load libraries
 	baton = require "lib.baton"
 	ini = require "lib.ini"
