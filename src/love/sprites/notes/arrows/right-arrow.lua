@@ -21,7 +21,7 @@ return graphics.newSprite(
 	images.notes,
 	{
 		{x = 157, y = 235, width = 153, height = 157, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 1: arrowRIGHT0000
-		{x = 476, y = 232, width = 154, height = 157, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 2: red0000
+		{x = 762, y = 712, width = 154, height = 186, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 2: red0000
 		{x = 1070, y = 442, width = 50, height = 64, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 3: red hold end0000
 		{x = 1270, y = 447, width = 50, height = 44, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 4: red hold piece0000
 		{x = 1627, y = 0, width = 223, height = 226, offsetX = -1, offsetY = -3, offsetWidth = 226, offsetHeight = 230}, -- 5: right confirm0000

@@ -30,7 +30,7 @@ return graphics.newSprite(
 		{x = 463, y = 389, width = 146, height = 149, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 8: left press0002
 		{x = 463, y = 389, width = 146, height = 149, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 9: left press0003
 		{x = 1220, y = 447, width = 50, height = 64, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 10: pruple end hold0000
-		{x = 630, y = 232, width = 154, height = 157, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 11: purple0000
+		{x = 549, y = 712, width = 154, height = 187, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 11: purple0000
 		{x = 1420, y = 449, width = 50, height = 44, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0} -- 12: purple hold piece0000
 	},
 	{
