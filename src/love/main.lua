@@ -57,7 +57,7 @@ function love.load()
 	debugMenu = require "states.debug.debugMenu"
 	spriteDebug = require "states.debug.sprite-debug"
 	stageDebug = require "states.debug.stage-debug"
-	
+
 	-- Load menus
 	menu = require "states.menu.menu"
 	menuWeek = require "states.menu.menuWeek"
