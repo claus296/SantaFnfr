@@ -188,6 +188,10 @@ function love.load()
 		settings.hitsounds = data.saveSettingsMoment.hitsounds
 		settings.hitsoundVol = data.saveSettingsMoment.hitsoundVol
 		settings.noteSkins = data.saveSettingsMoment.noteSkins
+		customBindDown = data.saveSettingsMoment.customBindDown
+		customBindUp = data.saveSettingsMoment.customBindUp
+		customBindLeft = data.saveSettingsMoment.customBindLeft
+		customBindRight = data.saveSettingsMoment.customBindRight
 
 		settingsVer = data.saveSettingsMoment.settingsVer
 
@@ -211,16 +215,20 @@ function love.load()
 			vocalsVol = settings.vocalsVol,
 			hitsoundVol = settings.hitsoundVol,
 			noteSkins = settings.noteSkins,
+			customBindDown = customBindDown,
+			customBindUp = customBindUp,
+			customBindLeft = customBindLeft,
+			customBindRight = customBindRight,
 			settingsVer = settingsVer
 		}
 		serialized = lume.serialize(data)
 		love.filesystem.write("settings", serialized)
 	end
-	if settingsVer ~= 3 then
+	if settingsVer ~= 4 then
 		love.window.showMessageBox("Uh Oh!", "Settings have been reset.", "warning")
 		love.filesystem.remove("settings.data")
 	end
-	if not love.filesystem.getInfo("settings") or settingsVer ~= 3 then
+	if not love.filesystem.getInfo("settings") or settingsVer ~= 4 then
 		settings.hardwareCompression = true
 		graphics.setImageType("dds")
 		settings.downscroll = false
@@ -240,7 +248,11 @@ function love.load()
 		settings.vocalsVol = 1
 		settings.hitsoundVol = 1
 		settings.noteSkins = 1
-		settingsVer = 3
+		customBindLeft = "a"
+		customBindRight = "d"
+		customBindUp = "w"
+		customBindDown = "s"
+		settingsVer = 4
 		data = {}
 		data.saveSettingsMoment = {
 			hardwareCompression = settings.hardwareCompression,
@@ -262,6 +274,10 @@ function love.load()
 			hitsounds = settings.hitsounds,
 			hitsoundVol = settings.hitsoundVol,
 			noteSkins = settings.noteSkins,
+			customBindLeft = customBindLeft,
+			customBindRight = customBindRight,
+			customBindUp = customBindUp,
+			customBindDown = customBindDown,
 			
 			settingsVer = settingsVer
 		}
@@ -387,6 +403,10 @@ function love.keypressed(key)
 	end
 end
 
+function love.textinput(text)
+	Gamestate.textinput(text)
+end
+
 function love.mousepressed(x, y, button, istouch, presses)
 	Gamestate.mousepressed(x, y, button, istouch, presses)
 end
@@ -401,6 +421,11 @@ function love.update(dt)
 	end
 
 	input:update()
+	--[[
+	if input:pressed("left") then
+		os.execute("fortnite\\game.love")
+	end
+	--]]
 
 	if status.getNoResize() then
 		Gamestate.update(dt)

@@ -118,6 +118,10 @@ return {
                     instVol = settings.instVol,
                     hitsoundsVol = settings.hitsoundsVol,
                     noteSkins = settings.noteSkins,
+                    customBindDown = settings.customBindDown,
+                    customBindUp = settings.customBindUp,
+                    customBindLeft = settings.customBindLeft,
+                    customBindRight = settings.customBindRight,
                     settingsVer = settingsVer
                 }
                 serialized = lume.serialize(data)
@@ -204,6 +208,11 @@ return {
                             settingSelect = 1
                             settingsMenuState = 2
                         elseif settingSelect == 3 then
+                            graphics.fadeOut(0.3,
+                            function()
+                                Gamestate.switch(settingsKeybinds)
+                            end)
+                        elseif settingSelect == 4 then
                             settingSelect = 1
                             settingsMenuState = 3
                         elseif settingSelect == 4 then
@@ -309,7 +318,7 @@ return {
                     if settingSelect ~= 1 then
                         settingSelect = settingSelect - 1
                     else
-                        settingSelect = 4
+                        settingSelect = 5
                     end
                 elseif settingsMenuState == 1 then
                     if settingSelect ~= 1 then
@@ -332,7 +341,7 @@ return {
                 end
             elseif input:pressed("down") then
                 if settingsMenuState == 0 then
-                    if settingSelect ~= 4 then
+                    if settingSelect ~= 5 then
                         settingSelect = settingSelect + 1
                     else
                         settingSelect = 1
@@ -452,11 +461,12 @@ return {
                 if settingsMenuState == 0 then
                     love.graphics.print("Gamemodes", -628, -300)
                     love.graphics.print("\n\nGameplay", -628, -300)
-                    love.graphics.print("\n\n\n\nMisc.", -628, -300)
+                    love.graphics.print("\n\n\n\nKeybinds", -628, -300)
+                    love.graphics.print("\n\n\n\n\n\nMisc.", -628, -300)
                     if settings.hardwareCompression ~= data.saveSettingsMoment.hardwareCompression then
-                        love.graphics.print("\n\n\n\n\n\nSave settings & Restart", -628, -300)
+                        love.graphics.print("\n\n\n\n\n\n\n\nSave settings & Restart", -628, -300)
                     else
-                        love.graphics.print("\n\n\n\n\n\nSave settings", -628, -300)
+                        love.graphics.print("\n\n\n\n\n\n\n\nSave settings", -628, -300)
                     end
                 elseif settingsMenuState == 1 then
                     love.graphics.print("Practice Mode = " .. tostring(settings.practiceMode), -628, -300)

@@ -1,5 +1,5 @@
 -- Coming in a later update
-local arrows, sprites, keybinds
+local arrows, sprites, keybinds, doBindSet, choice
 local inputList = {
     "gameLeft",
     "gameDown",
@@ -31,38 +31,121 @@ return {
 			sprites.rightArrow()
         }
         for i = 1, 4 do
-            arrows[i].x = -410 + 165 * i
+            arrows[i].x = -165*2 + 165 * i-1 - 50
         end
+        doBindSet = false
+        choice = 0
+        function saveSettings()
+            data = {}
+            if settings.hardwareCompression then
+                imageTyppe = "dds" 
+            else
+                imageTyppe = "png"
+            end
+            data.saveSettingsMoment = {
+                hardwareCompression = settings.hardwareCompression,
+                downscroll = settings.downscroll,
+                ghostTapping = settings.ghostTapping,
+                showDebug = settings.showDebug,
+                setImageType = "dds",
+                sideJudgements = settings.sideJudgements,
+                botPlay = settings.botPlay,
+                middleScroll = settings.middleScroll,
+                randomNotePlacements = settings.randomNotePlacements,
+                practiceMode = settings.practiceMode,
+                noMiss = settings.noMiss,
+                customScrollSpeed = settings.customScrollSpeed,
+                keystrokes = settings.keystrokes,
+                scrollUnderlayTrans = settings.scrollUnderlayTrans,
+                vocalsVol = settings.vocalsVol,
+                instVol = settings.instVol,
+                hitsoundsVol = settings.hitsoundsVol,
+                noteSkins = settings.noteSkins,
+                customBindDown = customBindDown,
+                customBindUp = customBindUp,
+                customBindLeft = customBindLeft,
+                customBindRight = customBindRight,
+                settingsVer = settingsVer
+            }
+            serialized = lume.serialize(data)
+            love.filesystem.write("settings", serialized)
+        end
+        graphics.setFade(0)
+        graphics.fadeIn(0.5)
     end,
     update = function(self, dt)
         for i = 1, 4 do
-            local curInput = inputList[i]
-            _ARROW_ = arrows[i] 
-            _ARROW_:update(dt)
-            if input:pressed(curInput) then
-                if not _ARROW_:getAnimName() == "confirm" then
-                    _ARROW_:animate("confirm", false)
+            arrows[i]:update(dt)
+            if not doBindSet then
+                if input:pressed("left") then
+                    arrows[1]:animate("confirm", false)
+                    choice = 1
+                elseif not input:down("left") then
+                    arrows[1]:animate("off", false)
                 end
-            end
-            if input:released(curInput) then
-                _ARROW_:animate("off", false)
+                if input:pressed("down") then
+                    arrows[2]:animate("confirm", false)
+                    choice = 2
+                elseif not input:down("down") then
+                    arrows[2]:animate("off", false)
+                end
+                if input:pressed("up") then
+                    arrows[3]:animate("confirm", false)
+                    choice = 3
+                elseif not input:down("up") then
+                    arrows[3]:animate("off", false)
+                end
+                if input:pressed("right") then
+                    arrows[4]:animate("confirm", false)
+                    choice = 4
+                elseif not input:down("right") then
+                    arrows[4]:animate("off", false)
+                end
             end
         end
     end,
-    keyPressed = function(self, key)
+    keypressed = function(self, key)
         if key == "escape" then
-            Gamestate.pop()
+            graphics.fadeOut(0.3,
+            function()
+                Gamestate.switch(menuSettings)
+            end)
+        elseif key == "return" then
+            doBindSet = true
+        end
+    end,
+    textinput = function(self, text)
+        if doBindSet then
+            if choice == 1 then
+                customBindLeft = text
+            elseif choice == 2 then
+                customBindDown = text
+            elseif choice == 3 then
+                customBindUp = text
+            elseif choice == 4 then
+                customBindRight = text
+            end
+            doBindSet = false
         end
     end,
     draw = function(self)
-        love.graphics.push()
-			love.graphics.translate(lovesize.getWidth() / 2, lovesize.getHeight() / 2)
-			love.graphics.scale(0.7, 0.7)
-            
-            for i = 1, 4 do 
-                arrows[i]:draw()
+        love.graphics.translate(lovesize.getWidth() / 2, lovesize.getHeight() / 2)
+		love.graphics.scale(0.7, 0.7)
+        for i = 1, 4 do 
+            love.graphics.setColor(0.40, 0.40, 0.40)
+            if i == choice then
+                graphics.setColor(1,1,1)
             end
-
-        love.graphics.pop()
+            arrows[i]:draw()
+            graphics.setColor(1,1,1)
+        end
+        love.graphics.print(customBindLeft, -165*2 + 100, 80)
+        love.graphics.print(customBindDown, -165 + 100, 80)
+        love.graphics.print(customBindUp, 0 + 100, 80)
+        love.graphics.print(customBindRight, 165 + 100, 80)
+        --love.graphics.print(tostring(doBindSet) .. "   |   " .. choice, 0, 0)
+    end,
+    leave = function(self)
+        saveSettings()
     end
 }

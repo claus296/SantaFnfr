@@ -182,7 +182,7 @@ return {
                     graphics.fadeOut(
                         0.3,
                         function()
-                            Gamestate.switch(menuSettings)
+                            Gamestate.push(menuSettings)
                             status.setLoading(false)
                         end
 	            	)

@@ -17,6 +17,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
 -- Add custom keybinds/new controls here
+-- set these as a defualt so no crashing
+customBindLeft = "a"
+customBindRight = "d"
+customBindUp = "w"
+customBindDown = "s"
 if love.system.getOS() == "NX" then
 	return baton.new {
 		controls = {

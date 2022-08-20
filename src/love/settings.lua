@@ -23,17 +23,9 @@ local curOS = love.system.getOS()
 local settingsStr = (curOS == "NX" and [[ 
 ; Friday Night Funkin' Rewritten Settings (Switch)
 
-[Keybinds]
-; Set custom keybinds
-; Look at https://love2d.org/wiki/KeyConstant for available keys
-left=a
-down=s
-up=w
-right=d
-
 ; These variables are read by the game for internal purposes, don't edit these unless you want to risk losing your current settings!
 [Data]
-settingsVer=1-nx
+settingsVer=2-nx
 ]]) or (curOS ~= "Web" and [[
 ; Friday Night Funkin' Rewritten Settings
 
@@ -48,17 +40,9 @@ fullscreen=false
 fullscreenType=desktop
 vsync=1
 
-[Keybinds]
-; Set custom keybinds
-; Look at https://love2d.org/wiki/KeyConstant for available keys
-left=a
-down=s
-up=w
-right=d
-
 ; These variables are read by the game for internal purposes, don't edit these unless you want to risk losing your current settings!
 [Data]
-settingsVer=1
+settingsVer=2
 ]])
 
 local settingsIni
@@ -72,7 +56,7 @@ if curOS == "NX" then
 	if love.filesystem.getInfo("settings.ini") then
 		settingsIni = ini.load("settings.ini")
 
-		if not settingsIni["Data"] or ini.readKey(settingsIni, "Data", "settingsVer") ~= "1-nx" then
+		if not settingsIni["Data"] or ini.readKey(settingsIni, "Data", "settingsVer") ~= "2-nx" then
 			love.filesystem.write("settings.ini", settingsStr)
 		end
 	else
@@ -80,11 +64,6 @@ if curOS == "NX" then
 	end
 
 	settingsIni = ini.load("settings.ini")
-
-	customBindLeft = ini.readKey(settingsIni, "Keybinds", "left")
-	customBindDown = ini.readKey(settingsIni, "Keybinds", "down")
-	customBindUp = ini.readKey(settingsIni, "Keybinds", "up")
-	customBindRight = ini.readKey(settingsIni, "Keybinds", "right")
 
 elseif curOS == "Web" then -- For love.js, we won't bother creating and reading a settings file that can't be edited, we'll just preset some settings
 	love.window.setMode(1280, 720) -- Due to shared code, lovesize will be used even though the resolution will never change :/
@@ -96,7 +75,7 @@ else
 	if love.filesystem.getInfo("settings.ini") then
 		settingsIni = ini.load("settings.ini")
 
-		if not settingsIni["Data"] or ini.readKey(settingsIni, "Data", "settingsVer") ~= "1" then
+		if not settingsIni["Data"] or ini.readKey(settingsIni, "Data", "settingsVer") ~= "2" then
 			love.window.showMessageBox("Warning", "The current settings file is outdated, and will now be reset.")
 
 			local success, message = love.filesystem.write("settings.ini", settingsStr)
@@ -139,11 +118,6 @@ else
 			}
 		)
 	end
-
-	customBindLeft = ini.readKey(settingsIni, "Keybinds", "left")
-	customBindDown = ini.readKey(settingsIni, "Keybinds", "down")
-	customBindUp = ini.readKey(settingsIni, "Keybinds", "up")
-	customBindRight = ini.readKey(settingsIni, "Keybinds", "right")
 
 end
 
