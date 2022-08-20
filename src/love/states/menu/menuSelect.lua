@@ -28,19 +28,7 @@ end
 
 return {
 	enter = function(self, previous)
-        changingMenu = false
-        function tweenButtons()
-            if story.y == 400 then
-                Timer.tween(1, story, {y = -200}, "out-expo")
-            end
-            if freeplay.y == 400 then
-                Timer.tween(1, freeplay, {y = 0}, "out-expo")
-            end
-            if story.y == 400 then
-                Timer.tween(1, options, {y = 200}, "out-expo")
-            end
-            Timer.tween(0.3, titleBG, {y = 15}, "out-quad")
-        end
+        
 		menuButton = 1
 		songNum = 0
         titleBG = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/menuBG")))
@@ -53,11 +41,11 @@ return {
         story:animate("story hover", true)
         freeplay:animate("freeplay", true)
         options:animate("options", true)
-
-        story.y = 400
-        freeplay.y = 400
-        options.y = 400
-        tweenButtons()
+        story.y,freeplay.y,options.y = 400, 400, 400
+        Timer.tween(1, story, {y = -200}, "out-expo")
+        Timer.tween(1, freeplay, {y = 0}, "out-expo")
+        Timer.tween(1, options, {y = 200}, "out-expo")
+        Timer.tween(0.3, titleBG, {y = 15}, "out-quad")
 
 		cam.sizeX, cam.sizeY = 0.9, 0.9
 		camScale.x, camScale.y = 0.9, 0.9
