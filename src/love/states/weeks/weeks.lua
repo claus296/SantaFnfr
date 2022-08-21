@@ -661,6 +661,11 @@ return {
 									enemyNotes[id][c].y = -400 + (noteTime + k) * 0.6 * speed
 		
 									enemyNotes[id][c]:animate("hold", false)
+									if settings.downscroll then
+										enemyNotes[id][c].sizeY = -7
+									else
+										enemyNotes[id][c].sizeY = 7
+									end
 								end
 		
 								c = #enemyNotes[id]
@@ -668,6 +673,7 @@ return {
 								enemyNotes[id][c].offsetY = 1
 		
 								enemyNotes[id][c]:animate("end", false)
+								enemyNotes[id][c].sizeY = 7
 							end
 						else
 							local id = noteType + 1
@@ -696,12 +702,18 @@ return {
 									boyfriendNotes[id][c].y = -400 + (noteTime + k) * 0.6 * speed
 		
 									boyfriendNotes[id][c]:animate("hold", false)
+									if settings.downscroll then
+										boyfriendNotes[id][c].sizeY = -7
+									else
+										boyfriendNotes[id][c].sizeY = 7
+									end
 								end
 		
 								c = #boyfriendNotes[id]
 	
 								boyfriendNotes[id][c].offsetY = 1
 								boyfriendNotes[id][c]:animate("end", false)
+								boyfriendNotes[id][c].sizeY = 7
 							end
 						end
 					else
@@ -731,6 +743,11 @@ return {
 									boyfriendNotes[id][c].y = -400 + (noteTime + k) * 0.6 * speed
 		
 									boyfriendNotes[id][c]:animate("hold", false)
+									if settings.downscroll then
+										boyfriendNotes[id][c].sizeY = -7
+									else
+										boyfriendNotes[id][c].sizeY = 7
+									end
 								end
 		
 								c = #boyfriendNotes[id]
@@ -738,6 +755,7 @@ return {
 								boyfriendNotes[id][c].offsetY = 1
 		
 								boyfriendNotes[id][c]:animate("end", false)
+								boyfriendNotes[id][c].sizeY = 7
 							end
 						else
 							local id = noteType + 1
@@ -768,8 +786,14 @@ return {
 										enemyNotes[id][c].offsetY = 1
 	
 										enemyNotes[id][c]:animate("end", false)
+										enemyNotes[id][c].sizeY = 7
 									else
 										enemyNotes[id][c]:animate("hold", false)
+										if settings.downscroll then
+											enemyNotes[id][c].sizeY = -7
+										else
+											enemyNotes[id][c].sizeY = 7
+										end
 									end
 								end
 		
@@ -778,6 +802,7 @@ return {
 								enemyNotes[id][c].offsetY = 1
 		
 								enemyNotes[id][c]:animate("end", false)
+								enemyNotes[id][c].sizeY = 7
 							end
 						end
 					end
