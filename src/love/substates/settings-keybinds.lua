@@ -1,5 +1,5 @@
 -- Coming in a later update
-local arrows, sprites, keybinds, doBindSet, choice
+local arrows, sprites, doBindSet, choice
 local inputList = {
     "gameLeft",
     "gameDown",
@@ -9,12 +9,6 @@ local inputList = {
 local curInput = inputList[i]
 return {
     enter = function(self)
-        keybinds = {
-            [1] = customBindLeft,
-            [2] = customBindDown,
-            [3] = customBindUp,
-            [4] = customBindRight
-        }
         images = {
             notes = love.graphics.newImage(graphics.imagePath(noteskins[settings.noteSkins])),
         } 
@@ -144,6 +138,7 @@ return {
         love.graphics.print(customBindUp, 0 + 100, 80)
         love.graphics.print(customBindRight, 165 + 100, 80)
         --love.graphics.print(tostring(doBindSet) .. "   |   " .. choice, 0, 0)
+        love.graphics.print("THIS MENU IS VERY BROKEN RIGHT NOW. USE AT YOUR OWN RISK.", 0, 300 + 100)
     end,
     leave = function(self)
         saveSettings()

@@ -118,10 +118,10 @@ return {
                     instVol = settings.instVol,
                     hitsoundsVol = settings.hitsoundsVol,
                     noteSkins = settings.noteSkins,
-                    customBindDown = settings.customBindDown,
-                    customBindUp = settings.customBindUp,
-                    customBindLeft = settings.customBindLeft,
-                    customBindRight = settings.customBindRight,
+                    customBindDown = customBindDown,
+                    customBindUp = customBindUp,
+                    customBindLeft = customBindLeft,
+                    customBindRight = customBindRight,
                     settingsVer = settingsVer
                 }
                 serialized = lume.serialize(data)
@@ -155,6 +155,10 @@ return {
                     instVol = settings.instVol,
                     hitsoundVol = settings.hitsoundVol,
                     noteSkins = settings.noteSkins,
+                    customBindDown = customBindDown,
+                    customBindUp = customBindUp,
+                    customBindLeft = customBindLeft,
+                    customBindRight = customBindRight,
                     settingsVer = settingsVer
                 }
                 serialized = lume.serialize(data)
