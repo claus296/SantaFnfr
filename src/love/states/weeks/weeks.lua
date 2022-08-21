@@ -644,6 +644,8 @@ return {
 							enemyNotes[id][c].y = -400 + noteTime * 0.6 * speed
 							if settings.downscroll then
 								enemyNotes[id][c].sizeY = -7
+							else
+								enemyNotes[id][c].sizeY = 7
 							end
 	
 							enemyNotes[id][c]:animate("on", false)
@@ -677,6 +679,8 @@ return {
 							boyfriendNotes[id][c].y = -400 + noteTime * 0.6 * speed
 							if settings.downscroll then
 								boyfriendNotes[id][c].sizeY = -7
+							else
+								boyfriendNotes[id][c].sizeY = 7
 							end
 	
 							boyfriendNotes[id][c]:animate("on", false)
@@ -711,6 +715,8 @@ return {
 							boyfriendNotes[id][c].y = -400 + noteTime * 0.6 * speed
 							if settings.downscroll then
 								boyfriendNotes[id][c].sizeY = -7
+							else
+								boyfriendNotes[id][c].sizeY = 7
 							end
 	
 							boyfriendNotes[id][c]:animate("on", false)
@@ -743,6 +749,8 @@ return {
 							enemyNotes[id][c].y = -400 + noteTime * 0.6 * speed
 							if settings.downscroll then
 								enemyNotes[id][c].sizeY = -7
+							else
+								enemyNotes[id][c].sizeY = 7
 							end
 	
 							enemyNotes[id][c]:animate("on", false)
