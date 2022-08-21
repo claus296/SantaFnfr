@@ -86,7 +86,7 @@ return {
 			love.graphics.translate(cam.x * 0.9, cam.y * 0.9)
 
 			if song ~= 3 then
-				stageImages[2]:draw()
+				stageImages[6]:draw()
 			end
 
 			stageImages[4]:draw()
