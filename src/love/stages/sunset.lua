@@ -12,9 +12,9 @@ return {
         fakeBoyfriend = love.filesystem.load("sprites/boyfriend.lua")() -- Used for game over
 
         fakeBoyfriend.x, fakeBoyfriend.y = 350, -100
-        stageImages[1].y = 250
-        stageImages[2].y = -130
-        stageImages[3].y = 375
+        stageImages[2].y = 250
+        stageImages[3].y = -130
+        stageImages[4].y = 375
         girlfriend.x, girlfriend.y = 30, -50
         enemy.x, enemy.y = -380, -10
         boyfriend.x, boyfriend.y = 340, -100
