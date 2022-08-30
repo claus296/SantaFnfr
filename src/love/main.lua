@@ -58,13 +58,6 @@ function love.load()
 	spriteDebug = require "states.debug.sprite-debug"
 	stageDebug = require "states.debug.stage-debug"
 
-	-- Load menus
-	menu = require "states.menu.menu"
-	menuWeek = require "states.menu.menuWeek"
-	menuSelect = require "states.menu.menuSelect"
-	menuFreeplay = require "states.menu.menuFreeplay"
-	menuSettings = require "states.menu.menuSettings"
-
 	-- Load stages
 	stages = {
 		["stage"] = require "stages.stage",
@@ -75,6 +68,22 @@ function love.load()
 		["school"] = require "stages.school",
 		["tank"] = require "stages.tank",
 	}
+
+	mods = {
+		weekMeta = {},
+		modNames = {}
+	}
+	modWeekData = {}
+	modloader = require "modules.modloader"
+	modloader.load()
+
+	-- Load menus
+	menu = require "states.menu.menu"
+	menuWeek = require "states.menu.menuWeek"
+	menuSelect = require "states.menu.menuSelect"
+	menuFreeplay = require "states.menu.menuFreeplay"
+	menuChooseFreeplay = require "states.menu.menuChooseFreeplay"
+	menuSettings = require "states.menu.menuSettings"
 
 	-- Load weeks
 	weeks = require "states.weeks.weeks"
