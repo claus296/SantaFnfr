@@ -26,6 +26,7 @@ PhantomClo - Pixel note splashes
 Keoki - Note splashes
 P-sam - Developing LOVE-NX
 The developers of the LÖVE framework
+RiverOaken - Psych Engine credits button
 
 ]]
 
