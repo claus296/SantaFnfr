@@ -1181,7 +1181,7 @@ return {
 	end,
 
 	update = function(self, dt)
-		if not doingDialogue then
+		if not doingDialogue and not cutscene then
 			oldMusicThres = musicThres
 			if countingDown or love.system.getOS() == "Web" then -- Source:tell() can't be trusted on love.js!
 				musicTime = musicTime + 1000 * dt
@@ -1338,7 +1338,7 @@ return {
 	end,
 
 	updateUI = function(self, dt)
-		if not doingDialogue then
+		if not doingDialogue and not cutscene then
 			if settings.downscroll then
 				musicPos = -musicTime * 0.6 * speed
 			else
@@ -1697,7 +1697,7 @@ return {
 			for i = 1, 4 do
 				--love.graphics.rotate(40 * i)
 				if settings.middleScroll then
-					love.graphics.setColor(0.6,0.6,0.6,0.3)
+					graphics.setColor(0.6,0.6,0.6,0.3)
 				end
 				graphics.setColor(1, 1, 1)
 				boyfriendArrows[i]:draw(1, THETHING[1])
@@ -1864,7 +1864,7 @@ return {
 
 			boyfriendIcon:draw()
 			enemyIcon:draw()
-			love.graphics.setColor(uiTextColour[1],uiTextColour[2],uiTextColour[3])
+			graphics.setColor(uiTextColour[1],uiTextColour[2],uiTextColour[3])
 			accForRatingText = (altScore / (noteCounter + missCounter))
 			if accForRatingText >= 100 then
 				ratingText = "PERFECT!!!"
