@@ -9,7 +9,7 @@ local songDifficulty = 2
 
 local selectSound = love.audio.newSource("sounds/menu/select.ogg", "static")
 local confirmSound = love.audio.newSource("sounds/menu/confirm.ogg", "static")
-
+local transparency
 local danceRight
 
 local function switchMenu(menu)
@@ -23,6 +23,13 @@ end
 return {
 	enter = function(self, previous)
 		danceRight = false
+		transparency = {0}
+		Timer.tween(
+			1,
+			transparency,
+			{[1] = 1},
+			"out-quad"
+		)
 		function logoRotate()
 			Timer.tween(2, logo, {orientation = 0.15}, "in-out-back", function()
 				Timer.tween(2, logo, {orientation = -0.15}, "in-out-back", function()
@@ -34,6 +41,7 @@ return {
 		logo = love.filesystem.load("sprites/menu/ve-logo.lua")()
 		girlfriendTitle = love.filesystem.load("sprites/menu/girlfriend-title.lua")()
 		titleEnter = love.filesystem.load("sprites/menu/titleEnter.lua")()
+		gradient, gquad = graphics.newVertGradient(lovesize.getWidth(), lovesize.getHeight(), {50/255, 0, 91/255, 1}, {0, 0, 0, 1})
 
 		whiteRectangles = {}
 		for i = 1, 15 do
@@ -134,15 +142,15 @@ return {
 		end
 	end,
 
-	
-
 	draw = function(self)
 		love.graphics.push()
+			graphics.setColor(1,1,1,transparency[1])
+			graphics.drawGradient(gradient, gquad, 0, 0)
+			graphics.setColor(1,1,1)
 			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
 
 			love.graphics.push()
 				love.graphics.scale(cam.sizeX, cam.sizeY)
-
 				logo:draw()
 
 				girlfriendTitle:draw()
