@@ -1,5 +1,5 @@
 local creditText, selectSound, confirmSound
-
+-- i literally said we should use a big string and you said no - CH
 creditText = [[
 Credits
 
@@ -20,7 +20,7 @@ Evilsk8r
 Kawaisprite
 And all the contributors
 
-Miscillaneous:
+Miscellaneous:
 
 PhantomClo - Pixel note splashes
 Keoki - Note splashes
@@ -29,6 +29,9 @@ The developers of the LÖVE framework
 
 ]]
 
+
+
+-- dumbass doesnt know how to spell miscellaneous :skull: guglio typed miscillaneous
 return {
     enter = function(self)
         credFont = love.graphics.newFont("fonts/fnFont.ttf", 32)

@@ -203,7 +203,7 @@ return {
 		end
 
 		function menuFunc()
-			if weekNum ~= 7 then -- Due to senpais idlelines being smaller than the rest, we resize it
+			if weekNum ~= 7 then -- Due to senpais idlelines being smaller than the rest, we resize it             not every part of him is small tho :hot_face:
 				enemyDanceLines.sizeX, enemyDanceLines.sizeY = 0.5, 0.5
 			elseif weekNum == 7 then
 				enemyDanceLines.sizeX, enemyDanceLines.sizeY = 1, 1
