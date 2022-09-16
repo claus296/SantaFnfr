@@ -70,7 +70,7 @@ return {
         love.graphics.setFont(credFont)
         love.graphics.push()
         love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
-        bg:cdraw(0.4*255, 0.4*255, 0.4*255, 1)
+        bg:cdraw(0, 0, 0.4*255, 1)
         love.graphics.translate(-350,math.abs(graphics.getHeight() / 2)+credY[1]-700)
         love.graphics.color.printf(creditText, 0, 0, 750, "center")
         love.graphics.pop()
