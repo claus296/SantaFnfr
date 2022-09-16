@@ -255,11 +255,11 @@ function love.load()
 		serialized = lume.serialize(data)
 		love.filesystem.write("settings", serialized)
 	end
-	if settingsVer ~= 4 then
+	if settingsVer ~= 5 then
 		love.window.showMessageBox("Uh Oh!", "Settings have been reset.", "warning")
 		love.filesystem.remove("settings.data")
 	end
-	if not love.filesystem.getInfo("settings") or settingsVer ~= 4 then
+	if not love.filesystem.getInfo("settings") or settingsVer ~= 5 then
 		settings.hardwareCompression = true
 		graphics.setImageType("dds")
 		settings.downscroll = false
@@ -283,7 +283,7 @@ function love.load()
 		customBindRight = "d"
 		customBindUp = "w"
 		customBindDown = "s"
-		settingsVer = 4
+		settingsVer = 5
 		data = {}
 		data.saveSettingsMoment = {
 			hardwareCompression = settings.hardwareCompression,

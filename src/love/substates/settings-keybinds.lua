@@ -53,7 +53,7 @@ return {
                 scrollUnderlayTrans = settings.scrollUnderlayTrans,
                 vocalsVol = settings.vocalsVol,
                 instVol = settings.instVol,
-                hitsoundsVol = settings.hitsoundsVol,
+                hitsoundVol = settings.hitsoundVol,
                 noteSkins = settings.noteSkins,
                 customBindDown = customBindDown,
                 customBindUp = customBindUp,
