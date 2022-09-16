@@ -115,14 +115,16 @@ return {
 			love.graphics.push()
 				love.graphics.translate(-graphics.getWidth() / 2 - 240, -graphics.getHeight() / 2 - 75)
 				love.graphics.scale(1.37,1.37)
-				love.graphics.setColor(0,0,0,settings.scrollUnderlayTrans)
+				graphics.setColor(0,0,0,settings.scrollUnderlayTrans)
 				if settings.middleScroll then
 					love.graphics.rectangle("fill", 400, -100, 90 + 170 * 2.35, 1000)
 				else
 					love.graphics.rectangle("fill", 755, -100, 90 + 170 * 2.35, 1000)
 				end
-				love.graphics.setColor(1,1,1,1)
+				graphics.setColor(1,1,1,1)
 			love.graphics.pop()
+			if settings.downscroll then love.graphics.scale(1, -1)
+			else love.graphics.scale(1, 1) end
 			for i = 1, 4 do
 				if enemyArrows[i]:getAnimName() == "off" then
 					graphics.setColor(0.6, 0.6, 0.6)
@@ -130,9 +132,17 @@ return {
 				if settings.middleScroll then
 					love.graphics.setColor(0.6,0.6,0.6,0.3)
 				end
-				enemyArrows[i]:draw()
+				if not settings.downscroll then
+					enemyArrows[i]:udraw(1, 1)
+				else
+					enemyArrows[i]:udraw(1, -1)
+				end
 				graphics.setColor(1, 1, 1)
-				boyfriendArrows[i]:draw()
+				if not settings.downscroll then
+					boyfriendArrows[i]:udraw(1, 1)
+				else
+					boyfriendArrows[i]:udraw(1, -1)
+				end
 
 				if hitSick then
 					if input:pressed("gameLeft") then
@@ -165,9 +175,9 @@ return {
                                 graphics.setColor(1, 1, 1, 0.5)
                             end
                             if settings.middleScroll then
-                                love.graphics.setColor(1,1,1,0.3)
+                                graphics.setColor(1,1,1,0.3)
                             end
-                            enemyNotes[i][j]:draw()
+                            enemyNotes[i][j]:udraw(1, enemyNotes[i][j].sizeY)
                             graphics.setColor(1, 1, 1)
                         end
                     end
@@ -188,16 +198,15 @@ return {
                                     graphics.setColor(1, 1, 1, math.min(1, (500 + (boyfriendNotes[i][j].y - musicPos)) / 75))
                                 end
                             end
-                            boyfriendNotes[i][j]:draw()
+                            boyfriendNotes[i][j]:udraw(1, boyfriendNotes[i][j].sizeY)
                         end
                     end
                     graphics.setColor(1, 1, 1)
 			    love.graphics.pop()
 				end
 
-				boyfriendIcon:draw()
-				enemyIcon:draw()
-
+				if settings.downscroll then love.graphics.scale(1, -1)
+				else love.graphics.scale(1, 1) end
 				weeks:drawHealthBar()
 
 				graphics.setColor(1, 1, 1, countdownFade[1])

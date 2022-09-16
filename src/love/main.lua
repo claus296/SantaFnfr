@@ -16,13 +16,25 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
-if love.system.getOS() == "Windows" and love.filesystem.isFused() then -- Delete this if statement if you don't want Discord RPC
-	useDiscordRPC = true
+
+
+if love.filesystem.isFused() and love.system.getOS() == "Windows" then
+	useDiscordRPC = true -- Set this to false if you don't want to use Discord RPC
 	discordRPC = require "lib.discordRPC"
-	appId = require "lib.applicationID"
+	appId = "924059160054755348"
 end
-love.graphics.color = {}
-color = {}
+love.graphics.color = {
+	print = function(text,x,y,r,sx,sy,R,G,B,A,ox,oy,kx,ky)
+		graphics.setColorF(R or 255,G or 255,B or 255,A or 1)
+		love.graphics.print(text or "",x or 0,y or 0,r or 0,sx or 1,sy or 1,a or 0,ox or 0,oy or 0,kx or 0,ky or 0)
+		love.graphics.setColorF(255,255,255,1)
+	end,
+	printf = function(text,x,y,limit,align,r,sx,sy,R,G,B,A,ox,oy,kx,ky)
+		graphics.setColorF(R or 255,G or 255,B or 255,A or 1)
+		love.graphics.printf(text or "",x or 0,y or 0,limit or 0,align or 0,r or 0,sx or 1,sy or 1,ox or 0,oy or 0,kx or 0,ky or 0)
+		love.graphics.setColorF(255,255,255,1)
+	end
+}
 
 volFade = 0
 
@@ -41,15 +53,25 @@ function love.load()
 	Gamestate = require "lib.gamestate"
 	Timer = require "lib.timer"
 	lume = require "lib.lume"
+	lovebpm = require "lib.lovebpm"
 
+	music = {
+		lovebpm.newTrack(),
+		--love.audio.newSource("songs/misc/menu.ogg", "stream"),
+		vol = 1
+	}
+
+	died = false
+
+	music[1]:load("songs/misc/menu.ogg"):setBPM(102):setVolume(music.vol):setLooping(true)
+	--music[1]:setVolume(music.vol)
 	-- Load modules
 	status = require "modules.status"
 	audio = require "modules.audio"
 	graphics = require "modules.graphics"
-
+	
 	-- Load settings
 	settings = require "settings"
-	input = require "input"
 
 	-- Load states
 	clickStart = require "states.click-start"
@@ -71,9 +93,9 @@ function love.load()
 
 	mods = {
 		weekMeta = {},
-		modNames = {}
+		modNames = {},
+		WeekData = {}
 	}
-	modWeekData = {}
 	modloader = require "modules.modloader"
 	modloader.load()
 
@@ -84,10 +106,10 @@ function love.load()
 	menuFreeplay = require "states.menu.menuFreeplay"
 	menuChooseFreeplay = require "states.menu.menuChooseFreeplay"
 	menuSettings = require "states.menu.menuSettings"
+	menuCredits = require "states.menu.menuCredits"
 
 	-- Load weeks
 	weeks = require "states.weeks.weeks"
-	weeks7 = require "states.weeks.weeks7" -- Week7 goes slkjdfhbskdljgfbskdjfgb so it uses a new weeks file
 	weeks_test = require "states.weeks.week_test" -- Not updated, just used when I want to fuck around - Guglio
 
 	-- Load substates
@@ -112,47 +134,47 @@ function love.load()
 	function volumeControl()
 		-- ch's volume control stuff
 		love.graphics.setColor(1, 1, 1, volFade)
-		local fixVol = string.format(
+		local fixVol = tonumber(string.format(
 			"%.1f  ",
 			(love.audio.getVolume())
-		)
+		))
 		love.graphics.setColor(0.5, 0.5, 0.5, volFade - 0.3)
 
 		love.graphics.rectangle("fill", 490, 0, 161, 50)
 
 		love.graphics.setColor(1, 1, 1, volFade)
 
-		if tonumber(fixVol) >= 0.1 then
+		if fixVol >= 0.1 then
 			love.graphics.rectangle("fill", 500, 0, 8, 40)
 		end
-		if tonumber(fixVol) >= 0.2 then
+		if fixVol >= 0.2 then
 			love.graphics.rectangle("fill", 515, 0, 8, 40)
 		end
-		if tonumber(fixVol) >= 0.3 then
+		if fixVol >= 0.3 then
 			love.graphics.rectangle("fill", 530, 0, 8, 40)
 		end
-		if tonumber(fixVol) >= 0.4 then
+		if fixVol >= 0.4 then
 			love.graphics.rectangle("fill", 545, 0, 8, 40)
 		end
-		if tonumber(fixVol) >= 0.5 then
+		if fixVol >= 0.5 then
 			love.graphics.rectangle("fill", 560, 0, 8, 40)
 		end
-		if tonumber(fixVol) >= 0.6 then
+		if fixVol >= 0.6 then
 			love.graphics.rectangle("fill", 575, 0, 8, 40)
 		end
-		if tonumber(fixVol) >= 0.7 then
+		if fixVol >= 0.7 then
 			love.graphics.rectangle("fill", 590, 0, 8, 40)
 		end
-		if tonumber(fixVol) >= 0.8 then
+		if fixVol >= 0.8 then
 			love.graphics.rectangle("fill", 605, 0, 8, 40)
 		end
-		if tonumber(fixVol) >= 0.9 then
+		if fixVol >= 0.9 then
 			love.graphics.rectangle("fill", 620, 0, 8, 40)
 		end
-		if tonumber(fixVol) >= 1 then
+		if fixVol >= 1 then
 			love.graphics.rectangle("fill", 635, 0, 8, 40)
 		end
-		love.graphics.setColor(1, 1, 1, 1)
+		graphics.setColor(1, 1, 1, 1)
 	end
 
 	-- Load week data
@@ -233,11 +255,11 @@ function love.load()
 		serialized = lume.serialize(data)
 		love.filesystem.write("settings", serialized)
 	end
-	if settingsVer ~= 3 then
+	if settingsVer ~= 4 then
 		love.window.showMessageBox("Uh Oh!", "Settings have been reset.", "warning")
 		love.filesystem.remove("settings.data")
 	end
-	if not love.filesystem.getInfo("settings") or settingsVer ~= 3 then
+	if not love.filesystem.getInfo("settings") or settingsVer ~= 4 then
 		settings.hardwareCompression = true
 		graphics.setImageType("dds")
 		settings.downscroll = false
@@ -261,7 +283,7 @@ function love.load()
 		customBindRight = "d"
 		customBindUp = "w"
 		customBindDown = "s"
-		settingsVer = 3
+		settingsVer = 4
 		data = {}
 		data.saveSettingsMoment = {
 			hardwareCompression = settings.hardwareCompression,
@@ -293,7 +315,7 @@ function love.load()
 		serialized = lume.serialize(data)
 		love.filesystem.write("settings", serialized)
 	end
-
+	input = require "input" -- LOAD INPUT HERE CUZ GOOFY AHH KEYBINDS MENU
 
 	-----------------------------------------------------------------------------------------
 
@@ -348,17 +370,6 @@ end
 function love.graphics.setColorF(R,G,B,A)
 	local R, G, B = R/255 or 1, G/255 or 1, B/255 or 1 -- convert 255 values to work with the setColor
 	graphics.setColor(R,G,B,A or 1) -- Alpha is not converted because using 255 alpha can be strange (I much rather 0-1 values lol)
-end
-function love.graphics.color.print(text,x,y,r,sx,sy,R,G,B,A,ox,oy,kx,ky)
-    graphics.setColorF(R or 255,G or 255,B or 255,A or 1)
-    love.graphics.print(text,x,y,r,sx,sy,a,ox,oy,kx,ky) -- When I learn the code for remaking love.graphics.print() I will update it (Although this works too)
-    love.graphics.setColorF(255,255,255,1)
-end
-
-function love.graphics.color.printf(text,x,y,limit,align,r,sx,sy,R,G,B,A,ox,oy,kx,ky)
-    graphics.setColorF(R or 255,G or 255,B or 255,A or 1)
-    love.graphics.printf(text,x,y,limit,align,r,sx,sy,ox,oy,kx,ky) -- Part 2
-    love.graphics.setColorF(255,255,255,1)
 end
 if useDiscordRPC then
 	function discordRPC.ready(userId, username, discriminator, avatar)
@@ -429,12 +440,10 @@ function love.update(dt)
 		volFade = volFade - 0.4 * delta
 	end
 
+	music[1]:update()
+	music[1]:setVolume(music.vol)
+
 	input:update()
-	--[[
-	if input:pressed("left") then
-		os.execute("fortnite\\game.love")
-	end
-	--]]
 
 	if status.getNoResize() then
 		Gamestate.update(dt)
@@ -488,11 +497,7 @@ function love.draw()
 
 	-- Debug output
 	if settings.showDebug then
-		if not pixel then -- Make debug text readable in pixel week
-			love.graphics.print(status.getDebugStr(settings.showDebug), 5, 5, nil, 0.5, 0.5)
-		else
-			love.graphics.print(status.getDebugStr(settings.showDebug), 5, 5, nil, 1.8, 1.8)
-		end
+		love.graphics.print(status.getDebugStr(settings.showDebug), 5, 5, nil, 0.5, 0.5)
 	end
 end
 function love.quit()

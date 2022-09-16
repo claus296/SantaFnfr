@@ -31,18 +31,18 @@ return {
     end,
 
     draw = function()
-        love.graphics.setColor(255, 255, 255, 255)
+        graphics.setColor(255, 255, 255, 255)
         love.graphics.print("Debug Menu", 10, 10)
         if choice == 1 then
-            love.graphics.setColor(1, 1, 0)
+            graphics.setColor(1, 1, 0)
         else
-            love.graphics.setColor(1, 1, 1)
+            graphics.setColor(1, 1, 1)
         end
         love.graphics.print("1. Sprite Viewer", 10, 30)
         if choice == 2 then
-            love.graphics.setColor(1, 1, 0)
+            graphics.setColor(1, 1, 0)
         else
-            love.graphics.setColor(1, 1, 1)
+            graphics.setColor(1, 1, 1)
         end
         love.graphics.print("2. Stage Editor", 10, 50)
     end

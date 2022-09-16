@@ -22,6 +22,7 @@ local fromState
 return {
 	enter = function(self, from)
 		local boyfriend = fakeBoyfriend or boyfriend
+		died = true
 
 		fromState = from
 

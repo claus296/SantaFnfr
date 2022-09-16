@@ -8,7 +8,7 @@ return {
         end
         dirTable = love.filesystem.getDirectoryItems("mods")
         for i = 1, #dirTable do
-            print(love.filesystem.getInfo("mods/" .. dirTable[i], "directory"))
+            --print(love.filesystem.getInfo("mods/" .. dirTable[i], "directory"))
             mods[i] = require("mods." .. dirTable[i] .. ".meta")
             mods[i]:setModName()
             mods[i]:setWeekMeta()

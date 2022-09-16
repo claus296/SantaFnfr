@@ -42,12 +42,7 @@ local difficultyStrs = {
 local selectSound = love.audio.newSource("sounds/menu/select.ogg", "static")
 local confirmSound = love.audio.newSource("sounds/menu/confirm.ogg", "static")
 
-
 local function switchMenu(menu)
-	print(mods.weekMeta)
-	for i = 1, #modWeekData do
-		print(modWeekData[i])
-	end
 	function upFunc()
 		if pressedUp ~= 10 then
 			pressedUp = pressedUp + 1
@@ -70,16 +65,6 @@ local function switchMenu(menu)
 			else
 				modWeekNum = (modWeekNum > 1) and modWeekNum - 1 or #mods.weekMeta
 			end
-			Timer.tween(
-				0.2,
-				freeColour, 
-				{
-					[1] = freeplayColours[modWeekNum][1],
-					[2] = freeplayColours[modWeekNum][2],
-					[3] = freeplayColours[modWeekNum][3]
-				}, 
-				"linear"
-			)
 		end
 		function rightFunc()
 			if menuState == 3 then
@@ -89,16 +74,6 @@ local function switchMenu(menu)
 			else
 				modWeekNum = (modWeekNum < #mods.weekMeta) and modWeekNum + 1 or 1
 			end
-			Timer.tween(
-				0.2,
-				freeColour, 
-				{
-					[1] = freeplayColours[modWeekNum][1],
-					[2] = freeplayColours[modWeekNum][2],
-					[3] = freeplayColours[modWeekNum][3]
-				}, 
-				"linear"
-			)
 		end
 		function confirmFunc()
 			if pressedUp ~= 10 then
@@ -112,16 +87,17 @@ local function switchMenu(menu)
 							songAppend = difficultyStrs[songDifficulty]
 
 							storyMode = false
+							modFolderMod = true
 
-							menu:musicStop()
+							music[1]:stop()
 
-							Gamestate.switch(modWeekData[modWeekNum], songNum, songAppend)
+							Gamestate.switch(mods.WeekData[modWeekNum], songNum, songAppend)
 
 							status.setLoading(false)
 						end
 					)
 				else
-					menu:musicStop()
+					music[1]:stop()
 					if menuState == 1 then
 						songNum = 1
 					end
@@ -139,7 +115,7 @@ local function switchMenu(menu)
 
 						storyMode = false
 
-						menu:musicStop()
+						music[1]:stop()
 
 						Gamestate.switch(testSong, songNum, songAppend)
 
@@ -195,16 +171,6 @@ function leftFunc()
 	else
 		modWeekNum = (modWeekNum > 1) and modWeekNum - 1 or #mods.weekMeta
 	end
-	Timer.tween(
-		0.2,
-		freeColour, 
-		{
-			[1] = freeplayColours[modWeekNum][1],
-			[2] = freeplayColours[modWeekNum][2],
-			[3] = freeplayColours[modWeekNum][3]
-		}, 
-		"linear"
-	)
 end
 function rightFunc()
 	if menuState == 3 then
@@ -214,16 +180,6 @@ function rightFunc()
 	else
 		modWeekNum = (modWeekNum < #mods.weekMeta) and modWeekNum + 1 or 1
 	end
-	Timer.tween(
-		0.2,
-		freeColour, 
-		{
-			[1] = freeplayColours[modWeekNum][1],
-			[2] = freeplayColours[modWeekNum][2],
-			[3] = freeplayColours[modWeekNum][3]
-		}, 
-		"linear"
-	)
 end
 function confirmFunc()
 	if pressedUp ~= 10 then
@@ -237,10 +193,11 @@ function confirmFunc()
 					songAppend = difficultyStrs[songDifficulty]
 
 					storyMode = false
+					modFolderMod = true
 
-					menu:musicStop()
+					music[1]:stop()
 
-					Gamestate.switch(modWeekData[modWeekNum], songNum, songAppend)
+					Gamestate.switch(mods.WeekData[modWeekNum], songNum, songAppend)
 
 					status.setLoading(false)
 				end
@@ -253,7 +210,7 @@ function confirmFunc()
 			menuState = menuState + 1
 		end
 	else
-		menu:musicStop()
+		music[1]:stop()
 		status.setLoading(true)
 
 		graphics.fadeOut(
@@ -264,7 +221,7 @@ function confirmFunc()
 
 				storyMode = false
 
-				menu:musicStop()
+				music[1]:stop()
 				Gamestate.switch(testSong, songNum, songAppend)
 
 				status.setLoading(false)
@@ -326,30 +283,6 @@ return {
 		love.graphics.setDefaultFilter("nearest")
 		pbf = love.filesystem.load("sprites/pixel/boyfriend.lua")()
 		love.graphics.setDefaultFilter("linear")
-		freeColour = {
-			255,255,255
-		}
-		freeplayColours = {
-			{146,0,68}, -- Tutorial
-			{129,100,223}, -- Week 1
-			{30,45,60}, -- Week 2
-			{131,19,73}, -- Week 3
-			{222,132,190}, -- Week 4
-			{141,184,225}, -- Week 5
-			{225,106,169}, -- Week 6
-			{50,50,50}, -- Week 7
-		}
-		Timer.tween(
-			0.2,
-			freeColour, 
-			{
-				[1] = freeplayColours[1][1],
-				[2] = freeplayColours[1][2],
-				[3] = freeplayColours[1][3]
-			}, 
-			"linear"
-		)
-
 		bf:animate("idle", true)
 		
 		bf.x = 375
@@ -379,9 +312,6 @@ return {
 	update = function(self, dt)
 
 		if not graphics.isFading() then
-			if not music:isPlaying() then
-				music:play()
-			end
 			if input:pressed("left") then
 				audio.playSound(selectSound)
 
@@ -403,7 +333,7 @@ return {
 					graphics.fadeOut(
                         0.3,
                         function()
-                            Gamestate.switch(menuSelect)
+                            Gamestate.switch(menuChooseFreeplay)
                             status.setLoading(false)
                         end
 	            	)
@@ -423,7 +353,6 @@ return {
 		love.graphics.push()
 			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
 
-			love.graphics.setColorF(freeColour[1], freeColour[2], freeColour[3])
 			menuBG:draw()
 
 			if pressedUp == 10 then

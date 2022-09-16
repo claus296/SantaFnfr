@@ -39,7 +39,194 @@ local ratingTimers = {}
 local useAltAnims
 local notMissed = {}
 
+function tweenPauseButtons()
+	if week ~= 5 then
+		resume.x, resume.y = -1000, 120
+		resumeH.x, resumeH.y = resume.x, resume.y
+		restart.x, restart.y = -1000, 295
+		restartH.x, restartH.y = restart.x, restart.y 
+		exit.x, exit.y = -1000, 470
+		exitH.x, exitH.y = exit.x, exit.y 
+		options.x, options.y = -1000, 645
+		optionsH.x, optionsH.y = options.x, options.y
+		pauseCurtain.y = -1000
+		pausedGraphic.x = 2000
+
+
+		if resume.x == -1000 then
+			Timer.tween(1, resume, {x = 550}, "out-back")
+		end
+		if resumeH.x == -1000 then
+			Timer.tween(1, resumeH, {x = 550}, "out-back")
+		end
+		if restart.x == -1000 then
+			Timer.tween(1.2, restart, {x = 500}, "out-back")
+		end
+		if restartH.x == -1000 then
+			Timer.tween(1.2, restartH, {x = 500}, "out-back")
+		end
+		if exit.x == -1000 then
+			Timer.tween(1.4, exit, {x = 450}, "out-back")
+		end
+		if exitH.x == -1000 then
+			Timer.tween(1.4, exitH, {x = 450}, "out-back")
+		end
+		if options.x == -1000 then
+			Timer.tween(1.6, options, {x = 400}, "out-back")
+		end
+		if optionsH.x == -1000 then
+			Timer.tween(1.6, optionsH, {x = 400}, "out-back")
+		end
+		if pauseCurtain.y == -1000 then
+			Timer.tween(1, pauseCurtain, {y = 320}, "out-expo")
+		end
+		if pausedGraphic.x == 2000 then
+			Timer.tween(0.5, pausedGraphic, {x = 1200}, "out-quad")
+		end
+	else
+		resume.x, resume.y = -2500, 120 - 900         -- im fucking crying
+		resumeH.x, resumeH.y = resume.x, resume.y
+		restart.x, restart.y = -2500, 295 - 900
+		restartH.x, restartH.y = restart.x, restart.y 
+		exit.x, exit.y = -2500, 470 - 900
+		exitH.x, exitH.y = exit.x, exit.y 
+		options.x, options.y = -2500, 645 - 900
+		optionsH.x, optionsH.y = options.x, options.y
+
+
+		if resume.x == -2500 then
+			Timer.tween(1, resume, {x = -1750}, "out-back")
+		end
+		if resumeH.x == -2500 then
+			Timer.tween(1, resumeH, {x = -1750}, "out-back")
+		end
+		if restart.x == -2500 then
+			Timer.tween(1.2, restart, {x = -1700}, "out-back")
+		end
+		if restartH.x == -2500 then
+			Timer.tween(1.2, restartH, {x = -1700}, "out-back")
+		end
+		if exit.x == -2500 then
+			Timer.tween(1.4, exit, {x = -1650}, "out-back")
+		end
+		if exitH.x == -2500 then
+			Timer.tween(1.4, exitH, {x = -1650}, "out-back")
+		end
+		if options.x == -2500 then
+			Timer.tween(1.6, options, {x = -1600}, "out-back")
+		end
+		if optionsH.x == -2500 then
+			Timer.tween(1.6, optionsH, {x = -1600}, "out-back")
+		end
+	end
+end
+
 return {
+	enter = function(self)
+		font = love.graphics.newFont("fonts/vcr.ttf", 24)
+
+		--PAUSE MENU IMAGES
+		resume = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/resume"))) -- USE THIS FUNCTION
+		resumeH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/resumeHover")))
+		restart = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/restart")))
+		restartH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/restartHover")))
+		exit = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/exit")))
+		exitH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/exitHover")))
+		options = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/options")))
+		optionsH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/optionsHover")))
+		pauseCurtain = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/curtain")))
+		pausedGraphic = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/paused")))
+						
+		resume.x, resume.y = 400, 120
+		resumeH.x, resumeH.y = resume.x, resume.y
+		restart.x, restart.y = 400, 295
+		restartH.x, restartH.y = restart.x, restart.y 
+		exit.x, exit.y = 400, 470
+		exitH.x, exitH.y = exit.x, exit.y 
+		options.x, options.y = 400, 645
+		optionsH.x, optionsH.y = options.x, options.y
+		pauseCurtain.x, pauseCurtain.y = 300, -1000
+		pausedGraphic.x, pausedGraphic.y = 2000, 150
+
+		pausedGraphic.sizeX, pausedGraphic.sizeY = 0.6, 0.6
+		sounds = {
+			countdown = {
+				three = love.audio.newSource("sounds/countdown-3.ogg", "static"),
+				two = love.audio.newSource("sounds/countdown-2.ogg", "static"),
+				one = love.audio.newSource("sounds/countdown-1.ogg", "static"),
+				go = love.audio.newSource("sounds/countdown-go.ogg", "static")
+			},
+			miss = {
+				love.audio.newSource("sounds/miss1.ogg", "static"),
+				love.audio.newSource("sounds/miss2.ogg", "static"),
+				love.audio.newSource("sounds/miss3.ogg", "static")
+			},
+			hitsounds = {
+				love.audio.newSource("sounds/hitSound.ogg", "static"),
+			},
+			death = love.audio.newSource("sounds/death.ogg", "static"),
+			breakfast = love.audio.newSource("songs/misc/breakfast.ogg", "stream"),
+			["text"] = love.audio.newSource("sounds/pixel/text.ogg", "static"),
+			["continue"] = love.audio.newSource("sounds/pixel/continue-text.ogg", "static"),
+		}
+
+		images = {
+			icons = love.graphics.newImage(graphics.imagePath("icons")),
+			notes = love.graphics.newImage(graphics.imagePath(noteskins[settings.noteSkins])),
+			notesplashes = love.graphics.newImage(graphics.imagePath("noteSplashes")),
+			numbers = love.graphics.newImage(graphics.imagePath("numbers"))
+		}
+
+		sprites = {
+			icons = love.filesystem.load("sprites/icons.lua"),
+			numbers = love.filesystem.load("sprites/numbers.lua")
+		}
+
+		pauseVolume = {
+			vol = 0
+		}
+
+		girlfriend = love.filesystem.load("sprites/girlfriend.lua")()
+		boyfriend = love.filesystem.load("sprites/boyfriend.lua")()
+
+		rating = love.filesystem.load("sprites/rating.lua")()
+
+		rating.sizeX, rating.sizeY = 0.75, 0.75
+		numbers = {}
+		for i = 1, 3 do
+			numbers[i] = sprites.numbers()
+
+			numbers[i].sizeX, numbers[i].sizeY = 0.5, 0.5
+		end
+
+		enemyIcon = sprites.icons()
+		boyfriendIcon = sprites.icons()
+
+		if settings.downscroll then
+			downscrollOffset = -750
+		else
+			downscrollOffset = 0
+		end
+
+		enemyIcon.y = 350 + downscrollOffset
+		boyfriendIcon.y = 350 + downscrollOffset
+		enemyIcon.sizeX, enemyIcon.sizeY = 1.5, 1.5
+		boyfriendIcon.sizeX, boyfriendIcon.sizeY = -1.5, 1.5
+		healthBarColorPlayer = {49,176,209}
+
+		countdownFade = {}
+		countdown = love.filesystem.load("sprites/countdown.lua")()
+
+		function setDialogue(strList)
+			dialogueList = strList
+			curDialogue = 1
+			timer = 0
+			progress = 1
+			output = ""
+			isDone = false
+		end
+	end,
+
 	pixelEnter = function(self)
 		love.graphics.setDefaultFilter("nearest")
 		font = love.graphics.newFont("fonts/pixel.fnt")
@@ -147,110 +334,6 @@ return {
 		boyfriendIcon:animate("boyfriend (pixel)", false)
 
 	end,
-	enter = function(self)
-		font = love.graphics.newFont("fonts/vcr.ttf", 24)
-
-		--PAUSE MENU IMAGES
-		resume = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/resume"))) -- USE THIS FUNCTION
-		resumeH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/resumeHover")))
-		restart = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/restart")))
-		restartH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/restartHover")))
-		exit = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/exit")))
-		exitH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/exitHover")))
-		options = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/options")))
-		optionsH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/optionsHover")))
-		pauseCurtain = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/curtain")))
-		pausedGraphic = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/paused")))
-						
-		resume.x, resume.y = 400, 120
-		resumeH.x, resumeH.y = resume.x, resume.y
-		restart.x, restart.y = 400, 295
-		restartH.x, restartH.y = restart.x, restart.y 
-		exit.x, exit.y = 400, 470
-		exitH.x, exitH.y = exit.x, exit.y 
-		options.x, options.y = 400, 645
-		optionsH.x, optionsH.y = options.x, options.y
-		pauseCurtain.x, pauseCurtain.y = 300, -1000
-		pausedGraphic.x, pausedGraphic.y = 2000, 150
-
-		pausedGraphic.sizeX, pausedGraphic.sizeY = 0.6, 0.6
-		sounds = {
-			countdown = {
-				three = love.audio.newSource("sounds/countdown-3.ogg", "static"),
-				two = love.audio.newSource("sounds/countdown-2.ogg", "static"),
-				one = love.audio.newSource("sounds/countdown-1.ogg", "static"),
-				go = love.audio.newSource("sounds/countdown-go.ogg", "static")
-			},
-			miss = {
-				love.audio.newSource("sounds/miss1.ogg", "static"),
-				love.audio.newSource("sounds/miss2.ogg", "static"),
-				love.audio.newSource("sounds/miss3.ogg", "static")
-			},
-			hitsounds = {
-				love.audio.newSource("sounds/hitSound.ogg", "static"),
-			},
-			death = love.audio.newSource("sounds/death.ogg", "static"),
-			breakfast = love.audio.newSource("songs/misc/breakfast.ogg", "stream"),
-			["text"] = love.audio.newSource("sounds/pixel/text.ogg", "static"),
-			["continue"] = love.audio.newSource("sounds/pixel/continue-text.ogg", "static"),
-		}
-
-		images = {
-			icons = love.graphics.newImage(graphics.imagePath("icons")),
-			notes = love.graphics.newImage(graphics.imagePath(noteskins[settings.noteSkins])),
-			notesplashes = love.graphics.newImage(graphics.imagePath("noteSplashes")),
-			numbers = love.graphics.newImage(graphics.imagePath("numbers"))
-		}
-
-		sprites = {
-			icons = love.filesystem.load("sprites/icons.lua"),
-			numbers = love.filesystem.load("sprites/numbers.lua")
-		}
-
-		pauseVolume = {
-			vol = 0
-		}
-
-		girlfriend = love.filesystem.load("sprites/girlfriend.lua")()
-		boyfriend = love.filesystem.load("sprites/boyfriend.lua")()
-
-		rating = love.filesystem.load("sprites/rating.lua")()
-
-		rating.sizeX, rating.sizeY = 0.75, 0.75
-		numbers = {}
-		for i = 1, 3 do
-			numbers[i] = sprites.numbers()
-
-			numbers[i].sizeX, numbers[i].sizeY = 0.5, 0.5
-		end
-
-		enemyIcon = sprites.icons()
-		boyfriendIcon = sprites.icons()
-
-		if settings.downscroll then
-			downscrollOffset = -750
-		else
-			downscrollOffset = 0
-		end
-
-		enemyIcon.y = 350 + downscrollOffset
-		boyfriendIcon.y = 350 + downscrollOffset
-		enemyIcon.sizeX, enemyIcon.sizeY = 1.5, 1.5
-		boyfriendIcon.sizeX, boyfriendIcon.sizeY = -1.5, 1.5
-		healthBarColorPlayer = {49,176,209}
-
-		countdownFade = {}
-		countdown = love.filesystem.load("sprites/countdown.lua")()
-
-		function setDialogue(strList)
-			dialogueList = strList
-			curDialogue = 1
-			timer = 0
-			progress = 1
-			output = ""
-			isDone = false
-		end
-	end,
 
 	load = function(self)
 
@@ -290,91 +373,12 @@ return {
 		graphics.fadeIn(0.5)
 	end,
 
-	pixelInitUI = function(self)
-		events = {}
-		enemyNotes = {}
-		boyfriendNotes = {}
-		health = 50
-		score = 0
-		missCounter = 0
-		altScore = 0
-		sicks = 0
-		goods = 0
-		bads = 0
-		shits = 0
-		hitCounter = 0
-
-		local curInput = inputList[i]
-
-		sprites.leftArrow = love.filesystem.load("sprites/pixel/notes/left-arrow.lua")
-		sprites.downArrow = love.filesystem.load("sprites/pixel/notes/down-arrow.lua")
-		sprites.upArrow = love.filesystem.load("sprites/pixel/notes/up-arrow.lua")
-		sprites.rightArrow = love.filesystem.load("sprites/pixel/notes/right-arrow.lua")
-
-		leftArrowSplash = love.filesystem.load("sprites/pixel/notes/pixelSplashes.lua")()
-		downArrowSplash = love.filesystem.load("sprites/pixel/notes/pixelSplashes.lua")()
-		upArrowSplash = love.filesystem.load("sprites/pixel/notes/pixelSplashes.lua")()
-		rightArrowSplash = love.filesystem.load("sprites/pixel/notes/pixelSplashes.lua")()
-
-
-		enemyArrows = {
-			sprites.leftArrow(),
-			sprites.downArrow(),
-			sprites.upArrow(),
-			sprites.rightArrow()
-		}
-		boyfriendArrows = {
-			sprites.leftArrow(),
-			sprites.downArrow(),
-			sprites.upArrow(),
-			sprites.rightArrow()
-		}
-
-		leftArrowSplash.sizeX, leftArrowSplash.sizeY = 7, 7
-		rightArrowSplash.sizeX, rightArrowSplash.sizeY = 7, 7
-		upArrowSplash.sizeX, upArrowSplash.sizeY = 7, 7
-		downArrowSplash.sizeX, downArrowSplash.sizeY = 7, 7
-
-		for i = 1, 4 do
-			if not settings.middleScroll then
-				enemyArrows[i].x = -925 + 165 * i 
-				boyfriendArrows[i].x = 100 + 165 * i 
-				leftArrowSplash.x = 100 + 165 * 1 + 10
-				downArrowSplash.x = 100 + 165 * 2 + 13
-				upArrowSplash.x =  100 + 165 * 3 + 16
-				rightArrowSplash.x = 100 + 165 * 4 + 19
-			else
-				boyfriendArrows[i].x = -410 + 165 * i
-				-- ew stuff
-				enemyArrows[1].x = -925 + 165 * 1 
-				enemyArrows[2].x = -925 + 165 * 2
-				enemyArrows[3].x = 100 + 165 * 3
-				enemyArrows[4].x = 100 + 165 * 4
-				leftArrowSplash.x = -440 + 165 * 1 + 10
-				downArrowSplash.x = -440 + 165 * 2 + 13
-				upArrowSplash.x =  -440 + 165 * 3 + 16
-				rightArrowSplash.x = -440 + 165 * 4 + 19
-			end
-
-			enemyArrows[i].y = -400
-			boyfriendArrows[i].y = -400
-			leftArrowSplash.y = -400
-			downArrowSplash.y = -400
-			upArrowSplash.y = -400
-			rightArrowSplash.y = -400
-
-			enemyArrows[i].sizeX, enemyArrows[i].sizeY = 7, 7
-			boyfriendArrows[i].sizeX, boyfriendArrows[i].sizeY = 7, 7
-
-			enemyNotes[i] = {}
-			boyfriendNotes[i] = {}
-		end
-	end,
-
 	initUI = function(self)
 		events = {}
+		eventsP = {}
 		enemyNotes = {}
 		boyfriendNotes = {}
+		picoNotes = {}
 		health = 50
 		score = 0
 		missCounter = 0
@@ -404,6 +408,12 @@ return {
 			sprites.rightArrow()
 		}
 		boyfriendArrows = {
+			sprites.leftArrow(),
+			sprites.downArrow(),
+			sprites.upArrow(),
+			sprites.rightArrow()
+		}
+		picoArrows = {
 			sprites.leftArrow(),
 			sprites.downArrow(),
 			sprites.upArrow(),
@@ -439,6 +449,97 @@ return {
 
 			enemyNotes[i] = {}
 			boyfriendNotes[i] = {}
+			picoNotes[i] = {}
+		end
+	end,
+
+	pixelInitUI = function(self)
+		events = {}
+		enemyNotes = {}
+		boyfriendNotes = {}
+		picoNotes = {}
+		health = 50
+		score = 0
+		missCounter = 0
+		altScore = 0
+		sicks = 0
+		goods = 0
+		bads = 0
+		shits = 0
+		hitCounter = 0
+
+		local curInput = inputList[i]
+
+		sprites.leftArrow = love.filesystem.load("sprites/pixel/notes/left-arrow.lua")
+		sprites.downArrow = love.filesystem.load("sprites/pixel/notes/down-arrow.lua")
+		sprites.upArrow = love.filesystem.load("sprites/pixel/notes/up-arrow.lua")
+		sprites.rightArrow = love.filesystem.load("sprites/pixel/notes/right-arrow.lua")
+
+		leftArrowSplash = love.filesystem.load("sprites/pixel/notes/pixelSplashes.lua")()
+		downArrowSplash = love.filesystem.load("sprites/pixel/notes/pixelSplashes.lua")()
+		upArrowSplash = love.filesystem.load("sprites/pixel/notes/pixelSplashes.lua")()
+		rightArrowSplash = love.filesystem.load("sprites/pixel/notes/pixelSplashes.lua")()
+
+
+		enemyArrows = {
+			sprites.leftArrow(),
+			sprites.downArrow(),
+			sprites.upArrow(),
+			sprites.rightArrow()
+		}
+		boyfriendArrows = {
+			sprites.leftArrow(),
+			sprites.downArrow(),
+			sprites.upArrow(),
+			sprites.rightArrow()
+		}
+		picoArrows = {
+			sprites.leftArrow(),
+			sprites.downArrow(),
+			sprites.upArrow(),
+			sprites.rightArrow()
+		}
+
+		leftArrowSplash.sizeX, leftArrowSplash.sizeY = 7, 7
+		rightArrowSplash.sizeX, rightArrowSplash.sizeY = 7, 7
+		upArrowSplash.sizeX, upArrowSplash.sizeY = 7, 7
+		downArrowSplash.sizeX, downArrowSplash.sizeY = 7, 7
+
+		for i = 1, 4 do
+			if not settings.middleScroll then
+				enemyArrows[i].x = -925 + 165 * i 
+				boyfriendArrows[i].x = 100 + 165 * i 
+				leftArrowSplash.x = 100 + 165 * 1 + 10
+				downArrowSplash.x = 100 + 165 * 2 + 13
+				upArrowSplash.x =  100 + 165 * 3 + 16
+				rightArrowSplash.x = 100 + 165 * 4 + 19
+			else
+				boyfriendArrows[i].x = -410 + 165 * i
+				-- ew stuff
+				enemyArrows[1].x = -925 + 165 * 1 
+				enemyArrows[2].x = -925 + 165 * 2
+				enemyArrows[3].x = 100 + 165 * 3
+				enemyArrows[4].x = 100 + 165 * 4
+				leftArrowSplash.x = -440 + 165 * 1 + 10
+				downArrowSplash.x = -440 + 165 * 2 + 13
+				upArrowSplash.x =  -440 + 165 * 3 + 16
+				rightArrowSplash.x = -440 + 165 * 4 + 19
+			end
+
+			enemyArrows[i].y = -400
+			boyfriendArrows[i].y = -400
+			picoArrows[i].y = -400
+			leftArrowSplash.y = -400
+			downArrowSplash.y = -400
+			upArrowSplash.y = -400
+			rightArrowSplash.y = -400
+
+			enemyArrows[i].sizeX, enemyArrows[i].sizeY = 7, 7
+			boyfriendArrows[i].sizeX, boyfriendArrows[i].sizeY = 7, 7
+
+			enemyNotes[i] = {}
+			boyfriendNotes[i] = {}
+			picoNotes[i] = {}
 		end
 	end,
 
@@ -843,6 +944,29 @@ return {
 			end
 		end
 	end,
+	generatePicoNotes = function(self, chartP)
+		for i = 1, #chartP do
+			for j = 1, #chartP[i].sectionNotes do
+				local spriteP
+
+				local noteTimeP = chartP[i].sectionNotes[j].noteTime
+				local noteTypeP = chartP[i].sectionNotes[j].noteType
+				local Pspeed = chartP.speed
+
+				spriteP = sprites.downArrow
+
+				local id = noteTypeP + 1
+				local c = #picoNotes[id] + 1
+				local x = picoNotes[id].x
+
+				table.insert(picoNotes[id], spriteP())
+				picoNotes[id][c].x = x
+				picoNotes[id][c].y = -400 + (noteTimeP + 1010*j) * 0.6 * Pspeed
+
+				picoNotes[id][c]:animate("on", false)
+			end
+		end
+	end,
 
 	doDialogue = function(dt)
 		local fullDialogue = dialogueList[curDialogue]
@@ -980,88 +1104,30 @@ return {
 			end
 		end
 
+		convertedAcc = string.format(
+			"%.2f%%",
+			(altScore / (noteCounter + missCounter))
+		)
 
-        function tweenPauseButtons()
-			if week ~= 5 then
-				resume.x, resume.y = -1000, 120
-				resumeH.x, resumeH.y = resume.x, resume.y
-				restart.x, restart.y = -1000, 295
-				restartH.x, restartH.y = restart.x, restart.y 
-				exit.x, exit.y = -1000, 470
-				exitH.x, exitH.y = exit.x, exit.y 
-				options.x, options.y = -1000, 645
-				optionsH.x, optionsH.y = options.x, options.y
-				pauseCurtain.y = -1000
-				pausedGraphic.x = 2000
-
-
-				if resume.x == -1000 then
-					Timer.tween(1, resume, {x = 550}, "out-back")
-				end
-				if resumeH.x == -1000 then
-					Timer.tween(1, resumeH, {x = 550}, "out-back")
-				end
-				if restart.x == -1000 then
-					Timer.tween(1.2, restart, {x = 500}, "out-back")
-				end
-				if restartH.x == -1000 then
-					Timer.tween(1.2, restartH, {x = 500}, "out-back")
-				end
-				if exit.x == -1000 then
-					Timer.tween(1.4, exit, {x = 450}, "out-back")
-				end
-				if exitH.x == -1000 then
-					Timer.tween(1.4, exitH, {x = 450}, "out-back")
-				end
-				if options.x == -1000 then
-					Timer.tween(1.6, options, {x = 400}, "out-back")
-				end
-				if optionsH.x == -1000 then
-					Timer.tween(1.6, optionsH, {x = 400}, "out-back")
-				end
-				if pauseCurtain.y == -1000 then
-					Timer.tween(1, pauseCurtain, {y = 320}, "out-expo")
-				end
-				if pausedGraphic.x == 2000 then
-					Timer.tween(0.5, pausedGraphic, {x = 1200}, "out-quad")
-				end
+		if useDiscordRPC then
+			if not modFolderMod then 
+				presence = {
+					state = "Week " .. weekNum-1 .. " | " .. trackNames[weekNum][song],
+					details = "Score: " .. score .. " | Accuracy: " .. convertedAcc,
+					largeImageKey = "logo",
+					startTimestamp = now,
+				}
+				nextPresenceUpdate = 0
 			else
-				resume.x, resume.y = -2500, 120 - 900         -- im fucking crying
-				resumeH.x, resumeH.y = resume.x, resume.y
-				restart.x, restart.y = -2500, 295 - 900
-				restartH.x, restartH.y = restart.x, restart.y 
-				exit.x, exit.y = -2500, 470 - 900
-				exitH.x, exitH.y = exit.x, exit.y 
-				options.x, options.y = -2500, 645 - 900
-				optionsH.x, optionsH.y = options.x, options.y
-
-
-				if resume.x == -2500 then
-					Timer.tween(1, resume, {x = -1750}, "out-back")
-				end
-				if resumeH.x == -2500 then
-					Timer.tween(1, resumeH, {x = -1750}, "out-back")
-				end
-				if restart.x == -2500 then
-					Timer.tween(1.2, restart, {x = -1700}, "out-back")
-				end
-				if restartH.x == -2500 then
-					Timer.tween(1.2, restartH, {x = -1700}, "out-back")
-				end
-				if exit.x == -2500 then
-					Timer.tween(1.4, exit, {x = -1650}, "out-back")
-				end
-				if exitH.x == -2500 then
-					Timer.tween(1.4, exitH, {x = -1650}, "out-back")
-				end
-				if options.x == -2500 then
-					Timer.tween(1.6, options, {x = -1600}, "out-back")
-				end
-				if optionsH.x == -2500 then
-					Timer.tween(1.6, optionsH, {x = -1600}, "out-back")
-				end
+				presence = {
+					state = "Mod Folder",
+					details = "Score: " .. score .. " | Accuracy: " .. convertedAcc,
+					largeImageKey = "logo",
+					startTimestamp = now,
+				}
+				nextPresenceUpdate = 0
 			end
-        end
+		end
 
 		currentSeconds = voices:tell("seconds")
 		songLenth = voices:getDuration("seconds")
@@ -1098,7 +1164,7 @@ return {
 			love.audio.stop(sounds.breakfast)
 		end
 
-		if not doingDialogue then
+		if not doingDialogue and not cutscene then
 			oldMusicThres = musicThres
 			if countingDown or love.system.getOS() == "Web" then -- Source:tell() can't be trusted on love.js!
 				musicTime = musicTime + 1000 * dt
@@ -1168,6 +1234,7 @@ return {
 			girlfriend:update(dt)
 			enemy:update(dt)
 			boyfriend:update(dt)
+			if picoSpeaker then picoSpeaker:update(dt) end
 			leftArrowSplash:update(dt)
 			rightArrowSplash:update(dt)
 			upArrowSplash:update(dt)
@@ -1176,11 +1243,17 @@ return {
 			if musicThres ~= oldMusicThres and math.fmod(absMusicTime, 120000 / bpm) < 100 then
 				if spriteTimers[1] == 0 then
 					girlfriend:animate("idle", false)
+					if picoSpeaker then picoSpeaker:animate("idle", false) end
 	
 					girlfriend:setAnimSpeed(14.4 / (60 / bpm))
+					if picoSpeaker then picoSpeaker:setAnimSpeed(14.4 / (60 / bpm)) end
 				end
 				if spriteTimers[2] == 0 then
-					self:safeAnimate(enemy, "idle", false, 2)
+					if enemy:getAnimName() == "good" then 
+						if not enemy:isAnimated() then
+							self:safeAnimate(enemy, "idle", false, 2)
+						end
+					else self:safeAnimate(enemy, "idle", false, 2) end
 				end
 				if spriteTimers[3] == 0 then
 					self:safeAnimate(boyfriend, "idle", false, 3)
@@ -1199,14 +1272,16 @@ return {
 
 	updateUI = function(self, dt)
 		if not paused then
-			if not doingDialogue then
+			if not doingDialogue and not cutscene then
 				musicPos = musicTime * 0.6 * speed
 
 				for i = 1, 4 do
 					local enemyArrow = enemyArrows[i]
 					local boyfriendArrow = boyfriendArrows[i]
+					local picoArrow = picoArrows[i]
 					local enemyNote = enemyNotes[i]
 					local boyfriendNote = boyfriendNotes[i]
+					local picoNote = picoNotes[i]
 					local curAnim = animList[i]
 					local curInput = inputList[i]
 
@@ -1271,6 +1346,18 @@ return {
 
 									missCounter = missCounter + 1
 								end
+							end
+						end
+					end
+
+					if picoSpeaker then 
+						if #picoNote > 0 then
+							if (picoNote[1].y - musicPos <= -400)then
+								voices:setVolume(1)
+
+								self:safeAnimate(picoSpeaker, curAnim, false, 2)
+
+								table.remove(picoNote, 1)
 							end
 						end
 					end
@@ -1527,7 +1614,7 @@ return {
 			end
 			graphics.setColor(1, 1, 1)
 		love.graphics.pop()
-	end,
+	end, -- i love men so much men just make me go wfhjlisdfjkl;jsdrfghnlkgbdehrsgnkadlufhgbkldashbfgoigabdfrsoliabdrsglkadjrshgpio9abejrsgn;kladsfjghlikhb 
 
 	drawUI = function(self)
 		love.graphics.push()
@@ -1545,15 +1632,15 @@ return {
 				end
 				if settings.middleScroll then
 					if paused then 
-						love.graphics.setColor(0.6,0.6,0.6,0.3)
+						graphics.setColor(0.6,0.6,0.6,0.3)
 					else
-						love.graphics.setColor(0.6,0.6,0.6,0.3)
+						graphics.setColor(0.6,0.6,0.6,0.3)
 					end
 				else
 					if paused then 
-						love.graphics.setColor(0.6,0.6,0.6,0.3)
+						graphics.setColor(0.6,0.6,0.6,0.3)
 					else
-						love.graphics.setColor(1,1,1)
+						graphics.setColor(1,1,1)
 					end
 				end
 
@@ -1574,27 +1661,39 @@ return {
 					
 				end
 				if paused then 
-					love.graphics.setColor(0.6,0.6,0.6,0.3)
+					graphics.setColor(0.6,0.6,0.6,0.3)
 				else
-					love.graphics.setColor(1, 1, 1, 1)
+					graphics.setColor(1, 1, 1, 1)
 				end
 				if not paused then
-					if not settings.downscroll then 
-						boyfriendArrows[i]:draw()
+					if not pixel then
+						if not settings.downscroll then
+							boyfriendArrows[i]:udraw(1, 1)
+						else
+							boyfriendArrows[i]:udraw(1, -1)
+						end
 					else
-						boyfriendArrows[i]:udraw(1,-1)
+						if not settings.downscroll then
+							boyfriendArrows[i]:udraw(7, 7)
+						else
+							boyfriendArrows[i]:udraw(7, -7)
+						end
 					end
 				end
 				if hitSick then
 					if not settings.botPlay then
 						if input:pressed("gameLeft") then
-							leftArrowSplash:animate("left")
+							if not pixel then leftArrowSplash:animate("left" .. love.math.random(1,2))
+							else leftArrowSplash:animate("left") end
 						elseif input:pressed("gameRight") then
-							rightArrowSplash:animate("right")
+							if not pixel then rightArrowSplash:animate("right" .. love.math.random(1,2))
+							else rightArrowSplash:animate("right") end
 						elseif input:pressed("gameUp") then
-							upArrowSplash:animate("up")
+							if not pixel then upArrowSplash:animate("up" .. love.math.random(1,2))
+							else upArrowSplash:animate("up") end
 						elseif input:pressed("gameDown") then
-							downArrowSplash:animate("down")
+							if not pixel then downArrowSplash:animate("down" .. love.math.random(1,2))
+							else downArrowSplash:animate("down") end
 						end
 					else
 						if boyfriendArrows[1]:getAnimName() == "confirm" then
@@ -1637,38 +1736,38 @@ return {
 						wasReleased4 = true
 					end
 				end
-				
-				if not paused then
-					if not pixel then
-						if leftArrowSplash:isAnimated() then
-							leftArrowSplash:draw()
-						end
-						if rightArrowSplash:isAnimated() then
-							rightArrowSplash:draw()
-						end
-						if upArrowSplash:isAnimated() then
-							upArrowSplash:draw()
-						end
-						if downArrowSplash:isAnimated() then
-							downArrowSplash:draw()
-						end
-					else
-						if leftArrowSplash:isAnimated() then
-							leftArrowSplash:udraw()
-						end
-						if rightArrowSplash:isAnimated() then
-							rightArrowSplash:udraw()
-						end
-						if upArrowSplash:isAnimated() then
-							upArrowSplash:udraw()
-						end
-						if downArrowSplash:isAnimated() then
-							downArrowSplash:udraw()
+				love.graphics.push()
+					if not paused then
+						if not pixel then
+							if leftArrowSplash:isAnimated() then
+								leftArrowSplash:draw()
+							end
+							if rightArrowSplash:isAnimated() then
+								rightArrowSplash:draw()
+							end
+							if upArrowSplash:isAnimated() then
+								upArrowSplash:draw()
+							end
+							if downArrowSplash:isAnimated() then
+								downArrowSplash:draw()
+							end
+						else
+							if leftArrowSplash:isAnimated() then
+								leftArrowSplash:udraw()
+							end
+							if rightArrowSplash:isAnimated() then
+								rightArrowSplash:udraw()
+							end
+							if upArrowSplash:isAnimated() then
+								upArrowSplash:udraw()
+							end
+							if downArrowSplash:isAnimated() then
+								downArrowSplash:udraw()
+							end
 						end
 					end
-				end
+				love.graphics.pop()
 				
-
 				love.graphics.push()
 					love.graphics.translate(0, -musicPos)
 
@@ -1723,13 +1822,13 @@ return {
 			-- Scroll underlay
 			if week ~= 5 then
 				love.graphics.push()
-					love.graphics.setColor(0,0,0,settings.scrollUnderlayTrans)
+					graphics.setColor(0,0,0,settings.scrollUnderlayTrans)
 					if settings.middleScroll then
 						love.graphics.rectangle("fill", 400, -100, 90 + 170 * 2.35, 1000)
 					else
 						love.graphics.rectangle("fill", 755, -100, 90 + 170 * 2.35, 1000)
 					end
-					love.graphics.setColor(1,1,1,1)
+					graphics.setColor(1,1,1,1)
 				love.graphics.pop()
 				end
 			if week ~= 5 then
@@ -1749,7 +1848,7 @@ return {
 
 			boyfriendIcon:draw()
 			enemyIcon:draw()
-			love.graphics.setColor(uiTextColour[1],uiTextColour[2],uiTextColour[3])
+			graphics.setColor(uiTextColour[1],uiTextColour[2],uiTextColour[3])
 			accForRatingText = (altScore / (noteCounter + missCounter))
 			if accForRatingText >= 100 then
 				ratingText = "PERFECT!!!!" -- i added one ! so i could feel like i actually did something
@@ -1774,83 +1873,33 @@ return {
 			elseif accForRatingText >= 0 then
 				ratingText = "Bruh."
 			end
-			if not pixel then
-
-
-				if not settings.middlescroll then
-					love.graphics.print("Time Remaining: " .. timeLeftFixed, 0, 350+downscrollOffset)
+			if not settings.botPlay then
+				if noteCounter + missCounter <= 0 then
+					if (math.floor((altScore / (noteCounter + missCounter)) / 3.5)) >= 100 then
+						love.graphics.printf("Score: " .. score .. " | Misses: " .. missCounter .. " | Time Remaining: " .. timeLeftFixed .. " | Accuracy: 0% | Rating: ???", -600, 400+downscrollOffset, 1200, "center")
+					else
+						love.graphics.printf("Score: " .. score .. " | Misses: " .. missCounter .. " | Time Remaining: " .. timeLeftFixed .. " | Accuracy: 0% | Rating: ???", -600, 400+downscrollOffset, 1200, "center")
+					end
 				else
-					love.graphics.print("Time Remaining: " .. timeLeftFixed, 605, 350+downscrollOffset)
+					if (math.floor((altScore / (noteCounter + missCounter)) / 3.5)) >= 100 then
+						love.graphics.printf("Score: " .. score .. " | Misses: " .. missCounter .. " | Time Remaining: " .. timeLeftFixed .. " | Accuracy: 100% | Rating: PERFECT!!!", -600, 400+downscrollOffset, 1200, "center")
+					else
+						love.graphics.printf("Score: " .. score .. " | Misses: " .. missCounter .. " | Time Remaining: " .. timeLeftFixed .. " | Accuracy: " .. convertedAcc .. " | Rating: " .. ratingText, -600, 400+downscrollOffset, 1200, "center")
+					end
 				end
 
-				if not settings.botPlay then
-					local convertedAcc = string.format(
-						"%.2f%%",
-						(altScore / (noteCounter + missCounter))
+				if settings.sideJudgements then
+					love.graphics.printf(
+						"Sicks: " .. sicks ..
+						"\n\nGoods: " .. goods ..
+						"\n\nBads: " .. bads ..
+						"\n\nShits: " .. shits ..
+						"\n\nTotal: " .. (sicks + goods + bads + shits),
+						-900,
+						0, 
+						750, -- annoying limit and i don't want to test if it works with nil 
+						"left"
 					)
-					if noteCounter + missCounter <= 0 then
-						if (math.floor((altScore / (noteCounter + missCounter)) / 3.5)) >= 100 then
-							love.graphics.printf("Score: " .. score .. " | Misses: " .. missCounter .. " | Hits: " .. hitCounter .. " | Accuracy: 0% | Rating: ???", -550, 400+downscrollOffset, 1100, "center")
-						else
-							love.graphics.printf("Score: " .. score .. " | Misses: " .. missCounter .. " | Hits: " .. hitCounter .. " | Accuracy: 0% | Rating: ???", -550, 400+downscrollOffset, 1100, "center")
-						end
-					else
-						if (math.floor((altScore / (noteCounter + missCounter)) / 3.5)) >= 100 then
-							love.graphics.printf("Score: " .. score .. " | Misses: " .. missCounter .. " | Hits: " .. hitCounter .. " | Accuracy: 100% | Rating: PERFECT!!!", -550, 400+downscrollOffset, 1100, "center")
-						else
-							love.graphics.printf("Score: " .. score .. " | Misses: " .. missCounter .. " | Hits: " .. hitCounter .. " | Accuracy: " .. convertedAcc .. " | Rating: " .. ratingText, -550, 400+downscrollOffset, 1100, "center")
-						end
-					end
-
-					if settings.sideJudgements then
-						love.graphics.printf(
-							"Sicks: " .. sicks ..
-							"\n\nGoods: " .. goods ..
-							"\n\nBads: " .. bads ..
-							"\n\nShits: " .. shits,
-							-900,
-							0, 
-							750, -- annoying limit and i don't want to test if it works with nil 
-							"left"
-						)
-					end
-				end
-			else -- Due to resizing the pixel text, I need to reposition it all
-				if not settings.botPlay then
-
-					local convertedAcc = string.format(
-						"%.2f%%",
-						(altScore / (noteCounter + missCounter))
-					)
-					if noteCounter + missCounter <= 0 then
-						if (math.floor((altScore / (noteCounter + missCounter)) / 3.5)) >= 100 then
-							love.graphics.printf("Score: " .. score .. " | Misses: " .. missCounter .. " | Hits: " .. hitCounter .. " | Accuracy: 0% | Rating: ???", -1950, 400+downscrollOffset, 1100, "center", 0, 3.5, 3.5)
-						else
-							love.graphics.printf("Score: " .. score .. " | Misses: " .. missCounter .. " | Hits: " .. hitCounter .. " | Accuracy: 0% | Rating: ???", -1950, 400+downscrollOffset, 1100, "center", 0, 3.5, 3.5)
-						end
-					else
-						if (math.floor((altScore / (noteCounter + missCounter)) / 3.5)) >= 100 then
-							love.graphics.printf("Score: " .. score .. " Misses: " .. missCounter .. " | Hits: " .. hitCounter .. " | Accuracy: 100% | PERFECT!!!", -1950, 400+downscrollOffset, 1100, "center", 0, 3.5, 3.5)
-						else
-							love.graphics.printf("Score: " .. score .. " Misses: " .. missCounter .. " | Hits: " .. hitCounter .. " | Accuracy: " .. convertedAcc .. " | Rating: " .. ratingText, -1950, 400+downscrollOffset, 1100, "center", 0, 3.5, 3.5)
-						end
-					end
-
-					if settings.sideJudgements then
-						love.graphics.printf(
-							"Sicks: " .. sicks ..
-							"\n\nGoods: " .. goods ..
-							"\n\nBads: " .. bads ..
-							"\n\nShits: " .. shits,
-							-900,
-							0, 
-							750, -- annoying limit and i don't want to test if it works with nil 
-							"left",
-							0,
-							3.5,
-							3.5
-						)
-					end
 				end
 			end
 		love.graphics.pop()
@@ -1858,7 +1907,7 @@ return {
 			love.graphics.push()
 				love.graphics.scale(uiScale.sizeX, uiScale.sizeY)
 				-- keystrokes
-				love.graphics.setColor(1, 1, 1)
+				graphics.setColor(1, 1, 1)
 
 				if input:down("gameUp") then
 					love.graphics.rectangle("fill", 131, 631, 30, 30) 
@@ -1876,7 +1925,7 @@ return {
 					love.graphics.rectangle("fill", 69, 631, 30, 30)
 				end
 				
-				love.graphics.setColor(0, 0, 0)
+				graphics.setColor(0, 0, 0)
 
 				love.graphics.rectangle("line", 69, 631, 30, 30) -- left
 				love.graphics.rectangle("line", 100, 631, 30, 30) -- down
@@ -1888,7 +1937,7 @@ return {
 				love.graphics.color.printf(customBindUp, 136, 626, 20, "left", nil, 1.5, 1.5, 255, 255, 255)  -- up
 				love.graphics.color.printf(customBindRight, 167, 626, 20, "left", nil, 1.5, 1.5, 255, 255, 255)  -- right
 
-				love.graphics.setColor(1, 1, 1)
+				graphics.setColor(1, 1, 1)
 			love.graphics.pop()
 		end
 		love.graphics.push()
@@ -1900,9 +1949,9 @@ return {
 				love.graphics.scale(0.7, 0.7)
 				love.graphics.scale(uiScale.sizeX, uiScale.sizeY)
 			end
-			love.graphics.setColor(0, 0, 0, 0.8)
+			graphics.setColor(0, 0, 0, 0.8)
 			love.graphics.rectangle("fill", -10000, -2000, 25000, 10000)
-			love.graphics.setColor(1, 1, 1)
+			graphics.setColor(1, 1, 1)
 			if pauseMenuSelection == 1 then
 				resumeH:draw()
 				restart:draw()
@@ -1941,5 +1990,7 @@ return {
 		Timer.clear()
 
 		fakeBoyfriend = nil
+		died = false
+		modFolderMod = false
 	end
 }

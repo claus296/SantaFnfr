@@ -20,7 +20,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 local loading
 
 local noResize
-
+local font = love.graphics.newFont("fonts/vcr.ttf", 24)
 return {
 	setLoading = function(state)
 		loading = state
@@ -38,6 +38,7 @@ return {
 
 	getDebugStr = function(type)
 		local debugStr
+		love.graphics.setFont(font)
 
 		if type == "detailed" then
 			debugStr = "FPS: " .. tostring(love.timer.getFPS()) ..

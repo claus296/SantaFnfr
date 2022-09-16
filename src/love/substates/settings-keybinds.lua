@@ -126,7 +126,7 @@ return {
         love.graphics.translate(lovesize.getWidth() / 2, lovesize.getHeight() / 2)
 		love.graphics.scale(0.7, 0.7)
         for i = 1, 4 do 
-            love.graphics.setColor(0.40, 0.40, 0.40)
+            graphics.setColor(0.40, 0.40, 0.40)
             if i == choice then
                 graphics.setColor(1,1,1)
             end
@@ -137,10 +137,10 @@ return {
         love.graphics.print(customBindDown, -165 + 100, 80)
         love.graphics.print(customBindUp, 0 + 100, 80)
         love.graphics.print(customBindRight, 165 + 100, 80)
-        --love.graphics.print(tostring(doBindSet) .. "   |   " .. choice, 0, 0)
-        love.graphics.print("THIS MENU IS VERY BROKEN RIGHT NOW. USE AT YOUR OWN RISK.", 0, 300 + 100)
     end,
     leave = function(self)
         saveSettings()
+        love.window.showMessageBox("Keybinds Saved", "The game will now restart to apply these keybinds", "info", true)
+        love.event.quit( "restart" )
     end
 }

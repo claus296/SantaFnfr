@@ -173,7 +173,7 @@ local function switchMenu(menu)
 
 							storyMode = false
 
-							menu:musicStop()
+							music[1]:stop()
 
 							Gamestate.switch(weekData[weekNum], songNum, songAppend)
 
@@ -181,7 +181,7 @@ local function switchMenu(menu)
 						end
 					)
 				else
-					menu:musicStop()
+					music[1]:stop()
 					if menuState == 1 then
 						songNum = 1
 					end
@@ -199,7 +199,7 @@ local function switchMenu(menu)
 
 						storyMode = false
 
-						menu:musicStop()
+						music[1]:stop()
 
 						Gamestate.switch(testSong, songNum, songAppend)
 
@@ -298,7 +298,7 @@ function confirmFunc()
 
 					storyMode = false
 
-					menu:musicStop()
+					music[1]:stop()
 
 					Gamestate.switch(weekData[weekNum], songNum, songAppend)
 
@@ -313,7 +313,7 @@ function confirmFunc()
 			menuState = menuState + 1
 		end
 	else
-		menu:musicStop()
+		music[1]:stop()
 		status.setLoading(true)
 
 		graphics.fadeOut(
@@ -324,7 +324,7 @@ function confirmFunc()
 
 				storyMode = false
 
-				menu:musicStop()
+				music[1]:stop()
 				Gamestate.switch(testSong, songNum, songAppend)
 
 				status.setLoading(false)
@@ -439,9 +439,6 @@ return {
 	update = function(self, dt)
 
 		if not graphics.isFading() then
-			if not music:isPlaying() then
-				music:play()
-			end
 			if input:pressed("left") then
 				audio.playSound(selectSound)
 
@@ -463,7 +460,7 @@ return {
 					graphics.fadeOut(
                         0.3,
                         function()
-                            Gamestate.switch(menuSelect)
+                            Gamestate.switch(menuChooseFreeplay)
                             status.setLoading(false)
                         end
 	            	)
@@ -483,7 +480,7 @@ return {
 		love.graphics.push()
 			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
 
-			love.graphics.setColorF(freeColour[1], freeColour[2], freeColour[3])
+			graphics.setColorF(freeColour[1], freeColour[2], freeColour[3])
 			menuBG:draw()
 
 			if pressedUp == 10 then

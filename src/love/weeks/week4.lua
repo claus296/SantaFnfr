@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
 
-local song, difficulty
+local difficulty
 
 local sunset
 
@@ -106,11 +106,7 @@ return {
 				graphics.fadeOut(
 					0.5,
 					function()
-						if storyMode then
-							Gamestate.switch(menuWeek)
-						else
-							Gamestate.switch(menuFreeplay)
-						end
+						Gamestate.switch(menu)
 
 						status.setLoading(false)
 					end

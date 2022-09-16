@@ -47,7 +47,7 @@ settingsVer=2
 
 local settingsIni
 
-local settings = {}
+settings = {}
 
 if curOS == "NX" then
 	love.window.setMode(1920, 1080)

@@ -16,12 +16,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
--- Add custom keybinds/new controls here
--- set these as a defualt so no crashing
-customBindLeft = "a"
-customBindRight = "d"
-customBindUp = "w"
-customBindDown = "s"
+-- Add new controls here
 if love.system.getOS() == "NX" then
 	return baton.new {
 		controls = {
@@ -33,7 +28,7 @@ if love.system.getOS() == "NX" then
 			back = {"button:a", "key:escape"},
 			debugZoomOut = {"key:["},
 			debugZoomIn = {"key:]"},
-			pause = {"key:p"},
+			pause = {"key:p", "button:back"},
 
 			gameLeft = {"axis:triggerleft+", "axis:leftx-", "axis:rightx-", "button:dpleft", "button:x", "key:" .. customBindLeft, "key:left"},
 			gameDown = {"axis:lefty+", "axis:righty+", "button:leftshoulder", "button:dpdown", "button:a", "key:" .. customBindDown, "key:down"},
@@ -54,7 +49,7 @@ else
 			back = {"key:escape", "button:b"},
 			debugZoomOut = {"key:["},
 			debugZoomIn = {"key:]"},
-			pause = {"key:p"},
+			pause = {"button:back", "key:p"},
 
 			gameLeft = {"key:" .. customBindLeft, "key:left", "axis:triggerleft+", "axis:leftx-", "axis:rightx-", "button:dpleft", "button:x"},
 			gameDown = {"key:" .. customBindDown, "key:down", "axis:lefty+", "axis:righty+", "button:leftshoulder", "button:dpdown", "button:a"},

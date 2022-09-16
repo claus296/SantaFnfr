@@ -18,17 +18,19 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
 
 local difficulty
+local cutsceneTime, cutsceneTimeThres, oldcutsceneTimeThres
 
 return {
 	enter = function(self, from, songNum, songAppend)
 		pauseColor = {50, 50, 50}
-		weeks7:enter() -- oh my fucking god why
+		weeks:enter() 
 		stages["tank"]:enter()
 
 		week = 7
 
-		video = love.graphics.newVideo("videos/stressCutscene.ogv") -- placeholder
-		if storyMode then
+		cutsceneTime, cutsceneTimeThres, oldcutsceneTimeThres = 0, 0, 0
+
+		if storyMode and not died then
 			cutscene = true
 			didCountdown = false
 			tankCutscene = {}
@@ -48,20 +50,27 @@ return {
 	end,
 
 	load = function(self)
-		weeks7:load()
+		weeks:load()
 		stages["tank"]:load()
+		girlfriend:setAnimSpeed(14.4 / (60 / 60))
+		girlfriend:animate("idle", true)
 
 		if song == 3 then
-			-- holy fuck this one will be PAINFUL
-			-- will use a video temporarily until I actually add it
+			picoSpeaker = love.filesystem.load("sprites/week7/picoSpeaker.lua")()
+			picoSpeaker.x, picoSpeaker.y = 105, 110
 			boyfriend = love.filesystem.load("sprites/week7/bfAndGF.lua")()
 			boyfriend.x, boyfriend.y = 380, 410
 			fakeBoyfriend = love.filesystem.load("sprites/week7/gfdead.lua")()
 			fakeBoyfriend.x, fakeBoyfriend.y = 380, 410
-
-			if storyMode then
-				musicPos = 0
+			if not died and storyMode then
+				cutscene = true
+				video = love.graphics.newVideo("videos/stressCutscene.ogv")
 				video:play()
+				Timer.after(35.20, function()
+					cutscene = false
+					video:release()
+					weeks:setupCountdown()
+				end)
 			end
 
 			inst = love.audio.newSource("songs/week7/stress/inst.ogg", "stream")
@@ -69,7 +78,7 @@ return {
 		elseif song == 2 then
 			inst = love.audio.newSource("songs/week7/guns/inst.ogg", "stream")
 			voices = love.audio.newSource("songs/week7/guns/voices.ogg", "stream")
-			if storyMode then
+			if storyMode and not died then
 				cutscene = true
 				tankCutsceneAudio = love.audio.newSource("sounds/cutscenes/tank/tankSong2.ogg", "static")
 				tankCutscene[1] = love.filesystem.load("sprites/cutscenes/guns-talk.lua")()
@@ -146,7 +155,7 @@ return {
 					11.507,
 					function()
 						tankCutscene[1] = nil
-						weeks7:setupCountdown()
+						weeks:setupCountdown()
 						cutscene = false
 						cam.sizeX, cam.sizeY = 1, 1
 						camScale.x, camScale.y = 1, 1
@@ -156,7 +165,7 @@ return {
 		else
 			inst = love.audio.newSource("songs/week7/ugh/inst.ogg", "stream")
 			voices = love.audio.newSource("songs/week7/ugh/voices.ogg", "stream")
-			if storyMode then
+			if storyMode and not died then
 				tankCutsceneAudio = love.audio.newSource("sounds/cutscenes/tank/wellWellWell.ogg", "static")
 				tankCutsceneAudio2 = love.audio.newSource("sounds/cutscenes/tank/killYou.ogg", "static")
 
@@ -176,7 +185,8 @@ return {
 							0.5,
 							cam,
 							{
-								x = -boyfriend.x - 75
+								x = -boyfriend.x + 25,
+								y = cam.y - 50
 							},
 							"out-quad",
 							function()
@@ -193,7 +203,8 @@ return {
 													0.5,
 													cam,
 													{
-														x = -enemy.x - 75
+														x = -enemy.x - 75,
+														y = cam.y + 50
 													},
 													"out-quad",
 													function()
@@ -208,7 +219,7 @@ return {
 																		for i = 1, 2 do
 																			tankCutscene[i] = nil
 																		end
-																		weeks7:setupCountdown()
+																		weeks:setupCountdown()
 																		cutscene = false
 																		cam.sizeX, cam.sizeY = 1, 1
 																		camScale.x, camScale.y = 1, 1
@@ -234,28 +245,37 @@ return {
 		self:initUI()
 
 		if not cutscene then
-			weeks7:setupCountdown()
+			weeks:setupCountdown()
 		end
 	end,
 
 	initUI = function(self)
-		weeks7:initUI()
+		weeks:initUI()
 
 		if song == 3 then
-			weeks7:generateNotes(love.filesystem.load("songs/week7/stress/" .. difficulty .. ".lua")())
-            weeks7:generatePicoNotes(love.filesystem.load("songs/week7/stress/pico-speaker.lua")())
+			weeks:generateNotes(love.filesystem.load("songs/week7/stress/" .. difficulty .. ".lua")())
+            weeks:generatePicoNotes(love.filesystem.load("songs/week7/stress/pico-speaker.lua")())
 		elseif song == 2 then
-			weeks7:generateNotes(love.filesystem.load("songs/week7/guns/" .. difficulty .. ".lua")())
+			weeks:generateNotes(love.filesystem.load("songs/week7/guns/" .. difficulty .. ".lua")())
 		else
-			weeks7:generateNotes(love.filesystem.load("songs/week7/ugh/" .. difficulty .. ".lua")())
+			weeks:generateNotes(love.filesystem.load("songs/week7/ugh/" .. difficulty .. ".lua")())
 		end
 	end,
 
 	update = function(self, dt)
-		weeks7:update(dt)
+		weeks:update(dt)
 		stages["tank"]:update(dt)
 
 		if cutscene then
+			local timerBF = 0
+			
+			timerBF = timerBF + 1 * dt
+
+			if timerBF > 0.5 then
+				boyfriend:animate("idle", false)
+				timerBF = 0
+			end
+
 			girlfriend:update(dt) -- updating here cuz moment
 			boyfriend:update(dt)
 			if song ~= 3 then
@@ -269,16 +289,6 @@ return {
 				if girlfriend:getAnimName() == "sad" and not girlfriend:isAnimated() then
 					girlfriend:animate("idle", false)
 				end
-			end
-		end
-
-		if song == 3 then
-			if not video:isPlaying() and not didCountdown then
-				cam.sizeX, cam.sizeY = 1, 1
-				camScale.x, camScale.y = 1, 1
-				weeks7:setupCountdown()
-				didCountdown = true
-				cutscene = false
 			end
 		end
 
@@ -335,6 +345,8 @@ return {
 			if storyMode and song < 3 then
 				song = song + 1
 
+				died = false
+
 				self:load()
 			else
 				status.setLoading(true)
@@ -342,11 +354,7 @@ return {
 				graphics.fadeOut(
 					0.5,
 					function()
-						if storyMode then
-							Gamestate.switch(menuWeek)
-						else
-							Gamestate.switch(menuFreeplay)
-						end
+						Gamestate.switch(menu)
 
 						status.setLoading(false)
 					end
@@ -354,7 +362,7 @@ return {
 			end
 		end
 
-		weeks7:updateUI(dt)
+		weeks:updateUI(dt)
 	end,
 
 	draw = function(self)
@@ -365,25 +373,27 @@ return {
 			stages["tank"]:draw()
 
 			if not cutscene then
-				weeks7:drawRating(0.9)
+				weeks:drawRating(0.9)
 			end
 		love.graphics.pop()
 
 		if not cutscene then
-			weeks7:drawHealthBar()
+			weeks:drawHealthBar()
 			if not paused then
 
-				weeks7:drawUI()
+				weeks:drawUI()
 			end
 		end
-		if song == 3 and video:isPlaying() then
-			love.graphics.draw(video, 0, 0)
+		if song == 3 and cutscene then
+			if video:isPlaying() then
+				love.graphics.draw(video)
+			end
 		end
 	end,
 
 	leave = function(self)
 		song = 1
 		stages["tank"]:leave()
-		weeks7:leave()
+		weeks:leave()
 	end
 }

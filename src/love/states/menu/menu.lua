@@ -10,7 +10,7 @@ local songDifficulty = 2
 local selectSound = love.audio.newSource("sounds/menu/select.ogg", "static")
 local confirmSound = love.audio.newSource("sounds/menu/confirm.ogg", "static")
 
-music = love.audio.newSource("songs/misc/menu.ogg", "stream")
+local danceRight
 
 local function switchMenu(menu)
 	function backFunc()
@@ -20,23 +20,9 @@ local function switchMenu(menu)
 	menuState = 1
 end
 
-music:setLooping(true)
-
 return {
 	enter = function(self, previous)
-
-		function tweenMenu()
-			if logo.y == -300 then 
-				Timer.tween(1, logo, {y = -125}, "out-expo")
-			end
-			if titleEnter.y == 450 then 
-				Timer.tween(1, titleEnter, {y = 350}, "out-expo")
-			end
-			if girlfriendTitle.x == 500 then
-				Timer.tween(1, girlfriendTitle, {x = 400}, "out-expo")
-			end
-		end
-
+		danceRight = false
 		function logoRotate()
 			Timer.tween(2, logo, {orientation = 0.15}, "in-out-back", function()
 				Timer.tween(2, logo, {orientation = -0.15}, "in-out-back", function()
@@ -44,7 +30,6 @@ return {
 				end)
 			end)
 		end
-		menuBPM = 102
 		changingMenu = false
 		logo = love.filesystem.load("sprites/menu/ve-logo.lua")()
 		girlfriendTitle = love.filesystem.load("sprites/menu/girlfriend-title.lua")()
@@ -61,8 +46,10 @@ return {
 		titleEnter.x, titleEnter.y = 225, 450
 		logo.x, logo.y = -350, -300
 
+		Timer.tween(1, logo, {y = -125}, "out-expo")
+		Timer.tween(1, titleEnter, {y = 350}, "out-expo")
+		Timer.tween(1, girlfriendTitle, {x = 400}, "out-expo")
 		logoRotate()
-		tweenMenu()
 
 		girlfriendTitle.x, girlfriendTitle.y = 325, 65
 
@@ -87,21 +74,36 @@ return {
 			nextPresenceUpdate = 0
 		end
 
-		music:play()
+		music[1]:play()
 	end,
+--[[
 
-	musicStop = function(self)
-		music:stop()
-	end,
+	danceRight = not danceRight
+    if danceRight then
+        gf:play("danceRight")
+    else
+        gf:play("danceLeft")
+    end
+	]]
+	onBeat = function(self, n)
+		danceRight = not danceRight
+		if girlfriendTitle then if n % 2 == 0 then
+			girlfriendTitle:animate("danceRight", false)
+		else
+			girlfriendTitle:animate("danceLeft", false)
+		end end
 
-	musicVolumeLower = function(self)
-		music:setVolume(0.4)
+		if logo then logo:animate("anim", false) end
 	end,
 
 	update = function(self, dt)
 		girlfriendTitle:update(dt)
 		titleEnter:update(dt)
 		logo:update(dt)
+
+		music[1]:on("beat", function(n)
+			self:onBeat(n)
+		end)
 
 		if not graphics.isFading() then
 			if input:pressed("confirm") then
@@ -114,8 +116,11 @@ return {
 						Timer.tween(0.5 + 0.1 + 0.03*i, whiteRectangles[i], {y = 0}, "linear",
 							function()
 								if i == 15 then
-									Gamestate.switch(menuSelect)
-									status.setLoading(false)
+									graphics.fadeOut(0.2, function()
+										Gamestate.switch(menuSelect)
+										status.setLoading(false)
+									end)
+									
 								end
 							end
 						)
@@ -128,6 +133,8 @@ return {
 			end
 		end
 	end,
+
+	
 
 	draw = function(self)
 		love.graphics.push()
@@ -142,23 +149,11 @@ return {
 				titleEnter:draw()
 
 				--love.graphics.setColor(1, 63 / 255, 172 / 255, 0.9)
-				love.graphics.setColor(0, 0, 0, 0.9)
+				graphics.setColor(0, 0, 0, 0.9)
 				for i = 1, 15 do
 					whiteRectangles[i]:draw()
 				end
-				love.graphics.setColor(1, 1, 1)
-
-				love.graphics.printf(
-					"This is a pre-release build.\n\n"..
-					"Please report any bugs you find.",
-					-525,
-					90,
-					1200,
-					"left",
-					nil,
-					1.6,
-					1.6
-				)
+				graphics.setColor(1, 1, 1)
 
 			love.graphics.pop()
 		love.graphics.pop()

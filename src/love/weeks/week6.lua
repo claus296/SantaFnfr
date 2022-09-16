@@ -34,6 +34,8 @@ return {
 		song = songNum
 		difficulty = songAppend
 
+		fakeBoyfriend = love.filesystem.load("sprites/pixel/boyfriend-dead.lua")()
+
 		healthBarColorEnemy = {255,170,111}
 
 		if storyMode then
@@ -200,7 +202,7 @@ return {
 			end
 		end
 
-		if not doingDialogue and not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused then
+		if not doingDialogue and not cutscene and not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused then
 			if storyMode and song < 3 then
 				song = song + 1
 
@@ -211,11 +213,7 @@ return {
 				graphics.fadeOut(
 					0.5,
 					function()
-						if storyMode then
-							Gamestate.switch(menuWeek)
-						else
-							Gamestate.switch(menuFreeplay)
-						end
+						Gamestate.switch(menu)
 
 						status.setLoading(false)
 					end
@@ -257,7 +255,7 @@ return {
 			end
 			weeks:drawDialogue()
 		end
-		if not doingDialogue then
+		if not doingDialogue and not cutscene then
 			weeks:drawHealthBar()
 			if not paused then
 				weeks:drawUI()

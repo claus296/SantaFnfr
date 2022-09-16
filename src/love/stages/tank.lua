@@ -7,7 +7,6 @@ return {
             love.filesystem.load("sprites/week7/smokeLeft.lua")(), -- smokeLeft
 		    love.filesystem.load("sprites/week7/smokeRight.lua")() -- smokeRight
         }
-        picoSpeaker = love.filesystem.load("sprites/week7/picoSpeaker.lua")()
         for i = 0, 5 do
             stageImages[i+6] = love.filesystem.load("sprites/week7/tank" .. i .. ".lua")() -- all the tank viewers
         end
@@ -24,7 +23,6 @@ return {
         stageImages[2].sizeX, stageImages[2].sizeY = 1.3, 1.3
         stageImages[2].y = 100
 
-        picoSpeaker.x, picoSpeaker.y = 105, 110
 		girlfriend.x, girlfriend.y = 15, 190
 		enemy.x, enemy.y = -560, 339
 		boyfriend.x, boyfriend.y = 460, 423

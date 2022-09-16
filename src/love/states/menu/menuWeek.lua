@@ -1,4 +1,4 @@
-local upFunc, downFunc, confirmFunc, backFunc, drawFunc, menuFunc, menuDesc, trackNames
+local upFunc, downFunc, confirmFunc, backFunc, drawFunc, menuFunc, menuDesc
 
 local menuState
 
@@ -161,7 +161,7 @@ return {
 		difficultyAnim.x, difficultyAnim.y = 400, 220
 
 		weekImages = {}
-		for i = 1, #weekDesc-1 do
+		for i = 1, #weekDesc do
 			table.insert(weekImages, graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/week" .. i-1))))
 		end
 
@@ -175,7 +175,7 @@ return {
 		graphics.fadeIn(0.5)
 
 		function confirmFunc()
-			menu:musicStop()
+			music[1]:stop()
 			songNum = 1
 
 			status.setLoading(true)
@@ -183,15 +183,6 @@ return {
 			graphics.fadeOut(
 				0.5,
 				function()
-					if useDiscordRPC then
-						presence = {
-							state = "Selected a week",
-							details = "Playing a week",
-							largeImageKey = "logo",
-							startTimestamp = now,
-						}
-						nextPresenceUpdate = 0
-					end
 					
 					songAppend = difficultyStrs[songDifficulty]
 
@@ -207,7 +198,7 @@ return {
 	end,
 
 	update = function(self, dt)
-		for i = 1, #weekDesc-1 do
+		for i = 1, #weekDesc do
 			weekImages[i].y = weekButtonY[i]
 		end
 
@@ -239,9 +230,6 @@ return {
 		difficultyAnim:update(dt)
 
 		if not graphics.isFading() then
-			if not music:isPlaying() then
-				music:play()
-			end
 			if input:pressed("down") then
 				audio.playSound(selectSound)
 
@@ -316,7 +304,7 @@ return {
 
 			love.graphics.push()
 				love.graphics.scale(cam.sizeX, cam.sizeY)
-				for i = 1, #weekDesc-1 do
+				for i = 1, #weekDesc do
 					weekImages[i]:draw()
 				end
 

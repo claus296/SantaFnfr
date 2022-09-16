@@ -21,6 +21,7 @@ return graphics.newSprite(
 	love.graphics.newImage(graphics.imagePath("menu/girlfriend-title")),
 	-- Automatically generated from gfDanceTitle.xml
 	{
+		{x = 2908, y = 1992, width = 717, height = 656, offsetX = -2, offsetY = -6, offsetWidth = 721, offsetHeight = 662}, -- 30: gfDance0029 -- 30 is technically 1
 		{x = 0, y = 0, width = 717, height = 648, offsetX = -2, offsetY = -14, offsetWidth = 721, offsetHeight = 662}, -- 1: gfDance0000
 		{x = 727, y = 0, width = 721, height = 648, offsetX = 0, offsetY = -14, offsetWidth = 721, offsetHeight = 662}, -- 2: gfDance0001
 		{x = 1458, y = 0, width = 721, height = 646, offsetX = 0, offsetY = -16, offsetWidth = 721, offsetHeight = 662}, -- 3: gfDance0002
@@ -50,11 +51,13 @@ return graphics.newSprite(
 		{x = 2181, y = 1992, width = 717, height = 656, offsetX = -2, offsetY = -6, offsetWidth = 721, offsetHeight = 662}, -- 27: gfDance0026
 		{x = 2181, y = 1992, width = 717, height = 656, offsetX = -2, offsetY = -6, offsetWidth = 721, offsetHeight = 662}, -- 28: gfDance0027
 		{x = 2908, y = 1992, width = 717, height = 656, offsetX = -2, offsetY = -6, offsetWidth = 721, offsetHeight = 662}, -- 29: gfDance0028
-		{x = 2908, y = 1992, width = 717, height = 656, offsetX = -2, offsetY = -6, offsetWidth = 721, offsetHeight = 662} -- 30: gfDance0029
+		{x = 2908, y = 659, width = 717, height = 661, offsetX = -2, offsetY = -1, offsetWidth = 721, offsetHeight = 662}, -- 15: gfDance0014 -- too default to
+		
 	},
 	{
-		["anim"] = {start = 1, stop = 30, speed = 24, offsetX = 0, offsetY = 0}
+		["danceLeft"] = {start = 1, stop = 15, speed = 24, offsetX = 0, offsetY = 0},
+		["danceRight"] = {start = 16, stop = 30, speed = 24, offsetX = 0, offsetY = 0},
 	},
-	"anim",
-	true
+	"danceRight",
+	false
 )
