@@ -69,6 +69,8 @@ function love.load()
 	status = require "modules.status"
 	audio = require "modules.audio"
 	graphics = require "modules.graphics"
+
+	spongebirth = love.graphics.newImage(graphics.imagePath("spongebirth"))
 	
 	-- Load settings
 	settings = require "settings"
@@ -469,30 +471,24 @@ end
 
 function love.draw()
 	love.graphics.setFont(font)
-	if status.getNoResize() then
+	if Gamestate.current() == menu then love.graphics.draw(spongebirth, 0, 0) end
+	graphics.screenBase(lovesize.getWidth(), lovesize.getHeight())
+	lovesize.begin()
 		graphics.setColor(1, 1, 1) -- Fade effect on
+		
 		Gamestate.draw()
 		love.graphics.setColor(1, 1, 1) -- Fade effect off
+		
 		love.graphics.setFont(font)
 
 		if status.getLoading() then
-			love.graphics.print("Loading...", graphics.getWidth() - 175, graphics.getHeight() - 50)
+			love.graphics.print("Loading...", lovesize.getWidth() - 175, lovesize.getHeight() - 50)
 		end
 		volumeControl()
-	else
-		graphics.screenBase(lovesize.getWidth(), lovesize.getHeight())
-		lovesize.begin()
-			graphics.setColor(1, 1, 1) -- Fade effect on
-			Gamestate.draw()
-			love.graphics.setColor(1, 1, 1) -- Fade effect off
-			love.graphics.setFont(font)
-
-			if status.getLoading() then
-				love.graphics.print("Loading...", lovesize.getWidth() - 175, lovesize.getHeight() - 50)
-			end
-			volumeControl()
-		lovesize.finish()
-	end
+		
+		
+	lovesize.finish()
+	
 	graphics.screenBase(love.graphics.getWidth(), love.graphics.getHeight())
 
 	-- Debug output
