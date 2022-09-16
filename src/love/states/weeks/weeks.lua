@@ -52,7 +52,6 @@ function tweenPauseButtons()
 		pauseCurtain.y = -1000
 		pausedGraphic.x = 2000
 
-
 		if resume.x == -1000 then
 			Timer.tween(1, resume, {x = 550}, "out-back")
 		end
@@ -124,6 +123,9 @@ end
 return {
 	enter = function(self)
 		font = love.graphics.newFont("fonts/vcr.ttf", 24)
+		love.graphics.setDefaultFilter("nearest")
+		pixelFont = love.graphics.newFont("fonts/pixel.fnt")
+		love.graphics.setDefaultFilter("linear")
 
 		--PAUSE MENU IMAGES
 		resume = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/resume"))) -- USE THIS FUNCTION
@@ -228,9 +230,10 @@ return {
 	end,
 
 	pixelEnter = function(self)
+		font = love.graphics.newFont("fonts/vcr.ttf", 24)
 		love.graphics.setDefaultFilter("nearest")
-		font = love.graphics.newFont("fonts/pixel.fnt")
-
+		pixelFont = love.graphics.newFont("fonts/pixel.fnt")
+		
 		--PAUSE MENU IMAGES
 		resume = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/resume"))) -- USE THIS FUNCTION
 		resumeH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/resumeHover")))
@@ -1979,6 +1982,8 @@ return {
 	end,
 
 	drawDialogue = function()
+		if pixel then love.graphics.setFont(pixelFont)
+		else love.graphics.setFont(font) end
 		love.graphics.printf(output, 150, 435, 200, "left", 0, 4.7, 4.7)
 	end,
 
