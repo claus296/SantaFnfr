@@ -42,6 +42,21 @@ return {
 		girlfriendTitle = love.filesystem.load("sprites/menu/girlfriend-title.lua")()
 		titleEnter = love.filesystem.load("sprites/menu/titleEnter.lua")()
 		gradient, gquad = graphics.newVertGradient(lovesize.getWidth(), lovesize.getHeight(), {50/255, 0, 91/255, 1}, {0, 0, 0, 1})
+		gradientColours = {
+			{50/255, 0, 91/255, 1},
+			{0, 0, 0, 1}
+		}
+		function gradientUpdate()
+			Timer.tween(6, gradientColours[1], {0,0,0,1}, "in-out-back", function()
+				Timer.tween(6, gradientColours[1], {50/255, 0, 91/255, 1}, "in-out-back", function()
+					if not changingMenu then gradientUpdate() end
+				end)
+			end)
+			Timer.tween(6, gradientColours[2], {50/255, 0, 91/255, 1}, "in-out-back", function()
+				Timer.tween(6, gradientColours[2], {0,0,0,1}, "in-out-back")
+			end)
+		end
+		gradientUpdate()
 
 		whiteRectangles = {}
 		for i = 1, 15 do
@@ -84,8 +99,7 @@ return {
 
 		music[1]:play()
 	end,
---[[
-
+	--[[
 	danceRight = not danceRight
     if danceRight then
         gf:play("danceRight")
@@ -108,6 +122,8 @@ return {
 		girlfriendTitle:update(dt)
 		titleEnter:update(dt)
 		logo:update(dt)
+
+		graphics.updateVertGradient(gradient, gquad, lovesize.getWidth(), lovesize.getHeight(), {gradientColours[1][1], gradientColours[1][2], gradientColours[1][3], 1, }, {gradientColours[2][1], gradientColours[2][2], gradientColours[2][3], 1, })
 
 		music[1]:on("beat", function(n)
 			self:onBeat(n)
