@@ -75,18 +75,10 @@ end
 return {
 	enter = function(self, previous)
 		songNum = 0
-		weekNum = 1	
+		weekNum = 1
 
-		weekButtonY = {
-			[1] = 220,
-			[2] = 320,
-			[3] = 420,
-			[4] = 520,
-			[5] = 620,
-			[6] = 720,
-			[7] = 820,
-			[8] = 920
-		}
+		currentWeek = 0
+
 
 		function colourTween()
 			Timer.tween(
@@ -141,6 +133,26 @@ return {
 		
 		titleBG = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/weekMenu")))
 
+
+		arrowUp = love.filesystem.load("sprites/menu/difficulty.lua")()
+		arrrowDown = love.filesystem.load("sprites/menu/difficulty.lua")()
+		arrowLeft = love.filesystem.load("sprites/menu/difficulty.lua")()
+		arrowRight = love.filesystem.load("sprites/menu/difficulty.lua")()
+
+
+		arrowUp:animate("arrowRight", true)
+		arrowDown:animate("arrowLeft", true)
+		arrowLeft:animate("arrowRight", true)
+		arrowRight:animate("arrowLeft", true)
+
+		--amongus
+
+
+
+
+
+
+
 		enemyDanceLines = love.filesystem.load("sprites/menu/idlelines.lua")()
 
 		difficultyAnim = love.filesystem.load("sprites/menu/difficulty.lua")()
@@ -149,20 +161,36 @@ return {
 
 		gfDanceLines = love.filesystem.load("sprites/menu/idlelines.lua")()
 
-		enemyDanceLines.x, enemyDanceLines.y = -375, -170
 		enemyDanceLines.sizeX, enemyDanceLines.sizeY = 0.5, 0.5
 
-		bfDanceLines.sizeX, bfDanceLines.sizeY = 0.7, 0.7
+		bfDanceLines.sizeX, bfDanceLines.sizeY = 0.5, 0.5
 		gfDanceLines.sizeX, gfDanceLines.sizeY = 0.5, 0.5
 
-		bfDanceLines.x, bfDanceLines.y = 0, -150
-		gfDanceLines.x, gfDanceLines.y = 375, -170
 
-		difficultyAnim.x, difficultyAnim.y = 400, 220
+		bfDanceLines.x, bfDanceLines.y = 400, 0
+		gfDanceLines.x, gfDanceLines.y = -3, -20
+		enemyDanceLines.x, enemyDanceLines.y = -400, 0
 
-		weekImages = {}
-		for i = 1, #weekDesc do
-			table.insert(weekImages, graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/week" .. i-1))))
+
+
+		difficultyAnim.x, difficultyAnim.y = 0, 240
+
+
+
+		--week images
+		weekImages = {
+			graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/week0"))),
+			graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/week1"))),
+			graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/week2"))),
+			graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/week3"))),
+			graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/week4"))),
+			graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/week5"))),
+			graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/week6"))),
+			graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/week7")))
+		}
+
+		for i = 1, #weekImages do
+			weekImages[i].y = -270
 		end
 
 		bfDanceLines:animate("boyfriend", true)
@@ -198,15 +226,13 @@ return {
 	end,
 
 	update = function(self, dt)
-		for i = 1, #weekDesc do
-			weekImages[i].y = weekButtonY[i]
-		end
-
 		function menuFunc()
-			if weekNum ~= 7 then -- Due to senpais idlelines being smaller than the rest, we resize it             not every part of him is small tho :hot_face:
-				enemyDanceLines.sizeX, enemyDanceLines.sizeY = 0.5, 0.5
-			elseif weekNum == 7 then
+			if weekNum == 7 then -- Due to senpais idlelines being smaller than the rest, we resize it             not every part of him is small tho :hot_face:
 				enemyDanceLines.sizeX, enemyDanceLines.sizeY = 1, 1
+			elseif weekNum == 4 then
+				enemyDanceLines.sizeX = -0.5  -- pico's dumb ass was facing the wrong way
+			else
+				enemyDanceLines.sizeX, enemyDanceLines.sizeY = 0.5, 0.5
 			end
 
 			weekBefore = weekImages[weekNum - 1]
@@ -226,6 +252,7 @@ return {
 		elseif songDifficulty == 3 then
 			difficultyAnim:animate("hard", true)
 		end
+		print(weekNum)
 
 		difficultyAnim:update(dt)
 
@@ -233,37 +260,26 @@ return {
 			if input:pressed("down") then
 				audio.playSound(selectSound)
 
-				if weekNum ~= #trackNames then
-					weekNum = weekNum + 1
-					colourTween()
-					for i = 1, #weekDesc do
-						Timer.tween(0.2, weekButtonY, { [i] = weekButtonY[i] - 100}, "out-expo")
-					end
-				else
+
+				if currentWeek == 7 then
+					currentWeek = 0
 					weekNum = 1
-					colourTween()
-					for i = 1, #weekDesc do
-						Timer.tween(0.2, weekButtonY, { [i] = 120 + 100*i}, "out-expo")
-					end
+				else
+					currentWeek = currentWeek + 1
+					weekNum = weekNum + 1
 				end
 				menuFunc()
 			elseif input:pressed("up") then
 				audio.playSound(selectSound)
 
-				if weekNum ~= 1 then
-					weekNum = weekNum - 1
-					colourTween()
-					for i = 1, #weekDesc do
-						Timer.tween(0.2, weekButtonY, { [i] = weekButtonY[i] + 100 }, "out-expo")
-					end
+				if currentWeek == 0 then
+					currentWeek = 7
+					weekNum = 7
 				else
-					weekNum = #trackNames
-					colourTween()
-					for i = 1, #weekDesc do
-						Timer.tween(0.2, weekButtonY, { [i] = 120 - (700 - 100*i)}, "out-expo")
-					end
+					currentWeek = currentWeek - 1
+					weekNum = weekNum - 1
 				end
-				menuFunc()
+			menuFunc()
 			elseif input:pressed("left") then
 				audio.playSound(selectSound)
 
@@ -293,14 +309,14 @@ return {
 				Gamestate.switch(menuSelect)
 			end
 		end
-		currentWeek = weekImages[weekNum]
+
 	end,
 
 	draw = function(self)
 		love.graphics.push()
 			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
 
-			titleBG:draw()
+			--titleBG:draw()
 
 			love.graphics.push()
 				love.graphics.scale(cam.sizeX, cam.sizeY)
@@ -308,15 +324,11 @@ return {
 					weekImages[i]:draw()
 				end
 
-				graphics.setColor(0, 0, 0)
-				
-				love.graphics.rectangle("fill", -1000, -351, 2500, -100) 
-
 				graphics.setColorF(freeColour[1], freeColour[2], freeColour[3])
 
-				love.graphics.rectangle("fill", -1000, -351, 2500, 411) 
+				titleBG:draw()
 
-				graphics.setColor(1, 1, 1)
+				love.graphics.setColor(1, 1, 1)
 
 				difficultyAnim:draw()
 				if weekNum ~= 1 then
@@ -324,6 +336,27 @@ return {
 				end
 				bfDanceLines:draw()
 				gfDanceLines:draw()
+
+				
+				--weekImages[currentWeek + 1]:draw()
+
+				if currentWeek == 0 then
+					weekImages[1]:draw()
+				elseif currentWeek == 1 then
+					weekImages[2]:draw()
+				elseif currentWeek == 2 then
+					weekImages[3]:draw()
+				elseif currentWeek == 3 then
+					weekImages[4]:draw()
+				elseif currentWeek == 4 then
+					weekImages[5]:draw()
+				elseif currentWeek == 5 then
+					weekImages[6]:draw()
+				elseif currentWeek == 6 then
+					weekImages[7]:draw()
+				elseif currentWeek == 7 then
+					weekImages[8]:draw()
+				end
 
 				love.graphics.color.printf(weekDesc[weekNum], -585, -395, 853, "right", nil, 1.5, 1.5)
 
