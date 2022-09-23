@@ -112,12 +112,12 @@ return {
 		freeplayColours = {
 			{146,0,68}, -- Tutorial
 			{129,100,223}, -- Week 1
-			{30,45,60}, -- Week 2
-			{131,19,73}, -- Week 3
-			{222,132,190}, -- Week 4
-			{141,184,225}, -- Week 5
-			{225,106,169}, -- Week 6
-			{50,50,50} -- Week 7
+			{57,60,198}, -- Week 2
+			{82,231,90}, -- Week 3
+			{255,166,239}, -- Week 4
+			{247,243,247}, -- Week 5
+			{173,235,247}, -- Week 6
+			{231,139,8} -- Week 7
 		}
 		Timer.tween(
 			0.8,
@@ -215,7 +215,6 @@ return {
 	end,
 
 	update = function(self, dt)
-		print(weekNum, currentWeek)
 		function menuFunc()
 			if weekNum == 7 then -- Due to senpais idlelines being smaller than the rest, we resize it             not every part of him is small tho :hot_face:
 				enemyDanceLines.sizeX, enemyDanceLines.sizeY = 1, 1
