@@ -392,7 +392,7 @@ return {
 					weekImages[8]:draw()
 				end
 
-				love.graphics.color.printf(weekDesc[weekNum], -585, -395, 853, "right", nil, 1.5, 1.5)
+				love.graphics.color.printf(weekDesc[weekNum], -639, -395, 853, "center", nil, 1.5, 1.5)
 
 				love.graphics.color.printf(theTracks, -639, 350, 853, "center", nil, 1.5, 1.5, freeColour[1], freeColour[2], freeColour[3])
 
