@@ -129,23 +129,18 @@ return {
 			}, 
 			"linear"
 		)
-
 		
 		titleBG = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/weekMenu")))
-
 
 		arrowUp = love.filesystem.load("sprites/menu/difficulty.lua")()
 		arrowDown = love.filesystem.load("sprites/menu/difficulty.lua")()
 		arrowLeft = love.filesystem.load("sprites/menu/difficulty.lua")()
 		arrowRight = love.filesystem.load("sprites/menu/difficulty.lua")()
 
-
 		arrowUp:animate("arrow right", true)
 		arrowDown:animate("arrow left", true)
 		arrowLeft:animate("arrow left", true)
 		arrowRight:animate("arrow right", true)
-		
-
 
 		arrowUp.x, arrowUp.y = 0, 175
 		arrowDown.x, arrowDown.y = 0, 305
@@ -153,20 +148,10 @@ return {
 		arrowLeft.x, arrowLeft.y = -250, -270
 		arrowRight.x, arrowRight.y = 250, -270
 
-
-		
-
 		--amongus
 
 		arrowUp.orientation = 1.5707963267949*3
 		arrowDown.orientation = 1.5707963267949*3
-
-
-
-
-
-
-
 
 		enemyDanceLines = love.filesystem.load("sprites/menu/idlelines.lua")()
 
@@ -181,29 +166,16 @@ return {
 		bfDanceLines.sizeX, bfDanceLines.sizeY = 0.5, 0.5
 		gfDanceLines.sizeX, gfDanceLines.sizeY = 0.5, 0.5
 
-
 		bfDanceLines.x, bfDanceLines.y = 400, 0
 		gfDanceLines.x, gfDanceLines.y = -3, -20
 		enemyDanceLines.x, enemyDanceLines.y = -400, 0
 
-
-
 		difficultyAnim.x, difficultyAnim.y = 0, 240
 
-
-
 		--week images
-		weekImages = {
-			graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/week0"))),
-			graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/week1"))),
-			graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/week2"))),
-			graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/week3"))),
-			graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/week4"))),
-			graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/week5"))),
-			graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/week6"))),
-			graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/week7")))
-		}
-		--for i = 0, 7 do 
+		weekImages = {}
+		for i = 0, 7 do 
+			table.insert(weekImages, graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/week" .. i))))
 
 
 		for i = 1, #weekImages do
@@ -274,7 +246,7 @@ return {
 		elseif songDifficulty == 3 then
 			difficultyAnim:animate("hard", true)
 		end
-		print(weekNum)
+		--print(weekNum)
 
 		difficultyAnim:update(dt)
 
