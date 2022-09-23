@@ -3,7 +3,7 @@ local upFunc, downFunc, confirmFunc, backFunc, drawFunc, menuFunc, menuDesc
 local menuState
 
 local menuNum = 1
-
+local theTracks
 weekNum = 1
 local songNum, songAppend
 local songDifficulty = 2
@@ -76,6 +76,14 @@ return {
 	enter = function(self, previous)
 		songNum = 0
 		weekNum = 1
+		theTracks = ""
+		for trackLength = 1, #trackNames[weekNum] do
+			if theTracks ~= "" then
+				theTracks = theTracks .. " | " .. trackNames[weekNum][trackLength]
+			else
+				theTracks = trackNames[weekNum][trackLength]
+			end
+		end
 
 		currentWeek = 0
 
@@ -223,6 +231,14 @@ return {
 			else
 				enemyDanceLines.sizeX, enemyDanceLines.sizeY = 0.5, 0.5
 			end
+			theTracks = ""
+			for trackLength = 1, #trackNames[weekNum] do
+				if theTracks ~= "" then
+					theTracks = theTracks .. " | " .. trackNames[weekNum][trackLength]
+				else
+					theTracks = trackNames[weekNum][trackLength]
+				end
+			end
 
 			weekBefore = weekImages[weekNum - 1]
 			weekAfter = weekImages[weekNum + 1]
@@ -266,6 +282,7 @@ return {
 					currentWeek = 7
 					weekNum = 8
 				end
+				colourTween()
 				menuFunc()
 			elseif input:pressed("right") then
 				audio.playSound(selectSound)
@@ -283,7 +300,8 @@ return {
 					currentWeek = 0
 					weekNum = 1
 				end
-			menuFunc()
+				colourTween()
+				menuFunc()
 			elseif input:pressed("down") then
 				audio.playSound(selectSound)
 
@@ -376,10 +394,7 @@ return {
 
 				love.graphics.color.printf(weekDesc[weekNum], -585, -395, 853, "right", nil, 1.5, 1.5)
 
-				love.graphics.color.printf("TRACKS", -1050, 140, 853, "center", nil, 1.5, 1.5, 255, 117, 172)
-				for trackLength = 1, #trackNames[weekNum] do
-					love.graphics.color.printf(trackNames[weekNum][trackLength], -1050, 135 + (35 * trackLength), 853, "center", nil, 1.5, 1.5, 255, 117, 172)
-				end
+				love.graphics.color.printf(theTracks, -639, 350, 853, "center", nil, 1.5, 1.5, freeColour[1], freeColour[2], freeColour[3])
 
 				arrowUp:draw()
 				arrowLeft:draw()
