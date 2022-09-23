@@ -353,12 +353,14 @@ return {
 			--titleBG:draw()
 
 			love.graphics.push()
+
+				graphics.setColorF(freeColour[1], freeColour[2], freeColour[3])
 				love.graphics.scale(cam.sizeX, cam.sizeY)
 				for i = 1, #weekDesc do
 					weekImages[i]:draw()
 				end
 
-				graphics.setColorF(freeColour[1], freeColour[2], freeColour[3])
+				
 
 				titleBG:draw()
 
@@ -372,6 +374,7 @@ return {
 				gfDanceLines:draw()
 
 				--weekImages[currentWeek + 1]:draw()
+				graphics.setColorF(freeColour[1], freeColour[2], freeColour[3])
 
 				if currentWeek == 0 then
 					weekImages[1]:draw()
@@ -391,9 +394,11 @@ return {
 					weekImages[8]:draw()
 				end
 
-				love.graphics.color.printf(weekDesc[weekNum], -639, -395, 853, "center", nil, 1.5, 1.5)
+				love.graphics.color.printf(weekDesc[weekNum], -639, -395, 853, "center", nil, 1.5, 1.5, freeColour[1], freeColour[2], freeColour[3])
 
 				love.graphics.color.printf(theTracks, -639, 350, 853, "center", nil, 1.5, 1.5, freeColour[1], freeColour[2], freeColour[3])
+
+
 
 				arrowUp:draw()
 				arrowLeft:draw()
