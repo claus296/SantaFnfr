@@ -241,6 +241,7 @@ return {
 	end,
 
 	update = function(self, dt)
+		print(weekNum, currentWeek)
 		function menuFunc()
 			if weekNum == 7 then -- Due to senpais idlelines being smaller than the rest, we resize it             not every part of him is small tho :hot_face:
 				enemyDanceLines.sizeX, enemyDanceLines.sizeY = 1, 1
@@ -285,8 +286,6 @@ return {
 					arrowLeft:animate("arrow left", true)
 				end)
 
-
-
 				if currentWeek == 7 then
 					currentWeek = 0
 					weekNum = 1
@@ -304,12 +303,12 @@ return {
 					arrowRight:animate("arrow right", true)
 				end)
 
-				if currentWeek == 0 then
-					currentWeek = 7
-					weekNum = 7
+				if currentWeek ~= 7 then
+					currentWeek = currentWeek + 1
+					weekNum = weekNum + 1
 				else
-					currentWeek = currentWeek - 1
-					weekNum = weekNum - 1
+					currentWeek = 0
+					weekNum = 1
 				end
 			menuFunc()
 			elseif input:pressed("down") then
