@@ -362,7 +362,7 @@ return {
 
 				titleBG:draw()
 
-				love.graphics.setColor(1, 1, 1)
+				graphics.setColor(1, 1, 1)
 
 				difficultyAnim:draw()
 				if weekNum ~= 1 then
@@ -371,7 +371,6 @@ return {
 				bfDanceLines:draw()
 				gfDanceLines:draw()
 
-				
 				--weekImages[currentWeek + 1]:draw()
 
 				if currentWeek == 0 then
