@@ -216,7 +216,7 @@ local function switchMenu(menu)
 			end
 		end
 		function drawFunc()
-			graphics.setColor(1, 1, 0)
+			graphics.setColor(0, 0, 0)
 			if menuState == 3 then
 				if songDifficulty == 3 then
 					love.graphics.printf("Choose a difficulty: < Hard >", -640, 285, 853, "center", nil, 1.5, 1.5)
@@ -230,7 +230,7 @@ local function switchMenu(menu)
 			else
 				love.graphics.printf("Choose a week: < " .. weekMeta[weekNum][1] .. " >", -640, 285, 853, "center", nil, 1.5, 1.5)
 			end
-			graphics.setColor(1, 1, 1)
+			graphics.setColor(0, 0, 0)
 
 			if input:getActiveDevice() == "joy" then
 				love.graphics.printf("Left Stick/D-Pad: Select | A: Confirm | B: Back", -640, 350, 1280, "center", nil, 1, 1)
@@ -342,7 +342,7 @@ end
 
 function drawFunc()
 	if pressedUp ~= 10 then
-		graphics.setColor(1, 1, 0)
+		graphics.setColor(0, 0, 0)
 		if menuState == 3 then
 			if songDifficulty == 3 then
 				love.graphics.printf("Choose a difficulty: < Hard >", -640, 285, 853, "center", nil, 1.5, 1.5)
@@ -356,7 +356,7 @@ function drawFunc()
 		else
 			love.graphics.printf("Choose a week: < " .. weekMeta[weekNum][1] .. " >", -640, 285, 853, "center", nil, 1.5, 1.5)
 		end
-		graphics.setColor(1, 1, 1)
+		graphics.setColor(0, 0, 0)
 
 		if input:getActiveDevice() == "joy" then
 			love.graphics.printf("Left Stick/D-Pad: Select | A: Confirm | B: Back", -640, 350, 1280, "center", nil, 1, 1)
