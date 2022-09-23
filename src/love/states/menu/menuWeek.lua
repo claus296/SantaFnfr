@@ -176,7 +176,7 @@ return {
 		weekImages = {}
 		for i = 0, 7 do 
 			table.insert(weekImages, graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/week" .. i))))
-
+		end
 
 		for i = 1, #weekImages do
 			weekImages[i].y = -270
