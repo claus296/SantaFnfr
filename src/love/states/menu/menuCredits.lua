@@ -22,11 +22,51 @@ And all the contributors
 
 Miscellaneous:
 
+
 PhantomClo - Pixel note splashes
 Keoki - Note splashes
 P-sam - Developing LOVE-NX
 The developers of the LÖVE framework
 RiverOaken - Psych Engine credits button
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Claus - requested furry BF to be added to VE (press UP 10 times)
 
 ]]
 
@@ -56,9 +96,10 @@ return {
             end)
         end
         if input:pressed("down") then
-            audio.playSound(selectSound)
-            if credY[1] > -450 then  
+            --audio.playSound(selectSound)
+            if credY[1] > -2000 then  
                 Timer.tween(0.3, credY, {[1] = credY[1] - 50}, "out-quad")
+                audio.playSound(selectSound)
             end
         elseif input:pressed("up") then
             audio.playSound(selectSound)

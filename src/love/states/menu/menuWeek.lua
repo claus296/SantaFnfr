@@ -135,17 +135,32 @@ return {
 
 
 		arrowUp = love.filesystem.load("sprites/menu/difficulty.lua")()
-		arrrowDown = love.filesystem.load("sprites/menu/difficulty.lua")()
+		arrowDown = love.filesystem.load("sprites/menu/difficulty.lua")()
 		arrowLeft = love.filesystem.load("sprites/menu/difficulty.lua")()
 		arrowRight = love.filesystem.load("sprites/menu/difficulty.lua")()
 
 
-		arrowUp:animate("arrowRight", true)
-		arrowDown:animate("arrowLeft", true)
-		arrowLeft:animate("arrowRight", true)
-		arrowRight:animate("arrowLeft", true)
+		arrowUp:animate("arrow right", true)
+		arrowDown:animate("arrow left", true)
+		arrowLeft:animate("arrow left", true)
+		arrowRight:animate("arrow right", true)
+		
+
+
+		arrowUp.x, arrowUp.y = 0, 175
+		arrowDown.x, arrowDown.y = 0, 305
+
+		arrowLeft.x, arrowLeft.y = -250, -270
+		arrowRight.x, arrowRight.y = 250, -270
+
+
+		
 
 		--amongus
+
+		arrowUp.orientation = 1.5707963267949*3
+		arrowDown.orientation = 1.5707963267949*3
+
 
 
 
@@ -244,6 +259,10 @@ return {
 		enemyDanceLines:update(dt)
 		bfDanceLines:update(dt)
 		gfDanceLines:update(dt)
+		arrowUp:update(dt)
+		arrowDown:update(dt)
+		arrowLeft:update(dt)
+		arrowRight:update(dt)
 
 		if songDifficulty == 1 then
 			difficultyAnim:animate("easy", true)
@@ -257,8 +276,15 @@ return {
 		difficultyAnim:update(dt)
 
 		if not graphics.isFading() then
-			if input:pressed("down") then
+			if input:pressed("left") then
 				audio.playSound(selectSound)
+
+				Timer.script(function(wait)
+					arrowLeft:animate("arrow left confirm", false)
+					wait(0.1)
+					arrowLeft:animate("arrow left", true)
+				end)
+
 
 
 				if currentWeek == 7 then
@@ -269,8 +295,14 @@ return {
 					weekNum = weekNum + 1
 				end
 				menuFunc()
-			elseif input:pressed("up") then
+			elseif input:pressed("right") then
 				audio.playSound(selectSound)
+
+				Timer.script(function(wait)
+					arrowRight:animate("arrow right confirm", false)
+					wait(0.1)
+					arrowRight:animate("arrow right", true)
+				end)
 
 				if currentWeek == 0 then
 					currentWeek = 7
@@ -280,8 +312,14 @@ return {
 					weekNum = weekNum - 1
 				end
 			menuFunc()
-			elseif input:pressed("left") then
+			elseif input:pressed("down") then
 				audio.playSound(selectSound)
+
+				Timer.script(function(wait)
+					arrowDown:animate("arrow left confirm", false)
+					wait(0.1)
+					arrowDown:animate("arrow left", true)
+				end)
 
 				if songDifficulty ~= 1 then
 					songDifficulty = songDifficulty - 1
@@ -289,8 +327,14 @@ return {
 					songDifficulty = 3 
 				end
 
-			elseif input:pressed("right") then
+			elseif input:pressed("up") then
 				audio.playSound(selectSound)
+
+				Timer.script(function(wait)
+					arrowUp:animate("arrow right confirm", false)
+					wait(0.1)
+					arrowUp:animate("arrow right", true)
+				end)
 
 				if songDifficulty ~= 3 then
 					songDifficulty = songDifficulty + 1
@@ -364,6 +408,11 @@ return {
 				for trackLength = 1, #trackNames[weekNum] do
 					love.graphics.color.printf(trackNames[weekNum][trackLength], -1050, 135 + (35 * trackLength), 853, "center", nil, 1.5, 1.5, 255, 117, 172)
 				end
+
+				arrowUp:draw()
+				arrowLeft:draw()
+				arrowRight:draw()
+				arrowDown:draw()
 
 			love.graphics.pop()
 		love.graphics.pop()
