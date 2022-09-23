@@ -203,6 +203,8 @@ return {
 			graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/week6"))),
 			graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/week7")))
 		}
+		--for i = 0, 7 do 
+
 
 		for i = 1, #weekImages do
 			weekImages[i].y = -270
@@ -286,12 +288,12 @@ return {
 					arrowLeft:animate("arrow left", true)
 				end)
 
-				if currentWeek == 7 then
-					currentWeek = 0
-					weekNum = 1
+				if currentWeek ~= 0 then
+					currentWeek = currentWeek - 1
+					weekNum = weekNum - 1
 				else
-					currentWeek = currentWeek + 1
-					weekNum = weekNum + 1
+					currentWeek = 7
+					weekNum = 8
 				end
 				menuFunc()
 			elseif input:pressed("right") then
