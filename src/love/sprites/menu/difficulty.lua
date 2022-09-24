@@ -32,7 +32,7 @@ return graphics.newSprite(
 	},
     {
         ["easy"] = {start = 1, stop = 1, speed = 24, offsetX = 0, offsetY = 0},
-        ["normal"] = {start = 3, stop = 3, speed = 24, offsetX = 4, offsetY = 0},
+        ["normal"] = {start = 3, stop = 3, speed = 24, offsetX = -8, offsetY = 0},
         ["hard"] = {start = 2, stop = 2, speed = 24, offsetX = 0, offsetY = 0},
         ["arrow left"] = {start = 4, stop = 4, speed = 24, offsetX = 0, offsetY = 0},
         ["arrow left confirm"] = {start = 5, stop = 5, speed = 24, offsetX = 0, offsetY = 0},
