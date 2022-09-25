@@ -35,7 +35,44 @@ love.graphics.color = {
 		love.graphics.setColorF(255,255,255,1)
 	end
 }
-
+function uitextf(text,x,y,limit,align,r,sx,sy,ox,oy,kx,ky)
+	local x = x or 0
+	local y = y or 0
+	local r = r or 0
+	local limit = limit or 750
+	local align = align or "left"
+	local sx = sx or 1
+	local sy = sy or 1
+	local ox = ox or 0
+	local oy = oy or 0
+	local kx = kx or 0
+	local ky = ky or 0
+	graphics.setColor(0,0,0)
+	love.graphics.printf(text,x-2,y,limit,align,r,sx,sy,ox,oy,kx,ky)
+	love.graphics.printf(text,x+2,y,limit,align,r,sx,sy,ox,oy,kx,ky)
+	love.graphics.printf(text,x,y-2,limit,align,r,sx,sy,ox,oy,kx,ky)
+	love.graphics.printf(text,x,y+2,limit,align,r,sx,sy,ox,oy,kx,ky)
+	graphics.setColor(1,1,1)
+    love.graphics.printf(text,x,y,limit,align,r,sx,sy,ox,oy,kx,ky)
+end
+function uitext(text,x,y,r,sx,sy,ox,oy,kx,ky)
+	local x = x or 0
+	local y = y or 0
+	local r = r or 0
+	local sx = sx or 1
+	local sy = sy or 1
+	local ox = ox or 0
+	local oy = oy or 0
+	local kx = kx or 0
+	local ky = ky or 0
+	graphics.setColor(0,0,0)
+	love.graphics.print(text,x-2,y,r,sx,sy,a,ox,oy,kx,ky)
+	love.graphics.print(text,x+2,y,r,sx,sy,a,ox,oy,kx,ky)
+	love.graphics.print(text,x,y-2,r,sx,sy,a,ox,oy,kx,ky)
+	love.graphics.print(text,x,y+2,r,sx,sy,a,ox,oy,kx,ky)
+	graphics.setColor(1,1,1)
+    love.graphics.print(text,x,y,r,sx,sy,a,ox,oy,kx,ky)
+end
 volFade = 0
 
 function love.load()

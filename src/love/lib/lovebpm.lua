@@ -232,6 +232,9 @@ function Track:getTime()
   return self.time
 end
 
+function Track:isPlaying()
+  return self.source:isPlaying()
+end
 
 function Track:getBeat(multiplier)
   multiplier = multiplier or 1

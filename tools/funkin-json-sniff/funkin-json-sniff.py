@@ -33,9 +33,11 @@ for i in range(1, len(sys.argv)):
 
     notes = songdata['song']['notes']
     arguments = ['mustHitSection', 'altAnim']
+    bpm = songdata['song']['bpm']
     lua = ('-- Automatically generated from ' + jsonfile + '\n'
            'return {\n'
-           '\tspeed = ' + str(songdata['song']['speed']) + ',\n')
+           '\tspeed = ' + str(songdata['song']['speed']) + ',\n'
+            '\tbpm = ' + str(bpm) + ',\n')
     noBpm = True
     for j in notes:
         lua += '\t{\n'

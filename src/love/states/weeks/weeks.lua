@@ -1879,20 +1879,20 @@ return {
 			if not settings.botPlay then
 				if noteCounter + missCounter <= 0 then
 					if (math.floor((altScore / (noteCounter + missCounter)) / 3.5)) >= 100 then
-						love.graphics.printf("Score: " .. score .. " | Misses: " .. missCounter .. " | Time Remaining: " .. timeLeftFixed .. " | Accuracy: 0% | Rating: ???", -600, 400+downscrollOffset, 1200, "center")
+						uitextf("Score: " .. score .. " | Misses: " .. missCounter .. " | Time Remaining: " .. timeLeftFixed .. " | Accuracy: 0% | Rating: ???", -600, 400+downscrollOffset, 1200, "center")
 					else
-						love.graphics.printf("Score: " .. score .. " | Misses: " .. missCounter .. " | Time Remaining: " .. timeLeftFixed .. " | Accuracy: 0% | Rating: ???", -600, 400+downscrollOffset, 1200, "center")
+						uitextf("Score: " .. score .. " | Misses: " .. missCounter .. " | Time Remaining: " .. timeLeftFixed .. " | Accuracy: 0% | Rating: ???", -600, 400+downscrollOffset, 1200, "center")
 					end
 				else
 					if (math.floor((altScore / (noteCounter + missCounter)) / 3.5)) >= 100 then
-						love.graphics.printf("Score: " .. score .. " | Misses: " .. missCounter .. " | Time Remaining: " .. timeLeftFixed .. " | Accuracy: 100% | Rating: PERFECT!!!", -600, 400+downscrollOffset, 1200, "center")
+						uitextf("Score: " .. score .. " | Misses: " .. missCounter .. " | Time Remaining: " .. timeLeftFixed .. " | Accuracy: 100% | Rating: PERFECT!!!", -600, 400+downscrollOffset, 1200, "center")
 					else
-						love.graphics.printf("Score: " .. score .. " | Misses: " .. missCounter .. " | Time Remaining: " .. timeLeftFixed .. " | Accuracy: " .. convertedAcc .. " | Rating: " .. ratingText, -600, 400+downscrollOffset, 1200, "center")
+						uitextf("Score: " .. score .. " | Misses: " .. missCounter .. " | Time Remaining: " .. timeLeftFixed .. " | Accuracy: " .. convertedAcc .. " | Rating: " .. ratingText, -600, 400+downscrollOffset, 1200, "center")
 					end
 				end
 
 				if settings.sideJudgements then
-					love.graphics.printf(
+					uitextf(
 						"Sicks: " .. sicks ..
 						"\n\nGoods: " .. goods ..
 						"\n\nBads: " .. bads ..
@@ -1984,7 +1984,7 @@ return {
 	drawDialogue = function()
 		if pixel then love.graphics.setFont(pixelFont)
 		else love.graphics.setFont(font) end
-		love.graphics.printf(output, 150, 435, 200, "left", 0, 4.7, 4.7)
+		uitextf(output, 150, 435, 200, "left", 0, 4.7, 4.7)
 	end,
 
 	leave = function(self)
