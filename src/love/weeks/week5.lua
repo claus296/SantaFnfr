@@ -37,8 +37,6 @@ return {
 		sounds.lightsOff = love.audio.newSource("sounds/week5/lights-off.ogg", "static")
 		sounds.lightsOn = love.audio.newSource("sounds/week5/lights-on.ogg", "static")
 
-		uiTextColour = {0,0,0} -- Changed the UI colour to black
-
 		song = songNum
 		difficulty = songAppend
 
@@ -188,8 +186,6 @@ return {
 	leave = function()
 		song = nil
 		
-		uiTextColour = {1,1,1}
-
 		stages["mall"]:leave()
 		weeks:leave()
 	end
