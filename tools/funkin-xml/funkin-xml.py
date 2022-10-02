@@ -60,7 +60,7 @@ lua += ('\t{\n'
 lua += (
     "\t},\n"
     "\t\"anim\", -- set to default animation\n"
-    "\tfalse, -- If the sprite repeats\n"
+    "\tfalse -- If the sprite repeats\n"
     ")\n"
 )
 outputname = xmlname[:len(xmlname) - 4] + '.lua'
