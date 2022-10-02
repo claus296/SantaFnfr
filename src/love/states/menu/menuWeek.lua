@@ -158,6 +158,7 @@ return {
 
 		--amongus
 
+
 		arrowUp.orientation = 1.5707963267949*3
 		arrowDown.orientation = 1.5707963267949*3
 
@@ -175,7 +176,7 @@ return {
 		gfDanceLines.sizeX, gfDanceLines.sizeY = 0.5, 0.5
 
 		bfDanceLines.x, bfDanceLines.y = 400, 0
-		gfDanceLines.x, gfDanceLines.y = -3, -20
+		gfDanceLines.x, gfDanceLines.y = 0, -20
 		enemyDanceLines.x, enemyDanceLines.y = -400, 0
 
 		difficultyAnim.x, difficultyAnim.y = 0, 240
