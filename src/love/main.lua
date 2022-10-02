@@ -179,39 +179,39 @@ function love.load()
 		))
 		love.graphics.setColor(0.5, 0.5, 0.5, volFade - 0.3)
 
-		love.graphics.rectangle("fill", 490, 0, 161, 50)
+		love.graphics.rectangle("fill", 1119, 0, 161, 50)
 
 		love.graphics.setColor(1, 1, 1, volFade)
 
 		if fixVol >= 0.1 then
-			love.graphics.rectangle("fill", 500, 0, 8, 40)
+			love.graphics.rectangle("fill", 1129, 0, 8, 40)
 		end
 		if fixVol >= 0.2 then
-			love.graphics.rectangle("fill", 515, 0, 8, 40)
+			love.graphics.rectangle("fill", 1144, 0, 8, 40)
 		end
 		if fixVol >= 0.3 then
-			love.graphics.rectangle("fill", 530, 0, 8, 40)
+			love.graphics.rectangle("fill", 1159, 0, 8, 40) --
 		end
 		if fixVol >= 0.4 then
-			love.graphics.rectangle("fill", 545, 0, 8, 40)
+			love.graphics.rectangle("fill", 1174, 0, 8, 40)
 		end
 		if fixVol >= 0.5 then
-			love.graphics.rectangle("fill", 560, 0, 8, 40)
+			love.graphics.rectangle("fill", 1189, 0, 8, 40)
 		end
 		if fixVol >= 0.6 then
-			love.graphics.rectangle("fill", 575, 0, 8, 40)
+			love.graphics.rectangle("fill", 1204, 0, 8, 40)
 		end
 		if fixVol >= 0.7 then
-			love.graphics.rectangle("fill", 590, 0, 8, 40)
+			love.graphics.rectangle("fill", 1219, 0, 8, 40)
 		end
 		if fixVol >= 0.8 then
-			love.graphics.rectangle("fill", 605, 0, 8, 40)
+			love.graphics.rectangle("fill", 1234, 0, 8, 40)
 		end
 		if fixVol >= 0.9 then
-			love.graphics.rectangle("fill", 620, 0, 8, 40)
+			love.graphics.rectangle("fill", 1249, 0, 8, 40)
 		end
 		if fixVol >= 1 then
-			love.graphics.rectangle("fill", 635, 0, 8, 40)
+			love.graphics.rectangle("fill", 1264, 0, 8, 40)
 		end
 		graphics.setColor(1, 1, 1, 1)
 	end
