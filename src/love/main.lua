@@ -160,6 +160,7 @@ function love.load()
 	healthBarColorPlayer = {49,176,209} -- BF's icon colour
 	healthBarColorEnemy = {165,0,77} -- GF's icon colour
 	pauseColor = {0,0,0} -- Pause screen colour
+	theBalls = {width = 1 * 160}
 
 	function setDialogue(strList)
 		dialogueList = strList
@@ -173,46 +174,24 @@ function love.load()
 	function volumeControl()
 		-- ch's volume control stuff
 		love.graphics.setColor(1, 1, 1, volFade)
-		local fixVol = tonumber(string.format(
+		fixVol = tonumber(string.format(
 			"%.1f  ",
 			(love.audio.getVolume())
 		))
 		love.graphics.setColor(0.5, 0.5, 0.5, volFade - 0.3)
 
-		love.graphics.rectangle("fill", 1119, 0, 161, 50)
+		love.graphics.rectangle("fill", 1110, 0, 170, 50)
 
 		love.graphics.setColor(1, 1, 1, volFade)
 
-		if fixVol >= 0.1 then
-			love.graphics.rectangle("fill", 1129, 0, 8, 40)
-		end
-		if fixVol >= 0.2 then
-			love.graphics.rectangle("fill", 1144, 0, 8, 40)
-		end
-		if fixVol >= 0.3 then
-			love.graphics.rectangle("fill", 1159, 0, 8, 40) --
-		end
-		if fixVol >= 0.4 then
-			love.graphics.rectangle("fill", 1174, 0, 8, 40)
-		end
-		if fixVol >= 0.5 then
-			love.graphics.rectangle("fill", 1189, 0, 8, 40)
-		end
-		if fixVol >= 0.6 then
-			love.graphics.rectangle("fill", 1204, 0, 8, 40)
-		end
-		if fixVol >= 0.7 then
-			love.graphics.rectangle("fill", 1219, 0, 8, 40)
-		end
-		if fixVol >= 0.8 then
-			love.graphics.rectangle("fill", 1234, 0, 8, 40)
-		end
-		if fixVol >= 0.9 then
-			love.graphics.rectangle("fill", 1249, 0, 8, 40)
-		end
-		if fixVol >= 1 then
-			love.graphics.rectangle("fill", 1264, 0, 8, 40)
-		end
+		if volTween then Timer.cancel(volTween) end
+		volTween = Timer.tween(
+			0.2, 
+			theBalls, 
+			{width = fixVol * 160}, 
+			"out-quad"
+		)
+		love.graphics.rectangle("fill", 1113, 10, theBalls.width, 30)
 		graphics.setColor(1, 1, 1, 1)
 	end
 
@@ -384,6 +363,7 @@ function love.load()
 
 	cam = {x = 0, y = 0, sizeX = 0.9, sizeY = 0.9}
 	camScale = {x = 0.9, y = 0.9}
+	camZoom = {sizeX = 1, sizeY = 1}
 	uiScale = {x = 1, y = 1, sizeX = 1, sizeY = 1}
 
 	musicTime = 0
@@ -437,7 +417,7 @@ function love.keypressed(key)
 		Gamestate.switch(debugMenu)
 	elseif key == "0" then
 		volFade = 1
-		if love.audio.getVolume() == 0 then
+		if fixVol then
 			love.audio.setVolume(lastAudioVolume)
 		else
 			lastAudioVolume = love.audio.getVolume()
@@ -445,12 +425,13 @@ function love.keypressed(key)
 		end
 	elseif key == "-" then
 		volFade = 1
-		if love.audio.getVolume() >= -0.1 then -- weird decimals moment
+		if fixVol > 0 then
 			love.audio.setVolume(love.audio.getVolume() - 0.1)
 		end
+		
 	elseif key == "=" then
 		volFade = 1
-		if love.audio.getVolume() <= 0.9 then
+		if fixVol <= 0.9 then
 			love.audio.setVolume(love.audio.getVolume() + 0.1)
 		end
 	elseif key == "f11" then
