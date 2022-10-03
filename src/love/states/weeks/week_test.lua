@@ -91,6 +91,7 @@ return {
 		end
 		funnyMoveNotes()
 		funnyNotes()
+		
 		sounds = {
 			countdown = {
 				three = love.audio.newSource("sounds/countdown-3.ogg", "static"),

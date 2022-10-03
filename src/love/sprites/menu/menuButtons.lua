@@ -1,22 +1,3 @@
---[[----------------------------------------------------------------------------
-This file is part of Friday Night Funkin' Rewritten
-
-Copyright (C) 2021  HTV04
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>.
-------------------------------------------------------------------------------]]
-
 return graphics.newSprite(
 	love.graphics.newImage(graphics.imagePath("menu/FNF_main_menu_assets")),
     	-- Automatically generated from FNF_main_menu_assets.xml
@@ -72,20 +53,7 @@ return graphics.newSprite(
 		{x = 1250, y = 1032, width = 796, height = 173, offsetX = 0, offsetY = -3, offsetWidth = 796, offsetHeight = 181}, -- 46: story mode white0000
 		{x = 0, y = 1215, width = 794, height = 174, offsetX = -2, offsetY = -2, offsetWidth = 796, offsetHeight = 181}, -- 47: story mode white0001
 		{x = 804, y = 1215, width = 794, height = 181, offsetX = 0, offsetY = 0, offsetWidth = 796, offsetHeight = 181}, -- 48: story mode white0002
-
-		{x = 1192 + 242, y = 167, width = 242, height = 122, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 49: freeplayR basic0000
-		{x = 1192 + 242, y = 167, width = 242, height = 122, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 50: freeplayR basic0001
-		{x = 1192 + 242, y = 167, width = 242, height = 122, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 51: freeplayR basic0002
-		{x = 242, y = 332, width = 242, height = 122, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 52: freeplayR basic0003
-		{x = 242, y = 332, width = 242, height = 122, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 53: freeplayR basic0004
-		{x = 242, y = 332, width = 242, height = 122, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 54: freeplayR basic0005
-		{x = 494+242, y = 332, width = 242, height = 122, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 55: freeplayR basic0006
-		{x = 494+242, y = 332, width = 242, height = 122, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 56: freeplayR basic0007
-		{x = 494+242, y = 332, width = 242, height = 122, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 57: freeplayR basic0008
-		{x = 988+313.5, y = 332, width = 313.5, height = 169, offsetX = -74, offsetY = 0, offsetWidth = 635/2, offsetHeight = 174}, -- 58: freeplayR white0000
-		{x = 316, y = 511, width = 316, height = 170, offsetX = -71, offsetY = -1, offsetWidth = 635/2, offsetHeight = 174}, -- 59: freeplayR white0001
-		{x = 642+314.5, y = 511, width = 314.5, height = 173, offsetX = -71, offsetY = -1, offsetWidth = 635/2, offsetHeight = 174}, -- 60: freeplayR white0002
-
+		
 		{x = 1192, y = 167, width = 484, height = 122, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 13: freeplay basic0000
 		{x = 1192, y = 167, width = 484, height = 122, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 14: freeplay basic0001
 		{x = 1192, y = 167, width = 484, height = 122, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 15: freeplay basic0002
@@ -104,10 +72,8 @@ return graphics.newSprite(
         ["donate hover"] = {start = 10, stop = 12, speed = 24, offsetX = 0, offsetY = 0},
         ["freeplayL"] = {start = 13, stop = 21, speed = 24, offsetX = 0, offsetY = 0},
         ["freeplayL hover"] = {start = 22, stop = 24, speed = 24, offsetX = 0, offsetY = 0},
-		["freeplayR"] = {start = 49, stop = 57, speed = 24, offsetX = 0, offsetY = 0},
-        ["freeplayR hover"] = {start = 58, stop = 60, speed = 24, offsetX = 0, offsetY = 0},
-		["freeplay"] = {start = 61, stop = 69, speed = 24, offsetX = 0, offsetY = 0},
-		["freeplay hover"] = {start = 70, stop = 72, speed = 24, offsetX = 0, offsetY = 0},
+		["freeplay"] = {start = 49, stop = 57, speed = 24, offsetX = 0, offsetY = 0},
+        ["freeplay hover"] = {start = 58, stop = 60, speed = 24, offsetX = 0, offsetY = 0},
         ["options"] = {start = 25, stop = 33, speed = 24, offsetX = 0, offsetY = 0},
         ["options hover"] = {start = 34, stop = 36, speed = 24, offsetX = 0, offsetY = 0},
         ["story"] = {start = 37, stop = 45, speed = 24, offsetX = 0, offsetY = 0},

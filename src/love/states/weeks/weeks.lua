@@ -36,7 +36,7 @@ local altScore = 0
 
 local ratingTimers = {}
 
-local useAltAnims
+local useAltAnims1
 local notMissed = {}
 
 function tweenPauseButtons()
@@ -52,38 +52,18 @@ function tweenPauseButtons()
 		pauseCurtain.y = -1000
 		pausedGraphic.x = 2000
 
-		if resume.x == -1000 then
-			Timer.tween(1, resume, {x = 550}, "out-back")
-		end
-		if resumeH.x == -1000 then
-			Timer.tween(1, resumeH, {x = 550}, "out-back")
-		end
-		if restart.x == -1000 then
-			Timer.tween(1.2, restart, {x = 500}, "out-back")
-		end
-		if restartH.x == -1000 then
-			Timer.tween(1.2, restartH, {x = 500}, "out-back")
-		end
-		if exit.x == -1000 then
-			Timer.tween(1.4, exit, {x = 450}, "out-back")
-		end
-		if exitH.x == -1000 then
-			Timer.tween(1.4, exitH, {x = 450}, "out-back")
-		end
-		if options.x == -1000 then
-			Timer.tween(1.6, options, {x = 400}, "out-back")
-		end
-		if optionsH.x == -1000 then
-			Timer.tween(1.6, optionsH, {x = 400}, "out-back")
-		end
-		if pauseCurtain.y == -1000 then
-			Timer.tween(1, pauseCurtain, {y = 320}, "out-expo")
-		end
-		if pausedGraphic.x == 2000 then
-			Timer.tween(0.5, pausedGraphic, {x = 1200}, "out-quad")
-		end
+		Timer.tween(1, resume, {x = 550}, "out-back")
+		Timer.tween(1, resumeH, {x = 550}, "out-back")
+		Timer.tween(1.2, restart, {x = 500}, "out-back")
+		Timer.tween(1.2, restartH, {x = 500}, "out-back")
+		Timer.tween(1.4, exit, {x = 450}, "out-back")
+		Timer.tween(1.4, exitH, {x = 450}, "out-back")
+		Timer.tween(1.6, options, {x = 400}, "out-back")
+		Timer.tween(1.6, optionsH, {x = 400}, "out-back")
+		Timer.tween(1, pauseCurtain, {y = 320}, "out-expo")
+		Timer.tween(0.5, pausedGraphic, {x = 1200}, "out-quad")
 	else
-		resume.x, resume.y = -2500, 120 - 900         -- im fucking crying
+		resume.x, resume.y = -2500, 120 - 900 
 		resumeH.x, resumeH.y = resume.x, resume.y
 		restart.x, restart.y = -2500, 295 - 900
 		restartH.x, restartH.y = restart.x, restart.y 
@@ -92,31 +72,14 @@ function tweenPauseButtons()
 		options.x, options.y = -2500, 645 - 900
 		optionsH.x, optionsH.y = options.x, options.y
 
-
-		if resume.x == -2500 then
-			Timer.tween(1, resume, {x = -1750}, "out-back")
-		end
-		if resumeH.x == -2500 then
-			Timer.tween(1, resumeH, {x = -1750}, "out-back")
-		end
-		if restart.x == -2500 then
-			Timer.tween(1.2, restart, {x = -1700}, "out-back")
-		end
-		if restartH.x == -2500 then
-			Timer.tween(1.2, restartH, {x = -1700}, "out-back")
-		end
-		if exit.x == -2500 then
-			Timer.tween(1.4, exit, {x = -1650}, "out-back")
-		end
-		if exitH.x == -2500 then
-			Timer.tween(1.4, exitH, {x = -1650}, "out-back")
-		end
-		if options.x == -2500 then
-			Timer.tween(1.6, options, {x = -1600}, "out-back")
-		end
-		if optionsH.x == -2500 then
-			Timer.tween(1.6, optionsH, {x = -1600}, "out-back")
-		end
+		Timer.tween(1, resume, {x = -1750}, "out-back")
+		Timer.tween(1, resumeH, {x = -1750}, "out-back")
+		Timer.tween(1.2, restart, {x = -1700}, "out-back")
+		Timer.tween(1.2, restartH, {x = -1700}, "out-back")
+		Timer.tween(1.4, exit, {x = -1650}, "out-back")
+		Timer.tween(1.4, exitH, {x = -1650}, "out-back")
+		Timer.tween(1.6, options, {x = -1600}, "out-back")
+		Timer.tween(1.6, optionsH, {x = -1600}, "out-back")
 	end
 end
 

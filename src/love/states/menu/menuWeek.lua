@@ -100,6 +100,18 @@ return {
 				"linear"
 			)
 		end
+		function colourTweenAlt()
+			Timer.tween(
+				0.1,
+				freeColour, 
+				{
+					[1] = freeplayColours[1][1],
+					[2] = freeplayColours[1][2],
+					[3] = freeplayColours[1][3]
+				}, 
+				"linear"
+			)
+		end
 
 		cam.sizeX, cam.sizeY = 0.9, 0.9
 		camScale.x, camScale.y = 0.9, 0.9
@@ -140,10 +152,10 @@ return {
 		
 		titleBG = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/weekMenu")))
 
-		arrowUp = love.filesystem.load("sprites/menu/difficulty.lua")()
-		arrowDown = love.filesystem.load("sprites/menu/difficulty.lua")()
-		arrowLeft = love.filesystem.load("sprites/menu/difficulty.lua")()
-		arrowRight = love.filesystem.load("sprites/menu/difficulty.lua")()
+		arrowUp = love.filesystem.load("sprites/menu/menuArrow.lua")()
+		arrowDown = love.filesystem.load("sprites/menu/menuArrow.lua")()
+		arrowLeft = love.filesystem.load("sprites/menu/menuArrow.lua")()
+		arrowRight = love.filesystem.load("sprites/menu/menuArrow.lua")()
 
 		arrowUp:animate("arrow right", true)
 		arrowDown:animate("arrow left", true)
@@ -159,8 +171,9 @@ return {
 		--amongus
 
 
-		arrowUp.orientation = 1.5707963267949*3
+		arrowUp.orientation = 1.5707963267949
 		arrowDown.orientation = 1.5707963267949*3
+		arrowRight.orientation = 1.5707963267949*2
 
 		enemyDanceLines = love.filesystem.load("sprites/menu/idlelines.lua")()
 
@@ -271,9 +284,9 @@ return {
 				audio.playSound(selectSound)
 
 				Timer.script(function(wait)
-					arrowLeft:animate("arrow left confirm", false)
+					arrowLeft:animate("arrow pressed", false)
 					wait(0.1)
-					arrowLeft:animate("arrow left", true)
+					arrowLeft:animate("arrow", true)
 				end)
 
 				if currentWeek ~= 0 then
@@ -283,15 +296,15 @@ return {
 					currentWeek = 7
 					weekNum = 8
 				end
-				colourTween()
+				if freeplayColours[weekNum] then colourTween() else colourTweenAlt() end
 				menuFunc()
 			elseif input:pressed("right") then
 				audio.playSound(selectSound)
 
 				Timer.script(function(wait)
-					arrowRight:animate("arrow right confirm", false)
+					arrowRight:animate("arrow pressed", false)
 					wait(0.1)
-					arrowRight:animate("arrow right", true)
+					arrowRight:animate("arrow", true)
 				end)
 
 				if currentWeek ~= 7 then
@@ -301,15 +314,15 @@ return {
 					currentWeek = 0
 					weekNum = 1
 				end
-				colourTween()
+				if freeplayColours[weekNum] then colourTween() else colourTweenAlt() end
 				menuFunc()
 			elseif input:pressed("down") then
 				audio.playSound(selectSound)
 
 				Timer.script(function(wait)
-					arrowDown:animate("arrow left confirm", false)
+					arrowDown:animate("arrow pressed", false)
 					wait(0.1)
-					arrowDown:animate("arrow left", true)
+					arrowDown:animate("arrow", true)
 				end)
 
 				if songDifficulty ~= 1 then
@@ -322,9 +335,9 @@ return {
 				audio.playSound(selectSound)
 
 				Timer.script(function(wait)
-					arrowUp:animate("arrow right confirm", false)
+					arrowUp:animate("arrow pressed", false)
 					wait(0.1)
-					arrowUp:animate("arrow right", true)
+					arrowUp:animate("arrow", true)
 				end)
 
 				if songDifficulty ~= 3 then

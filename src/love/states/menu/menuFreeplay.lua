@@ -95,6 +95,12 @@ local weekMeta = { -- Add/remove weeks here
 			"Guns",
 			"Stress"
 		}
+	},
+	{
+		"fucking balls",
+		{
+			"wow balls"
+		}
 	}
 }
 local difficultyStrs = {
@@ -130,16 +136,7 @@ local function switchMenu(menu)
 			else
 				weekNum = (weekNum > 1) and weekNum - 1 or #weekMeta
 			end
-			Timer.tween(
-				0.2,
-				freeColour, 
-				{
-					[1] = freeplayColours[weekNum][1],
-					[2] = freeplayColours[weekNum][2],
-					[3] = freeplayColours[weekNum][3]
-				}, 
-				"linear"
-			)
+			if freeplayColours[weekNum] then colourTween() else colourTweenAlt() end
 		end
 		function rightFunc()
 			if menuState == 3 then
@@ -149,16 +146,7 @@ local function switchMenu(menu)
 			else
 				weekNum = (weekNum < #weekMeta) and weekNum + 1 or 1
 			end
-			Timer.tween(
-				0.2,
-				freeColour, 
-				{
-					[1] = freeplayColours[weekNum][1],
-					[2] = freeplayColours[weekNum][2],
-					[3] = freeplayColours[weekNum][3]
-				}, 
-				"linear"
-			)
+			if freeplayColours[weekNum] then colourTween() else colourTweenAlt() end
 		end
 		function confirmFunc()
 			if pressedUp ~= 10 then
@@ -255,16 +243,7 @@ function leftFunc()
 	else
 		weekNum = (weekNum > 1) and weekNum - 1 or #weekMeta
 	end
-	Timer.tween(
-		0.2,
-		freeColour, 
-		{
-			[1] = freeplayColours[weekNum][1],
-			[2] = freeplayColours[weekNum][2],
-			[3] = freeplayColours[weekNum][3]
-		}, 
-		"linear"
-	)
+	if freeplayColours[weekNum] then colourTween() else colourTweenAlt() end
 end
 function rightFunc()
 	if menuState == 3 then
@@ -274,16 +253,7 @@ function rightFunc()
 	else
 		weekNum = (weekNum < #weekMeta) and weekNum + 1 or 1
 	end
-	Timer.tween(
-		0.2,
-		freeColour, 
-		{
-			[1] = freeplayColours[weekNum][1],
-			[2] = freeplayColours[weekNum][2],
-			[3] = freeplayColours[weekNum][3]
-		}, 
-		"linear"
-	)
+	if freeplayColours[weekNum] then colourTween() else colourTweenAlt() end
 end
 function confirmFunc()
 	if pressedUp ~= 10 then
@@ -399,16 +369,31 @@ return {
 			{173,235,247}, -- Week 6
 			{231,139,8} -- Week 7
 		}
-		Timer.tween(
-			0.2,
-			freeColour, 
-			{
-				[1] = freeplayColours[1][1],
-				[2] = freeplayColours[1][2],
-				[3] = freeplayColours[1][3]
-			}, 
-			"linear"
-		)
+		function colourTween()
+			Timer.tween(
+				0.2,
+				freeColour, 
+				{
+					[1] = freeplayColours[1][1],
+					[2] = freeplayColours[1][2],
+					[3] = freeplayColours[1][3]
+				}, 
+				"linear"
+			)
+		end
+		colourTween()
+		function colourTweenAlt()
+			Timer.tween(
+				0.1,
+				freeColour, 
+				{
+					[1] = freeplayColours[1][1],
+					[2] = freeplayColours[1][2],
+					[3] = freeplayColours[1][3]
+				}, 
+				"linear"
+			)
+		end
 
 		bf:animate("idle", true)
 		
@@ -482,7 +467,7 @@ return {
 
 			graphics.setColorF(freeColour[1], freeColour[2], freeColour[3])
 			menuBG:draw()
-
+			graphics.setColor(1,1,1)
 			if pressedUp == 10 then
 				pbf:udraw(-6.2,6.2)
 				bf:udraw(0.9, 0.9)
