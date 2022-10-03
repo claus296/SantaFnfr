@@ -115,12 +115,13 @@ return {
 		love.graphics.push()
 			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
 			love.graphics.scale(cam.sizeX, cam.sizeY)
+			love.graphics.scale(camZoom.sizeX, camZoom.sizeY)
 
 			stages["city"]:draw()
 
 			weeks:drawRating(0.9)
 		love.graphics.pop()
-
+		weeks:drawTimeLeftBar()
 		weeks:drawHealthBar()
 		if not paused then
 

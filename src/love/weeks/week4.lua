@@ -123,10 +123,9 @@ return {
 			love.graphics.scale(cam.sizeX, cam.sizeY)
 
 			stages["sunset"]:draw()
-			
-			weeks:drawRating(1)
-			
+			weeks:drawRating(0.9)	
 		love.graphics.pop()
+		weeks:drawTimeLeftBar()
 		weeks:drawHealthBar()
 		if not paused then
 			weeks:drawUI()

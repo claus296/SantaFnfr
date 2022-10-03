@@ -418,7 +418,7 @@ function love.keypressed(key)
 		Gamestate.switch(debugMenu)
 	elseif key == "0" then
 		volFade = 1
-		if fixVol then
+		if fixVol == 0 then
 			love.audio.setVolume(lastAudioVolume)
 		else
 			lastAudioVolume = love.audio.getVolume()
@@ -429,7 +429,6 @@ function love.keypressed(key)
 		if fixVol > 0 then
 			love.audio.setVolume(love.audio.getVolume() - 0.1)
 		end
-		
 	elseif key == "=" then
 		volFade = 1
 		if fixVol <= 0.9 then

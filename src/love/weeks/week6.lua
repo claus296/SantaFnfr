@@ -253,9 +253,9 @@ return {
 				scaryDialogueBox:draw()
 				spiritPortait:draw()
 			end
-			weeks:drawDialogue()
 		end
 		if not doingDialogue and not cutscene then
+			weeks:drawTimeLeftBar()
 			weeks:drawHealthBar()
 			if not paused then
 				weeks:drawUI()

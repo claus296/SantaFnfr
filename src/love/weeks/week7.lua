@@ -371,13 +371,11 @@ return {
 			love.graphics.scale(cam.sizeX, cam.sizeY)
 
 			stages["tank"]:draw()
-
-			if not cutscene then
-				weeks:drawRating(0.9)
-			end
+			weeks:drawRating(0.9)
 		love.graphics.pop()
 
 		if not cutscene then
+			weeks:drawTimeLeftBar()
 			weeks:drawHealthBar()
 			if not paused then
 

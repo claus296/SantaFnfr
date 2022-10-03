@@ -1096,9 +1096,14 @@ return {
 		end
 
 		currentSeconds = voices:tell("seconds")
-		songLenth = voices:getDuration("seconds")
-		timeLeft = songLenth - currentSeconds
-		timeLeftFixed = math.floor(timeLeft)
+		songLength = voices:getDuration("seconds")
+		timeLeft = songLength - currentSeconds
+		--timeLeftFixed = math.floor(timeLeft)
+		-- get the minutes and seconds of timeLeft
+		timeLeftMinutes = math.floor(timeLeft / 60)
+		timeLeftSeconds = math.floor(timeLeft % 60)
+		-- format the timeLeft string
+		timeLeftString = string.format("%02d:%02d", timeLeftMinutes, timeLeftSeconds)
 
 		if input:pressed("pause") and not countingDown then
 			if not paused then
@@ -1434,6 +1439,16 @@ return {
 											end
 											ratingTimers[5] = Timer.tween(2, numbers[3], {y = girlfriend.y + love.math.random(-10, 10)}, "out-elastic") -- 1's
 
+											if combo < 10 then
+												numbers[3].x = girlfriend.x
+											elseif combo < 100 then
+												numbers[2].x = girlfriend.x - 25
+												numbers[3].x = girlfriend.x + 25
+											else
+												numbers[1].x = girlfriend.x - 50
+												numbers[2].x = girlfriend.x
+												numbers[3].x = girlfriend.x + 50
+											end
 											table.remove(boyfriendNote, i)
 
 											if not settings.ghostTapping or success then
@@ -1551,32 +1566,33 @@ return {
 	end,
 
 	drawRating = function(self, multiplier)
+		if settings.middleScroll then
+			love.graphics.translate(400, 0)
+		end
 		love.graphics.push()
-			if multiplier then
-				love.graphics.translate(cam.x * multiplier, cam.y * multiplier)
-			else
-				love.graphics.translate(cam.x, cam.y)
-			end
-
 			graphics.setColor(1, 1, 1, ratingVisibility[1])
 			if not pixel then
 				rating:draw()
-				if combo >= 100 then
-					numbers[1]:draw()
+				if combo >= 5 then
+					if combo >= 100 then
+						numbers[1]:draw()
+					end
+					if combo >= 10 then
+						numbers[2]:draw()
+					end
+					numbers[3]:draw()
 				end
-				if combo >= 10 then
-					numbers[2]:draw()
-				end
-				numbers[3]:draw()
 			else
 				rating:udraw(6, 6)
-				if combo >= 100 then
-					numbers[1]:udraw(6,6)
+				if combo >= 5 then
+					if combo >= 100 then
+						numbers[1]:udraw(6,6)
+					end
+					if combo >= 10 then
+						numbers[2]:udraw(6,6)
+					end
+					numbers[3]:udraw(6,6)
 				end
-				if combo >= 10 then
-					numbers[2]:udraw(6,6)
-				end
-				numbers[3]:udraw(6,6)
 			end
 			graphics.setColor(1, 1, 1)
 		love.graphics.pop()
@@ -1783,6 +1799,16 @@ return {
 			graphics.setColor(1, 1, 1)
 		love.graphics.pop()
 	end,
+	drawTimeLeftBar = function()
+		love.graphics.push()
+			graphics.setColor(0, 0, 0, 0.5)
+			love.graphics.rectangle("fill", 0, 0, 1282, 25)
+			graphics.setColor(1, 0, 0, 0.5)
+			love.graphics.rectangle("fill", 0, 0, 1282 * (timeLeft / songLength), 25)
+			graphics.setColor(1, 1, 1)
+			love.graphics.print("Time Left: " .. timeLeftString, 10, 0)
+		love.graphics.pop()
+	end,
 	drawHealthBar = function()
 		love.graphics.push()
 			-- Scroll underlay
@@ -1842,15 +1868,15 @@ return {
 			if not settings.botPlay then
 				if noteCounter + missCounter <= 0 then
 					if (math.floor((altScore / (noteCounter + missCounter)) / 3.5)) >= 100 then
-						uitextf("Score: " .. score .. " | Misses: " .. missCounter .. " | Time Remaining: " .. timeLeftFixed .. " | Accuracy: 0% | Rating: ???", -600, 400+downscrollOffset, 1200, "center")
+						uitextf("Score: " .. score .. " | Misses: " .. missCounter .. " | Accuracy: 0% | Rating: ???", -600, 400+downscrollOffset, 1200, "center")
 					else
-						uitextf("Score: " .. score .. " | Misses: " .. missCounter .. " | Time Remaining: " .. timeLeftFixed .. " | Accuracy: 0% | Rating: ???", -600, 400+downscrollOffset, 1200, "center")
+						uitextf("Score: " .. score .. " | Misses: " .. missCounter .. " | Accuracy: 0% | Rating: ???", -600, 400+downscrollOffset, 1200, "center")
 					end
 				else
 					if (math.floor((altScore / (noteCounter + missCounter)) / 3.5)) >= 100 then
-						uitextf("Score: " .. score .. " | Misses: " .. missCounter .. " | Time Remaining: " .. timeLeftFixed .. " | Accuracy: 100% | Rating: PERFECT!!!", -600, 400+downscrollOffset, 1200, "center")
+						uitextf("Score: " .. score .. " | Misses: " .. missCounter .. " | Accuracy: 100% | Rating: PERFECT!!!", -600, 400+downscrollOffset, 1200, "center")
 					else
-						uitextf("Score: " .. score .. " | Misses: " .. missCounter .. " | Time Remaining: " .. timeLeftFixed .. " | Accuracy: " .. convertedAcc .. " | Rating: " .. ratingText, -600, 400+downscrollOffset, 1200, "center")
+						uitextf("Score: " .. score .. " | Misses: " .. missCounter .. " | Accuracy: " .. convertedAcc .. " | Rating: " .. ratingText, -600, 400+downscrollOffset, 1200, "center")
 					end
 				end
 

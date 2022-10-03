@@ -118,9 +118,9 @@ return {
 			love.graphics.scale(cam.sizeX, cam.sizeY)
 
 			stages["stage"]:draw()
-
 			weeks:drawRating(0.9)
 		love.graphics.pop()
+		
 
 		weeks:drawHealthBar()
 		if not paused then

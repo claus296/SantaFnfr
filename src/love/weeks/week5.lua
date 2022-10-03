@@ -172,9 +172,10 @@ return {
 			love.graphics.scale(cam.sizeX, cam.sizeY)
 
 			stages["mall"]:draw()
-
 			weeks:drawRating(0.9)
 		love.graphics.pop()
+		weeks:drawTimeLeftBar()
+		weeks:drawRating(0.9)
 
 		if not scaryIntro then
 			stages["mall"]:drawUI()
