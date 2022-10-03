@@ -172,7 +172,8 @@ function love.load()
 	end
 
 	function volumeControl()
-		-- ch's volume control stuff
+		-- Guglios's volume control stuff
+		-- (Some is ch's though)
 		love.graphics.setColor(1, 1, 1, volFade)
 		fixVol = tonumber(string.format(
 			"%.1f  ",
