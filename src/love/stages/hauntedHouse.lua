@@ -19,7 +19,7 @@ return {
         if not stageImages[1]:isAnimated() then
 			stageImages[1]:animate("normal", false)
 		end
-        if song == 1 and musicThres ~= oldMusicThres and math.fmod(absMusicTime, 60000 * (love.math.random(17) + 7) / bpm) < 100 then
+        if musicThres ~= oldMusicThres and math.fmod(absMusicTime, 60000 * (love.math.random(17) + 7) / bpm) < 100 then
 			audio.playSound(sounds["thunder"][love.math.random(2)])
 
 			stageImages[1]:animate("lightning", false)

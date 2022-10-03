@@ -1545,6 +1545,12 @@ return {
 		end
 	end,
 
+	doFlash = function(self)
+		if not settings.noFlash then
+			Timer.tween((60/bpm), flash, {alpha = 1}, "linear", function() Timer.tween((60/bpm), flash, {alpha = 0}, "linear") end)
+		end
+	end,
+
 	drawRating = function(self, multiplier)
 		if settings.middleScroll then
 			love.graphics.translate(400, 0)
@@ -1579,6 +1585,11 @@ return {
 	end, -- i love men so much men just make me go wfhjlisdfjkl;jsdrfghnlkgbdehrsgnkadlufhgbkldashbfgoigabdfrsoliabdrsglkadjrshgpio9abejrsgn;kladsfjghlikhb 
 
 	drawUI = function(self)
+		love.graphics.push()
+			graphics.setColor(1,1,1, flash.alpha)
+			love.graphics.rectangle("fill", 0, 0, 1280, 720)
+			graphics.setColor(1,1,1)
+		love.graphics.pop()
 		love.graphics.push()
 			love.graphics.translate(lovesize.getWidth() / 2, lovesize.getHeight() / 2)
 			if not settings.downscroll then

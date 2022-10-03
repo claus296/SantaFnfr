@@ -242,6 +242,7 @@ function love.load()
 		customBindUp = data.saveSettingsMoment.customBindUp
 		customBindLeft = data.saveSettingsMoment.customBindLeft
 		customBindRight = data.saveSettingsMoment.customBindRight
+		settings.flashinglights = data.saveSettingsMoment.flashinglights
 
 		settingsVer = data.saveSettingsMoment.settingsVer
 
@@ -269,16 +270,17 @@ function love.load()
 			customBindUp = customBindUp,
 			customBindLeft = customBindLeft,
 			customBindRight = customBindRight,
+			flashinglights = settings.flashinglights,
 			settingsVer = settingsVer
 		}
 		serialized = lume.serialize(data)
 		love.filesystem.write("settings", serialized)
 	end
-	if settingsVer ~= 5 then
+	if settingsVer ~= 6 then
 		love.window.showMessageBox("Uh Oh!", "Settings have been reset.", "warning")
 		love.filesystem.remove("settings.data")
 	end
-	if not love.filesystem.getInfo("settings") or settingsVer ~= 5 then
+	if not love.filesystem.getInfo("settings") or settingsVer ~= 6 then
 		settings.hardwareCompression = true
 		graphics.setImageType("dds")
 		settings.downscroll = false
@@ -302,7 +304,8 @@ function love.load()
 		customBindRight = "d"
 		customBindUp = "w"
 		customBindDown = "s"
-		settingsVer = 5
+		settings.flashinglights = false
+		settingsVer = 6
 		data = {}
 		data.saveSettingsMoment = {
 			hardwareCompression = settings.hardwareCompression,
@@ -328,6 +331,7 @@ function love.load()
 			customBindRight = customBindRight,
 			customBindUp = customBindUp,
 			customBindDown = customBindDown,
+			flashinglights = settings.flashinglights,
 			
 			settingsVer = settingsVer
 		}
@@ -366,6 +370,7 @@ function love.load()
 	camScale = {x = 0.9, y = 0.9}
 	camZoom = {sizeX = 1, sizeY = 1}
 	uiScale = {x = 1, y = 1, sizeX = 1, sizeY = 1}
+	flash = {alpha = 0}
 
 	musicTime = 0
 	health = 0

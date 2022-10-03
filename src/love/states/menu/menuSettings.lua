@@ -279,8 +279,14 @@ return {
                             else
                                 settings.hitsounds = false
                             end
-                        end
                         -- 10 is noteskins
+                        elseif settingSelect == 11 then
+                            if not settings.flashinglights then
+                                settings.flashinglights = true
+                            else
+                                settings.flashinglights = false
+                            end
+                        end
                     elseif settingsMenuState == 3 then
                         if settingSelect == 1 then
                             if settings.hardwareCompression then
@@ -331,7 +337,7 @@ return {
                     if settingSelect ~= 1 then
                         settingSelect = settingSelect - 1
                     else
-                        settingSelect = 10
+                        settingSelect = 11
                     end
                 elseif settingsMenuState == 3 then
                     if settingSelect ~= 1 then
@@ -354,7 +360,7 @@ return {
                         settingSelect = 1
                     end
                 elseif settingsMenuState == 2 then
-                    if settingSelect ~= 10 then
+                    if settingSelect ~= 11 then
                         settingSelect = settingSelect + 1
                     else
                         settingSelect = 1
