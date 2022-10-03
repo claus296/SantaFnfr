@@ -237,6 +237,7 @@ return {
 		if doingDialogue then -- Doing this cuz i'm stupid as shit
 			if song == 1 then
 				dialogueBox:draw()
+				weeks:drawDialogue()
 				if curDialogue ~= 3 then
 					senpaiPortrait:draw()
 				else
