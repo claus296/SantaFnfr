@@ -156,22 +156,14 @@ return {
 			if input:pressed("up") then
 				audio.playSound(selectSound)
 
-                if menuButton ~= 1 then
-                    menuButton = menuButton - 1
-                else
-                    menuButton = 4
-                end -- change 3 to the amount of options there are.
+                menuButton = menuButton ~= 1 and menuButton - 1 or 4
 
                 changeSelect()
 
 			elseif input:pressed("down") then
 				audio.playSound(selectSound)
 
-                if menuButton ~= 4 then
-                    menuButton = menuButton + 1
-                else
-                    menuButton = 1
-                end
+                menuButton = menuButton ~= 4 and menuButton + 1 or 1
 
                 changeSelect()
 

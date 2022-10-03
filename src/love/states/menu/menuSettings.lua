@@ -322,55 +322,23 @@ return {
                 end
             elseif input:pressed("up") then
                 if settingsMenuState == 0 then
-                    if settingSelect ~= 1 then
-                        settingSelect = settingSelect - 1
-                    else
-                        settingSelect = 5
-                    end
+                    settingSelect = settingSelect ~= 1 and settingSelect - 1 or 5
                 elseif settingsMenuState == 1 then
-                    if settingSelect ~= 1 then
-                        settingSelect = settingSelect - 1
-                    else
-                        settingSelect = 3
-                    end
+                    settingSelect = settingSelect ~= 1 and settingSelect - 1 or 2
                 elseif settingsMenuState == 2 then
-                    if settingSelect ~= 1 then
-                        settingSelect = settingSelect - 1
-                    else
-                        settingSelect = 11
-                    end
+                    settingSelect = settingSelect ~= 1 and settingSelect - 1 or 11
                 elseif settingsMenuState == 3 then
-                    if settingSelect ~= 1 then
-                        settingSelect = settingSelect - 1
-                    else
-                        settingSelect = 5
-                    end
+                    settingSelect = settingSelect ~= 1 and settingSelect - 1 or 5
                 end
             elseif input:pressed("down") then
                 if settingsMenuState == 0 then
-                    if settingSelect ~= 5 then
-                        settingSelect = settingSelect + 1
-                    else
-                        settingSelect = 1
-                    end
+                    settingSelect = settingSelect ~= 5 and settingSelect + 1 or 1
                 elseif settingsMenuState == 1 then
-                    if settingSelect ~= 3 then
-                        settingSelect = settingSelect + 1
-                    else
-                        settingSelect = 1
-                    end
+                    settingSelect = settingSelect ~= 3 and settingSelect + 1 or 1
                 elseif settingsMenuState == 2 then
-                    if settingSelect ~= 11 then
-                        settingSelect = settingSelect + 1
-                    else
-                        settingSelect = 1
-                    end
+                    settingSelect = settingSelect ~= 11 and settingSelect + 1 or 1
                 elseif settingsMenuState == 3 then
-                    if settingSelect ~= 5 then
-                        settingSelect = settingSelect + 1
-                    else
-                        settingSelect = 1
-                    end                    
+                    settingSelect = settingSelect ~= 5 and settingSelect + 1 or 1               
                 end
             elseif input:pressed("right") then
                 if settingsMenuState == 2 then
