@@ -40,47 +40,27 @@ local useAltAnims1
 local notMissed = {}
 
 function tweenPauseButtons()
-	if week ~= 5 then
-		resume.x, resume.y = -1000, 120
-		resumeH.x, resumeH.y = resume.x, resume.y
-		restart.x, restart.y = -1000, 295
-		restartH.x, restartH.y = restart.x, restart.y 
-		exit.x, exit.y = -1000, 470
-		exitH.x, exitH.y = exit.x, exit.y 
-		options.x, options.y = -1000, 645
-		optionsH.x, optionsH.y = options.x, options.y
-		pauseCurtain.y = -1000
-		pausedGraphic.x = 2000
+	resume.x, resume.y = -1000, 120
+	resumeH.x, resumeH.y = resume.x, resume.y
+	restart.x, restart.y = -1000, 295
+	restartH.x, restartH.y = restart.x, restart.y 
+	exit.x, exit.y = -1000, 470
+	exitH.x, exitH.y = exit.x, exit.y 
+	options.x, options.y = -1000, 645
+	optionsH.x, optionsH.y = options.x, options.y
+	pauseCurtain.y = -1000
+	pausedGraphic.x = 2000
 
-		Timer.tween(1, resume, {x = 550}, "out-back")
-		Timer.tween(1, resumeH, {x = 550}, "out-back")
-		Timer.tween(1.2, restart, {x = 500}, "out-back")
-		Timer.tween(1.2, restartH, {x = 500}, "out-back")
-		Timer.tween(1.4, exit, {x = 450}, "out-back")
-		Timer.tween(1.4, exitH, {x = 450}, "out-back")
-		Timer.tween(1.6, options, {x = 400}, "out-back")
-		Timer.tween(1.6, optionsH, {x = 400}, "out-back")
-		Timer.tween(1, pauseCurtain, {y = 320}, "out-expo")
-		Timer.tween(0.5, pausedGraphic, {x = 1200}, "out-quad")
-	else
-		resume.x, resume.y = -2500, 120 - 900 
-		resumeH.x, resumeH.y = resume.x, resume.y
-		restart.x, restart.y = -2500, 295 - 900
-		restartH.x, restartH.y = restart.x, restart.y 
-		exit.x, exit.y = -2500, 470 - 900
-		exitH.x, exitH.y = exit.x, exit.y 
-		options.x, options.y = -2500, 645 - 900
-		optionsH.x, optionsH.y = options.x, options.y
-
-		Timer.tween(1, resume, {x = -1750}, "out-back")
-		Timer.tween(1, resumeH, {x = -1750}, "out-back")
-		Timer.tween(1.2, restart, {x = -1700}, "out-back")
-		Timer.tween(1.2, restartH, {x = -1700}, "out-back")
-		Timer.tween(1.4, exit, {x = -1650}, "out-back")
-		Timer.tween(1.4, exitH, {x = -1650}, "out-back")
-		Timer.tween(1.6, options, {x = -1600}, "out-back")
-		Timer.tween(1.6, optionsH, {x = -1600}, "out-back")
-	end
+	Timer.tween(1, resume, {x = 550}, "out-back")
+	Timer.tween(1, resumeH, {x = 550}, "out-back")
+	Timer.tween(1.2, restart, {x = 500}, "out-back")
+	Timer.tween(1.2, restartH, {x = 500}, "out-back")
+	Timer.tween(1.4, exit, {x = 450}, "out-back")
+	Timer.tween(1.4, exitH, {x = 450}, "out-back")
+	Timer.tween(1.6, options, {x = 400}, "out-back")
+	Timer.tween(1.6, optionsH, {x = 400}, "out-back")
+	Timer.tween(1, pauseCurtain, {y = 320}, "out-expo")
+	Timer.tween(0.5, pausedGraphic, {x = 1200}, "out-quad")
 end
 
 return {
@@ -1813,22 +1793,18 @@ return {
 	drawHealthBar = function()
 		love.graphics.push()
 			-- Scroll underlay
-			if week ~= 5 then
-				love.graphics.push()
-					graphics.setColor(0,0,0,settings.scrollUnderlayTrans)
-					if settings.middleScroll then
-						love.graphics.rectangle("fill", 400, -100, 90 + 170 * 2.35, 1000)
-					else
-						love.graphics.rectangle("fill", 755, -100, 90 + 170 * 2.35, 1000)
-					end
-					graphics.setColor(1,1,1,1)
-				love.graphics.pop()
+			love.graphics.push()
+				graphics.setColor(0,0,0,settings.scrollUnderlayTrans)
+				if settings.middleScroll then
+					love.graphics.rectangle("fill", 400, -100, 90 + 170 * 2.35, 1000)
+				else
+					love.graphics.rectangle("fill", 755, -100, 90 + 170 * 2.35, 1000)
 				end
-			if week ~= 5 then
-				love.graphics.translate(lovesize.getWidth() / 2, lovesize.getHeight() / 2)
-				love.graphics.scale(0.7, 0.7)
-				love.graphics.scale(uiScale.sizeX, uiScale.sizeY)
-			end
+				graphics.setColor(1,1,1,1)
+			love.graphics.pop()
+			love.graphics.translate(lovesize.getWidth() / 2, lovesize.getHeight() / 2)
+			love.graphics.scale(0.7, 0.7)
+			love.graphics.scale(uiScale.sizeX, uiScale.sizeY)
 			graphics.setColor(healthBarColorEnemy[1]/255, healthBarColorEnemy[2]/255, healthBarColorEnemy[3]/255)
 			love.graphics.rectangle("fill", -500, 350+downscrollOffset, 1000, 25)
 			graphics.setColor(healthBarColorPlayer[1]/255, healthBarColorPlayer[2]/255, healthBarColorPlayer[3]/255)

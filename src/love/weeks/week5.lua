@@ -23,9 +23,6 @@ local scaryIntro = false
 
 return {
 	enter = function(self, from, songNum, songAppend)
-		pauseColorR = 141 / 255
-		pauseColorG = 184 / 255
-		pauseColorB = 225 / 255
 		pauseColor = {141, 184, 225}
 		cam.sizeX, cam.sizeY = 0.7, 0.7
 		camScale.x, camScale.y = 0.7, 0.7
@@ -174,11 +171,11 @@ return {
 			stages["mall"]:draw()
 			weeks:drawRating(0.9)
 		love.graphics.pop()
-		weeks:drawTimeLeftBar()
-		weeks:drawRating(0.9)
-
+		
 		if not scaryIntro then
-			stages["mall"]:drawUI()
+			weeks:drawTimeLeftBar()
+			weeks:drawHealthBar()
+			weeks:drawUI()
 		end
 
 		--where in fuck is drawui guglio can we PLEASE just rewrite week 5 PLEASE WEEK 5 IS PAINFUL LIKE THIS PLEASE LETS REWRITE IT
