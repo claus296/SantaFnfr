@@ -157,11 +157,6 @@ return {
 		arrowLeft = love.filesystem.load("sprites/menu/menuArrow.lua")()
 		arrowRight = love.filesystem.load("sprites/menu/menuArrow.lua")()
 
-		arrowUp:animate("arrow right", true)
-		arrowDown:animate("arrow left", true)
-		arrowLeft:animate("arrow left", true)
-		arrowRight:animate("arrow right", true)
-
 		arrowUp.x, arrowUp.y = 0, 175
 		arrowDown.x, arrowDown.y = 0, 305
 

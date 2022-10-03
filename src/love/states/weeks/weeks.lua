@@ -1806,7 +1806,8 @@ return {
 			graphics.setColor(1, 0, 0, 0.5)
 			love.graphics.rectangle("fill", 0, 0, 1282 * (timeLeft / songLength), 25)
 			graphics.setColor(1, 1, 1)
-			love.graphics.print("Time Left: " .. timeLeftString, 10, 0)
+			-- center the text in the bar
+			love.graphics.printf("Time Left: " .. timeLeftString, 0, 0, 1282, "center")
 		love.graphics.pop()
 	end,
 	drawHealthBar = function()
