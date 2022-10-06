@@ -228,6 +228,7 @@ return {
 		love.graphics.setFont(font)
 		love.graphics.push()
 			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
+			love.graphics.scale(extraCamZoom.sizeX, extraCamZoom.sizeY)
 			love.graphics.scale(cam.sizeX, cam.sizeY)
 
 			stages["school"]:draw()

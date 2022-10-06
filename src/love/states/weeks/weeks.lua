@@ -30,9 +30,9 @@ local inputList = {
 	"gameRight"
 }
 
-local missCounter = 0
-local noteCounter = 0
-local altScore = 0
+missCounter = 0
+noteCounter = 0
+altScore = 0
 
 local ratingTimers = {}
 
@@ -1551,6 +1551,33 @@ return {
 		end
 	end,
 
+	zoomCamera = function(self, time, sizeX, sizeY, easeType, direct)
+		if extraCamZoom then
+			Timer.cancel(extraCamZoom)
+		end
+		if direct then
+			theCamZoom = Timer.tween(
+				time,
+				extraCamZoom,
+				{
+					sizeX = sizeX,
+					sizeY = sizeY
+				},
+				easeType
+			)
+		else
+			theCamZoom = Timer.tween(
+				time,
+				extraCamZoom,
+				{
+					sizeX = extraCamZoom.sizeX + sizeX,
+					sizeY = extraCamZoom.sizeY + sizeY
+				},
+				easeType
+			)
+		end
+	end,
+
 	drawRating = function(self, multiplier)
 		if settings.middleScroll then
 			love.graphics.translate(400, 0)
@@ -1968,6 +1995,8 @@ return {
 		if inst then inst:stop() end
 		voices:stop()
 		uiTextColour = {1,1,1}
+		extraCamZoom.sizeX = 1
+		extraCamZoom.sizeY = 1
 
 		Timer.clear()
 

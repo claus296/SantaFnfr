@@ -23,7 +23,7 @@ local stageBack, stageFront, curtains
 
 local zoomTimer
 local zoom = {}
-
+local bump
 return {
 	enter = function(self, from, songNum, songAppend)
 		pauseColor = {146, 0, 68}
@@ -33,6 +33,7 @@ return {
 		week = 0
 
 		difficulty = songAppend
+		bump = 0
 
 		--healthBarColorPlayer = {R,G,B} -- USE 255 VALUES
 		healthBarColorEnemy = {165,0,77}
@@ -133,10 +134,20 @@ return {
 			end
 		end
 
-		currentSeconds = voices:tell("seconds") -- fuck you tutorial
-		songLenth = voices:getDuration("seconds")
-		timeLeft = songLenth - currentSeconds
-		timeLeftFixed = math.floor(timeLeft)
+		currentSeconds = voices:tell("seconds")
+		songLength = voices:getDuration("seconds")
+		timeLeft = songLength - currentSeconds
+		--timeLeftFixed = math.floor(timeLeft)
+		-- get the minutes and seconds of timeLeft
+		timeLeftMinutes = math.floor(timeLeft / 60)
+		timeLeftSeconds = math.floor(timeLeft % 60)
+		-- format the timeLeft string
+		timeLeftString = string.format("%02d:%02d", timeLeftMinutes, timeLeftSeconds)
+
+		convertedAcc = string.format(
+			"%.2f%%",
+			(altScore / (noteCounter + missCounter))
+		)
 		
 		oldMusicThres = musicThres
 		if countingDown or love.system.getOS() == "Web" then -- Source:tell() can't be trusted on love.js!
@@ -189,7 +200,13 @@ return {
 
 		if musicThres ~= oldMusicThres and math.fmod(absMusicTime, 240000 / bpm) < 100 then
 			if camScaleTimer then Timer.cancel(camScaleTimer) end
-
+			bump = bump + 1
+			if bump < 4 then
+				weeks:zoomCamera(0.5, 0.25, 0.25, "out-quad", false)
+			end
+			if bump == 4 then
+				weeks:zoomCamera(0.5, -1, -1, "out-quad", false)
+			end
 			camScaleTimer = Timer.tween((60 / bpm) / 16, cam, {sizeX = camScale.x * 1.05, sizeY = camScale.y * 1.05}, "out-quad", function() camScaleTimer = Timer.tween((60 / bpm), cam, {sizeX = camScale.x, sizeY = camScale.y}, "out-quad") end)
 		end
 
@@ -245,6 +262,7 @@ return {
 	draw = function(self)
 		love.graphics.push()
 			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
+			love.graphics.scale(extraCamZoom.sizeX, extraCamZoom.sizeY)
 			love.graphics.scale(cam.sizeX * zoom[1], cam.sizeY * zoom[1])
 
 			love.graphics.push()

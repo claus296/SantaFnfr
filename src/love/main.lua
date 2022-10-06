@@ -370,6 +370,7 @@ function love.load()
 	camScale = {x = 0.9, y = 0.9}
 	camZoom = {sizeX = 1, sizeY = 1}
 	uiScale = {x = 1, y = 1, sizeX = 1, sizeY = 1}
+	extraCamZoom = {sizeX = 1, sizeY = 1}
 	flash = {alpha = 0}
 
 	musicTime = 0

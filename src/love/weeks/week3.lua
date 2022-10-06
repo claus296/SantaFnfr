@@ -114,6 +114,7 @@ return {
 	draw = function(self)
 		love.graphics.push()
 			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
+			love.graphics.scale(extraCamZoom.sizeX, extraCamZoom.sizeY)
 			love.graphics.scale(cam.sizeX, cam.sizeY)
 			love.graphics.scale(camZoom.sizeX, camZoom.sizeY)
 

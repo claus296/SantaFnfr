@@ -166,6 +166,7 @@ return {
 	draw = function(self)
 		love.graphics.push()
 			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
+			love.graphics.scale(extraCamZoom.sizeX, extraCamZoom.sizeY)
 			love.graphics.scale(cam.sizeX, cam.sizeY)
 
 			stages["mall"]:draw()
@@ -175,7 +176,7 @@ return {
 		if not scaryIntro then
 			weeks:drawTimeLeftBar()
 			weeks:drawHealthBar()
-			weeks:drawUI()
+			weeks:drawUI() -- ITS RIGHT HERE DUMBASS
 		end
 
 		--where in fuck is drawui guglio can we PLEASE just rewrite week 5 PLEASE WEEK 5 IS PAINFUL LIKE THIS PLEASE LETS REWRITE IT
