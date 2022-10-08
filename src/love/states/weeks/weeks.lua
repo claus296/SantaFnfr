@@ -1857,7 +1857,9 @@ return {
 			enemyIcon:draw()
 			graphics.setColor(uiTextColour[1],uiTextColour[2],uiTextColour[3])
 			accForRatingText = (altScore / (noteCounter + missCounter))
-			if accForRatingText >= 100 then
+			if accForRatingText >= 101 then
+				ratingText = "what"  -- the goofy ahh easter egg that nobody will ever find
+			elseif accForRatingText >= 100 then
 				ratingText = "PERFECT!!!!" -- i added one ! so i could feel like i actually did something
 			elseif accForRatingText >= 90 then
 				ratingText = "Great!"
