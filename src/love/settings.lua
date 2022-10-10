@@ -52,7 +52,6 @@ settings = {}
 if curOS == "NX" then
 	love.window.setMode(1920, 1080)
 
-	-- TODO: Restore showMessageBox functionality using LÖVE Potion's implementation
 	if love.filesystem.getInfo("settings.ini") then
 		settingsIni = ini.load("settings.ini")
 
