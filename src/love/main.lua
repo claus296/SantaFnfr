@@ -353,6 +353,8 @@ function love.load()
 
 	-- Variables
 	font = love.graphics.newFont("fonts/vcr.ttf", 24)
+	FNFFont = love.graphics.newFont("fonts/fnFont.ttf", 24)
+	credFont = love.graphics.newFont("fonts/fnFont.ttf", 32)   -- guglio is a bitch
 
 	weekNum = 1
 	songDifficulty = 2
