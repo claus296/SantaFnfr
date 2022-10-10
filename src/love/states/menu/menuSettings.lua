@@ -52,7 +52,10 @@ settingsDescriptions1 = { -- The big spaces are so it lines up lol
     "\n       \"Hitsounds\" ", -- CH YOU DO THIS ONE
 
     "Noteskins" ..
-    "\n       \"Noteskins\" "
+    "\n       \"Noteskins\" ",
+
+    "Flashing Lights" ..
+    "\n       \"Flashing Lights\" Enable/Disable flashing lights",
 }
 settingsDescriptions2 = {
 
@@ -457,6 +460,7 @@ return {
                     love.graphics.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\nScroll Underlay Transparency = " .. tostring(settings.scrollUnderlayTrans), -628, -300)
                     love.graphics.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHitsounds = " .. tostring(settings.hitsounds), -628, -300)
                     love.graphics.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNoteskin = " .. tostring(noteskins[settings.noteSkins]), -628, -300)
+                    love.graphics.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFlashing Lights = " .. tostring(settings.flashinglights), -628, -300)
                 elseif settingsMenuState == 3 then
                     love.graphics.print("Hardware Compression = " .. tostring(settings.hardwareCompression) .. " " .. isRestartNeeded, -628, -300) 
                     love.graphics.print("\n\nShow Debug = " .. tostring(settings.showDebug), -628, -300)
