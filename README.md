@@ -78,7 +78,7 @@ The settings file can be found in the following places on the following systems:
 * A few more small changes are stil needed, but its very close
 
 **Weeks** - ~7/9 Complete
-* Tutorial + Weeks 1-5 are implemented.
+* Tutorial + Weeks 1-7 are implemented.
 * Week 3's train is not implemented yet.
 * Week 4's passing car is not implemented yet.
 * Weeks 7's Tankmen running and Tank is not implemented yet.
