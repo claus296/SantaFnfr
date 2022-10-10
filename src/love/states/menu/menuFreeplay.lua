@@ -95,12 +95,6 @@ local weekMeta = { -- Add/remove weeks here
 			"Guns",
 			"Stress"
 		}
-	},
-	{
-		"fucking balls",
-		{
-			"wow balls"
-		}
 	}
 }
 local difficultyStrs = {
@@ -374,9 +368,9 @@ return {
 				0.2,
 				freeColour, 
 				{
-					[1] = freeplayColours[1][1],
-					[2] = freeplayColours[1][2],
-					[3] = freeplayColours[1][3]
+					[1] = freeplayColours[weekNum][1],
+					[2] = freeplayColours[weekNum][2],
+					[3] = freeplayColours[weekNum][3]
 				}, 
 				"linear"
 			)
