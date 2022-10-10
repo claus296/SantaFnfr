@@ -407,8 +407,14 @@ return {
 
 				love.graphics.color.printf(theTracks, -639, 350, 853, "center", nil, 1.5, 1.5, freeColour[1], freeColour[2], freeColour[3])
 
+				love.graphics.setColor(0, 0, 0, 0.4)
+
+				love.graphics.rectangle("fill", -240, -700, 480, 500)
+				love.graphics.rectangle("fill", -240, 300, 480, 500)
 
 
+
+				love.graphics.setColor(1, 1, 1)
 				arrowUp:draw()
 				arrowLeft:draw()
 				arrowRight:draw()
