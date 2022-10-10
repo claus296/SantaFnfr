@@ -75,7 +75,6 @@ Claus - requested furry BF to be added to VE (press UP 10 times)
 -- dumbass doesnt know how to spell miscellaneous :skull: guglio typed miscillaneous
 return {
     enter = function(self)
-        credFont = love.graphics.newFont("fonts/fnFont.ttf", 32)
         credY = {
             250
         }

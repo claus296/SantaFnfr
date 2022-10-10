@@ -199,6 +199,7 @@ local function switchMenu(menu)
 		end
 		function drawFunc()
 			graphics.setColor(0, 0, 0)
+			love.graphics.setFont(FNFFont)
 			if menuState == 3 then
 				if songDifficulty == 3 then
 					love.graphics.printf("Choose a difficulty: < Hard >", -640, 285, 853, "center", nil, 1.5, 1.5)
@@ -219,6 +220,7 @@ local function switchMenu(menu)
 			else
 				love.graphics.printf("Arrow Keys: Select | Enter: Confirm | Escape: Back", -640, 350, 1280, "center", nil, 1, 1)
 			end
+			love.graphics.setFont(font)
 		end
 	end
 
@@ -307,6 +309,7 @@ end
 function drawFunc()
 	if pressedUp ~= 10 then
 		graphics.setColor(0, 0, 0)
+		love.graphics.setFont(FNFFont)
 		if menuState == 3 then
 			if songDifficulty == 3 then
 				love.graphics.printf("Choose a difficulty: < Hard >", -640, 285, 853, "center", nil, 1.5, 1.5)
@@ -331,6 +334,7 @@ function drawFunc()
 		graphics.setColor(1, 1, 1)
 		love.graphics.printf("Press enter to play the Test song", -640, 0, 1280, "center", nil, 1, 1)
 	end
+	love.graphics.setFont(font)
 		
 end
 
@@ -344,6 +348,7 @@ end
 
 return {
 	enter = function(self, previous)
+
 		songNum = 0
 		weekNum = 1
 		bf = love.filesystem.load("sprites/boyfriend.lua")()
@@ -476,6 +481,7 @@ return {
 	end,
 
 	leave = function(self)
+		love.graphics.setFont(font)
 		menuBG = nil
 		bf = nil
 		pbf = nil
