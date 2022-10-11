@@ -37,26 +37,11 @@ return {
 				end)
 			end)
 		end
+		titleBG = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/titleBG")))
 		changingMenu = false
 		logo = love.filesystem.load("sprites/menu/ve-logo.lua")()
 		girlfriendTitle = love.filesystem.load("sprites/menu/girlfriend-title.lua")()
 		titleEnter = love.filesystem.load("sprites/menu/titleEnter.lua")()
-		gradient, gquad = graphics.newVertGradient(lovesize.getWidth(), lovesize.getHeight(), {50/255, 0, 91/255, 1}, {0, 0, 0, 1})
-		gradientColours = {
-			{50/255, 0, 91/255, 1},
-			{0, 0, 0, 1}
-		}
-		function gradientUpdate()
-			Timer.tween(6, gradientColours[1], {0,0,0,1}, "in-out-back", function()
-				Timer.tween(6, gradientColours[1], {50/255, 0, 91/255, 1}, "in-out-back", function()
-					if not changingMenu then gradientUpdate() end
-				end)
-			end)
-			Timer.tween(6, gradientColours[2], {50/255, 0, 91/255, 1}, "in-out-back", function()
-				Timer.tween(6, gradientColours[2], {0,0,0,1}, "in-out-back")
-			end)
-		end
-		gradientUpdate()
 
 		whiteRectangles = {}
 		for i = 1, 15 do
@@ -78,9 +63,6 @@ return {
 
 		titleEnter.x, titleEnter.y = 225, 350
 		songNum = 0
-
-		cam.sizeX, cam.sizeY = 0.9, 0.9
-		camScale.x, camScale.y = 0.9, 0.9
 
 		switchMenu(1)
 
@@ -123,8 +105,6 @@ return {
 		titleEnter:update(dt)
 		logo:update(dt)
 
-		graphics.updateVertGradient(gradient, gquad, lovesize.getWidth(), lovesize.getHeight(), {gradientColours[1][1], gradientColours[1][2], gradientColours[1][3], 1, }, {gradientColours[2][1], gradientColours[2][2], gradientColours[2][3], 1, })
-
 		music[1]:on("beat", function(n)
 			self:onBeat(n)
 		end)
@@ -160,11 +140,9 @@ return {
 
 	draw = function(self)
 		love.graphics.push()
-			graphics.setColor(1,1,1,transparency[1])
-			graphics.drawGradient(gradient, gquad, 0, 0)
-			graphics.setColor(1,1,1)
 			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
 
+			--[[
 			love.graphics.push()
 				love.graphics.scale(cam.sizeX, cam.sizeY)
 				logo:draw()
@@ -180,6 +158,31 @@ return {
 				graphics.setColor(1, 1, 1)
 
 			love.graphics.pop()
+			]]--
+			love.graphics.push()
+				love.graphics.push()
+					love.graphics.translate(menuDetails.titleBG.x, menuDetails.titleBG.y)
+					titleBG:draw()
+				love.graphics.pop()
+				love.graphics.push()
+					love.graphics.scale(0.9, 0.9)
+					love.graphics.translate(menuDetails.titleLogo.x, menuDetails.titleLogo.y)
+					logo:draw()
+				love.graphics.pop()
+				love.graphics.push()
+					love.graphics.scale(0.9, 0.9)
+					love.graphics.translate(menuDetails.girlfriendTitle.x, menuDetails.girlfriendTitle.y)
+					girlfriendTitle:draw()
+				love.graphics.pop()
+				love.graphics.push()
+					graphics.setColor(0, 0, 0, 0.9)
+					for i = 1, 15 do
+						whiteRectangles[i]:draw()
+					end
+					graphics.setColor(1, 1, 1)
+				love.graphics.pop()
+			love.graphics.pop()
+
 		love.graphics.pop()
 	end,
 
