@@ -1373,6 +1373,7 @@ return {
 						voices:setVolume(1)
 
 						enemyArrow:animate("confirm", false)
+						boyfriendArrow:animate("press", false)
 
 						if enemyNote[1]:getAnimName() == "hold" or enemyNote[1]:getAnimName() == "end" then
 							if useAltAnims then
