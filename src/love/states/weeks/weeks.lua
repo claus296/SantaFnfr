@@ -40,27 +40,7 @@ local useAltAnims1
 local notMissed = {}
 
 function tweenPauseButtons()
-	resume.x, resume.y = -1000, 120
-	resumeH.x, resumeH.y = resume.x, resume.y
-	restart.x, restart.y = -1000, 295
-	restartH.x, restartH.y = restart.x, restart.y 
-	exit.x, exit.y = -1000, 470
-	exitH.x, exitH.y = exit.x, exit.y 
-	options.x, options.y = -1000, 645
-	optionsH.x, optionsH.y = options.x, options.y
-	pauseCurtain.y = -1000
-	pausedGraphic.x = 2000
 
-	Timer.tween(1, resume, {x = 550}, "out-back")
-	Timer.tween(1, resumeH, {x = 550}, "out-back")
-	Timer.tween(1.2, restart, {x = 500}, "out-back")
-	Timer.tween(1.2, restartH, {x = 500}, "out-back")
-	Timer.tween(1.4, exit, {x = 450}, "out-back")
-	Timer.tween(1.4, exitH, {x = 450}, "out-back")
-	Timer.tween(1.6, options, {x = 400}, "out-back")
-	Timer.tween(1.6, optionsH, {x = 400}, "out-back")
-	Timer.tween(1, pauseCurtain, {y = 320}, "out-expo")
-	Timer.tween(0.5, pausedGraphic, {x = 1200}, "out-quad")
 end
 
 return {
@@ -71,29 +51,9 @@ return {
 		love.graphics.setDefaultFilter("linear")
 
 		--PAUSE MENU IMAGES
-		resume = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/resume"))) -- USE THIS FUNCTION
-		resumeH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/resumeHover")))
-		restart = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/restart")))
-		restartH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/restartHover")))
-		exit = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/exit")))
-		exitH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/exitHover")))
-		options = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/options")))
-		optionsH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/optionsHover")))
-		pauseCurtain = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/curtain")))
-		pausedGraphic = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/paused")))
-						
-		resume.x, resume.y = 400, 120
-		resumeH.x, resumeH.y = resume.x, resume.y
-		restart.x, restart.y = 400, 295
-		restartH.x, restartH.y = restart.x, restart.y 
-		exit.x, exit.y = 400, 470
-		exitH.x, exitH.y = exit.x, exit.y 
-		options.x, options.y = 400, 645
-		optionsH.x, optionsH.y = options.x, options.y
-		pauseCurtain.x, pauseCurtain.y = 300, -1000
-		pausedGraphic.x, pausedGraphic.y = 2000, 150
+		pauseBG = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/pause_box")))
+		pauseShadow = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/pause_shadow")))
 
-		pausedGraphic.sizeX, pausedGraphic.sizeY = 0.6, 0.6
 		sounds = {
 			countdown = {
 				three = love.audio.newSource("sounds/countdown-3.ogg", "static"),
@@ -178,29 +138,8 @@ return {
 		pixelFont = love.graphics.newFont("fonts/pixel.fnt")
 		
 		--PAUSE MENU IMAGES
-		resume = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/resume"))) -- USE THIS FUNCTION
-		resumeH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/resumeHover")))
-		restart = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/restart")))
-		restartH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/restartHover")))
-		exit = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/exit")))
-		exitH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/exitHover")))
-		options = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/options")))
-		optionsH = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/optionsHover")))
-		pauseCurtain = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/curtain")))
-		pausedGraphic = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/paused")))
-						
-		resume.x, resume.y = 400, 120
-		resumeH.x, resumeH.y = resume.x, resume.y
-		restart.x, restart.y = 400, 295
-		restartH.x, restartH.y = restart.x, restart.y 
-		exit.x, exit.y = 400, 470
-		exitH.x, exitH.y = exit.x, exit.y 
-		options.x, options.y = 400, 645
-		optionsH.x, optionsH.y = options.x, options.y
-		pauseCurtain.x, pauseCurtain.y = 300, -1000
-		pausedGraphic.x, pausedGraphic.y = 2000, 150
-
-		pausedGraphic.sizeX, pausedGraphic.sizeY = 0.6, 0.6
+		pauseBG = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/pause_box")))
+		pauseShadow = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/pause_shadow")))
 
 		-- weeks enter stuff
 		sounds = {
@@ -1034,7 +973,7 @@ return {
 
 		if paused then
 			if input:pressed("gameDown") then
-				if pauseMenuSelection == 4 then
+				if pauseMenuSelection == 3 then
 					pauseMenuSelection = 1
 				else
 					pauseMenuSelection = pauseMenuSelection + 1
@@ -1043,7 +982,7 @@ return {
 
 			if input:pressed("gameUp") and paused then
 				if pauseMenuSelection == 1 then
-					pauseMenuSelection = 4 
+					pauseMenuSelection = 43
 				else
 					pauseMenuSelection = pauseMenuSelection - 1
 				end
@@ -1108,8 +1047,6 @@ return {
 				if inst then inst:stop() end
 				voices:stop()
 				storyMode = false
-			elseif input:pressed("confirm") and pauseMenuSelection == 4 then -- options button
-				Gamestate.switch(menuSettings)
 			end
 		else
 			love.audio.stop(sounds.breakfast)
@@ -1860,7 +1797,7 @@ return {
 			if accForRatingText >= 101 then
 				ratingText = "what"
 			elseif accForRatingText >= 100 then
-				ratingText = "PERFECT!!!!" -- i added one ! so i could feel like i actually did something
+				ratingText = "PERFECT!!!"
 			elseif accForRatingText >= 90 then
 				ratingText = "Great!"
 			elseif accForRatingText >= 70 then
@@ -1950,41 +1887,39 @@ return {
 			love.graphics.pop()
 		end
 		love.graphics.push()
-		if paused then
-			graphics.setColorF(pauseColor[1], pauseColor[2], pauseColor[3])
-			pauseCurtain:draw()
-			if week == 5 then
-				love.graphics.translate(lovesize.getWidth() / 2, lovesize.getHeight() / 2)
-				love.graphics.scale(0.7, 0.7)
-				love.graphics.scale(uiScale.sizeX, uiScale.sizeY)
+			love.graphics.setFont(pauseFont)
+			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
+			if paused then
+				graphics.setColorF(pauseColor[1], pauseColor[2], pauseColor[3])
+				if week == 5 then
+					love.graphics.translate(lovesize.getWidth() / 2, lovesize.getHeight() / 2)
+					love.graphics.scale(0.7, 0.7)
+					love.graphics.scale(uiScale.sizeX, uiScale.sizeY)
+				end
+				graphics.setColor(0, 0, 0, 0.8)
+				love.graphics.rectangle("fill", -10000, -2000, 25000, 10000)
+				graphics.setColor(1, 1, 1)
+				pauseShadow:draw()
+				pauseBG:draw()
+				if pauseMenuSelection ~= 1 then
+					uitextflarge("Resume", -305, -275, 600, "center", false)
+				else
+					uitextflarge("Resume", -305, -275, 600, "center", true)
+				end
+				if pauseMenuSelection ~= 2 then
+					uitextflarge("Restart", -305, -75, 600, "center", false)
+					--  -600, 400+downscrollOffset, 1200, "center"
+				else
+					uitextflarge("Restart", -305, -75, 600, "center", true)
+				end
+				if pauseMenuSelection ~= 3 then
+					uitextflarge("Quit", -305, 125, 600, "center", false)
+				else
+					uitextflarge("Quit", -305, 125, 600, "center", true)
+				end
 			end
-			graphics.setColor(0, 0, 0, 0.8)
-			love.graphics.rectangle("fill", -10000, -2000, 25000, 10000)
-			graphics.setColor(1, 1, 1)
-			if pauseMenuSelection == 1 then
-				resumeH:draw()
-				restart:draw()
-				exit:draw()
-				options:draw()
-			elseif pauseMenuSelection == 2 then
-				resume:draw()
-				restartH:draw()
-				exit:draw()
-				options:draw()
-			elseif pauseMenuSelection == 3 then
-				resume:draw()
-				restart:draw()
-				exitH:draw()
-				options:draw()
-			else
-				resume:draw()
-				restart:draw()
-				exit:draw()
-				optionsH:draw()
-			end
-			pausedGraphic:draw()
-		end
-	love.graphics.pop()
+			love.graphics.setFont(font)
+		love.graphics.pop()
 	end,
 
 	drawDialogue = function()

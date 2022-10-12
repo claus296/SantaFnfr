@@ -73,6 +73,27 @@ function uitext(text,x,y,r,sx,sy,ox,oy,kx,ky)
 	graphics.setColor(1,1,1)
     love.graphics.print(text,x,y,r,sx,sy,a,ox,oy,kx,ky)
 end
+function uitextflarge(text,x,y,limit,align,hovered,r,sx,sy,ox,oy,kx,ky)
+	local x = x or 0
+	local y = y or 0
+	local r = r or 0
+	local limit = limit or 750
+	local align = align or "center"
+	local hovered = hovered or false
+	local sx = sx or 1
+	local sy = sy or 1
+	local ox = ox or 0
+	local oy = oy or 0
+	local kx = kx or 0
+	local ky = ky or 0
+	if not hovered then graphics.setColor(0,0,0) else graphics.setColor(1,1,1) end
+	love.graphics.printf(text,x-6,y,limit,align,r,sx,sy,ox,oy,kx,ky)
+	love.graphics.printf(text,x+6,y,limit,align,r,sx,sy,ox,oy,kx,ky)
+	love.graphics.printf(text,x,y-6,limit,align,r,sx,sy,ox,oy,kx,ky)
+	love.graphics.printf(text,x,y+6,limit,align,r,sx,sy,ox,oy,kx,ky)
+	if not hovered then graphics.setColor(1,1,1) else graphics.setColor(0,0,0) end
+	love.graphics.printf(text,x,y,limit,align,r,sx,sy,ox,oy,kx,ky)
+end
 volFade = 0
 
 function love.load()
@@ -356,6 +377,7 @@ function love.load()
 	FNFFont = love.graphics.newFont("fonts/fnFont.ttf", 24)
 	credFont = love.graphics.newFont("fonts/fnFont.ttf", 32)   -- guglio is a bitch
 	uiFont = love.graphics.newFont("fonts/Dosis-SemiBold.ttf", 32)
+	pauseFont = love.graphics.newFont("fonts/Dosis-SemiBold.ttf", 96)
 
 	weekNum = 1
 	songDifficulty = 2
