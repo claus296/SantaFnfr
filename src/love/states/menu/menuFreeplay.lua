@@ -83,7 +83,7 @@ local weekMeta = { -- Add/remove weeks here
 	{
 		"Week 6",
 		{
-			"Senpai",
+			"Guglio is my Senpai",
 			"Roses",
 			"Thorns"
 		},
