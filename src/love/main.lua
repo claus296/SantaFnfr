@@ -81,7 +81,7 @@ function love.load()
 	local selectSound = love.audio.newSource("sounds/menu/select.ogg", "static")
 	local confirmSound = love.audio.newSource("sounds/menu/confirm.ogg", "static")
 
-	if love.filesystem.getInfo("version.txt") then __VERSION__ = love.filesystem.read("version.txt") else __VERSION__ = "UNKNOWN" end
+	__VERSION__ = love.filesystem.read("version.txt") or "UNKNOWN"
 
 	-- Load libraries
 	baton = require "lib.baton"
@@ -355,6 +355,7 @@ function love.load()
 	font = love.graphics.newFont("fonts/vcr.ttf", 24)
 	FNFFont = love.graphics.newFont("fonts/fnFont.ttf", 24)
 	credFont = love.graphics.newFont("fonts/fnFont.ttf", 32)   -- guglio is a bitch
+	uiFont = love.graphics.newFont("fonts/Dosis-SemiBold.ttf", 32)
 
 	weekNum = 1
 	songDifficulty = 2
@@ -374,6 +375,14 @@ function love.load()
 	uiScale = {x = 1, y = 1, sizeX = 1, sizeY = 1}
 	extraCamZoom = {sizeX = 1, sizeY = 1}
 	flash = {alpha = 0}
+	menuDetails = {
+		titleBG = {x = 0,y = 0,sizeX = 1,sizeY = 1},
+		titleLogo = {x = 0,y = 0,sizeX = 1,sizeY = 1},
+		girlfriendTitle = {x = 0,y = 0,sizeX = 1,sizeY = 1},
+		selectBG = {x = 0,y = 0,sizeX = 1,sizeY = 1},
+		selectBGOverlay = {x = 0,y = 0,sizeX = 1,sizeY = 1},
+		selectUIElements = {x = 0,y = 0,sizeX = 1,sizeY = 1}
+	}
 
 	musicTime = 0
 	health = 0

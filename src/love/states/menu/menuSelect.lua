@@ -16,11 +16,8 @@ return {
         
 		menuButton = 1
 		songNum = 0
-        titleBG = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/menuBG")))
-
-        titleBG.sizeX, titleBG.sizeY = 1.15
-        cam.sizeX, cam.sizeY = 0.9,0.9
-        cam.x, cam.y = 0, 0
+        selectBG = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/selectBG")))
+        selectBGOverlay = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/selectBGOverlay")))
 
         options = love.filesystem.load("sprites/menu/menuButtons.lua")()
         story = love.filesystem.load("sprites/menu/menuButtons.lua")()
@@ -30,12 +27,43 @@ return {
         freeplay:animate("freeplay", true)
         options:animate("options", true)
         credits:animate("credits", true)
-        story.y,freeplay.y,options.y,credits.y = 600, 600, 600, 600
-        Timer.tween(1, story, {y = -200}, "out-expo")
-        Timer.tween(1, freeplay, {y = -50}, "out-expo")
-        Timer.tween(1, options, {y = 100}, "out-expo")
-        Timer.tween(1, credits, {y = 250}, "out-expo")
-        Timer.tween(0.88, cam, {y = 35, sizeX = 1.1, sizeY = 1.1}, "out-quad")
+        story.y,freeplay.y,options.y,credits.y = -200, -50, 100, 250
+        story.sizeX, story.sizeY = 0.75, 0.75
+        freeplay.sizeX, freeplay.sizeY = 0.75, 0.75
+        options.sizeX, options.sizeY = 0.75, 0.75
+        credits.sizeX, credits.sizeY = 0.75, 0.75
+
+        story.x, freeplay.x, options.x, credits.x = -295, -320, -345, -370
+        --Timer.tween(1, story, {y = -200}, "out-expo")
+        --Timer.tween(1, freeplay, {y = -50}, "out-expo")
+        --Timer.tween(1, options, {y = 100}, "out-expo")
+        --Timer.tween(1, credits, {y = 250}, "out-expo")
+        --Timer.tween(0.88, cam, {y = 35, sizeX = 1.1, sizeY = 1.1}, "out-quad")
+
+        function loopbgfloat()
+            Timer.tween(
+                3,
+                menuDetails.selectBG,
+                {
+                    y = menuDetails.selectBG.y + 6
+                },
+                "in-out-quad",
+                function()
+                    Timer.tween(
+                        3,
+                        menuDetails.selectBG,
+                        {
+                            y = menuDetails.selectBG.y - 6
+                        },
+                        "in-out-quad",
+                        function()
+                            loopbgfloat()
+                        end
+                    )
+                end
+            )
+        end
+        loopbgfloat()
 
         function changeSelect()
             if menuButton == 1 then
@@ -44,27 +72,23 @@ return {
                 options:animate("options", true)
                 credits:animate("credits", true)
 
-                Timer.tween(0.3, cam, {y = 35}, "out-quad")
             elseif menuButton == 2 then
                 story:animate("story", true)
                 freeplay:animate("freeplay hover", true)
                 options:animate("options", true)
                 credits:animate("credits", true)
 
-                Timer.tween(0.3, cam, {y = 15}, "out-quad")
             elseif menuButton == 3 then
                 story:animate("story", true)
                 freeplay:animate("freeplay", true)
                 options:animate("options hover", true)
                 credits:animate("credits", true)
 
-                Timer.tween(0.3, cam, {y = -15}, "out-quad")
             elseif menuButton == 4 then
                 story:animate("story", true)
                 freeplay:animate("freeplay", true)
                 options:animate("options", true)
                 credits:animate("credits hover", true)
-                Timer.tween(0.3, cam, {y = -35}, "out-quad")
             end
         end
 
@@ -181,18 +205,27 @@ return {
 
 	draw = function(self)
 		love.graphics.push()
+            love.graphics.setFont(uiFont)
 			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
-            
             love.graphics.push()
-                love.graphics.translate(cam.x, cam.y)
-                love.graphics.scale(cam.sizeX, cam.sizeY)
-			    titleBG:draw()
+                love.graphics.translate(menuDetails.selectBG.x, menuDetails.selectBG.y)
+                selectBG:draw()
             love.graphics.pop()
-            love.graphics.translate(cam.x, cam.y*0.82)
-            story:draw()
-            options:draw()
-            freeplay:draw()
-            credits:draw()
+            love.graphics.push()
+                love.graphics.translate(menuDetails.selectBGOverlay.x, menuDetails.selectBGOverlay.y)
+                selectBGOverlay:draw()
+            love.graphics.pop()
+            love.graphics.push()
+                graphics.setColor(0,0,0)
+                love.graphics.translate(menuDetails.selectUIElements.x, menuDetails.selectUIElements.y)
+                love.graphics.print("Vanilla Engine " .. __VERSION__ .. "\nBuilt on: Funkin Rewritten v1.1.0 Beta 2", -635, -360)
+                graphics.setColor(1,1,1)
+                story:draw()
+                freeplay:draw()
+                options:draw()
+                credits:draw()
+            love.graphics.pop()
+            love.graphics.setFont(font)
 		love.graphics.pop()
         
 	end,
