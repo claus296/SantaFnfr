@@ -349,36 +349,37 @@ function love.load()
 	end
 	-- You don't need to mess with this unless you are adding a custom setting (Will nil be default (AKA. False)) --
 	if love.filesystem.getInfo("settings") then 
-		local file = love.filesystem.read("settings")
-        local data = lume.deserialize(file)
-		settings.hardwareCompression = data.saveSettingsMoment.hardwareCompression
-		settings.downscroll = data.saveSettingsMoment.downscroll
-		settings.ghostTapping = data.saveSettingsMoment.ghostTapping
-		settings.showDebug = data.saveSettingsMoment.showDebug
-		graphics.setImageType(data.saveSettingsMoment.setImageType)
-		settings.sideJudgements = data.saveSettingsMoment.sideJudgements
-		settings.botPlay = data.saveSettingsMoment.botPlay
-		settings.middleScroll = data.saveSettingsMoment.middleScroll
-		settings.randomNotePlacements = data.saveSettingsMoment.randomNotePlacements
-		settings.practiceMode = data.saveSettingsMoment.practiceMode
-		settings.noMiss = data.saveSettingsMoment.noMiss
-		settings.customScrollSpeed = data.saveSettingsMoment.customScrollSpeed
-		settings.keystrokes = data.saveSettingsMoment.keystrokes
-		settings.scrollUnderlayTrans = data.saveSettingsMoment.scrollUnderlayTrans
-		settings.instVol = data.saveSettingsMoment.instVol
-		settings.vocalsVol = data.saveSettingsMoment.vocalsVol
-		settings.hitsounds = data.saveSettingsMoment.hitsounds
-		settings.hitsoundVol = data.saveSettingsMoment.hitsoundVol
-		settings.noteSkins = data.saveSettingsMoment.noteSkins
-		customBindDown = data.saveSettingsMoment.customBindDown
-		customBindUp = data.saveSettingsMoment.customBindUp
-		customBindLeft = data.saveSettingsMoment.customBindLeft
-		customBindRight = data.saveSettingsMoment.customBindRight
-		settings.flashinglights = data.saveSettingsMoment.flashinglights
+		settingdata = love.filesystem.read("settings")
+        settingdata = lume.deserialize(settingdata)
 
-		settingsVer = data.saveSettingsMoment.settingsVer
+		settings.hardwareCompression = settingdata.saveSettingsMoment.hardwareCompression
+		settings.downscroll = settingdata.saveSettingsMoment.downscroll
+		settings.ghostTapping = settingdata.saveSettingsMoment.ghostTapping
+		settings.showDebug = settingdata.saveSettingsMoment.showDebug
+		graphics.setImageType(settingdata.saveSettingsMoment.setImageType)
+		settings.sideJudgements = settingdata.saveSettingsMoment.sideJudgements
+		settings.botPlay = settingdata.saveSettingsMoment.botPlay
+		settings.middleScroll = settingdata.saveSettingsMoment.middleScroll
+		settings.randomNotePlacements = settingdata.saveSettingsMoment.randomNotePlacements
+		settings.practiceMode = settingdata.saveSettingsMoment.practiceMode
+		settings.noMiss = settingdata.saveSettingsMoment.noMiss
+		settings.customScrollSpeed = settingdata.saveSettingsMoment.customScrollSpeed
+		settings.keystrokes = settingdata.saveSettingsMoment.keystrokes
+		settings.scrollUnderlayTrans = settingdata.saveSettingsMoment.scrollUnderlayTrans
+		settings.instVol = settingdata.saveSettingsMoment.instVol
+		settings.vocalsVol = settingdata.saveSettingsMoment.vocalsVol
+		settings.hitsounds = settingdata.saveSettingsMoment.hitsounds
+		settings.hitsoundVol = settingdata.saveSettingsMoment.hitsoundVol
+		settings.noteSkins = settingdata.saveSettingsMoment.noteSkins
+		customBindDown = settingdata.saveSettingsMoment.customBindDown
+		customBindUp = settingdata.saveSettingsMoment.customBindUp
+		customBindLeft = settingdata.saveSettingsMoment.customBindLeft
+		customBindRight = settingdata.saveSettingsMoment.customBindRight
+		settings.flashinglights = settingdata.saveSettingsMoment.flashinglights
 
-		data.saveSettingsMoment = {
+		settingsVer = settingdata.saveSettingsMoment.settingsVer
+
+		settingdata.saveSettingsMoment = {
 			hardwareCompression = settings.hardwareCompression,
 			downscroll = settings.downscroll,
 			ghostTapping = settings.ghostTapping,
@@ -405,7 +406,7 @@ function love.load()
 			flashinglights = settings.flashinglights,
 			settingsVer = settingsVer
 		}
-		serialized = lume.serialize(data)
+		serialized = lume.serialize(settingdata)
 		love.filesystem.write("settings", serialized)
 	end
 	if settingsVer ~= 6 then
@@ -438,8 +439,8 @@ function love.load()
 		customBindDown = "s"
 		settings.flashinglights = false
 		settingsVer = 6
-		data = {}
-		data.saveSettingsMoment = {
+		settingdata = {}
+		settingdata.saveSettingsMoment = {
 			hardwareCompression = settings.hardwareCompression,
 			downscroll = settings.downscroll,
 			ghostTapping = settings.ghostTapping,
@@ -467,7 +468,7 @@ function love.load()
 			
 			settingsVer = settingsVer
 		}
-		serialized = lume.serialize(data)
+		serialized = lume.serialize(settingdata)
 		love.filesystem.write("settings", serialized)
 	end
 	input = require "input" -- LOAD INPUT HERE CUZ GOOFY AHH KEYBINDS MENU

@@ -34,10 +34,11 @@ missCounter = 0
 noteCounter = 0
 altScore = 0
 
-local ratingTimers = {}
+ratingTimers = {}
 
 local useAltAnims1
 local notMissed = {}
+local judgements = {}
 
 function tweenPauseButtons()
 
@@ -80,7 +81,8 @@ return {
 			icons = love.graphics.newImage(graphics.imagePath("icons")),
 			notes = love.graphics.newImage(graphics.imagePath(noteskins[settings.noteSkins])),
 			notesplashes = love.graphics.newImage(graphics.imagePath("noteSplashes")),
-			numbers = love.graphics.newImage(graphics.imagePath("numbers"))
+			numbers = love.graphics.newImage(graphics.imagePath("numbers")),
+			rating = love.graphics.newImage(graphics.imagePath("rating")),
 		}
 
 		sprites = {
@@ -131,6 +133,20 @@ return {
 			output = ""
 			isDone = false
 		end
+
+		function addJudgements(rating)
+			local judgementRating = rating
+
+			table.insert(judgements, {
+				img = love.filesystem.load("sprites/rating.lua")(),
+				rating = judgementRating,
+				transparency = 1
+			})
+			judgements[#judgements].img:animate(judgements[#judgements].rating, false)
+			judgements[#judgements].img.x = girlfriend.x
+			judgements[#judgements].img.y = girlfriend.y - 100
+			judgements[#judgements].img.sizeX, judgements[#judgements].img.sizeY = 0.75, 0.75
+		end
 	end,
 
 	pixelEnter = function(self)
@@ -168,7 +184,8 @@ return {
 			icons = love.graphics.newImage(graphics.imagePath("icons")),
 			notesp = love.graphics.newImage(graphics.imagePath("pixel/notes")),
 			notesplashes = love.graphics.newImage(graphics.imagePath("pixel/pixelSplashes")),
-			numbers = love.graphics.newImage(graphics.imagePath("pixel/numbers"))
+			numbers = love.graphics.newImage(graphics.imagePath("pixel/numbers")),
+			rating = love.graphics.newImage(graphics.imagePath("pixel/rating")),
 		}
 
 		sprites = {
@@ -218,7 +235,19 @@ return {
 		countdown.sizeX, countdown.sizeY = 6.85, 6.85
 		
 		boyfriendIcon:animate("boyfriend (pixel)", false)
+		function addJudgements(rating)
+			local judgementRating = rating
 
+			table.insert(judgements, {
+				img = love.filesystem.load("sprites/rating.lua")(),
+				rating = judgementRating,
+				transparency = 1
+			})
+			judgements[#judgements].img:animate(judgements[#judgements].rating, false)
+			judgements[#judgements].img.x = girlfriend.x
+			judgements[#judgements].img.y = girlfriend.y - 100
+			judgements[#judgements].img.sizeX, judgements[#judgements].img.sizeY = 0.75, 0.75
+		end
 	end,
 
 	load = function(self)
@@ -969,7 +998,7 @@ return {
 	end,
 
 	update = function(self, dt)
-
+		print(#judgements)
 		hitCounter = (sicks + goods + bads + shits)
 
 		if paused then
@@ -1296,25 +1325,25 @@ return {
 
 											if notePos <= 28 then -- "Sick Plus" Note: Just for a cooler looking rating. Does not give anything special
                                                 score = score + 350
-                                                ratingAnim = "sickPlus"
+												addJudgements("sickPlus")
                                                 altScore = altScore + 100.00
                                                 sicks = sicks + 1
                                                 hitSick = true
                                             elseif notePos <= 78 then -- "Sick"
                                                 score = score + 350
-                                                ratingAnim = "sick"
+												addJudgements("sick")
                                                 altScore = altScore + 100.00
                                                 sicks = sicks + 1
                                                 hitSick = true
                                             elseif notePos <= 98 then -- "Good"
                                                 score = score + 200
-                                                ratingAnim = "good"
+												addJudgements("good")
                                                 altScore = altScore + 66.66
                                                 goods = goods + 1
                                                 hitSick = false
                                             elseif notePos <= 108 then -- "Bad"
                                                 score = score + 100
-                                                ratingAnim = "bad"
+												addJudgements("bad")
                                                 altScore = altScore + 33.33
                                                 bads = bads + 1
                                                 hitSick = false
@@ -1325,30 +1354,46 @@ return {
                                                     score = score + 50
                                                 end
                                                 altScore = altScore + 1.11
-                                                ratingAnim = "shit"
+												addJudgements("shit")
                                                 shits = shits + 1
                                                 hitSick = false
                                             end
 
 											combo = combo + 1
 
-											rating:animate(ratingAnim, false)
+											--rating:animate(ratingAnim, false)
 											numbers[1]:animate(tostring(math.floor(combo / 100 % 10), false)) -- 100's
 											numbers[2]:animate(tostring(math.floor(combo / 10 % 10), false)) -- 10's
 											numbers[3]:animate(tostring(math.floor(combo % 10), false)) -- 1's
 
-											for i = 1, 5 do
+											for i = 3, 5 do
 												if ratingTimers[i] then Timer.cancel(ratingTimers[i]) end
-											end
+											end -- ratingTimer 1&2 is judgements
 
 											ratingVisibility[1] = 1
-											rating.y = girlfriend.y - 50
+											judgements[#judgements].img.y = girlfriend.y - 50
 											for i = 1, 3 do
 												numbers[i].y = girlfriend.y + 50
 											end
 
-											ratingTimers[1] = Timer.tween(2, ratingVisibility, {0})
-											ratingTimers[2] = Timer.tween(2, rating, {y = girlfriend.y - 100}, "out-elastic")
+											--ratingTimers[1] = Timer.tween(2, ratingVisibility, {0})
+											Timer.tween(
+												1.1, 
+												judgements[#judgements], 
+												{
+													transparency = 0
+												},
+												"linear"
+											)
+											Timer.tween(
+												1.25, 
+												judgements[#judgements].img, 
+												{
+													y = girlfriend.y - 100
+												}, 
+												"out-expo"
+											)
+											--ratingTimers[2] = Timer.tween(2, rating, {y = girlfriend.y - 100}, "out-elastic")
 											if combo >= 100 then
 												ratingTimers[3] = Timer.tween(2, numbers[1], {y = girlfriend.y + love.math.random(-10, 10)}, "out-elastic") -- 100's
 											end
@@ -1521,9 +1566,13 @@ return {
 			love.graphics.translate(400, 0)
 		end
 		love.graphics.push()
-			graphics.setColor(1, 1, 1, ratingVisibility[1])
 			if not pixel then
-				rating:draw()
+				if judgements[1] then
+					for i = 1, #judgements do
+						graphics.setColor(1, 1, 1, judgements[i].transparency)
+						judgements[i].img:draw()
+					end
+				end
 				if combo >= 5 then
 					if combo >= 100 then
 						numbers[1]:draw()
@@ -1534,7 +1583,12 @@ return {
 					numbers[3]:draw()
 				end
 			else
-				rating:udraw(6, 6)
+				if judgements[1] then
+					for i = 1, #judgements do
+						graphics.setColor(1, 1, 1, judgements[i].transparency)
+						judgements[i].img:udraw(6,6)
+					end
+				end
 				if combo >= 5 then
 					if combo >= 100 then
 						numbers[1]:udraw(6,6)

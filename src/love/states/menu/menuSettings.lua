@@ -95,14 +95,14 @@ return {
 	enter = function(self, previous)
 
         function saveSettings()
-            if settings.hardwareCompression ~= data.saveSettingsMoment.hardwareCompression then
-                data = {}
+            if settings.hardwareCompression ~= settingdata.saveSettingsMoment.hardwareCompression then
+                settingdata = {}
                 if settings.hardwareCompression then
                     imageTyppe = "dds" 
                 else
                     imageTyppe = "png"
                 end
-                data.saveSettingsMoment = {
+                settingdata.saveSettingsMoment = {
                     hardwareCompression = settings.hardwareCompression,
                     downscroll = settings.downscroll,
                     ghostTapping = settings.ghostTapping,
@@ -128,18 +128,18 @@ return {
                     customBindRight = customBindRight,
                     settingsVer = settingsVer
                 }
-                serialized = lume.serialize(data)
+                serialized = lume.serialize(settingdata)
                 love.filesystem.write("settings", serialized)
                 love.window.showMessageBox("Settings Saved!", "Settings saved. Vanilla Engine will now restart to make sure your settings saved")
                 love.event.quit("restart")
             else
-                data = {}
+                settingdata = {}
                 if settings.hardwareCompression then
                     imageTyppe = "dds" 
                 else
                     imageTyppe = "png"
                 end
-                data.saveSettingsMoment = {
+                settingdata.saveSettingsMoment = {
                     hardwareCompression = settings.hardwareCompression,
                     downscroll = settings.downscroll,
                     ghostTapping = settings.ghostTapping,
@@ -165,7 +165,7 @@ return {
                     customBindRight = customBindRight,
                     settingsVer = settingsVer
                 }
-                serialized = lume.serialize(data)
+                serialized = lume.serialize(settingdata)
                 love.filesystem.write("settings", serialized)
                 graphics.fadeOut(
                     0.3,
@@ -421,7 +421,7 @@ return {
                 end
 			end
 		end
-        if settings.hardwareCompression ~= data.saveSettingsMoment.hardwareCompression then
+        if settings.hardwareCompression ~= settingdata.saveSettingsMoment.hardwareCompression then
             isRestartNeeded = "(RESTART REQUIRED)"
         else
             isRestartNeeded = ""
@@ -441,7 +441,7 @@ return {
                     love.graphics.print("\n\nGameplay", -628, -300)
                     love.graphics.print("\n\n\n\nKeybinds", -628, -300)
                     love.graphics.print("\n\n\n\n\n\nMisc.", -628, -300)
-                    if settings.hardwareCompression ~= data.saveSettingsMoment.hardwareCompression then
+                    if settings.hardwareCompression ~= settingdata.saveSettingsMoment.hardwareCompression then
                         love.graphics.print("\n\n\n\n\n\n\n\nSave settings & Restart", -628, -300)
                     else
                         love.graphics.print("\n\n\n\n\n\n\n\nSave settings", -628, -300)

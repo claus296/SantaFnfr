@@ -101,14 +101,16 @@ return {
 		end
 
 		if not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused then
-			if score > highscores[weekNum-1].scores[song] then
-				highscores[weekNum-1].scores[song] = score
-				saveHighscores()
-			end
-			newAccuracy = convertedAcc:gsub("%%", "")
-			if tonumber(newAccuracy) > highscores[weekNum-1].accuracys[song] then
-				highscores[weekNum-1].accuracys[song] = tonumber(newAccuracy)
-				saveHighscores()
+			if score and highscores[weekNum-1][song] then
+				if score > highscores[weekNum-1].scores[song] then
+					highscores[weekNum-1].scores[song] = score
+					saveHighscores()
+				end
+				newAccuracy = convertedAcc:gsub("%%", "")
+				if tonumber(newAccuracy) > highscores[weekNum-1].accuracys[song] then
+					highscores[weekNum-1].accuracys[song] = tonumber(newAccuracy)
+					saveHighscores()
+				end
 			end
 			if storyMode and song < 3 then
 				song = song + 1

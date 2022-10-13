@@ -69,6 +69,7 @@ return {
 
 		cam.sizeX, cam.sizeY = 0.9, 0.9
 		camScale.x, camScale.y = 0.9, 0.9
+		titleBG = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/menuDesat")))
 
 		switchMenu(1)
 
