@@ -1,16 +1,20 @@
 local creditText, selectSound, confirmSound
 -- i literally said we should use a big string and you said no - CH
 creditText = [[
-Credits
+CREDITS
+
 
 Vanilla Engine:
 
-GuglioIsStupid
-c l o t h i n g h a n g e r
+GuglioIsStupid - Coding
+c l o t h i n g h a n g e r - Coding
+Getsaa - Menu Design
+
 
 Funkin' Rewritten:
 
 HTV04
+
 
 Friday Night Funkin':
 
@@ -20,8 +24,8 @@ Evilsk8r
 Kawaisprite
 And all the contributors
 
-Miscellaneous:
 
+Miscellaneous:
 
 PhantomClo - Pixel note splashes
 Keoki - Note splashes
