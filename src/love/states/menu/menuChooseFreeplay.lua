@@ -8,11 +8,6 @@ local weekNum = 1
 local songNum, songAppend
 local songDifficulty = 2
 
-local titleBG = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/menuDesat")))
-local logo = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/logo")))
-
-local girlfriendTitle = love.filesystem.load("sprites/menu/girlfriend-title.lua")()
-
 local menuNames = {
 	"FNF Freeplay",
 	"Mod Menu Freeplay"
@@ -67,10 +62,6 @@ local function switchMenu(menu)
 	menuState = 1
 end
 
-logo.x, logo.y = -350, -125
-
-girlfriendTitle.x, girlfriendTitle.y = 300, -75
-
 
 return {
 	enter = function(self, previous)
@@ -87,7 +78,6 @@ return {
 	end,
 
 	update = function(self, dt)
-		girlfriendTitle:update(dt)
 
 		if not graphics.isFading() then
 			if input:pressed("left") then
