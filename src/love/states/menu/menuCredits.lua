@@ -5,9 +5,9 @@ Credits
 
 Vanilla Engine:
 
-GuglioIsStupid
-c l o t h i n g h a n g e r
-Getsaa
+GuglioIsStupid - Coding
+c l o t h i n g h a n g e r - Coding
+Getsaa - Menu Design
 
 Funkin' Rewritten:
 
