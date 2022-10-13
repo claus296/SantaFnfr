@@ -125,8 +125,13 @@ return {
 			end
 
 			if not (scaryIntro or countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused then
-				if score > highscores[weekNum-1][song] then
-					highscores[weekNum-1][song] = score
+				if score > highscores[weekNum-1].scores[song] then
+					highscores[weekNum-1].scores[song] = score
+					saveHighscores()
+				end
+				newAccuracy = convertedAcc:gsub("%%", "")
+				if tonumber(newAccuracy) > highscores[weekNum-1].accuracys[song] then
+					highscores[weekNum-1].accuracys[song] = tonumber(newAccuracy)
 					saveHighscores()
 				end
 				if storyMode and song < 3 then
