@@ -266,6 +266,8 @@ return {
 		weeks:update(dt)
 		stages["tank"]:update(dt)
 
+		print(convertedAcc:gsub("%%", ""))
+
 		if cutscene then
 			local timerBF = 0
 			
@@ -342,6 +344,15 @@ return {
 		end
 
 		if not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused and not cutscene then
+			if score > highscores[weekNum-1].scores[song] then
+				highscores[weekNum-1].scores[song] = score
+				saveHighscores()
+			end
+			newAccuracy = convertedAcc:gsub("%%", "")
+			if tonumber(newAccuracy) > highscores[weekNum-1].accuracys[song] then
+				highscores[weekNum-1].accuracys[song] = tonumber(newAccuracy)
+				saveHighscores()
+			end
 			if storyMode and song < 3 then
 				song = song + 1
 

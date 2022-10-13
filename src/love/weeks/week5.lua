@@ -125,6 +125,10 @@ return {
 			end
 
 			if not (scaryIntro or countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused then
+				if score > highscores[weekNum-1][song] then
+					highscores[weekNum-1][song] = score
+					saveHighscores()
+				end
 				if storyMode and song < 3 then
 					song = song + 1
 

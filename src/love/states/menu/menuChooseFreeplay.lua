@@ -8,7 +8,7 @@ local weekNum = 1
 local songNum, songAppend
 local songDifficulty = 2
 
-local titleBG = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/title-bg")))
+local titleBG = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/menuDesat")))
 local logo = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/logo")))
 
 local girlfriendTitle = love.filesystem.load("sprites/menu/girlfriend-title.lua")()
@@ -29,11 +29,15 @@ local confirmSound = love.audio.newSource("sounds/menu/confirm.ogg", "static")
 
 local function switchMenu(menu)
 	if menu == 3 then
-		Gamestate.switch(playModMenu)
+		graphics.fadeOut(0.5, function()
+			Gamestate.switch(playModMenu)
+		end)
 
 		return switchMenu(1)
 	elseif menu == 2 then
-		Gamestate.switch(menuFreeplay)
+		graphics.fadeOut(0.5, function()
+			Gamestate.switch(menuFreeplay)
+		end)
 	else
 		function leftFunc()
 			menuNum = (menuNum > 1) and menuNum - 1 or #menuNames
@@ -109,8 +113,9 @@ return {
 	draw = function(self)
 		love.graphics.push()
 			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
-
+			graphics.setColorF(176, 166, 145)
 			titleBG:draw()
+			graphics.setColor(1, 1, 1)
 
 			love.graphics.push()
 				love.graphics.scale(cam.sizeX, cam.sizeY)

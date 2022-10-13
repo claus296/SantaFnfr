@@ -113,6 +113,18 @@ function love.load()
 	lume = require "lib.lume"
 	lovebpm = require "lib.lovebpm"
 
+	highscores = {
+		[0] = {scores = {0}, accuracys = {0}},             -- Tutorial
+		[1] = {scores = {0, 0, 0}, accuracys = {0, 0, 0}}, -- Week 1
+		[2] = {scores = {0, 0, 0}, accuracys = {0, 0, 0}}, -- Week 2
+		[3] = {scores = {0, 0, 0}, accuracys = {0, 0, 0}}, -- Week 3
+		[4] = {scores = {0, 0, 0}, accuracys = {0, 0, 0}}, -- Week 4
+		[5] = {scores = {0, 0, 0}, accuracys = {0, 0, 0}}, -- Week 5
+		[6] = {scores = {0, 0, 0}, accuracys = {0, 0, 0}}, -- Week 6
+		[7] = {scores = {0, 0, 0}, accuracys = {0, 0, 0}}, -- Week 7
+		version = 1
+	}
+
 	music = {
 		lovebpm.newTrack(),
 		--love.audio.newSource("songs/misc/menu.ogg", "stream"),
@@ -217,6 +229,13 @@ function love.load()
 		graphics.setColor(1, 1, 1, 1)
 	end
 
+	function saveHighscores()
+		local file = love.filesystem.newFile("highscores")
+		file:open("w")
+		file:write(lume.serialize({highscores = highscores}))
+		file:close()
+	end
+
 	-- Load week data
 	weekData = {
 		require "weeks.tutorial",
@@ -228,6 +247,80 @@ function love.load()
 		require "weeks.week6",
 		require "weeks.week7",
 	}
+	weekDesc = { -- Add your week description here
+		"LEARN TO FUNK",
+		"DADDY DEAREST",
+		"SPOOKY MONTH",
+		"PICO",
+		"MOMMY MUST MURDER",
+		"RED SNOW",
+		"HATING SIMULATOR FT. MOAWLING",
+		"TANKMAN"
+	}
+	weekMeta = { -- Add/remove weeks here
+		{
+			"Tutorial",
+			{
+				"Tutorial"
+			}
+		},
+		{
+			"Week 1",
+			{
+				"Bopeebo",
+				"Fresh",
+				"Dadbattle"
+			}
+		},
+		{
+			"Week 2",
+			{
+				"Spookeez",
+				"South",
+				"Monster"
+			}
+		},
+		{
+			"Week 3",
+			{
+				"Pico",
+				"Philly Nice",
+				"Blammed"
+			}
+		},
+		{
+			"Week 4",
+			{
+				"Satin Panties",
+				"High",
+				"M.I.L.F"
+			}
+		},
+		{
+			"Week 5",
+			{
+				"Cocoa",
+				"Eggnog",
+				"Winter Horrorland"
+			}
+		},
+		{
+			"Week 6",
+			{
+				"Senpai",
+				"Roses",
+				"Thorns"
+			},
+		},
+		{
+			"Week 7",
+			{
+				"Ugh",
+				"Guns",
+				"Stress"
+			}
+		}
+	}
 
 	noteskins = {
 		"arrows",
@@ -236,10 +329,28 @@ function love.load()
 
 	testSong = require "weeks.test" -- Test song easter egg
 
+	if love.filesystem.getInfo("highscores") then
+		local file = love.filesystem.read("highscores")
+		local data = lume.deserialize(file)
+		
+		for i = 0, #data.highscores do
+			for j = 1, #data.highscores[i].scores do
+				highscores[i].scores[j] = data.highscores[i].scores[j]
+			end
+			for j = 1, #data.highscores[i].accuracys do
+				highscores[i].accuracys[j] = data.highscores[i].accuracys[j]
+			end
+		end
+	else
+		local file = love.filesystem.newFile("highscores")
+		file:open("w")
+		file:write(lume.serialize({highscores = highscores}))
+		file:close()
+	end
 	-- You don't need to mess with this unless you are adding a custom setting (Will nil be default (AKA. False)) --
 	if love.filesystem.getInfo("settings") then 
-		file = love.filesystem.read("settings")
-        data = lume.deserialize(file)
+		local file = love.filesystem.read("settings")
+        local data = lume.deserialize(file)
 		settings.hardwareCompression = data.saveSettingsMoment.hardwareCompression
 		settings.downscroll = data.saveSettingsMoment.downscroll
 		settings.ghostTapping = data.saveSettingsMoment.ghostTapping
@@ -299,7 +410,7 @@ function love.load()
 	end
 	if settingsVer ~= 6 then
 		love.window.showMessageBox("Uh Oh!", "Settings have been reset.", "warning")
-		love.filesystem.remove("settings.data")
+		love.filesystem.remove("settings")
 	end
 	if not love.filesystem.getInfo("settings") or settingsVer ~= 6 then
 		settings.hardwareCompression = true
@@ -378,6 +489,8 @@ function love.load()
 	credFont = love.graphics.newFont("fonts/fnFont.ttf", 32)   -- guglio is a bitch
 	uiFont = love.graphics.newFont("fonts/Dosis-SemiBold.ttf", 32)
 	pauseFont = love.graphics.newFont("fonts/Dosis-SemiBold.ttf", 96)
+	weekFont = love.graphics.newFont("fonts/Dosis-SemiBold.ttf", 84)
+	weekFontSmall = love.graphics.newFont("fonts/Dosis-SemiBold.ttf", 54)
 
 	weekNum = 1
 	songDifficulty = 2

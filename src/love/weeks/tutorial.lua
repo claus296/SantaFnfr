@@ -31,6 +31,7 @@ return {
 		weeks:enter()
 
 		week = 0
+		song = songNum
 
 		difficulty = songAppend
 		bump = 0
@@ -244,6 +245,15 @@ return {
 		end
 
 		if not (countingDown or graphics.isFading()) and not voices:isPlaying() and not paused then
+			if score > highscores[weekNum-1].scores[song] then
+				highscores[weekNum-1].scores[song] = score
+				saveHighscores()
+			end
+			newAccuracy = convertedAcc:gsub("%%", "")
+			if tonumber(newAccuracy) > highscores[weekNum-1].accuracys[song] then
+				highscores[weekNum-1].accuracys[song] = tonumber(newAccuracy)
+				saveHighscores()
+			end
 			storyMode = false
 
 			graphics.fadeOut(

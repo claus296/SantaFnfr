@@ -49,6 +49,7 @@ return {
 		love.graphics.setDefaultFilter("nearest")
 		pixelFont = love.graphics.newFont("fonts/pixel.fnt")
 		love.graphics.setDefaultFilter("linear")
+		totalScore = 0
 
 		--PAUSE MENU IMAGES
 		pauseBG = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/pause_box")))
@@ -1818,7 +1819,7 @@ return {
 				ratingText = "How."
 			elseif accForRatingText >= 0 then
 				ratingText = "Bruh."
-			end
+			end -- Marvellous 
 			if not settings.botPlay then
 				if noteCounter + missCounter <= 0 then
 					if (math.floor((altScore / (noteCounter + missCounter)) / 3.5)) >= 100 then

@@ -8,63 +8,11 @@ weekNum = 1
 local songNum, songAppend
 local songDifficulty = 2
 
-local weekDesc = { -- Add your week description here
-	"LEARN TO FUNK",
-	"DADDY DEAREST",
-	"SPOOKY MONTH",
-	"PICO",
-	"MOMMY MUST MURDER",
-	"RED SNOW",
-	"HATING SIMULATOR FT. MOAWLING",
-	"TANKMAN"
-}
 local difficultyStrs = { 
 	"easy",
 	"normal",
 	"hard"
 }
-
-trackNames = { -- add your songs here
-	{
-		"Tutorial"
-	},
-	{
-		"Bopeebo",
-		"Fresh",
-		"Dad-Battle"
-	},
-	{
-		"Spookeez",
-		"South",
-		"Monster"
-	},
-	{
-		"Pico",
-		"Philly",
-		"Blammed"
-	},
-	{
-		"Satin-Panties",
-		"High",
-		"M.I.L.F"
-	},
-	{
-		"Cocoa",
-		"Eggnog",
-		"Winter-Horrorland"
-	},
-	{
-		"Senpai",
-		"Roses",
-		"Thorns"
-	},
-	{
-		"Ugh",
-		"Guns",
-		"Stress"
-	}
-}
-
 local selectSound = love.audio.newSource("sounds/menu/select.ogg", "static")
 local confirmSound = love.audio.newSource("sounds/menu/confirm.ogg", "static")
 
@@ -77,11 +25,11 @@ return {
 		songNum = 0
 		weekNum = 1
 		theTracks = ""
-		for trackLength = 1, #trackNames[weekNum] do
+		for trackLength = 1, #weekMeta[weekNum][2] do
 			if theTracks ~= "" then
-				theTracks = theTracks .. " | " .. trackNames[weekNum][trackLength]
+				theTracks = theTracks .. " | " .. weekMeta[weekNum][2][trackLength]
 			else
-				theTracks = trackNames[weekNum][trackLength]
+				theTracks = weekMeta[weekNum][2][trackLength]
 			end
 		end
 
@@ -222,7 +170,7 @@ return {
 
 					storyMode = true
 
-					Gamestate.switch(weekData[weekNum], songNum, songAppend, weekNum, trackNames)
+					Gamestate.switch(weekData[weekNum], songNum, songAppend, weekNum)
 
 					status.setLoading(false)
 				end
@@ -241,16 +189,14 @@ return {
 				enemyDanceLines.sizeX, enemyDanceLines.sizeY = 0.5, 0.5
 			end
 			theTracks = ""
-			for trackLength = 1, #trackNames[weekNum] do
+			for trackLength = 1, #weekMeta[weekNum][2] do
 				if theTracks ~= "" then
-					theTracks = theTracks .. " | " .. trackNames[weekNum][trackLength]
+					theTracks = theTracks .. " | " .. weekMeta[weekNum][2][trackLength]
 				else
-					theTracks = trackNames[weekNum][trackLength]
+					theTracks = weekMeta[weekNum][2][trackLength]
 				end
 			end
 
-			weekBefore = weekImages[weekNum - 1]
-			weekAfter = weekImages[weekNum + 1]
 
 			enemyDanceLines:animate("week" .. weekNum, true)
 		end
