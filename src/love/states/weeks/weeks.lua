@@ -137,15 +137,23 @@ return {
 		function addJudgements(rating)
 			local judgementRating = rating
 
-			table.insert(judgements, {
-				img = love.filesystem.load("sprites/rating.lua")(),
-				rating = judgementRating,
-				transparency = 1
-			})
+			if not pixel then 
+				table.insert(judgements, {
+					img = love.filesystem.load("sprites/rating.lua")(),
+					rating = judgementRating,
+					transparency = 1
+				})
+			else
+				table.insert(judgements, {
+					img = love.filesystem.load("sprites/pixel/rating.lua")(),
+					rating = judgementRating,
+					transparency = 1
+				})
+			end
 			judgements[#judgements].img:animate(judgements[#judgements].rating, false)
 			judgements[#judgements].img.x = girlfriend.x
 			judgements[#judgements].img.y = girlfriend.y - 100
-			judgements[#judgements].img.sizeX, judgements[#judgements].img.sizeY = 0.75, 0.75
+			if not pixel then judgements[#judgements].img.sizeX, judgements[#judgements].img.sizeY = 0.75, 0.75 end
 		end
 	end,
 
@@ -238,15 +246,23 @@ return {
 		function addJudgements(rating)
 			local judgementRating = rating
 
-			table.insert(judgements, {
-				img = love.filesystem.load("sprites/rating.lua")(),
-				rating = judgementRating,
-				transparency = 1
-			})
+			if not pixel then 
+				table.insert(judgements, {
+					img = love.filesystem.load("sprites/rating.lua")(),
+					rating = judgementRating,
+					transparency = 1
+				})
+			else
+				table.insert(judgements, {
+					img = love.filesystem.load("sprites/pixel/rating.lua")(),
+					rating = judgementRating,
+					transparency = 1
+				})
+			end
 			judgements[#judgements].img:animate(judgements[#judgements].rating, false)
 			judgements[#judgements].img.x = girlfriend.x
 			judgements[#judgements].img.y = girlfriend.y - 100
-			judgements[#judgements].img.sizeX, judgements[#judgements].img.sizeY = 0.75, 0.75
+			if not pixel then judgements[#judgements].img.sizeX, judgements[#judgements].img.sizeY = 0.75, 0.75 end
 		end
 	end,
 
