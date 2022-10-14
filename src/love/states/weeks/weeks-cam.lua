@@ -29,6 +29,109 @@ local inputList = {
 	"gameUp",
 	"gameRight"
 }
+local camTween = {}
+local camTweens = {
+	function()
+		if camEx.x < 7.5  then
+			for i = 1, 2 do
+				if camTween[i] then
+					Timer.cancel(camTween[i])
+				end
+			end
+			camTween[1] = Timer.tween(
+				0.5,
+				camEx,
+				{
+					x = camEx.x + 30
+				},
+				"out-quad"
+			)
+			camTween[2] = Timer.tween(
+				0.5,
+				camEx,
+				{
+					y = 0
+				},
+				"out-quad"
+			)
+		end
+	end,
+	function()
+		if camEx.y > -7.5 or camEx.y > 0 then
+			for i = 1, 2 do
+				if camTween[i] then
+					Timer.cancel(camTween[i])
+				end
+			end
+			camTween[1] = Timer.tween(
+				0.5,
+				camEx,
+				{
+					x = 0
+				},
+				"out-quad"
+			)
+			camTween[2] = Timer.tween(
+				0.5,
+				camEx,
+				{
+					y = camEx.y - 30
+				},
+				"out-quad"
+			)
+		end
+	end,
+	function()
+		if camEx.y < 7.5 or camEx.y < 0 then
+			for i = 1, 2 do
+				if camTween[i] then
+					Timer.cancel(camTween[i])
+				end
+			end
+			camTween[1] = Timer.tween(
+				0.5,
+				camEx,
+				{
+					x = 0
+				},
+				"out-quad"
+			)
+			camTween[2] = Timer.tween(
+				0.5,
+				camEx,
+				{
+					y = camEx.y + 30
+				},
+				"out-quad"
+			)
+		end
+	end,
+	function()
+		if camEx.x > 7.5 or camEx.x > 0 then
+			for i = 1, 2 do
+				if camTween[i] then
+					Timer.cancel(camTween[i])
+				end
+			end
+			camTween[1] = Timer.tween(
+				0.5,
+				camEx,
+				{
+					x = camEx.x - 30
+				},
+				"out-quad"
+			)
+			camTween[2] = Timer.tween(
+				0.5,
+				camEx,
+				{
+					y = 0
+				},
+				"out-quad"
+			)
+		end
+	end
+}
 
 missCounter = 0
 noteCounter = 0
@@ -155,34 +258,6 @@ return {
 			judgements[#judgements].img.y = girlfriend.y - 100
 			if not pixel then judgements[#judgements].img.sizeX, judgements[#judgements].img.sizeY = 0.75, 0.75 end
 		end
-
-		function cameraTween()
-			if input:pressed("gameLeft") then
-				print("left")
-				Timer.tween(0.5, cam, {x = cam.x + 100}, "out-expo")
-			end
-			if input:pressed("gameRight") then
-				print("right")
-				Timer.tween(0.5, cam, {x = cam.x - 100}, "out-expo")
-			end
-			if input:pressed("gameUp") then
-				print("up")
-				Timer.tween(0.5, cam, {y = cam.y + 100}, "out-expo")
-			end
-			if input:pressed("gameDown") then
-				print("down")
-				Timer.tween(0.5, cam, {y = cam.y - 100}, "out-expo")
-			end
-
-			if camToBF then
-				camTimer = Timer.tween(1.25, cam, {x = -boyfriend.x + 100, y = -boyfriend.y + 75}, "out-quad")
-			end
-
-			
-		end
-
-
-		
 	end,
 
 	pixelEnter = function(self)
@@ -1042,8 +1117,7 @@ return {
 	end,
 
 	update = function(self, dt)
-		cameraTween()
-		print(#judgements)
+		print(camEx.x, camEx.y)
 		hitCounter = (sicks + goods + bads + shits)
 
 		if paused then
@@ -1262,6 +1336,10 @@ return {
 						if not boyfriendArrow:isAnimated() then
 							boyfriendArrow:animate("off", false)
 						end
+					end
+
+					if input:pressed(curInput) then
+						camTweens[i]()
 					end
 
 					if #enemyNote > 0 then

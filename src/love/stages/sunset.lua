@@ -39,6 +39,7 @@ return {
     draw = function()
         love.graphics.push()
 			love.graphics.translate(cam.x * 0.5, cam.y * 0.5)
+            love.graphics.translate(camEx.x * 0.5, camEx.y * 0.5)
 
 			stageImages[1]:draw()
 
@@ -51,6 +52,7 @@ return {
 		love.graphics.pop()
 		love.graphics.push()
 			love.graphics.translate(cam.x, cam.y)
+            --love.graphics.translate(camEx.x, camEx.y)
 
 			girlfriend:draw()
 			stageImages[4]:draw()

@@ -506,6 +506,7 @@ function love.load()
 	countingDown = false
 
 	cam = {x = 0, y = 0, sizeX = 0.9, sizeY = 0.9}
+	camEx = {x = 0, y = 0}
 	camScale = {x = 0.9, y = 0.9}
 	camZoom = {sizeX = 1, sizeY = 1}
 	uiScale = {x = 1, y = 1, sizeX = 1, sizeY = 1}
