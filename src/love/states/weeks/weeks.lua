@@ -252,7 +252,7 @@ return {
 
 	load = function(self)
 
-
+		holdingInput = false
 		missCounter = 0
 		noteCounter = 0
 		altScore = 0
@@ -1248,6 +1248,16 @@ return {
 									if inst then voices:setVolume(0) end
 
 									notMissed[noteNum] = false
+									if not settings.noMiss then
+										if boyfriendNote[1]:getAnimName() ~= "hold" and boyfriendNote[1]:getAnimName() ~= "end" then
+											health = health - 2
+										end
+									else
+										health = 0
+									end
+									if boyfriendNote[1]:getAnimName() ~= "hold" and boyfriendNote[1]:getAnimName() ~= "end" then
+										missCounter = missCounter + 1
+									end
 
 									table.remove(boyfriendNote, 1)
 
@@ -1256,13 +1266,6 @@ return {
 									hitSick = false
 
 									combo = 0
-									if not settings.noMiss then
-										health = health - 2
-									else
-										health = 0
-									end
-
-									missCounter = missCounter + 1
 								end
 							end
 						end
@@ -1412,19 +1415,28 @@ return {
 												numbers[2].x = girlfriend.x
 												numbers[3].x = girlfriend.x + 50
 											end
-											table.remove(boyfriendNote, i)
-
 											if not settings.ghostTapping or success then
 												boyfriendArrow:animate("confirm", false)
 
 												self:safeAnimate(boyfriend, curAnim, false, 3)
 												doingAnim = false
 
+												if not settings.noMiss then
+													if boyfriendNote[1]:getAnimName() ~= "hold" or boyfriendNote[1]:getAnimName() ~= "end" then
+														health = health + 1
+													end
+												else
+													health = 0
+												end
+
 												health = health + 1
-												noteCounter = noteCounter + 1
+												if boyfriendNote[1]:getAnimName() ~= "hold" or boyfriendNote[1]:getAnimName() ~= "end" then
+													noteCounter = noteCounter + 1
+												end
 
 												success = true
 											end
+											table.remove(boyfriendNote, i)
 										else
 											break
 										end
@@ -1469,7 +1481,7 @@ return {
 
 							if (not boyfriend:isAnimated()) or boyfriend:getAnimName() == "idle" then self:safeAnimate(boyfriend, curAnim, true, 3) end
 
-							health = health + 1
+							--health = health + 1
 						end
 
 						if input:released(curInput) then
