@@ -7,7 +7,7 @@ CREDITS
 Vanilla Engine:
 
 GuglioIsStupid - Coding
-c l o t h i n g h a n g e r - Coding
+c l o t h i n g h a n g e r - Coding - (and is a furry)
 Getsaa - Menu Design
 
 
