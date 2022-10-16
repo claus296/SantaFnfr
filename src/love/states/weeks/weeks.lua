@@ -190,7 +190,7 @@ return {
 
 		images = {
 			icons = love.graphics.newImage(graphics.imagePath("icons")),
-			notesp = love.graphics.newImage(graphics.imagePath("pixel/notes")),
+			notesp = love.graphics.newImage(graphics.imagePath("pixel/notes/"..noteskins[settings.noteSkins])),
 			notesplashes = love.graphics.newImage(graphics.imagePath("pixel/pixelSplashes")),
 			numbers = love.graphics.newImage(graphics.imagePath("pixel/numbers")),
 			rating = love.graphics.newImage(graphics.imagePath("pixel/rating")),
@@ -401,16 +401,21 @@ return {
 
 		local curInput = inputList[i]
 
+		--[[
 		sprites.leftArrow = love.filesystem.load("sprites/pixel/notes/left-arrow.lua")
 		sprites.downArrow = love.filesystem.load("sprites/pixel/notes/down-arrow.lua")
 		sprites.upArrow = love.filesystem.load("sprites/pixel/notes/up-arrow.lua")
 		sprites.rightArrow = love.filesystem.load("sprites/pixel/notes/right-arrow.lua")
+		--]]
+		sprites.leftArrow = love.filesystem.load("sprites/pixel/notes/" .. noteskins[settings.noteSkins] .. "/left-arrow.lua")
+		sprites.downArrow = love.filesystem.load("sprites/pixel/notes/" .. noteskins[settings.noteSkins] .. "/down-arrow.lua")
+		sprites.upArrow = love.filesystem.load("sprites/pixel/notes/" .. noteskins[settings.noteSkins] .. "/up-arrow.lua")
+		sprites.rightArrow = love.filesystem.load("sprites/pixel/notes/" .. noteskins[settings.noteSkins] .. "/right-arrow.lua")
 
 		leftArrowSplash = love.filesystem.load("sprites/pixel/notes/pixelSplashes.lua")()
 		downArrowSplash = love.filesystem.load("sprites/pixel/notes/pixelSplashes.lua")()
 		upArrowSplash = love.filesystem.load("sprites/pixel/notes/pixelSplashes.lua")()
 		rightArrowSplash = love.filesystem.load("sprites/pixel/notes/pixelSplashes.lua")()
-
 
 		enemyArrows = {
 			sprites.leftArrow(),
