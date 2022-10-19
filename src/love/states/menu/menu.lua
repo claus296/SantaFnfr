@@ -43,6 +43,10 @@ return {
 		girlfriendTitle = love.filesystem.load("sprites/menu/girlfriend-title.lua")()
 		titleEnter = love.filesystem.load("sprites/menu/titleEnter.lua")()
 
+		if love.system.getOS() == "OS X" then
+			gamejolt.giveTrophy(175141)
+		end
+
 		whiteRectangles = {}
 		for i = 1, 15 do
 			table.insert(whiteRectangles, graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/whiteRectangle"))))

@@ -188,11 +188,6 @@ function love.load()
 	gjlogin = require "states.gjlogin"
 
 	gamejolt.init("757896", "81a95b38f12f5a1c343c6a9e55ac890e")
-	--gamejolt.authUser("GuglioIsStupid", "43qnse")
-
-	if love.system.getOS() == "OS X" then
-		gamejolt.giveTrophy(175141)
-	end
 
 	-- Load weeks
 	weeks = require "states.weeks.weeks"
