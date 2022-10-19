@@ -23,6 +23,11 @@ return {
 	enter = function(self, from)
 		local boyfriend = fakeBoyfriend or boyfriend
 		died = true
+		achievementProgress["death"] = achievementProgress["death"] + 1
+		if achievementProgress["death"] >= 100 then
+			gamejolt.giveTrophy(175140)
+			trophies = gamejolt.fetchAllTrophies()
+		end
 
 		fromState = from
 
