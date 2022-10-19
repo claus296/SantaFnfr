@@ -726,4 +726,5 @@ function love.quit()
 	if useDiscordRPC then
 		discordRPC.shutdown()
 	end
+	saveAchivementsProgress()
 end
