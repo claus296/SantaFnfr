@@ -1075,7 +1075,7 @@ return {
 		-- format the timeLeft string
 		timeLeftString = string.format("%02d:%02d", timeLeftMinutes, timeLeftSeconds)
 
-		if input:pressed("pause") and not countingDown then
+		if input:pressed("pause") and not countingDown and not cutscene and not doingDialogue then
 			if not paused then
 				pauseTime = musicTime
 				paused = true
