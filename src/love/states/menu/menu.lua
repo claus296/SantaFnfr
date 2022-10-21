@@ -43,7 +43,7 @@ return {
 		girlfriendTitle = love.filesystem.load("sprites/menu/girlfriend-title.lua")()
 		titleEnter = love.filesystem.load("sprites/menu/titleEnter.lua")()
 
-		if love.system.getOS() == "OS X" then
+		if love.system.getOS() == "OS X" and gamejoltLogin["useGamejolt"] then
 			gamejolt.giveTrophy(175141)
 		end
 

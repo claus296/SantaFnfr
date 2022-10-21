@@ -360,12 +360,18 @@ function love.load()
 	if love.filesystem.getInfo("gamejoltLogin") then
 		local file = love.filesystem.read("gamejoltLogin")
 		local data = lume.deserialize(file)
-
-		gamejoltLogin["username"] = data["username"]
-		gamejoltLogin["token"] = data["token"]
-
-		gamejolt.authUser(gamejoltLogin["username"], gamejoltLogin["token"])
-		print("Signed in as " .. gamejoltLogin["username"])
+		gamejoltLogin["useGamejolt"] = data["useGamejolt"]
+		if gamejoltLogin["useGamejolt"] then
+			gamejoltLogin["username"] = data["username"]
+			gamejoltLogin["token"] = data["token"]
+			
+			gamejolt.authUser(gamejoltLogin["username"], gamejoltLogin["token"])
+		end
+		if gamejoltLogin["useGamejolt"] then
+			print("Signed in as " .. gamejoltLogin["username"])
+		else
+			print("Not using GameJolt")
+		end
 	else
 		local file = love.filesystem.newFile("gamejoltLogin")
 		file:open("w")

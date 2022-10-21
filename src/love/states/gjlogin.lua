@@ -36,14 +36,12 @@ return {
             if key == "backspace" then
                 token = string.sub(token, 1, -2)
             elseif key == "return" then
-                if username ~= "" and token ~= "" then
-                    status.setLoading(true)
-                    graphics.fadeOut(0.5,
-                    function()
-                        Gamestate.switch(menu)
-                        status.setLoading(false)
-                    end)
-                end
+                status.setLoading(true)
+                graphics.fadeOut(0.5,
+                function()
+                    Gamestate.switch(menu)
+                    status.setLoading(false)
+                end)
             else
                 token = token .. key
             end
@@ -65,6 +63,10 @@ return {
         success = gamejolt.authUser(username, token)
         if success then
             gamejoltSupport = true
+            gamejoltLogin["useGamejolt"] = true
+        else
+            gamejoltSupport = false
+            gamejoltLogin["useGamejolt"] = false
         end
     end
 }
