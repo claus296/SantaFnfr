@@ -1033,7 +1033,7 @@ return {
 
 			if input:pressed("gameUp") and paused then
 				if pauseMenuSelection == 1 then
-					pauseMenuSelection = 43
+					pauseMenuSelection = 3
 				else
 					pauseMenuSelection = pauseMenuSelection - 1
 				end
