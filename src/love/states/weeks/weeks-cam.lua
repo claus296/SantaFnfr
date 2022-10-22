@@ -171,7 +171,7 @@ return {
 				love.audio.newSource("sounds/miss2.ogg", "static"),
 				love.audio.newSource("sounds/miss3.ogg", "static")
 			},
-			hitsounds = {
+			Hitsounds = {
 				love.audio.newSource("sounds/hitSound.ogg", "static"),
 			},
 			death = love.audio.newSource("sounds/death.ogg", "static"),
@@ -282,7 +282,7 @@ return {
 				love.audio.newSource("sounds/pixel/miss2.ogg", "static"),
 				love.audio.newSource("sounds/pixel/miss3.ogg", "static")
 			},
-			hitsounds = {
+			Hitsounds = {
 				love.audio.newSource("sounds/hitSound.ogg", "static"),
 			},
 			death = love.audio.newSource("sounds/pixel/death.ogg", "static"),
@@ -1416,16 +1416,16 @@ return {
 						end
 
 						if input:pressed(curInput) then
-							if settings.hitsounds then
-								if sounds.hitsounds[#sounds.hitsounds]:isPlaying() then
-									sounds.hitsounds[#sounds.hitsounds] = sounds.hitsounds[#sounds.hitsounds]:clone()
-									sounds.hitsounds[#sounds.hitsounds]:play()
+							if settings.Hitsounds then
+								if sounds.Hitsounds[#sounds.Hitsounds]:isPlaying() then
+									sounds.Hitsounds[#sounds.Hitsounds] = sounds.Hitsounds[#sounds.Hitsounds]:clone()
+									sounds.Hitsounds[#sounds.Hitsounds]:play()
 								else
-									sounds.hitsounds[#sounds.hitsounds]:play()
+									sounds.Hitsounds[#sounds.Hitsounds]:play()
 								end
-								for hit = 2, #sounds.hitsounds do
-									if not sounds.hitsounds[hit]:isPlaying() then
-										sounds.hitsounds[hit] = nil -- Nil afterwords to prevent memory leak
+								for hit = 2, #sounds.Hitsounds do
+									if not sounds.Hitsounds[hit]:isPlaying() then
+										sounds.Hitsounds[hit] = nil -- Nil afterwords to prevent memory leak
 									end --                             maybe, idk how love2d works lmfao
 								end
 							end

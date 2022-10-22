@@ -117,11 +117,12 @@ return {
                     customScrollSpeed = settings.customScrollSpeed,
                     keystrokes = settings.keystrokes,
                     scrollUnderlayTrans = settings.scrollUnderlayTrans,
-                    hitsounds = settings.hitsounds,
+                    Hitsounds = settings.Hitsounds,
                     vocalsVol = settings.vocalsVol,
                     instVol = settings.instVol,
                     hitsoundVol = settings.hitsoundVol,
                     noteSkins = settings.noteSkins,
+                    flashinglights = settings.flashinglights,
                     customBindDown = customBindDown,
                     customBindUp = customBindUp,
                     customBindLeft = customBindLeft,
@@ -154,11 +155,12 @@ return {
                     customScrollSpeed = settings.customScrollSpeed,
                     keystrokes = settings.keystrokes,
                     scrollUnderlayTrans = settings.scrollUnderlayTrans,
-                    hitsounds = settings.hitsounds,
+                    Hitsounds = settings.Hitsounds,
                     vocalsVol = settings.vocalsVol,
                     instVol = settings.instVol,
                     hitsoundVol = settings.hitsoundVol,
                     noteSkins = settings.noteSkins,
+                    flashinglights = settings.flashinglights,
                     customBindDown = customBindDown,
                     customBindUp = customBindUp,
                     customBindLeft = customBindLeft,
@@ -277,10 +279,10 @@ return {
                             end
                         -- 8 is scroll underlay transparency
                         elseif settingSelect == 9 then
-                            if not settings.hitsounds then
-                                settings.hitsounds = true
+                            if not settings.Hitsounds then
+                                settings.Hitsounds = true
                             else
-                                settings.hitsounds = false
+                                settings.Hitsounds = false
                             end
                         -- 10 is noteskins
                         elseif settingSelect == 11 then
@@ -307,7 +309,7 @@ return {
                             end
                             -- 3 is inst volume
                             -- 4 is vocals volume
-                            -- 5 is hitsounds volume
+                            -- 5 is Hitsounds volume
                         end
                     end
                 end
@@ -458,7 +460,7 @@ return {
                     love.graphics.print("\n\n\n\n\n\n\n\n\n\nCustom Scroll Speed = " .. tostring(settings.customScrollSpeed), -628, -300)
                     love.graphics.print("\n\n\n\n\n\n\n\n\n\n\n\nKeystrokes = " .. tostring(settings.keystrokes), -628, -300)
                     love.graphics.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\nScroll Underlay Transparency = " .. tostring(settings.scrollUnderlayTrans), -628, -300)
-                    love.graphics.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHitsounds = " .. tostring(settings.hitsounds), -628, -300)
+                    love.graphics.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHitsounds = " .. tostring(settings.Hitsounds), -628, -300)
                     love.graphics.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNoteskin = " .. tostring(noteskins[settings.noteSkins]), -628, -300)
                     love.graphics.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFlashing Lights = " .. tostring(settings.flashinglights), -628, -300)
                 elseif settingsMenuState == 3 then

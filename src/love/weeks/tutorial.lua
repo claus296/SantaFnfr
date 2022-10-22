@@ -77,18 +77,18 @@ return {
 
 	update = function(self, dt)
 
-		if settings.hitsounds then
+		if settings.Hitsounds then
 			if input:pressed("gameDown") and not paused then
-				audio.playSound(sounds.hitsounds.down)
+				audio.playSound(sounds.Hitsounds.down)
 			end
 			if input:pressed("gameUp") and not paused then
-				audio.playSound(sounds.hitsounds.up)
+				audio.playSound(sounds.Hitsounds.up)
 			end
 			if input:pressed("gameLeft") and not paused then
-				audio.playSound(sounds.hitsounds.left)
+				audio.playSound(sounds.Hitsounds.left)
 			end
 			if input:pressed("gameRight") and not paused then
-				audio.playSound(sounds.hitsounds.right)
+				audio.playSound(sounds.Hitsounds.right)
 			end
 		end
 		if paused then

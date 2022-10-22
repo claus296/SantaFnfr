@@ -419,7 +419,7 @@ function love.load()
 		settings.scrollUnderlayTrans = settingdata.saveSettingsMoment.scrollUnderlayTrans
 		settings.instVol = settingdata.saveSettingsMoment.instVol
 		settings.vocalsVol = settingdata.saveSettingsMoment.vocalsVol
-		settings.hitsounds = settingdata.saveSettingsMoment.hitsounds
+		settings.Hitsounds = settingdata.saveSettingsMoment.Hitsounds
 		settings.hitsoundVol = settingdata.saveSettingsMoment.hitsoundVol
 		settings.noteSkins = settingdata.saveSettingsMoment.noteSkins
 		customBindDown = settingdata.saveSettingsMoment.customBindDown
@@ -445,7 +445,7 @@ function love.load()
 			customScrollSpeed = settings.customScrollSpeed,
 			keystrokes = settings.keystrokes,
 			scrollUnderlayTrans = settings.scrollUnderlayTrans,
-			hitsounds = settings.hitsounds,
+			Hitsounds = settings.Hitsounds,
 			instVol = settings.instVol,
 			vocalsVol = settings.vocalsVol,
 			hitsoundVol = settings.hitsoundVol,
@@ -479,7 +479,7 @@ function love.load()
 		settings.customScrollSpeed = 1
 		settings.keystrokes = false
 		settings.scrollUnderlayTrans = 0
-		settings.hitsounds = false
+		settings.Hitsounds = false
 		settings.instVol = 1
 		settings.vocalsVol = 1
 		settings.hitsoundVol = 1
@@ -508,7 +508,7 @@ function love.load()
 			scrollUnderlayTrans = settings.scrollUnderlayTrans,
 			instVol = settings.instVol,
 			vocalsVol = settings.vocalsVol,
-			hitsounds = settings.hitsounds,
+			Hitsounds = settings.Hitsounds,
 			hitsoundVol = settings.hitsoundVol,
 			noteSkins = settings.noteSkins,
 			customBindLeft = customBindLeft,
