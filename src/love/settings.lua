@@ -20,34 +20,21 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 local curOS = love.system.getOS()
 
 -- This usually doesn't need to be messed with
-local settingsStr = (curOS == "NX" and [[ 
-; Friday Night Funkin' Rewritten Settings (Switch)
-
-; These variables are read by the game for internal purposes, don't edit these unless you want to risk losing your current settings!
-[Data]
-settingsVer=2-nx
-]]) or (curOS ~= "Web" and [[
+local settingsStr = [[
 ; Friday Night Funkin' Rewritten Settings
 
-[Video]
-; Screen/window width and height (you should change this to your device's screen resolution if you are using the "exclusive" fullscreen type)
-; NOTE: These settings will be ignored if using the "desktop" fullscreen type
-width=1280
-height=720
-
 ; Fullscreen settings, if you don't want Vsync (60 FPS cap), set "fullscreenType" to "exclusive" and "vsync" to "0"
-fullscreen=false
-fullscreenType=desktop
+fullscreenType=exclusive
 vsync=1
 
 ; These variables are read by the game for internal purposes, don't edit these unless you want to risk losing your current settings!
 [Data]
-settingsVer=2
-]])
+settingsVer=3
+]]
 
 local settingsIni
 
-settings = {}
+
 
 if curOS == "NX" then
 	love.window.setMode(1920, 1080)
@@ -55,7 +42,7 @@ if curOS == "NX" then
 	if love.filesystem.getInfo("settings.ini") then
 		settingsIni = ini.load("settings.ini")
 
-		if not settingsIni["Data"] or ini.readKey(settingsIni, "Data", "settingsVer") ~= "2-nx" then
+		if not settingsIni["Data"] or ini.readKey(settingsIni, "Data", "settingsVer") ~= "3" then
 			love.filesystem.write("settings.ini", settingsStr)
 		end
 	else
@@ -74,7 +61,7 @@ else
 	if love.filesystem.getInfo("settings.ini") then
 		settingsIni = ini.load("settings.ini")
 
-		if not settingsIni["Data"] or ini.readKey(settingsIni, "Data", "settingsVer") ~= "2" then
+		if not settingsIni["Data"] or ini.readKey(settingsIni, "Data", "settingsVer") ~= "3" then
 			love.window.showMessageBox("Warning", "The current settings file is outdated, and will now be reset.")
 
 			local success, message = love.filesystem.write("settings.ini", settingsStr)
@@ -96,27 +83,6 @@ else
 	end
 
 	settingsIni = ini.load("settings.ini")
-
-	if ini.readKey(settingsIni, "Video", "fullscreen") == "true" then
-		love.window.setMode(
-			ini.readKey(settingsIni, "Video", "width"),
-			ini.readKey(settingsIni, "Video", "height"),
-			{
-				fullscreen = true,
-				fullscreentype = ini.readKey(settingsIni, "Video", "fullscreenType"),
-				vsync = tonumber(ini.readKey(settingsIni, "Video", "vsync"))
-			}
-		)
-	else
-		love.window.setMode(
-			ini.readKey(settingsIni, "Video", "width"),
-			ini.readKey(settingsIni, "Video", "height"),
-			{
-				vsync = tonumber(ini.readKey(settingsIni, "Video", "vsync")),
-				resizable = true
-			}
-		)
-	end
 
 end
 --i wanna suck cock

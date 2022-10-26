@@ -106,14 +106,14 @@ function love.load()
 
 	-- Load libraries
 	baton = require "lib.baton"
-	ini = require "lib.ini"
+	--ini = require "lib.ini"
 	lovesize = require "lib.lovesize"
 	Gamestate = require "lib.gamestate"
 	Timer = require "lib.timer"
 	lume = require "lib.lume"
 	lovebpm = require "lib.lovebpm"
 	gamejolt = require "lib.gamejolt"
-
+	
 	highscores = {
 		[0] = {scores = {0}, accuracys = {0}},             -- Tutorial
 		[1] = {scores = {0, 0, 0}, accuracys = {0, 0, 0}}, -- Week 1
@@ -148,7 +148,8 @@ function love.load()
 	spongebirth = love.graphics.newImage(graphics.imagePath("spongebirth"))
 	
 	-- Load settings
-	settings = require "settings"
+	--settings = require "settings"
+	settings = {}
 
 	-- Load states
 	clickStart = require "states.click-start"
@@ -250,6 +251,98 @@ function love.load()
 		file:open("w")
 		file:write(lume.serialize({achievementProgress = achievementProgress}))
 		file:close()
+	end
+
+	function saveSettings()
+		if settings.hardwareCompression ~= settingdata.saveSettingsMoment.hardwareCompression then
+			settingdata = {}
+			if settings.hardwareCompression then
+				imageTyppe = "dds" 
+			else
+				imageTyppe = "png"
+			end
+			settingdata.saveSettingsMoment = {
+				hardwareCompression = settings.hardwareCompression,
+				downscroll = settings.downscroll,
+				ghostTapping = settings.ghostTapping,
+				showDebug = settings.showDebug,
+				setImageType = "dds",
+				sideJudgements = settings.sideJudgements,
+				botPlay = settings.botPlay,
+				middleScroll = settings.middleScroll,
+				randomNotePlacements = settings.randomNotePlacements,
+				practiceMode = settings.practiceMode,
+				noMiss = settings.noMiss,
+				customScrollSpeed = settings.customScrollSpeed,
+				keystrokes = settings.keystrokes,
+				scrollUnderlayTrans = settings.scrollUnderlayTrans,
+				Hitsounds = settings.Hitsounds,
+				vocalsVol = settings.vocalsVol,
+				instVol = settings.instVol,
+				hitsoundVol = settings.hitsoundVol,
+				noteSkins = settings.noteSkins,
+				flashinglights = settings.flashinglights,
+				window = settings.window,
+				customBindDown = customBindDown,
+				customBindUp = customBindUp,
+				customBindLeft = customBindLeft,
+				customBindRight = customBindRight,
+				settingsVer = settingsVer
+			}
+			serialized = lume.serialize(settingdata)
+			love.filesystem.write("settings", serialized)
+			love.window.showMessageBox("Settings Saved!", "Settings saved. Vanilla Engine will now restart to make sure your settings saved")
+			love.event.quit("restart")
+		else
+			settingdata = {}
+			if settings.hardwareCompression then
+				imageTyppe = "dds" 
+			else
+				imageTyppe = "png"
+			end
+			settingdata.saveSettingsMoment = {
+				hardwareCompression = settings.hardwareCompression,
+				downscroll = settings.downscroll,
+				ghostTapping = settings.ghostTapping,
+				showDebug = settings.showDebug,
+				setImageType = "dds",
+				sideJudgements = settings.sideJudgements,
+				botPlay = settings.botPlay,
+				middleScroll = settings.middleScroll,
+				randomNotePlacements = settings.randomNotePlacements,
+				practiceMode = settings.practiceMode,
+				noMiss = settings.noMiss,
+				customScrollSpeed = settings.customScrollSpeed,
+				keystrokes = settings.keystrokes,
+				scrollUnderlayTrans = settings.scrollUnderlayTrans,
+				Hitsounds = settings.Hitsounds,
+				vocalsVol = settings.vocalsVol,
+				instVol = settings.instVol,
+				hitsoundVol = settings.hitsoundVol,
+				noteSkins = settings.noteSkins,
+				flashinglights = settings.flashinglights,
+				window = {
+					windowWidth = love.graphics.getWidth(),
+					windowHeight = love.graphics.getHeight(),
+					fullscreen = love.window.getFullscreen(),
+					vsync = love.window.getVSync(),
+				},
+				customBindDown = customBindDown,
+				customBindUp = customBindUp,
+				customBindLeft = customBindLeft,
+				customBindRight = customBindRight,
+				settingsVer = settingsVer
+			}
+			serialized = lume.serialize(settingdata)
+			love.filesystem.write("settings", serialized)
+			graphics.fadeOut(
+				0.3,
+				function()
+					Gamestate.switch(menuSelect)
+					status.setLoading(false)
+				end
+			)
+		end
 	end
 
 	-- Load week data
@@ -427,6 +520,7 @@ function love.load()
 		customBindLeft = settingdata.saveSettingsMoment.customBindLeft
 		customBindRight = settingdata.saveSettingsMoment.customBindRight
 		settings.flashinglights = settingdata.saveSettingsMoment.flashinglights
+		settings.window = settingdata.saveSettingsMoment.window
 
 		settingsVer = settingdata.saveSettingsMoment.settingsVer
 
@@ -455,16 +549,17 @@ function love.load()
 			customBindLeft = customBindLeft,
 			customBindRight = customBindRight,
 			flashinglights = settings.flashinglights,
+			window = settings.window,
 			settingsVer = settingsVer
 		}
 		serialized = lume.serialize(settingdata)
 		love.filesystem.write("settings", serialized)
 	end
-	if settingsVer ~= 6 then
+	if settingsVer ~= 7 then
 		love.window.showMessageBox("Uh Oh!", "Settings have been reset.", "warning")
 		love.filesystem.remove("settings")
 	end
-	if not love.filesystem.getInfo("settings") or settingsVer ~= 6 then
+	if not love.filesystem.getInfo("settings") or settingsVer ~= 7 then
 		settings.hardwareCompression = true
 		graphics.setImageType("dds")
 		settings.downscroll = false
@@ -488,8 +583,17 @@ function love.load()
 		customBindRight = "d"
 		customBindUp = "w"
 		customBindDown = "s"
+
+		settings.window = {
+			vsync = 1,
+			windowWidth = 1280,
+			windowHeight = 720,
+			fullscreen = false,
+			fullscreentype = "desktop"
+		}
+
 		settings.flashinglights = false
-		settingsVer = 6
+		settingsVer = 7
 		settingdata = {}
 		settingdata.saveSettingsMoment = {
 			hardwareCompression = settings.hardwareCompression,
@@ -516,6 +620,7 @@ function love.load()
 			customBindUp = customBindUp,
 			customBindDown = customBindDown,
 			flashinglights = settings.flashinglights,
+			window = settings.window,
 			
 			settingsVer = settingsVer
 		}
@@ -525,6 +630,17 @@ function love.load()
 	input = require "input" -- LOAD INPUT HERE CUZ GOOFY AHH KEYBINDS MENU
 
 	-----------------------------------------------------------------------------------------
+
+	love.window.setMode(
+		settings.window.windowWidth,
+		settings.window.windowHeight,
+		{
+			vsync = settings.window.vsync,
+			fullscreen = settings.window.fullscreen,
+			fullscreentype = settings.window.fullscreentype,
+			resizable = true
+		}
+	)
 
 	-- LÖVE init
 	if curOS == "OS X" then
@@ -728,4 +844,5 @@ function love.quit()
 		discordRPC.shutdown()
 	end
 	saveAchivementsProgress()
+	saveSettings()
 end
