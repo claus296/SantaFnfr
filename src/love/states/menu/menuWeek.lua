@@ -331,23 +331,7 @@ return {
 				--weekImages[currentWeek + 1]:draw()
 				graphics.setColorF(freeColour[1], freeColour[2], freeColour[3])
 
-				if currentWeek == 0 then
-					weekImages[1]:draw()
-				elseif currentWeek == 1 then
-					weekImages[2]:draw()
-				elseif currentWeek == 2 then
-					weekImages[3]:draw()
-				elseif currentWeek == 3 then
-					weekImages[4]:draw()
-				elseif currentWeek == 4 then
-					weekImages[5]:draw()
-				elseif currentWeek == 5 then
-					weekImages[6]:draw()
-				elseif currentWeek == 6 then
-					weekImages[7]:draw()
-				elseif currentWeek == 7 then
-					weekImages[8]:draw()
-				end
+				if weekImages[currentWeek+1]then weekImages[currentWeek+1]:draw() end
 
 				love.graphics.color.printf(weekDesc[weekNum], -639, -395, 853, "center", nil, 1.5, 1.5, freeColour[1], freeColour[2], freeColour[3])
 
