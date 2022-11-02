@@ -29,41 +29,6 @@ return {
         end
         doBindSet = false
         choice = 0
-        function saveSettings()
-            data = {}
-            if settings.hardwareCompression then
-                imageTyppe = "dds" 
-            else
-                imageTyppe = "png"
-            end
-            data.saveSettingsMoment = {
-                hardwareCompression = settings.hardwareCompression,
-                downscroll = settings.downscroll,
-                ghostTapping = settings.ghostTapping,
-                showDebug = settings.showDebug,
-                setImageType = "dds",
-                sideJudgements = settings.sideJudgements,
-                botPlay = settings.botPlay,
-                middleScroll = settings.middleScroll,
-                randomNotePlacements = settings.randomNotePlacements,
-                practiceMode = settings.practiceMode,
-                noMiss = settings.noMiss,
-                customScrollSpeed = settings.customScrollSpeed,
-                keystrokes = settings.keystrokes,
-                scrollUnderlayTrans = settings.scrollUnderlayTrans,
-                vocalsVol = settings.vocalsVol,
-                instVol = settings.instVol,
-                hitsoundVol = settings.hitsoundVol,
-                noteSkins = settings.noteSkins,
-                customBindDown = customBindDown,
-                customBindUp = customBindUp,
-                customBindLeft = customBindLeft,
-                customBindRight = customBindRight,
-                settingsVer = settingsVer
-            }
-            serialized = lume.serialize(data)
-            love.filesystem.write("settings", serialized)
-        end
         graphics.setFade(0)
         graphics.fadeIn(0.5)
     end,
