@@ -144,6 +144,7 @@ function love.load()
 	status = require "modules.status"
 	audio = require "modules.audio"
 	graphics = require "modules.graphics"
+	modchartHandler = require "modules.modchart"
 
 	spongebirth = love.graphics.newImage(graphics.imagePath("spongebirth"))
 	

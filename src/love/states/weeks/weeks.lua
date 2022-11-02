@@ -300,8 +300,11 @@ return {
 
 		enemy:animate("idle")
 		boyfriend:animate("idle")
+		
 
-		graphics.fadeIn(0.5)
+		graphics.fadeIn(0.5, function()
+			modchartHandler:onLoad()
+		end)
 	end,
 
 	initUI = function(self)
@@ -1019,7 +1022,7 @@ return {
 	end,
 
 	update = function(self, dt)
-		print(#judgements)
+		modchartHandler:onUpdate(dt)
 		hitCounter = (sicks + goods + bads + shits)
 
 		if paused then
@@ -1333,6 +1336,7 @@ return {
 							end
 
 							boyfriendArrow:animate("press", false)
+							modchartHandler:onKeyPressed(curInput)
 
 							if #boyfriendNote > 0 then
 								for i = 1, #boyfriendNote do
@@ -1506,6 +1510,7 @@ return {
 						end
 
 						if input:released(curInput) then
+							modchartHandler:onKeyReleased(curInput)
 							boyfriendArrow:animate("off", false)
 						end
 					else
