@@ -192,7 +192,7 @@ return {
 	end,
 
 	leave = function()
-		song = nil
+		song = nil -- wait why does song nil here lmao
 		
 		stages["mall"]:leave()
 		weeks:leave()
