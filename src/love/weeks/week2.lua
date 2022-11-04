@@ -74,11 +74,11 @@ return {
 		weeks:initUI()
 
 		if song == 3 then
-			weeks:generateNotes(love.filesystem.load("songs/week2/monster/" .. difficulty .. ".lua")())
+			weeks:generateNotes("songs/week2/monster/" .. difficulty .. ".json")
 		elseif song == 2 then
-			weeks:generateNotes(love.filesystem.load("songs/week2/south/" .. difficulty .. ".lua")())
+			weeks:generateNotes("songs/week2/south/" .. difficulty .. ".json")
 		else
-			weeks:generateNotes(love.filesystem.load("songs/week2/spookeez/" .. difficulty .. ".lua")())
+			weeks:generateNotes("songs/week2/spookeez/" .. difficulty .. ".json")
 		end
 	end,
 

@@ -484,9 +484,12 @@ return {
 
 	generateNotes = function(self, chart)
 		local eventBpm
+		chart = json.decode(love.filesystem.read(chart))
+		chart = chart["song"]
+		curSong = chart["song"]
 
-		for i = 1, #chart do
-			bpm = chart[i].bpm
+		for i = 1, #chart["notes"] do
+			bpm = chart["notes"][i]["bpm"]
 
 			if bpm then
 				break
@@ -497,26 +500,37 @@ return {
 		end
 
 		if settings.customScrollSpeed == 1 then
-			speed = chart.speed
+			speed = chart["speed"] or 1
 		else
 			speed = settings.customScrollSpeed
 		end
 		songName = chart.songName
 		needsVoices = chart.needsVoices
 
-		for i = 1, #chart do
-			eventBpm = chart[i].bpm
+		for i = 1, #chart["notes"] do
+			eventBpm = chart["notes"][i]["bpm"] or 100
 
-			for j = 1, #chart[i].sectionNotes do
+			for j = 1, #chart["notes"][i]["sectionNotes"] do
 				local sprite
+				local sectionNotes = chart["notes"][i]["sectionNotes"]
 
-				local mustHitSection = chart[i].mustHitSection
-				local altAnim = chart[i].altAnim
-				local noteType = chart[i].sectionNotes[j].noteType
-				local noteTime = chart[i].sectionNotes[j].noteTime
+				local mustHitSection = chart["notes"][i]["mustHitSection"]
+				local altAnim = chart["notes"][i]["altAnim"] or false
+				local noteType = sectionNotes[j][2]
+				local noteTime = sectionNotes[j][1]
+
+				--print(noteTime, noteType, mustHitSection, altAnim, eventBpm, #chart["notes"][i]["sectionNotes"])
 
 				if j == 1 then
-					table.insert(events, {eventTime = chart[i].sectionNotes[1].noteTime, mustHitSection = mustHitSection, bpm = eventBpm, altAnim = altAnim})
+					table.insert(
+						events, 
+						{
+							eventTime = sectionNotes[1][1], 
+							mustHitSection = mustHitSection, 
+							bpm = eventBpm, 
+							altAnim = altAnim
+						}
+					)
 				end
 
 				if noteType == 0 or noteType == 4 then
@@ -545,10 +559,10 @@ return {
 
 							enemyNotes[id][c]:animate("on", false)
 
-							if chart[i].sectionNotes[j].noteLength > 0 then
+							if sectionNotes[j][3] > 0 then
 								local c
 
-								for k = 71 / speed, chart[i].sectionNotes[j].noteLength, 71 / speed do
+								for k = 71 / speed, sectionNotes[j][3], 71 / speed do
 									local c = #enemyNotes[id] + 1
 
 									table.insert(enemyNotes[id], sprite())
@@ -564,7 +578,7 @@ return {
 
 								enemyNotes[id][c]:animate("end", false)
 							end
-						else
+						elseif noteType >= 0 and noteType < 4 then
 							local id = noteType + 1
 							local c = #boyfriendNotes[id] + 1
 							local x = boyfriendArrows[id].x
@@ -578,10 +592,10 @@ return {
 
 							boyfriendNotes[id][c]:animate("on", false)
 
-							if chart[i].sectionNotes[j].noteLength > 0 then
+							if sectionNotes[j][3] > 0 then
 								local c
 
-								for k = 71 / speed, chart[i].sectionNotes[j].noteLength, 71 / speed do
+								for k = 71 / speed, sectionNotes[j][3], 71 / speed do
 									local c = #boyfriendNotes[id] + 1
 
 									table.insert(boyfriendNotes[id], sprite())
@@ -613,10 +627,10 @@ return {
 
 							boyfriendNotes[id][c]:animate("on", false)
 
-							if chart[i].sectionNotes[j].noteLength > 0 then
+							if sectionNotes[j][3] > 0 then
 								local c
 
-								for k = 71 / speed, chart[i].sectionNotes[j].noteLength, 71 / speed do
+								for k = 71 / speed, sectionNotes[j][3], 71 / speed do
 									local c = #boyfriendNotes[id] + 1
 
 									table.insert(boyfriendNotes[id], sprite())
@@ -632,7 +646,7 @@ return {
 
 								boyfriendNotes[id][c]:animate("end", false)
 							end
-						else
+						elseif noteType >= 0 and noteType < 4 then
 							local id = noteType + 1
 							local c = #enemyNotes[id] + 1
 							local x = enemyArrows[id].x
@@ -646,16 +660,16 @@ return {
 
 							enemyNotes[id][c]:animate("on", false)
 
-							if chart[i].sectionNotes[j].noteLength > 0 then
+							if sectionNotes[j][3] > 0 then
 								local c
 
-								for k = 71 / speed, chart[i].sectionNotes[j].noteLength, 71 / speed do
+								for k = 71 / speed, sectionNotes[j][3], 71 / speed do
 									local c = #enemyNotes[id] + 1
 
 									table.insert(enemyNotes[id], sprite())
 									enemyNotes[id][c].x = x
 									enemyNotes[id][c].y = -400 + (noteTime + k) * 0.6 * speed
-									if k > chart[i].sectionNotes[j].noteLength - 71 / speed then
+									if k > sectionNotes[j][3] - 71 / speed then
 										enemyNotes[id][c].offsetY = 10
 
 										enemyNotes[id][c]:animate("end", false)
@@ -690,10 +704,10 @@ return {
 	
 							enemyNotes[id][c]:animate("on", false)
 	
-							if chart[i].sectionNotes[j].noteLength > 0 then
+							if sectionNotes[j][3] > 0 then
 								local c
 	
-								for k = 56 / speed, chart[i].sectionNotes[j].noteLength, 56 / speed do
+								for k = 56 / speed, sectionNotes[j][3], 56 / speed do
 									local c = #enemyNotes[id] + 1
 		
 									table.insert(enemyNotes[id], sprite())
@@ -715,7 +729,7 @@ return {
 								enemyNotes[id][c]:animate("end", false)
 								enemyNotes[id][c].sizeY = 7
 							end
-						else
+						elseif noteType >= 0 and noteType < 4 then
 							local id = noteType + 1
 							local c = #boyfriendNotes[id] + 1
 							local x = boyfriendArrows[id].x
@@ -731,10 +745,10 @@ return {
 	
 							boyfriendNotes[id][c]:animate("on", false)
 	
-							if chart[i].sectionNotes[j].noteLength > 0 then
+							if sectionNotes[j][3] > 0 then
 								local c
 		
-								for k = 56 / speed, chart[i].sectionNotes[j].noteLength, 56 / speed do
+								for k = 56 / speed, sectionNotes[j][3], 56 / speed do
 									local c = #boyfriendNotes[id] + 1
 		
 									table.insert(boyfriendNotes[id], sprite())
@@ -772,10 +786,10 @@ return {
 							end
 	
 							boyfriendNotes[id][c]:animate("on", false)
-							if chart[i].sectionNotes[j].noteLength > 0 then
+							if sectionNotes[j][3] > 0 then
 								local c
 
-								for k = 56 / speed, chart[i].sectionNotes[j].noteLength, 56 / speed do
+								for k = 56 / speed, sectionNotes[j][3], 56 / speed do
 									local c = #boyfriendNotes[id] + 1
 		
 									table.insert(boyfriendNotes[id], sprite())
@@ -797,7 +811,7 @@ return {
 								boyfriendNotes[id][c]:animate("end", false)
 								boyfriendNotes[id][c].sizeY = 7
 							end
-						else
+						elseif noteType >= 0 and noteType < 4 then
 							local id = noteType + 1
 							local c = #enemyNotes[id] + 1
 							local x = enemyArrows[id].x
@@ -813,16 +827,16 @@ return {
 	
 							enemyNotes[id][c]:animate("on", false)
 	
-							if chart[i].sectionNotes[j].noteLength > 0 then
+							if sectionNotes[j][3] > 0 then
 								local c
 		
-								for k = 56 / speed, chart[i].sectionNotes[j].noteLength, 56 / speed do
+								for k = 56 / speed, sectionNotes[j][3], 56 / speed do
 									local c = #enemyNotes[id] + 1
 		
 									table.insert(enemyNotes[id], sprite())
 									enemyNotes[id][c].x = x
 									enemyNotes[id][c].y = -400 + (noteTime + k) * 0.6 * speed
-									if k > chart[i].sectionNotes[j].noteLength - 56 / speed then
+									if k > sectionNotes[j][3] - 56 / speed then
 										enemyNotes[id][c].offsetY = 1
 	
 										enemyNotes[id][c]:animate("end", false)
@@ -884,25 +898,32 @@ return {
 		end
 	end,
 	generatePicoNotes = function(self, chartP)
-		for i = 1, #chartP do
-			for j = 1, #chartP[i].sectionNotes do
+		chartP = json.decode(love.filesystem.read(chartP))
+		chartP = chartP["song"]
+		
+		for i = 1, #chartP["notes"] do
+			for j = 1, #chartP["notes"][i]["sectionNotes"] do
+				local sectionNotes = chartP["notes"][i]["sectionNotes"][j]
 				local spriteP
-
-				local noteTimeP = chartP[i].sectionNotes[j].noteTime
-				local noteTypeP = chartP[i].sectionNotes[j].noteType
-				local Pspeed = chartP.speed
+				
+				local noteTimeP = sectionNotes[1]
+				local noteTypeP = sectionNotes[2]
+				local Pspeed = chartP["speed"] or 1
 
 				spriteP = sprites.downArrow
 
-				local id = noteTypeP + 1
-				local c = #picoNotes[id] + 1
-				local x = picoNotes[id].x
+				if noteTypeP >= 0 and noteTypeP < 4 then
+					local id = noteTypeP + 1
+					local c = #picoNotes[id] + 1
+					local x = picoNotes[id].x
 
-				table.insert(picoNotes[id], spriteP())
-				picoNotes[id][c].x = x
-				picoNotes[id][c].y = -400 + (noteTimeP + 1010*j) * 0.6 * Pspeed
+					table.insert(picoNotes[id], spriteP())
+					picoNotes[id][c].x = x
+					picoNotes[id][c].y = -400 + noteTimeP * 0.6 * Pspeed
 
-				picoNotes[id][c]:animate("on", false)
+					picoNotes[id][c]:animate("on", false)
+				end
+				
 			end
 		end
 	end,

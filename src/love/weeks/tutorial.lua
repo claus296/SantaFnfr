@@ -72,7 +72,7 @@ return {
 	initUI = function(self)
 		weeks:initUI()
 
-		weeks:generateNotes(love.filesystem.load("songs/tutorial/" .. difficulty .. ".lua")())
+		weeks:generateNotes("songs/tutorial/" .. difficulty .. ".json")
 	end,
 
 	update = function(self, dt)

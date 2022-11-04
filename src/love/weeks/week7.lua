@@ -253,20 +253,18 @@ return {
 		weeks:initUI()
 
 		if song == 3 then
-			weeks:generateNotes(love.filesystem.load("songs/week7/stress/" .. difficulty .. ".lua")())
-            weeks:generatePicoNotes(love.filesystem.load("songs/week7/stress/pico-speaker.lua")())
+			weeks:generateNotes("songs/week7/stress/" .. difficulty .. ".json")
+            weeks:generatePicoNotes("songs/week7/stress/picospeaker.json")
 		elseif song == 2 then
-			weeks:generateNotes(love.filesystem.load("songs/week7/guns/" .. difficulty .. ".lua")())
+			weeks:generateNotes("songs/week7/guns/" .. difficulty .. ".json")
 		else
-			weeks:generateNotes(love.filesystem.load("songs/week7/ugh/" .. difficulty .. ".lua")())
+			weeks:generateNotes("songs/week7/ugh/" .. difficulty .. ".json")
 		end
 	end,
 
 	update = function(self, dt)
 		weeks:update(dt)
 		stages["tank"]:update(dt)
-
-		print(convertedAcc:gsub("%%", ""))
 
 		if cutscene then
 			local timerBF = 0

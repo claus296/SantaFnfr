@@ -113,6 +113,7 @@ function love.load()
 	lume = require "lib.lume"
 	lovebpm = require "lib.lovebpm"
 	gamejolt = require "lib.gamejolt"
+	json = require "lib.json"
 	
 	highscores = {
 		[0] = {scores = {0}, accuracys = {0}},             -- Tutorial
