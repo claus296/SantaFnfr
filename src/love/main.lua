@@ -96,6 +96,10 @@ function uitextflarge(text,x,y,limit,align,hovered,r,sx,sy,ox,oy,kx,ky)
 end
 volFade = 0
 
+function math.round(num)
+	return math.floor(num + 0.5)
+end
+
 function love.load()
 	local curOS = love.system.getOS()
 
@@ -146,6 +150,7 @@ function love.load()
 	audio = require "modules.audio"
 	graphics = require "modules.graphics"
 	modchartHandler = require "modules.modchart"
+	Conductor = require "modules.conductor"
 
 	spongebirth = love.graphics.newImage(graphics.imagePath("spongebirth"))
 	
