@@ -94,8 +94,8 @@ return {
 			vol = 0
 		}
 
-		girlfriend = love.filesystem.load("sprites/girlfriend.lua")()
-		boyfriend = love.filesystem.load("sprites/boyfriend.lua")()
+		girlfriend = Character.girlfriend(0,0)
+		boyfriend = Character.boyfriend(0,0)
 
 		rating = love.filesystem.load("sprites/rating.lua")()
 
@@ -205,8 +205,8 @@ return {
 			vol = 0
 		}
 
-		girlfriend = love.filesystem.load("sprites/pixel/girlfriend.lua")()
-		boyfriend = love.filesystem.load("sprites/pixel/boyfriend.lua")()
+		girlfriend = Character.girlfriendpixel(0,0)
+		boyfriend = Character.boyfriendpixel(0, 0)
 		fakeBoyfriend = love.filesystem.load("sprites/pixel/boyfriend-dead.lua")()
 
 		pixel = true
@@ -282,7 +282,7 @@ return {
 		end
 		useAltAnims = false
 
-		cam.x, cam.y = -boyfriend.x + 100, -boyfriend.y + 75
+		cam.x, cam.y = -boyfriend.x - 75, -boyfriend.y - 25
 
 		rating.x = girlfriend.x
 		if not pixel then
@@ -1166,9 +1166,17 @@ return {
 						Timer.cancel(camTimer)
 					end
 					if events[i].mustHitSection then
-						camTimer = Timer.tween(1.25, cam, {x = -boyfriend.x + 100, y = -boyfriend.y + 75}, "out-quad")
+						camTimer = Timer.tween(1.25, cam, {x = -boyfriend.x - 75, y = -boyfriend.y - 25}, "out-quad")
 					else
-						camTimer = Timer.tween(1.25, cam, {x = -enemy.x - 100, y = -enemy.y + 75}, "out-quad")
+						if curEnemy == "pico" then
+							camTimer = Timer.tween(1.25, cam, {x = -enemy.x - 75, y = -enemy.y - 50}, "out-quad")
+						elseif curEnemy == "monsterchristmas" or curEnemy == "dearestduo" then
+							camTimer = Timer.tween(1.25, cam, {x = -enemy.x - 500, y = -enemy.y - 275}, "out-quad")
+						elseif curEnemy == "senpai" or curEnemy == "senpaiangry" then
+							camTimer = Timer.tween(1.25, cam, {x = -enemy.x - 500, y = -enemy.y - 400}, "out-quad")
+						else
+							camTimer = Timer.tween(1.25, cam, {x = -enemy.x - 300, y = -enemy.y - 275}, "out-quad")
+						end
 					end
 
 					if events[i].altAnim then
@@ -1861,9 +1869,17 @@ return {
 			end
 			graphics.setColor(1, 1, 1, countdownFade[1])
 			if not settings.downscroll then
-				countdown:draw()
+				if pixel then
+					countdown:udraw(7, 1)
+				else
+					countdown:udraw(1, 1)
+				end
 			else
-				countdown:udraw(1,-1)
+				if pixel then
+					countdown:udraw(7, -7)
+				else
+					countdown:udraw(1, -1)
+				end
 			end
 			graphics.setColor(1, 1, 1)
 		love.graphics.pop()

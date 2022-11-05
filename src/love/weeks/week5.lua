@@ -50,8 +50,8 @@ return {
 		stages["mall"]:load()
 
 		if song == 3 then
-			enemy = love.filesystem.load("sprites/week5/monster.lua")()
-            enemy.x, enemy.y = -780, 420
+			enemy = Character.monsterchristmas(0, 0)
+            enemy.x, enemy.y = -925, 100
 
 			enemyIcon:animate("monster", false)
 

@@ -1,23 +1,23 @@
 return {
-    enter = function() -- TODO: Fix this stage
+    enter = function()
         stageImages = {
             graphics.newImage(love.graphics.newImage(graphics.imagePath("week4/sunset"))),
             love.filesystem.load("sprites/week4/bg-limo.lua")(), -- bg-limo
             love.filesystem.load("sprites/week4/limo-dancer.lua")(), -- limo-dancer
             love.filesystem.load("sprites/week4/limo.lua")() -- limo
         }
-        girlfriend = love.filesystem.load("sprites/week4/girlfriend.lua")()
-        enemy = love.filesystem.load("sprites/week4/mommy-mearest.lua")()
-        boyfriend = love.filesystem.load("sprites/week4/boyfriend.lua")()
-        fakeBoyfriend = love.filesystem.load("sprites/boyfriend.lua")() -- Used for game over
+        girlfriend = Character.girlfriendcar(0, 0)
+        enemy = Character.momcar(0,0)
+        boyfriend = Character.boyfriendcar(0,0)
+        --fakeBoyfriend = love.filesystem.load("sprites/boyfriend.lua")() -- Used for game over
 
-        fakeBoyfriend.x, fakeBoyfriend.y = 350, -100
+        --fakeBoyfriend.x, fakeBoyfriend.y = 350, -100
         stageImages[2].y = 250
         stageImages[3].y = -130
         stageImages[4].y = 375
-        girlfriend.x, girlfriend.y = 30, -50
-        enemy.x, enemy.y = -380, -10
-        boyfriend.x, boyfriend.y = 340, -100
+        girlfriend.x, girlfriend.y = -200, -375
+        enemy.x, enemy.y = -500, -400
+        boyfriend.x, boyfriend.y = 165, -315
     end,
 
     load = function()

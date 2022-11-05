@@ -4,11 +4,11 @@ return {
             love.filesystem.load("sprites/week2/haunted-house.lua")() -- Haunted House
         }
         
-		enemy = love.filesystem.load("sprites/week2/skid-and-pump.lua")()
+		enemy = Character.spookykids(0,0)
 
-		girlfriend.x, girlfriend.y = -200, 50
-		enemy.x, enemy.y = -610, 140
-		boyfriend.x, boyfriend.y = 30, 240
+		girlfriend.x, girlfriend.y = -300, -325
+		enemy.x, enemy.y = -610, -150
+		boyfriend.x, boyfriend.y = 85, 25
     end,
 
     load = function()

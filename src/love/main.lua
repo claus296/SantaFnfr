@@ -118,6 +118,7 @@ function love.load()
 	lovebpm = require "lib.lovebpm"
 	gamejolt = require "lib.gamejolt"
 	json = require "lib.json"
+	xml = require "lib.xml"
 	
 	highscores = {
 		[0] = {scores = {0}, accuracys = {0}},             -- Tutorial
@@ -151,6 +152,9 @@ function love.load()
 	graphics = require "modules.graphics"
 	modchartHandler = require "modules.modchart"
 	Conductor = require "modules.conductor"
+	sprite = require "modules.sprite"
+	paths = require "modules.paths"
+	Character = require "modules.character"
 
 	spongebirth = love.graphics.newImage(graphics.imagePath("spongebirth"))
 	

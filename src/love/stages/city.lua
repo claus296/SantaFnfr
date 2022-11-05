@@ -23,12 +23,12 @@ return {
 		stageImages[5].y = -100
 		stageImages[5].sizeX, stageImages[5].sizeY = 1.25, 1.25
 
-		enemy = love.filesystem.load("sprites/week3/pico-enemy.lua")()
+		enemy = Character.pico(0, 0)
 
-		girlfriend.x, girlfriend.y = -70, -140
-		enemy.x, enemy.y = -480, 50
+		girlfriend.x, girlfriend.y = -200, -300
+		enemy.x, enemy.y = -60, -25
 		enemy.sizeX = -1 -- Reverse, reverse!
-		boyfriend.x, boyfriend.y = 165, 50
+		boyfriend.x, boyfriend.y = 200, 25
         
     end,
 

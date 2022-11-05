@@ -58,8 +58,8 @@ return {
 		if song == 3 then
 			picoSpeaker = love.filesystem.load("sprites/week7/picoSpeaker.lua")()
 			picoSpeaker.x, picoSpeaker.y = 105, 110
-			boyfriend = love.filesystem.load("sprites/week7/bfAndGF.lua")()
-			boyfriend.x, boyfriend.y = 380, 410
+			boyfriend = Character.bfandgf(0, 0)
+			boyfriend.x, boyfriend.y = 175, 175
 			fakeBoyfriend = love.filesystem.load("sprites/week7/gfdead.lua")()
 			fakeBoyfriend.x, fakeBoyfriend.y = 380, 410
 			if not died and storyMode then

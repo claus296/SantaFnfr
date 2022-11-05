@@ -2,8 +2,6 @@ return {
     enter = function()
 		pixel = true
 		love.graphics.setDefaultFilter("nearest")
-		boyfriend = love.filesystem.load("sprites/pixel/boyfriend.lua")()
-        girlfriend = love.filesystem.load("sprites/pixel/girlfriend.lua")()
         stageImages = {
             graphics.newImage(love.graphics.newImage(graphics.imagePath("week6/sky"))), -- sky
 			graphics.newImage(love.graphics.newImage(graphics.imagePath("week6/school"))), -- school
@@ -13,12 +11,12 @@ return {
 			love.filesystem.load("sprites/week6/petals.lua")(), -- petals
 			love.filesystem.load("sprites/week6/freaks.lua")() -- freaks
         }
-		enemy = love.filesystem.load("sprites/week6/senpai.lua")()
-		fakeBoyfriend = love.filesystem.load("sprites/pixel/boyfriend.lua")() -- Used for game over
-        girlfriend.x, girlfriend.y = 30, -50
-		boyfriend.x, boyfriend.y = 300, 190
+		enemy = Character.senpai(0,0)
+		--fakeBoyfriend = love.filesystem.load("sprites/pixel/boyfriend.lua")() -- Used for game over
+        girlfriend.x, girlfriend.y = -375, -250
+		boyfriend.x, boyfriend.y = 100, 25
 		fakeBoyfriend.x, fakeBoyfriend.y = 300, 190
-		enemy.x, enemy.y = -340, -20
+		enemy.x, enemy.y = -700, -375
     end,
 
     load = function(self)
@@ -26,10 +24,10 @@ return {
             enemy = love.filesystem.load("sprites/week6/spirit.lua")()
             stageImages[2] = love.filesystem.load("sprites/week6/evil-school.lua")()
         elseif song == 2 then
-            enemy = love.filesystem.load("sprites/week6/senpai-angry.lua")()
+            enemy = Character.senpaiangry(0,0)
             stageImages[7]:animate("dissuaded", true)
         end
-        enemy.x, enemy.y = -340, -20
+        enemy.x, enemy.y = -700, -375
     end,
 
     update = function(self, dt)

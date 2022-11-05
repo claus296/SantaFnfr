@@ -52,8 +52,8 @@ return {
 
 		if song == 3 then
 			healthBarColorEnemy = {243,255,110}
-			enemy = love.filesystem.load("sprites/week2/monster.lua")()
-			enemy.x, enemy.y = -610, 120
+			enemy = Character.monster(0,0)
+			enemy.x, enemy.y = -610, -215
             enemyIcon:animate("monster", false)
 			inst = love.audio.newSource("songs/week2/monster/inst.ogg", "stream")
 			voices = love.audio.newSource("songs/week2/monster/voices.ogg", "stream")

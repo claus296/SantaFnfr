@@ -9,11 +9,11 @@ return {
         stageImages[2].y = 400
         stageImages[3].y = -100
 
-        enemy = love.filesystem.load("sprites/week1/daddy-dearest.lua")()
+        enemy = Character.daddydearest(0,0)
 
-        girlfriend.x, girlfriend.y = 30, -90
-        enemy.x, enemy.y = -380, -110
-        boyfriend.x, boyfriend.y = 260, 100
+        girlfriend.x, girlfriend.y = -200, -445
+        enemy.x, enemy.y = -550, -500
+        boyfriend.x, boyfriend.y = 260, -125
     end,
 
     load = function()
