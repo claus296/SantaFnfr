@@ -9,4 +9,4 @@ runs:
     - name: Pack love file
       shell: bash
       run: |
-        cd build/lovefile; zip -9 -r ../release/vanilla-engine-lovefile.zip
+        zip ./release/vanilla-engine-lovefile.zip src/love/
