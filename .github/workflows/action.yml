@@ -1,0 +1,5 @@
+- name: Build bare love package
+  uses: love-action/love-actions-core@v1
+  with:
+    build-list: ./src/love
+    package-path: ./build/lovefile/Vanilla-Engine.love
