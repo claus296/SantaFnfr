@@ -94,7 +94,7 @@ return {
 			vol = 0
 		}
 
-		girlfriend = Character.girlfriend(0,0)
+		girlfriend = Character.girlfriend(0,0, false)
 		boyfriend = Character.boyfriend(0,0)
 
 		rating = love.filesystem.load("sprites/rating.lua")()

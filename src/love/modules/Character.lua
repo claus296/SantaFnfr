@@ -58,7 +58,10 @@ function character.boyfriend(x, y)
     return char
 end
 
-function character.girlfriend(x, y)
+function character.girlfriend(x, y, isEnemy)
+    if isEnemy then
+        curEnemy = "girlfriend"
+    end
     local char = paths.sprite(x or 0, y or 0, "GF_assets")
     char:addByPrefix("idle", "GF Dancing Beat", 24, false)
     char:addByPrefix("sad", "gf sad", 24, false)
@@ -153,7 +156,7 @@ function character.pico(x, y)
 end
 
 function character.momcar(x, y)
-    curEnemy = "momcar"
+    curEnemy = "mommymearest"
     local char = paths.sprite(x or 0, y or 0, "week4/momCar")
     char:addByPrefix("idle", "Mom Idle", 24, false)
 
@@ -175,7 +178,7 @@ function character.momcar(x, y)
 end
 
 function character.boyfriendcar(x, y)
-    curPlayer = "boyfriendcar"
+    curPlayer = "boyfriend"
     local char = paths.sprite(x or 0, y or 0, "week4/bfCar")
     char:addByPrefix("idle", "BF idle dance", 24, false)
 
@@ -207,7 +210,6 @@ function character.boyfriendcar(x, y)
 end
 
 function character.girlfriendcar(x, y)
-    curEnemy = "girlfriendcar"
     local char = paths.sprite(x or 0, y or 0, "week4/gfCar")
     char:addByPrefix("idle", "GF Dancing Beat Hair blowing CAR", 24, false)
 
@@ -251,7 +253,7 @@ function character.dearestduo(x, y)
 end
 
 function character.boyfriendchristmas(x, y)
-    curPlayer = "boyfriendchristmas"
+    curPlayer = "boyfriend"
     local char = paths.sprite(x or 0, y or 0, "week5/bfChristmas")
     char:addByPrefix("idle", "BF idle dance", 24, false)
 
@@ -282,7 +284,10 @@ function character.boyfriendchristmas(x, y)
     return char
 end
 
-function character.girlfriendchristmas(x, y)
+function character.girlfriendchristmas(x, y, isEnemy)
+    if isEnemy then
+        curEnemy = "girlfriend"
+    end
     local char = paths.sprite(x or 0, y or 0, "week5/gfChristmas")
     char:addByPrefix("idle", "GF Dancing Beat", 24, false)
     char:addByPrefix("sad", "gf sad", 24, false)
@@ -310,7 +315,7 @@ function character.girlfriendchristmas(x, y)
 end
 
 function character.monsterchristmas(x, y)
-    curEnemy = "monsterchristmas"
+    curEnemy = "monster"
     local char = paths.sprite(x or 0, y or 0, "week5/monsterChristmas")
     char:addByPrefix("idle", "monster idle", 24, false)
 

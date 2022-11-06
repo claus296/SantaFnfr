@@ -21,7 +21,7 @@ return {
 			stageImages[6].x, stageImages[6].y = -75, 375
 			stageImages[7].x, stageImages[7].y = -1350, 410
 		end
-        girlfriend = Character.girlfriendchristmas(0, 0)
+        girlfriend = Character.girlfriendchristmas(0, 0, false)
 		enemy = Character.dearestduo(0, 0)
 		boyfriend = Character.boyfriendchristmas(0, 0)
 		--fakeBoyfriend = love.filesystem.load("sprites/boyfriend.lua")() -- Used for game over
