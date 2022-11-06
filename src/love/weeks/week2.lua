@@ -31,8 +31,6 @@ return {
 		song = songNum
 		difficulty = songAppend
 
-		healthBarColorEnemy = {213,126,0}
-
 		cam.sizeX, cam.sizeY = 1.1, 1.1
 		camScale.x, camScale.y = 1.1, 1.1
 
@@ -51,7 +49,6 @@ return {
 		stages.hauntedHouse:load()
 
 		if song == 3 then
-			healthBarColorEnemy = {243,255,110}
 			enemy = Character.monster(0,0)
 			enemy.x, enemy.y = -610, -215
             weeks:setIcon("enemy", "monster")

@@ -37,9 +37,6 @@ return {
 		song = songNum
 		difficulty = songAppend
 
-		healthBarColorEnemy = {175,102,206}
-		healthBarColorPlayer = {49,176,209}
-
 		weeks:setIcon("enemy", "dearest duo")
 
 		self:load()

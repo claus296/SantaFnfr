@@ -19,6 +19,8 @@ function character.daddydearest(x, y)
 
     char:animate("idle", false)
 
+    char.colours = {175,102,206}
+
     return char
 end
 
@@ -55,6 +57,8 @@ function character.boyfriend(x, y)
 
     char:animate("idle", false)
 
+    char.colours = {49,176,209}
+
     return char
 end
 
@@ -85,6 +89,8 @@ function character.girlfriend(x, y, isEnemy)
 
     char:animate("idle", false)
 
+    char.colours = {165,0,77}
+
     return char
 end
 
@@ -107,6 +113,8 @@ function character.spookykids(x, y)
 
     char:animate("idle", false)
 
+    char.colours = {213,126,0}
+
     return char
 end
 
@@ -128,6 +136,8 @@ function character.monster(x, y)
     char:addOffset("down",  -50, -80 )
 
     char:animate("idle", false)
+
+    char.colours = {243,255,110}
 
     return char
 end
@@ -152,6 +162,8 @@ function character.pico(x, y)
 
     char:animate("idle", false)
 
+    char.colours = {183,216,85}
+
     return char
 end
 
@@ -173,6 +185,8 @@ function character.momcar(x, y)
     char:addOffset("down",  20, -160      )
 
     char:animate("idle", false)
+
+    char.colours = {216,85,142}
 
     return char
 end
@@ -206,6 +220,8 @@ function character.boyfriendcar(x, y)
 
     char:animate("idle", false)
 
+    char.colours = {49,176,209}
+
     return char
 end
 
@@ -216,6 +232,8 @@ function character.girlfriendcar(x, y)
     char:addOffset("idle",  0, 0    )
 
     char:animate("idle", false)
+
+    char.colours = {165,0,77}
 
     return char
 end
@@ -249,6 +267,8 @@ function character.dearestduo(x, y)
 
     char:animate("idle", false)
 
+    char.colours = {175,102,206}
+
     return char
 end
 
@@ -281,6 +301,8 @@ function character.boyfriendchristmas(x, y)
 
     char:animate("idle", false)
 
+    char.colours = {49,176,209}
+
     return char
 end
 
@@ -311,6 +333,8 @@ function character.girlfriendchristmas(x, y, isEnemy)
 
     char:animate("idle", false)
 
+    char.colours = {165,0,77}
+
     return char
 end
 
@@ -332,6 +356,8 @@ function character.monsterchristmas(x, y)
     char:addOffset("down",  -40, -94      )
 
     char:animate("idle", false)
+
+    char.colours = {243,255,110}
 
     return char
 end
@@ -355,6 +381,8 @@ function character.senpai(x, y) -- fix offsets later
 
     char:animate("idle", false)
 
+    char.colours = {255,170,111}
+
     return char
 end
 
@@ -376,6 +404,8 @@ function character.senpaiangry(x, y) -- fix offsets later
     char:addOffset("down",  14, 0      )
 
     char:animate("idle", false)
+
+    char.colours = {255,170,111}
 
     return char
 end
@@ -409,6 +439,8 @@ function character.boyfriendpixel(x, y)
 
     char:animate("idle", false)
 
+    char.colours = {123,214,246}
+
     return char
 end
 
@@ -419,6 +451,8 @@ function character.girlfriendpixel(x, y)
     char:addOffset("idle")
 
     char:animate("idle", false)
+
+    char.colours = {165,0,77}
 
     return char
 end
@@ -452,6 +486,8 @@ function character.bfandgf(x, y)
 
     char:animate("idle", false)
 
+    char.colours = {49,176,209}
+
     return char
 end
 
@@ -464,6 +500,8 @@ function character.girlfriendtankmen(x, y)
     char:addOffset("sad", 0, -27)
 
     char:animate("idle", false)
+
+    char.colours = {165,0,77}
 
     return char
 end
@@ -489,6 +527,8 @@ function character.tankman(x, y)
     char:addOffset("down",  76, -101      )
 
     char:animate("idle", false)
+
+    char.colours = {50,50,50}
 
     return char
 end

@@ -36,8 +36,6 @@ return {
 
 		fakeBoyfriend = love.filesystem.load("sprites/pixel/boyfriend-dead.lua")()
 
-		healthBarColorEnemy = {255,170,111}
-
 		if storyMode then
 			doingDialogue = true
 			dialogueBox = love.filesystem.load("sprites/week6/dialogueBox.lua")()

@@ -33,8 +33,6 @@ return {
 		song = songNum
 		difficulty = songAppend
 
-		healthBarColorEnemy = {183,216,85}
-
 		cam.sizeX, cam.sizeY = 1, 1
 		camScale.x, camScale.y = 1, 1
 

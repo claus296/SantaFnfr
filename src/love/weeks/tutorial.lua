@@ -36,9 +36,6 @@ return {
 		difficulty = songAppend
 		bump = 0
 
-		--healthBarColorPlayer = {R,G,B} -- USE 255 VALUES
-		healthBarColorEnemy = {165,0,77}
-
 		stageBack = graphics.newImage(love.graphics.newImage(graphics.imagePath("week1/stage-back")))
 		stageFront = graphics.newImage(love.graphics.newImage(graphics.imagePath("week1/stage-front")))
 		curtains = graphics.newImage(love.graphics.newImage(graphics.imagePath("week1/curtains")))

@@ -120,7 +120,6 @@ return {
 		boyfriendIcon.y = 350 + downscrollOffset
 		enemyIcon.sizeX, enemyIcon.sizeY = 1.5, 1.5
 		boyfriendIcon.sizeX, boyfriendIcon.sizeY = -1.5, 1.5
-		healthBarColorPlayer = {49,176,209}
 
 		countdownFade = {}
 		countdown = love.filesystem.load("sprites/countdown.lua")()
@@ -234,8 +233,6 @@ return {
 		boyfriendIcon.y = 350 + downscrollOffset
 		enemyIcon.sizeX, enemyIcon.sizeY = 1.5, 1.5
 		boyfriendIcon.sizeX, boyfriendIcon.sizeY = -1.5, 1.5
-
-		healthBarColorPlayer = {123,214,246}
 
 		countdownFade = {}
 		countdown = love.filesystem.load("sprites/pixel/countdown.lua")()
@@ -1932,9 +1929,9 @@ return {
 			love.graphics.translate(lovesize.getWidth() / 2, lovesize.getHeight() / 2)
 			love.graphics.scale(0.7, 0.7)
 			love.graphics.scale(uiScale.sizeX, uiScale.sizeY)
-			graphics.setColor(healthBarColorEnemy[1]/255, healthBarColorEnemy[2]/255, healthBarColorEnemy[3]/255)
+			graphics.setColor(enemy.colours[1]/255, enemy.colours[2]/255, enemy.colours[3]/255)
 			love.graphics.rectangle("fill", -500, 350+downscrollOffset, 1000, 25)
-			graphics.setColor(healthBarColorPlayer[1]/255, healthBarColorPlayer[2]/255, healthBarColorPlayer[3]/255)
+			graphics.setColor(boyfriend.colours[1]/255, boyfriend.colours[2]/255, boyfriend.colours[3]/255)
 			love.graphics.rectangle("fill", 500, 350+downscrollOffset, -health * 10, 25)
 			graphics.setColor(0, 0, 0)
 			love.graphics.setLineWidth(10)
