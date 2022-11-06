@@ -1,5 +1,12 @@
-- name: Build bare love package
-  uses: love-action/love-actions-core@v1
-  with:
-    build-list: ./src/love/
-    package-path: ./build/lovefile/Vanilla-Engine.love
+name: Love actions bare package
+description: "Bare package CI for LÖVE based games"
+branding:
+  icon: 'heart'
+  color: 'white'
+runs:
+  using: "composite"
+  steps:
+    - name: Pack love file
+      shell: bash
+      run: |
+        cd build/lovefile; zip -9 -r ../release/vanilla-engine-lovefile.zip
