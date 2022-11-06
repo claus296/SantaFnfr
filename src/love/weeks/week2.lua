@@ -41,7 +41,7 @@ return {
 			love.audio.newSource("sounds/week2/thunder2.ogg", "static")
 		}
 
-		enemyIcon:animate("skid and pump", false)
+		weeks:setIcon("enemy", "skid and pump")
 
 		self:load()
 	end,
@@ -54,7 +54,7 @@ return {
 			healthBarColorEnemy = {243,255,110}
 			enemy = Character.monster(0,0)
 			enemy.x, enemy.y = -610, -215
-            enemyIcon:animate("monster", false)
+            weeks:setIcon("enemy", "monster")
 			inst = love.audio.newSource("songs/week2/monster/inst.ogg", "stream")
 			voices = love.audio.newSource("songs/week2/monster/voices.ogg", "stream")
 		elseif song == 2 then
@@ -95,21 +95,21 @@ return {
 		if song == 3 then
 			if health >= 80 then
 				if enemyIcon:getAnimName() == "monster" then
-					enemyIcon:animate("monster losing", false)
+					weeks:setIcon("enemy", "monster losing")
 				end
 			else
 				if enemyIcon:getAnimName() == "monster losing" then
-					enemyIcon:animate("monster", false)
+					weeks:setIcon("enemy", "monster")
 				end
 			end
 		else
 			if health >= 80 then
 				if enemyIcon:getAnimName() == "skid and pump" then
-					enemyIcon:animate("skid and pump losing", false)
+					weeks:setIcon("enemy", "skid and pump losing")
 				end
 			else
 				if enemyIcon:getAnimName() == "skid and pump losing" then
-					enemyIcon:animate("skid and pump", false)
+					weeks:setIcon("enemy", "skid and pump")
 				end
 			end
 		end

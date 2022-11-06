@@ -37,7 +37,7 @@ return {
 		healthBarColorEnemy = {216,85,142}
 		healthBarColorPlayer = {49,176,209}
 
-		enemyIcon:animate("mommy mearest", false)
+		weeks:setIcon("enemy", "mommy mearest")
 
 		self:load()
 	end,
@@ -87,11 +87,11 @@ return {
 
 		if health >= 80 then
 			if enemyIcon:getAnimName() == "mommy mearest" then
-				enemyIcon:animate("mommy mearest losing", false)
+				weeks:setIcon("enemy", "mommy mearest losing")
 			end
 		else
 			if enemyIcon:getAnimName() == "mommy mearest losing" then
-				enemyIcon:animate("mommy mearest", false)
+				weeks:setIcon("enemy", "mommy mearest")
 			end
 		end
 

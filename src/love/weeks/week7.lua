@@ -44,7 +44,7 @@ return {
 
 		healthBarColorEnemy = {50,50,50}		
 
-		enemyIcon:animate("tankman", false)
+		weeks:setIcon("enemy", "tankman")
 
 		self:load()
 	end,
@@ -333,11 +333,11 @@ return {
 
 		if health >= 80 then
 			if enemyIcon:getAnimName() == "tankman" then
-				enemyIcon:animate("tankman losing", false)
+				weeks:setIcon("enemy", "tankman losing")
 			end
 		else
 			if enemyIcon:getAnimName() == "tankman losing" then
-				enemyIcon:animate("tankman", false)
+				weeks:setIcon("enemy", "tankman")
 			end
 		end
 

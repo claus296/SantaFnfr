@@ -40,7 +40,7 @@ return {
 		healthBarColorEnemy = {175,102,206}
 		healthBarColorPlayer = {49,176,209}
 
-		enemyIcon:animate("dearest duo", false)
+		weeks:setIcon("enemy", "dearest duo")
 
 		self:load()
 	end,
@@ -53,7 +53,7 @@ return {
 			enemy = Character.monsterchristmas(0, 0)
             enemy.x, enemy.y = -925, 100
 
-			enemyIcon:animate("monster", false)
+			weeks:setIcon("enemy", "monster")
 
 			inst = love.audio.newSource("songs/week5/winter-horrorland/inst.ogg", "stream")
 			voices = love.audio.newSource("songs/week5/winter-horrorland/voices.ogg", "stream")
@@ -105,21 +105,21 @@ return {
 			if song == 3 then
 				if health >= 80 then
 					if enemyIcon:getAnimName() == "monster" then
-						enemyIcon:animate("monster losing", false)
+						weeks:setIcon("enemy", "monster losing")
 					end
 				else
 					if enemyIcon:getAnimName() == "monster losing" then
-						enemyIcon:animate("monster", false)
+						weeks:setIcon("enemy", "monster")
 					end
 				end
 			else
 				if health >= 80 then
 					if enemyIcon:getAnimName() == "dearest duo" then
-						enemyIcon:animate("dearest duo losing", false)
+						weeks:setIcon("enemy", "dearest duo losing")
 					end
 				else
 					if enemyIcon:getAnimName() == "dearest duo losing" then
-						enemyIcon:animate("dearest duo", false)
+						weeks:setIcon("enemy", "dearest duo")
 					end
 				end
 			end

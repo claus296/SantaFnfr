@@ -929,7 +929,9 @@ return {
 	end,
 
 	doDialogue = function(dt)
-		local fullDialogue = dialogueList[curDialogue]
+		characterSpeaking = dialogueList[curDialogue][1]
+		local fullDialogue = dialogueList[curDialogue][2]
+
 		
 		timer = timer + 0.75 * love.timer.getDelta()
 		
@@ -949,10 +951,12 @@ return {
 	end,
 
 	advanceDialogue = function()
-		local fullDialogue = dialogueList[curDialogue]
+		local fullDialogue = dialogueList[curDialogue][2]
+		characterSpeaking = dialogueList[curDialogue][1]
 
 		if progress < string.len(fullDialogue) then
 			progress = string.len(fullDialogue)
+			characterSpeaking = dialogueList[curDialogue][1]
 			output = string.sub(fullDialogue, 1, math.floor(progress))
 		else
 			if curDialogue < #dialogueList then
@@ -1034,6 +1038,22 @@ return {
 				)
 			end
 		)
+	end,
+
+	setIcon = function(self, icon, name)
+		if icon == "boyfriend" then
+			if boyfriendIcon:isAnimName(name) then
+				boyfriendIcon:animate(name, false)
+			else
+				boyfriendIcon:animate("default", false)
+			end
+		elseif icon == "enemy" then
+			if enemyIcon:isAnimName(name) then
+				enemyIcon:animate(name, false)
+			else
+				enemyIcon:animate("default", false)
+			end
+		end
 	end,
 
 	safeAnimate = function(self, sprite, animName, loopAnim, timerID)
@@ -1174,6 +1194,8 @@ return {
 							camTimer = Timer.tween(1.25, cam, {x = -enemy.x - 500, y = -enemy.y - 275}, "out-quad")
 						elseif curEnemy == "senpai" or curEnemy == "senpaiangry" then
 							camTimer = Timer.tween(1.25, cam, {x = -enemy.x - 500, y = -enemy.y - 400}, "out-quad")
+						elseif curEnemy == "tankman" then
+							camTimer = Timer.tween(1.25, cam, {x = -enemy.x + 75, y = -enemy.y - 100}, "out-quad")
 						else
 							camTimer = Timer.tween(1.25, cam, {x = -enemy.x - 300, y = -enemy.y - 275}, "out-quad")
 						end

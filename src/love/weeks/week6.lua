@@ -68,7 +68,7 @@ return {
 		end
 
 		if song ~= 3 then
-			enemyIcon:animate("senpai", false)
+			weeks:setIcon("enemy", "senpai")
 		end
 
 		self:load()
@@ -99,14 +99,14 @@ return {
 
 			setDialogue(
 				{
-					"Direct contact with real humans, after being trapped in here for so long...",
-					"and HER of all people.",
-					"I'll make her father pay for what he's done to me and all the others,,,,",
-					"I'll beat you and make you take my place.",
-					"You don't mind your bodies being borrowed right? It's only fair..."
+					{"spirit", "Direct contact with real humans, after being trapped in here for so long..."},
+					{"spirit", "and HER of all people."},
+					{"spirit", "I'll make her father pay for what he's done to me and all the others,,,,"},
+					{"spirit", "I'll beat you and make you take my place."},
+					{"spirit", "You don't mind your bodies being borrowed right? It's only fair..."}
 				}
 			)
-			enemyIcon:animate("spirit", false)
+			weeks:setIcon("enemy", "spirit")
 
 			healthBarColorEnemy = {255,60,110}
 		elseif song == 2 then
@@ -117,9 +117,9 @@ return {
 
 			setDialogue(
 				{
-					"Not bad for an ugly worm.",
-					"But this time I'll rip your nuts off right after your girlfriend finishes gargling mine.",
-					"Bop beep be be skdoo bep"
+					{"senpai angry", "Not bad for an ugly worm."},
+					{"senpai angry", "But this time I'll rip your nuts off right after your girlfriend finishes gargling mine."},
+					{"senpai angry", "Bop beep be be skdoo bep"}
 				}
 			)
 			if storyMode then
@@ -129,9 +129,9 @@ return {
 		else
 			setDialogue(
 				{
-					"Ah, a new fair maiden has come in search of true love!",
-					"A serenade between gentlemen shall decide where her beautiful heart shall reside.",
-					"Beep bo bop"
+					{"senpai", "Ah, a new fair maiden has come in search of true love!"},
+					{"senpai", "A serenade between gentlemen shall decide where her beautiful heart shall reside."},
+					{"senpai", "Beep bo bop"}
 				}
 			)
 		end
@@ -248,19 +248,21 @@ return {
 			if song == 1 then
 				dialogueBox:draw()
 				weeks:drawDialogue()
-				if curDialogue ~= 3 then
-					senpaiPortrait:draw()
-				else
-					bfPortrait:draw()
-				end
-			elseif song == 2 then
-				if curDialogue ~= 3 then
-					angrySenpaiBox:draw()
-				else
-					dialogueBox:draw()
-					bfPortrait:draw()
-				end
-			elseif song == 3 then
+			end
+			if characterSpeaking == "senpai" then
+				senpaiPortrait:draw()
+			end
+			if characterSpeaking == "boyfriend" then
+				bfPortrait:draw()
+			end
+			if characterSpeaking == "senpai angry" then
+				angrySenpaiBox:draw()
+			end
+			if characterSpeaking == "boyfriend" then
+				dialogueBox:draw()
+				bfPortrait:draw()
+			end
+			if characterSpeaking == "spirit" then
 				scaryDialogueBox:draw()
 				spiritPortait:draw()
 			end

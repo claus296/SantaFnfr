@@ -51,7 +51,7 @@ return {
 		girlfriend.x, girlfriend.y = 30, -90
 		boyfriend.x, boyfriend.y = 260, 100
 
-		enemyIcon:animate("girlfriend", false)
+		weeks:setIcon("enemy", "girlfriend")
 
 		self:load()
 	end,

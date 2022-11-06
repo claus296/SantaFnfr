@@ -38,7 +38,7 @@ return {
 		cam.sizeX, cam.sizeY = 1, 1
 		camScale.x, camScale.y = 1, 1
 
-		enemyIcon:animate("pico", false)
+		weeks:setIcon("enemy", "pico")
 
 		self:load()
 	end,
@@ -81,11 +81,11 @@ return {
 
 		if health >= 80 then
 			if enemyIcon:getAnimName() == "pico" then
-				enemyIcon:animate("pico losing", false)
+				weeks:setIcon("enemy", "pico losing")
 			end
 		else
 			if enemyIcon:getAnimName() == "pico losing" then
-				enemyIcon:animate("pico", false)
+				weeks:setIcon("enemy", "pico")
 			end
 		end
 

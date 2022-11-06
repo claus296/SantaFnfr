@@ -44,6 +44,9 @@ return {
 					15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29}, 24, 
 					false)
 
+		logo:animate("bumpin", false)
+		girlfriendTitle:animate("danceRight", false)
+
 		if love.system.getOS() == "OS X" and gamejoltLogin["useGamejolt"] then
 			gamejolt.giveTrophy(175141)
 		end
@@ -76,14 +79,16 @@ return {
 	end,
 	onBeat = function(self, n)
 		danceRight = not danceRight
-		if girlfriendTitle then if n % 2 == 0 then
-			girlfriendTitle:animate("danceRight", false)
-		else
-			girlfriendTitle:animate("danceLeft", false)
-		end end
+		if girlfriendTitle then 
+			if n % 2 == 0 then
+				girlfriendTitle:animate("danceRight", false)
+			else
+				girlfriendTitle:animate("danceLeft", false)
+			end 
+		end
 
 		--if logo then logo:animate("anim", false) end
-		if logo then logo:animate("bump", true) end
+		if logo then logo:animate("bump", false) end
 	end,
 
 	update = function(self, dt)
