@@ -1,5 +1,11 @@
-- name: Build bare love package
-  uses: love-action/love-actions-core@v1
-  with:
-    build-list: ./src/love/
-    package-path: ./releases/lovefile/Vanilla-Engine.love
+steps:
+- name: Checkout code
+  uses: actions/checkout@v2
+
+- name: Extract some files
+  # make a folder called releases
+  run: mkdir -p releases
+  # make a folder in releases called lovefile
+  run: mkdir -p releases/lovefile
+  # zip up all files in src/love and put them in releases/lovefile
+  run: zip -r releases/lovefile/Vanilla-Engine.love src/love
