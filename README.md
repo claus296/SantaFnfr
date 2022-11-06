@@ -16,6 +16,9 @@ Features with Funkin' Vanilla Engine:
 * Note splashes 
 * Some Gameplay modifications
 * Pausing
+* Mod Folder
+* Gamejolt Achievement Support
+* And More!
 
 Join Vanilla Engines's Discord server for updates and other stuff: https://discord.gg/TBF3HkXWhq
 
@@ -71,10 +74,10 @@ The settings file can be found in the following places on the following systems:
 * Nintendo Switch - `./vanilla-engine/settings.ini` & `./vanilla-engine/settings`
 
 # Progress
-**Menus** - 96% Complete
+**Menus** - 95% Complete
 * The menu is almost done, just need to clean up some code and add transitions
 
-**Game Engine** - 98% Complete
+**Game Engine** - 95% Complete
 * A few more small changes are stil needed, but its very close
 
 **Weeks** - ~7/9 Complete
@@ -150,3 +153,4 @@ Follow the official instructions for LÖVE game distribution for your platform: 
 * Davidobot for developing [love.js](https://github.com/Davidobot/love.js), used for the Web version of the game
 * TurtleP for developing [LÖVE Potion](https://github.com/lovebrew/LovePotion), originally used for the Nintendo Switch version of the game
 * Funkin' Crew (ninjamuffin99, PhantomArcade, kawaisprite, and evilsk8er), for making such an awesome game!
+* Getsaa for making our amazing menu assets
