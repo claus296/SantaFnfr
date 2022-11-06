@@ -19,6 +19,8 @@ rem You should have received a copy of the GNU General Public License
 rem along with this program.  If not, see <https://www.gnu.org/licenses/>.
 rem --------------------------------------------------------------------------------
 
+rem hi
+
 set texconv=%CD%\bin\texconv\texconv.exe
 
 pushd love\images\png
