@@ -23,11 +23,12 @@ return {
         if song == 3 then
             enemy = love.filesystem.load("sprites/week6/spirit.lua")()
             stageImages[2] = love.filesystem.load("sprites/week6/evil-school.lua")()
+			enemy.x, enemy.y = -700, -375
         elseif song == 2 then
             enemy = Character.senpaiangry(0,0)
             stageImages[7]:animate("dissuaded", true)
+			enemy.x, enemy.y = -700, -375
         end
-        enemy.x, enemy.y = -700, -375
     end,
 
     update = function(self, dt)

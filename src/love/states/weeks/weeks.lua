@@ -1089,8 +1089,8 @@ return {
 		if useDiscordRPC then
 			if not modFolderMod then 
 				presence = {
-					state = "Week " .. weekNum-1 .. " | " .. trackNames[weekNum][song],
-					details = "Score: " .. score .. " | Accuracy: " .. convertedAcc,
+					state = "Week " .. weekNum-1 or "???" .. " | " .. weekMeta[weekNum][song] or "???",
+					details = "Score: " .. score or "???" .. " | Accuracy: " .. convertedAcc or "???",
 					largeImageKey = "logo",
 					startTimestamp = now,
 				}

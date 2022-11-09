@@ -196,10 +196,10 @@ function love.load()
 	audio = require "modules.audio"
 	graphics = require "modules.graphics"
 	modchartHandler = require "modules.modchart"
-	Conductor = require "modules.conductor"
+	Conductor = require "modules.Conductor"
 	sprite = require "modules.sprite"
 	paths = require "modules.paths"
-	Character = require "modules.character"
+	Character = require "modules.Character"
 
 	spongebirth = love.graphics.newImage(graphics.imagePath("spongebirth"))
 	
