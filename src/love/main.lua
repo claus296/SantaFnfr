@@ -53,14 +53,14 @@ Edition: %s
 ]]
 	
 		if selected == 1 then
-		-- Surround traceback in ``` to get a Markdown code block
-		full_error = table.concat({"```",full_error,"```"}, "\n")
-		issuebody = string.format(issuebody, full_error, __VERSION__, love.system.getOS())
-		issuebody = url_encode(issuebody)
-	
-		local subject = string.format("Crash in Vanilla Engine %s", __VERSION__)
-		local url = string.format("https://github.com/VanillaEngineDevs/Vanilla-Engine/issues/new?title=%s&body=%s", subject, issuebody)
-		love.system.openURL(url)
+			-- Surround traceback in ``` to get a Markdown code block
+			full_error = table.concat({"```",full_error,"```"}, "\n")
+			issuebody = string.format(issuebody, full_error, __VERSION__, love.system.getOS())
+			issuebody = url_encode(issuebody)
+		
+			local subject = string.format("Crash in Vanilla Engine %s", __VERSION__)
+			local url = string.format("https://github.com/VanillaEngineDevs/Vanilla-Engine/issues/new?title=%s&body=%s", subject, issuebody)
+			love.system.openURL(url)
 		end
 	end
 end
