@@ -34,7 +34,6 @@ return {
 		song = songNum
 
 		difficulty = songAppend
-		bump = 0
 
 		stageBack = graphics.newImage(love.graphics.newImage(graphics.imagePath("week1/stage-back")))
 		stageFront = graphics.newImage(love.graphics.newImage(graphics.imagePath("week1/stage-front")))
@@ -45,8 +44,8 @@ return {
 
 		enemy = girlfriend -- For compatibility with weeks
 
-		girlfriend.x, girlfriend.y = 30, -90
-		boyfriend.x, boyfriend.y = 260, 100
+		girlfriend.x, girlfriend.y = -225, -400
+        boyfriend.x, boyfriend.y = 225, -25
 
 		weeks:setIcon("enemy", "girlfriend")
 
@@ -186,7 +185,7 @@ return {
 					camTimer = Timer.tween(1.25, cam, {x = -boyfriend.x + 100, y = -boyfriend.y + 75}, "out-quad")
 					zoomTimer = Timer.tween(1.25, zoom, {1}, "in-bounce")
 				else
-					camTimer = Timer.tween(1.25, cam, {x = -girlfriend.x - 100, y = -girlfriend.y + 75}, "out-quad")
+					camTimer = Timer.tween(1.25, cam, {x = -girlfriend.x, y = -girlfriend.y}, "out-quad")
 					zoomTimer = Timer.tween(1.25, zoom, {1.25}, "in-bounce")
 				end
 
@@ -198,13 +197,6 @@ return {
 
 		if musicThres ~= oldMusicThres and math.fmod(absMusicTime, 240000 / bpm) < 100 then
 			if camScaleTimer then Timer.cancel(camScaleTimer) end
-			bump = bump + 1
-			if bump < 4 then
-				weeks:zoomCamera(0.5, 0.25, 0.25, "out-quad", false)
-			end
-			if bump == 4 then
-				weeks:zoomCamera(0.5, -1, -1, "out-quad", false)
-			end
 			camScaleTimer = Timer.tween((60 / bpm) / 16, cam, {sizeX = camScale.x * 1.05, sizeY = camScale.y * 1.05}, "out-quad", function() camScaleTimer = Timer.tween((60 / bpm), cam, {sizeX = camScale.x, sizeY = camScale.y}, "out-quad") end)
 		end
 
