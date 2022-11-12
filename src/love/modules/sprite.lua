@@ -119,6 +119,7 @@ end
 
 function Sprite:animate(anim, loop)
     local resetTimer = false
+    self.curAnimated = true
 
     if not self.curAnim or anim ~= self.curName then
         self.curAnim = self.anims[anim]
@@ -132,8 +133,6 @@ function Sprite:animate(anim, loop)
 
     self.time = 1
     self.finished = false
-
-    self.curAnimated = true
 
     return self
 end
@@ -298,7 +297,7 @@ function Sprite:udraw(sizex, sizey)
 end
 
 function Sprite:isAnimated()
-    return Sprite.curAnimated or false
+    return self.curAnimated or true
 end
 
 return Sprite

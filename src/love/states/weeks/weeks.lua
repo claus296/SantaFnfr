@@ -324,10 +324,10 @@ return {
 				enemyArrows[3].x = 100 + 165 * 3
 				enemyArrows[4].x = 100 + 165 * 4
 				if isPixel ~= "pixel" then
-					leftArrowSplash.x = -925 + 165 * 1
-					downArrowSplash.x = -925 + 165 * 2
-					upArrowSplash.x =  100 + 165 * 3 
-					rightArrowSplash.x = 100 + 165 * 4 
+					leftArrowSplash.x = -410 + 165 * 1
+					downArrowSplash.x = -410 + 165 * 2
+					upArrowSplash.x =  -410 + 165 * 3 
+					rightArrowSplash.x = -410 + 165 * 4 
 				else
 					leftArrowSplash.x = -410 + 165 * 1 + 10
 					downArrowSplash.x = -410 + 165 * 2 + 13
@@ -821,22 +821,19 @@ return {
 	advanceDialogue = function()
 		local fullDialogue = dialogueList[curDialogue][2]
 		characterSpeaking = dialogueList[curDialogue][1]
+		audio.playSound(sounds["continue"])
 
 		if progress < string.len(fullDialogue) then
 			progress = string.len(fullDialogue)
 			characterSpeaking = dialogueList[curDialogue][1]
 			output = string.sub(fullDialogue, 1, math.floor(progress))
 		else
-			if curDialogue < #dialogueList then
-				sounds["continue"]:play()
-				
+			if curDialogue < #dialogueList then				
 				curDialogue = curDialogue + 1
 				timer = 0
 				progress = 1
 				output = ""
 			else
-				sounds["continue"]:play()
-
 				isDone = true
 			end
 		end

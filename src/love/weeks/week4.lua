@@ -88,8 +88,8 @@ return {
 				(60 / bpm) / 16, 
 				cam, 
 				{
-					sizeX = camScale.x * 1.05, 
-					sizeY = camScale.y * 1.05
+					sizeX = camScale.x * 1.075, 
+					sizeY = camScale.y * 1.075
 				}, 
 				"out-quad", 
 				function() 
@@ -109,8 +109,8 @@ return {
 				(60/bpm)/16,
 				uiScale,
 				{
-					sizeX = uiScale.x * 1.05,
-					sizeY = uiScale.y * 1.05
+					sizeX = uiScale.x * 1.075,
+					sizeY = uiScale.y * 1.075
 				},
 				"out-quad",
 				function()
