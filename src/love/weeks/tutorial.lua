@@ -246,13 +246,13 @@ return {
 			storyMode = false
 
 			graphics.fadeOut(
-					0.5,
-					function()
-						Gamestate.switch(menu)
+				0.5,
+				function()
+					Gamestate.switch(menu)
 
-						status.setLoading(false)
-					end
-				)
+					status.setLoading(false)
+				end
+			)
 		end
 
 		weeks:updateUI(dt)
