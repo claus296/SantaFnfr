@@ -45,11 +45,16 @@ function tweenPauseButtons()
 end
 
 return {
-	enter = function(self)
+	enter = function(self, isPixel)
+		isPixel = isPixel or "normal"
 		font = love.graphics.newFont("fonts/vcr.ttf", 24)
 		love.graphics.setDefaultFilter("nearest")
 		pixelFont = love.graphics.newFont("fonts/pixel.fnt")
-		love.graphics.setDefaultFilter("linear")
+		if isPixel ~= "pixel" then
+			love.graphics.setDefaultFilter("linear")
+		else
+			pixel = true
+		end
 		totalScore = 0
 
 		--PAUSE MENU IMAGES
@@ -77,34 +82,59 @@ return {
 			["continue"] = love.audio.newSource("sounds/pixel/continue-text.ogg", "static"),
 		}
 
-		images = {
-			icons = love.graphics.newImage(graphics.imagePath("icons")),
-			notes = love.graphics.newImage(graphics.imagePath(noteskins[settings.noteSkins])),
-			notesplashes = love.graphics.newImage(graphics.imagePath("noteSplashes")),
-			numbers = love.graphics.newImage(graphics.imagePath("numbers")),
-			rating = love.graphics.newImage(graphics.imagePath("rating")),
-		}
+		if isPixel ~= "pixel" then
+			images = {
+				icons = love.graphics.newImage(graphics.imagePath("icons")),
+				notes = love.graphics.newImage(graphics.imagePath(noteskins[settings.noteSkins])),
+				notesplashes = love.graphics.newImage(graphics.imagePath("noteSplashes")),
+				numbers = love.graphics.newImage(graphics.imagePath("numbers")),
+				rating = love.graphics.newImage(graphics.imagePath("rating")),
+			}
+	
+			sprites = {
+				icons = love.filesystem.load("sprites/icons.lua"),
+				numbers = love.filesystem.load("sprites/numbers.lua")
+			}
+		else
+			images = {
+				icons = love.graphics.newImage(graphics.imagePath("icons")),
+				notesp = love.graphics.newImage(graphics.imagePath("pixel/notes/"..noteskins[settings.noteSkins])),
+				notesplashes = love.graphics.newImage(graphics.imagePath("pixel/pixelSplashes")),
+				numbers = love.graphics.newImage(graphics.imagePath("pixel/numbers")),
+				rating = love.graphics.newImage(graphics.imagePath("pixel/rating")),
+			}
+	
+			sprites = {
+				icons = love.filesystem.load("sprites/icons.lua"),
+				numbers = love.filesystem.load("sprites/pixel/numbers.lua")
+			}
+		end
 
-		sprites = {
-			icons = love.filesystem.load("sprites/icons.lua"),
-			numbers = love.filesystem.load("sprites/numbers.lua")
-		}
+		if isPixel ~= "pixel" then
+			girlfriend = Character.girlfriend(0,0, false)
+			boyfriend = Character.boyfriend(0,0)
+			rating = love.filesystem.load("sprites/rating.lua")()
+			rating.sizeX, rating.sizeY = 0.75, 0.75
+			numbers = {}
+			for i = 1, 3 do
+				numbers[i] = sprites.numbers()
 
-		pauseVolume = {
-			vol = 0
-		}
+				numbers[i].sizeX, numbers[i].sizeY = 0.5, 0.5
+			end
+		else
+			girlfriend = Character.girlfriendpixel(0,0)
+			boyfriend = Character.boyfriendpixel(0, 0)
+			fakeBoyfriend = love.filesystem.load("sprites/pixel/boyfriend-dead.lua")()
 
-		girlfriend = Character.girlfriend(0,0, false)
-		boyfriend = Character.boyfriend(0,0)
+			rating = love.filesystem.load("sprites/pixel/rating.lua")()
 
-		rating = love.filesystem.load("sprites/rating.lua")()
+			rating.sizeX, rating.sizeY = 0.75, 0.75
+			numbers = {}
+			for i = 1, 3 do
+				numbers[i] = sprites.numbers()
 
-		rating.sizeX, rating.sizeY = 0.75, 0.75
-		numbers = {}
-		for i = 1, 3 do
-			numbers[i] = sprites.numbers()
-
-			numbers[i].sizeX, numbers[i].sizeY = 0.5, 0.5
+				numbers[i].sizeX, numbers[i].sizeY = 0.5, 0.5
+			end
 		end
 
 		enemyIcon = sprites.icons()
@@ -122,7 +152,14 @@ return {
 		boyfriendIcon.sizeX, boyfriendIcon.sizeY = -1.5, 1.5
 
 		countdownFade = {}
-		countdown = love.filesystem.load("sprites/countdown.lua")()
+		if isPixel ~= "pixel" then
+			countdown = love.filesystem.load("sprites/countdown.lua")()
+		else
+			countdown = love.filesystem.load("sprites/pixel/countdown.lua")()
+			countdown.sizeX, countdown.sizeY = 6.85, 6.85
+
+			boyfriendIcon:animate("boyfriend (pixel)", false)
+		end
 
 		function setDialogue(strList)
 			dialogueList = strList
@@ -156,115 +193,7 @@ return {
 		end
 	end,
 
-	pixelEnter = function(self)
-		font = love.graphics.newFont("fonts/vcr.ttf", 24)
-		love.graphics.setDefaultFilter("nearest")
-		pixelFont = love.graphics.newFont("fonts/pixel.fnt")
-		
-		--PAUSE MENU IMAGES
-		pauseBG = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/pause_box")))
-		pauseShadow = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/pause_shadow")))
-
-		-- weeks enter stuff
-		sounds = {
-			countdown = {
-				three = love.audio.newSource("sounds/pixel/countdown-3.ogg", "static"),
-				two = love.audio.newSource("sounds/pixel/countdown-2.ogg", "static"),
-				one = love.audio.newSource("sounds/pixel/countdown-1.ogg", "static"),
-				go = love.audio.newSource("sounds/pixel/countdown-date.ogg", "static")
-			},
-			miss = {
-				love.audio.newSource("sounds/pixel/miss1.ogg", "static"),
-				love.audio.newSource("sounds/pixel/miss2.ogg", "static"),
-				love.audio.newSource("sounds/pixel/miss3.ogg", "static")
-			},
-			Hitsounds = {
-				love.audio.newSource("sounds/hitSound.ogg", "static"),
-			},
-			death = love.audio.newSource("sounds/pixel/death.ogg", "static"),
-			breakfast = love.audio.newSource("songs/misc/breakfast.ogg", "stream"),
-			["text"] = love.audio.newSource("sounds/pixel/text.ogg", "static"),
-			["continue"] = love.audio.newSource("sounds/pixel/continue-text.ogg", "static"),
-		}
-
-		images = {
-			icons = love.graphics.newImage(graphics.imagePath("icons")),
-			notesp = love.graphics.newImage(graphics.imagePath("pixel/notes/"..noteskins[settings.noteSkins])),
-			notesplashes = love.graphics.newImage(graphics.imagePath("pixel/pixelSplashes")),
-			numbers = love.graphics.newImage(graphics.imagePath("pixel/numbers")),
-			rating = love.graphics.newImage(graphics.imagePath("pixel/rating")),
-		}
-
-		sprites = {
-			icons = love.filesystem.load("sprites/icons.lua"),
-			numbers = love.filesystem.load("sprites/pixel/numbers.lua")
-		}
-
-		pauseVolume = {
-			vol = 0
-		}
-
-		girlfriend = Character.girlfriendpixel(0,0)
-		boyfriend = Character.boyfriendpixel(0, 0)
-		fakeBoyfriend = love.filesystem.load("sprites/pixel/boyfriend-dead.lua")()
-
-		pixel = true
-
-		rating = love.filesystem.load("sprites/pixel/rating.lua")()
-
-		rating.sizeX, rating.sizeY = 0.75, 0.75
-		numbers = {}
-		for i = 1, 3 do
-			numbers[i] = sprites.numbers()
-
-			numbers[i].sizeX, numbers[i].sizeY = 0.5, 0.5
-		end
-
-		enemyIcon = sprites.icons()
-		boyfriendIcon = sprites.icons()
-
-		if settings.downscroll then
-			downscrollOffset = -750
-		else
-			downscrollOffset = 0
-		end
-
-		enemyIcon.y = 350 + downscrollOffset
-		boyfriendIcon.y = 350 + downscrollOffset
-		enemyIcon.sizeX, enemyIcon.sizeY = 1.5, 1.5
-		boyfriendIcon.sizeX, boyfriendIcon.sizeY = -1.5, 1.5
-
-		countdownFade = {}
-		countdown = love.filesystem.load("sprites/pixel/countdown.lua")()
-
-		countdown.sizeX, countdown.sizeY = 6.85, 6.85
-		
-		boyfriendIcon:animate("boyfriend (pixel)", false)
-		function addJudgements(rating)
-			local judgementRating = rating
-
-			if not pixel then 
-				table.insert(judgements, {
-					img = love.filesystem.load("sprites/rating.lua")(),
-					rating = judgementRating,
-					transparency = 1
-				})
-			else
-				table.insert(judgements, {
-					img = love.filesystem.load("sprites/pixel/rating.lua")(),
-					rating = judgementRating,
-					transparency = 1
-				})
-			end
-			judgements[#judgements].img:animate(judgements[#judgements].rating, false)
-			judgements[#judgements].img.x = girlfriend.x
-			judgements[#judgements].img.y = girlfriend.y - 100
-			if not pixel then judgements[#judgements].img.sizeX, judgements[#judgements].img.sizeY = 0.75, 0.75 end
-		end
-	end,
-
 	load = function(self)
-
 		holdingInput = false
 		missCounter = 0
 		noteCounter = 0
@@ -304,7 +233,8 @@ return {
 		end)
 	end,
 
-	initUI = function(self)
+	initUI = function(self, isPixel)
+		isPixel = isPixel or "normal"
 		events = {}
 		eventsP = {}
 		enemyNotes = {}
@@ -322,100 +252,33 @@ return {
 
 		local curInput = inputList[i]
 
-		sprites.leftArrow = love.filesystem.load("sprites/notes/" .. noteskins[settings.noteSkins] .. "/left-arrow.lua")
-		sprites.downArrow = love.filesystem.load("sprites/notes/" .. noteskins[settings.noteSkins] .. "/down-arrow.lua")
-		sprites.upArrow = love.filesystem.load("sprites/notes/" .. noteskins[settings.noteSkins] .. "/up-arrow.lua")
-		sprites.rightArrow = love.filesystem.load("sprites/notes/" .. noteskins[settings.noteSkins] .. "/right-arrow.lua")
 
-		leftArrowSplash = love.filesystem.load("sprites/notes/noteSplashes.lua")()
-		downArrowSplash = love.filesystem.load("sprites/notes/noteSplashes.lua")()
-		upArrowSplash = love.filesystem.load("sprites/notes/noteSplashes.lua")()
-		rightArrowSplash = love.filesystem.load("sprites/notes/noteSplashes.lua")()
+		if isPixel ~= "pixel" then
+			sprites.leftArrow = love.filesystem.load("sprites/notes/" .. noteskins[settings.noteSkins] .. "/left-arrow.lua")
+			sprites.downArrow = love.filesystem.load("sprites/notes/" .. noteskins[settings.noteSkins] .. "/down-arrow.lua")
+			sprites.upArrow = love.filesystem.load("sprites/notes/" .. noteskins[settings.noteSkins] .. "/up-arrow.lua")
+			sprites.rightArrow = love.filesystem.load("sprites/notes/" .. noteskins[settings.noteSkins] .. "/right-arrow.lua")
 
-		enemyArrows = {
-			sprites.leftArrow(),
-			sprites.downArrow(),
-			sprites.upArrow(),
-			sprites.rightArrow()
-		}
-		boyfriendArrows = {
-			sprites.leftArrow(),
-			sprites.downArrow(),
-			sprites.upArrow(),
-			sprites.rightArrow()
-		}
-		picoArrows = {
-			sprites.leftArrow(),
-			sprites.downArrow(),
-			sprites.upArrow(),
-			sprites.rightArrow()
-		}
+			leftArrowSplash = love.filesystem.load("sprites/notes/noteSplashes.lua")()
+			downArrowSplash = love.filesystem.load("sprites/notes/noteSplashes.lua")()
+			upArrowSplash = love.filesystem.load("sprites/notes/noteSplashes.lua")()
+			rightArrowSplash = love.filesystem.load("sprites/notes/noteSplashes.lua")()
+		else
+			sprites.leftArrow = love.filesystem.load("sprites/pixel/notes/" .. noteskins[settings.noteSkins] .. "/left-arrow.lua")
+			sprites.downArrow = love.filesystem.load("sprites/pixel/notes/" .. noteskins[settings.noteSkins] .. "/down-arrow.lua")
+			sprites.upArrow = love.filesystem.load("sprites/pixel/notes/" .. noteskins[settings.noteSkins] .. "/up-arrow.lua")
+			sprites.rightArrow = love.filesystem.load("sprites/pixel/notes/" .. noteskins[settings.noteSkins] .. "/right-arrow.lua")
 
-		for i = 1, 4 do
-			if not settings.middleScroll then
-				enemyArrows[i].x = -925 + 165 * i 
-				boyfriendArrows[i].x = 100 + 165 * i 
-				leftArrowSplash.x = 100 + 165 * 1 + 5
-				downArrowSplash.x = 100 + 165 * 2 + 5
-				upArrowSplash.x =  100 + 165 * 3 + 5
-				rightArrowSplash.x = 100 + 165 * 4 + 5
-			else
-				boyfriendArrows[i].x = -410 + 165 * i
-				-- ew stuff
-				enemyArrows[1].x = -925 + 165 * 1 
-				enemyArrows[2].x = -925 + 165 * 2
-				enemyArrows[3].x = 100 + 165 * 3
-				enemyArrows[4].x = 100 + 165 * 4
-				leftArrowSplash.x = -440 + 165 * 1 + 5
-				downArrowSplash.x = -440 + 165 * 2 + 5
-				upArrowSplash.x =  -440 + 165 * 3 + 5
-				rightArrowSplash.x = -440 + 165 * 4 + 5
-			end
-			enemyArrows[i].y = -400
-			boyfriendArrows[i].y = -400
-			leftArrowSplash.y = -400
-			downArrowSplash.y = -400
-			upArrowSplash.y = -400
-			rightArrowSplash.y = -400
+			leftArrowSplash = love.filesystem.load("sprites/pixel/notes/pixelSplashes.lua")()
+			downArrowSplash = love.filesystem.load("sprites/pixel/notes/pixelSplashes.lua")()
+			upArrowSplash = love.filesystem.load("sprites/pixel/notes/pixelSplashes.lua")()
+			rightArrowSplash = love.filesystem.load("sprites/pixel/notes/pixelSplashes.lua")()
 
-			enemyNotes[i] = {}
-			boyfriendNotes[i] = {}
-			picoNotes[i] = {}
+			leftArrowSplash.sizeX, leftArrowSplash.sizeY = 7, 7
+			rightArrowSplash.sizeX, rightArrowSplash.sizeY = 7, 7
+			upArrowSplash.sizeX, upArrowSplash.sizeY = 7, 7
+			downArrowSplash.sizeX, downArrowSplash.sizeY = 7, 7
 		end
-	end,
-
-	pixelInitUI = function(self)
-		events = {}
-		enemyNotes = {}
-		boyfriendNotes = {}
-		picoNotes = {}
-		health = 50
-		score = 0
-		missCounter = 0
-		altScore = 0
-		sicks = 0
-		goods = 0
-		bads = 0
-		shits = 0
-		hitCounter = 0
-
-		local curInput = inputList[i]
-
-		--[[
-		sprites.leftArrow = love.filesystem.load("sprites/pixel/notes/left-arrow.lua")
-		sprites.downArrow = love.filesystem.load("sprites/pixel/notes/down-arrow.lua")
-		sprites.upArrow = love.filesystem.load("sprites/pixel/notes/up-arrow.lua")
-		sprites.rightArrow = love.filesystem.load("sprites/pixel/notes/right-arrow.lua")
-		--]]
-		sprites.leftArrow = love.filesystem.load("sprites/pixel/notes/" .. noteskins[settings.noteSkins] .. "/left-arrow.lua")
-		sprites.downArrow = love.filesystem.load("sprites/pixel/notes/" .. noteskins[settings.noteSkins] .. "/down-arrow.lua")
-		sprites.upArrow = love.filesystem.load("sprites/pixel/notes/" .. noteskins[settings.noteSkins] .. "/up-arrow.lua")
-		sprites.rightArrow = love.filesystem.load("sprites/pixel/notes/" .. noteskins[settings.noteSkins] .. "/right-arrow.lua")
-
-		leftArrowSplash = love.filesystem.load("sprites/pixel/notes/pixelSplashes.lua")()
-		downArrowSplash = love.filesystem.load("sprites/pixel/notes/pixelSplashes.lua")()
-		upArrowSplash = love.filesystem.load("sprites/pixel/notes/pixelSplashes.lua")()
-		rightArrowSplash = love.filesystem.load("sprites/pixel/notes/pixelSplashes.lua")()
 
 		enemyArrows = {
 			sprites.leftArrow(),
@@ -436,19 +299,23 @@ return {
 			sprites.rightArrow()
 		}
 
-		leftArrowSplash.sizeX, leftArrowSplash.sizeY = 7, 7
-		rightArrowSplash.sizeX, rightArrowSplash.sizeY = 7, 7
-		upArrowSplash.sizeX, upArrowSplash.sizeY = 7, 7
-		downArrowSplash.sizeX, downArrowSplash.sizeY = 7, 7
-
 		for i = 1, 4 do
 			if not settings.middleScroll then
 				enemyArrows[i].x = -925 + 165 * i 
 				boyfriendArrows[i].x = 100 + 165 * i 
-				leftArrowSplash.x = 100 + 165 * 1 + 10
-				downArrowSplash.x = 100 + 165 * 2 + 13
-				upArrowSplash.x =  100 + 165 * 3 + 16
-				rightArrowSplash.x = 100 + 165 * 4 + 19
+				if isPixel ~= "pixel" then
+					leftArrowSplash.x = 100 + 165 * 1
+					downArrowSplash.x = 100 + 165 * 2
+					upArrowSplash.x =  100 + 165 * 3 
+					rightArrowSplash.x = 100 + 165 * 4 
+				else
+					leftArrowSplash.x = 100 + 165 * 1 + 10
+					downArrowSplash.x = 100 + 165 * 2 + 13
+					upArrowSplash.x =  100 + 165 * 3 + 16
+					rightArrowSplash.x = 100 + 165 * 4 + 19
+					enemyArrows[i].sizeX, enemyArrows[i].sizeY = 7, 7
+					boyfriendArrows[i].sizeX, boyfriendArrows[i].sizeY = 7, 7
+				end
 			else
 				boyfriendArrows[i].x = -410 + 165 * i
 				-- ew stuff
@@ -456,22 +323,26 @@ return {
 				enemyArrows[2].x = -925 + 165 * 2
 				enemyArrows[3].x = 100 + 165 * 3
 				enemyArrows[4].x = 100 + 165 * 4
-				leftArrowSplash.x = -440 + 165 * 1 + 10
-				downArrowSplash.x = -440 + 165 * 2 + 13
-				upArrowSplash.x =  -440 + 165 * 3 + 16
-				rightArrowSplash.x = -440 + 165 * 4 + 19
+				if isPixel ~= "pixel" then
+					leftArrowSplash.x = -925 + 165 * 1
+					downArrowSplash.x = -925 + 165 * 2
+					upArrowSplash.x =  100 + 165 * 3 
+					rightArrowSplash.x = 100 + 165 * 4 
+				else
+					leftArrowSplash.x = -410 + 165 * 1 + 10
+					downArrowSplash.x = -410 + 165 * 2 + 13
+					upArrowSplash.x =  -410 + 165 * 3 + 16
+					rightArrowSplash.x = -410 + 165 * 4 + 19
+					enemyArrows[i].sizeX, enemyArrows[i].sizeY = 7, 7
+					boyfriendArrows[i].sizeX, boyfriendArrows[i].sizeY = 7, 7
+				end
 			end
-
 			enemyArrows[i].y = -400
 			boyfriendArrows[i].y = -400
-			picoArrows[i].y = -400
 			leftArrowSplash.y = -400
 			downArrowSplash.y = -400
 			upArrowSplash.y = -400
 			rightArrowSplash.y = -400
-
-			enemyArrows[i].sizeX, enemyArrows[i].sizeY = 7, 7
-			boyfriendArrows[i].sizeX, boyfriendArrows[i].sizeY = 7, 7
 
 			enemyNotes[i] = {}
 			boyfriendNotes[i] = {}
@@ -2083,6 +1954,8 @@ return {
 		uiTextColour = {1,1,1}
 		extraCamZoom.sizeX = 1
 		extraCamZoom.sizeY = 1
+
+		pixel = false
 
 		Timer.clear()
 

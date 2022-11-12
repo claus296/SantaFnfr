@@ -27,7 +27,7 @@ return {
 		pauseColor = {225, 106, 169}
 		cam.sizeX, cam.sizeY = 0.78, 0.78
 		camScale.x, camScale.y = 0.78, 0.78
-		weeks:pixelEnter()
+		weeks:enter("pixel")
 		stages["school"]:enter()
 		week = 6
 		
@@ -160,7 +160,7 @@ return {
 	end,
 
 	initUI = function(self)
-		weeks:pixelInitUI()
+		weeks:initUI("pixel")
 
 		if song == 3 then
 			weeks:generateNotes("songs/week6/thorns/" .. difficulty .. ".json")
