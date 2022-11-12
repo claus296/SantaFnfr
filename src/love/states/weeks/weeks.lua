@@ -274,10 +274,10 @@ return {
 			upArrowSplash = love.filesystem.load("sprites/pixel/notes/pixelSplashes.lua")()
 			rightArrowSplash = love.filesystem.load("sprites/pixel/notes/pixelSplashes.lua")()
 
-			leftArrowSplash.sizeX, leftArrowSplash.sizeY = 7, 7
-			rightArrowSplash.sizeX, rightArrowSplash.sizeY = 7, 7
-			upArrowSplash.sizeX, upArrowSplash.sizeY = 7, 7
-			downArrowSplash.sizeX, downArrowSplash.sizeY = 7, 7
+			leftArrowSplash.sizeX, leftArrowSplash.sizeY = 8, 8
+			rightArrowSplash.sizeX, rightArrowSplash.sizeY = 8, 8
+			upArrowSplash.sizeX, upArrowSplash.sizeY = 8, 8
+			downArrowSplash.sizeX, downArrowSplash.sizeY = 8, 8
 		end
 
 		enemyArrows = {
@@ -313,8 +313,6 @@ return {
 					downArrowSplash.x = 100 + 165 * 2 + 13
 					upArrowSplash.x =  100 + 165 * 3 + 16
 					rightArrowSplash.x = 100 + 165 * 4 + 19
-					enemyArrows[i].sizeX, enemyArrows[i].sizeY = 7, 7
-					boyfriendArrows[i].sizeX, boyfriendArrows[i].sizeY = 7, 7
 				end
 			else
 				boyfriendArrows[i].x = -410 + 165 * i
@@ -333,8 +331,6 @@ return {
 					downArrowSplash.x = -410 + 165 * 2 + 13
 					upArrowSplash.x =  -410 + 165 * 3 + 16
 					rightArrowSplash.x = -410 + 165 * 4 + 19
-					enemyArrows[i].sizeX, enemyArrows[i].sizeY = 7, 7
-					boyfriendArrows[i].sizeX, boyfriendArrows[i].sizeY = 7, 7
 				end
 			end
 			enemyArrows[i].y = -400
@@ -565,9 +561,9 @@ return {
 							enemyNotes[id][c].x = x
 							enemyNotes[id][c].y = -400 + noteTime * 0.6 * speed
 							if settings.downscroll then
-								enemyNotes[id][c].sizeY = -7
+								enemyNotes[id][c].sizeY = -8
 							else
-								enemyNotes[id][c].sizeY = 7
+								enemyNotes[id][c].sizeY = 8
 							end
 	
 							enemyNotes[id][c]:animate("on", false)
@@ -584,9 +580,9 @@ return {
 		
 									enemyNotes[id][c]:animate("hold", false)
 									if settings.downscroll then
-										enemyNotes[id][c].sizeY = -7
+										enemyNotes[id][c].sizeY = -8
 									else
-										enemyNotes[id][c].sizeY = 7
+										enemyNotes[id][c].sizeY = 8
 									end
 								end
 		
@@ -595,7 +591,7 @@ return {
 								enemyNotes[id][c].offsetY = 1
 		
 								enemyNotes[id][c]:animate("end", false)
-								enemyNotes[id][c].sizeY = 7
+								enemyNotes[id][c].sizeY = 8
 							end
 						elseif noteType >= 0 and noteType < 4 then
 							local id = noteType + 1
@@ -606,9 +602,9 @@ return {
 							boyfriendNotes[id][c].x = x
 							boyfriendNotes[id][c].y = -400 + noteTime * 0.6 * speed
 							if settings.downscroll then
-								boyfriendNotes[id][c].sizeY = -7
+								boyfriendNotes[id][c].sizeY = -8
 							else
-								boyfriendNotes[id][c].sizeY = 7
+								boyfriendNotes[id][c].sizeY = 8
 							end
 	
 							boyfriendNotes[id][c]:animate("on", false)
@@ -625,9 +621,9 @@ return {
 		
 									boyfriendNotes[id][c]:animate("hold", false)
 									if settings.downscroll then
-										boyfriendNotes[id][c].sizeY = -7
+										boyfriendNotes[id][c].sizeY = -8
 									else
-										boyfriendNotes[id][c].sizeY = 7
+										boyfriendNotes[id][c].sizeY = 8
 									end
 								end
 		
@@ -635,7 +631,7 @@ return {
 	
 								boyfriendNotes[id][c].offsetY = 1
 								boyfriendNotes[id][c]:animate("end", false)
-								boyfriendNotes[id][c].sizeY = 7
+								boyfriendNotes[id][c].sizeY = 8
 							end
 						end
 					else
@@ -648,9 +644,9 @@ return {
 							boyfriendNotes[id][c].x = x
 							boyfriendNotes[id][c].y = -400 + noteTime * 0.6 * speed
 							if settings.downscroll then
-								boyfriendNotes[id][c].sizeY = -7
+								boyfriendNotes[id][c].sizeY = -8
 							else
-								boyfriendNotes[id][c].sizeY = 7
+								boyfriendNotes[id][c].sizeY = 8
 							end
 	
 							boyfriendNotes[id][c]:animate("on", false)
@@ -666,9 +662,9 @@ return {
 		
 									boyfriendNotes[id][c]:animate("hold", false)
 									if settings.downscroll then
-										boyfriendNotes[id][c].sizeY = -7
+										boyfriendNotes[id][c].sizeY = -8
 									else
-										boyfriendNotes[id][c].sizeY = 7
+										boyfriendNotes[id][c].sizeY = 8
 									end
 								end
 		
@@ -677,7 +673,7 @@ return {
 								boyfriendNotes[id][c].offsetY = 1
 		
 								boyfriendNotes[id][c]:animate("end", false)
-								boyfriendNotes[id][c].sizeY = 7
+								boyfriendNotes[id][c].sizeY = 8
 							end
 						elseif noteType >= 0 and noteType < 4 then
 							local id = noteType + 1
@@ -688,9 +684,9 @@ return {
 							enemyNotes[id][c].x = x
 							enemyNotes[id][c].y = -400 + noteTime * 0.6 * speed
 							if settings.downscroll then
-								enemyNotes[id][c].sizeY = -7
+								enemyNotes[id][c].sizeY = -8
 							else
-								enemyNotes[id][c].sizeY = 7
+								enemyNotes[id][c].sizeY = 8
 							end
 	
 							enemyNotes[id][c]:animate("on", false)
@@ -708,13 +704,13 @@ return {
 										enemyNotes[id][c].offsetY = 1
 	
 										enemyNotes[id][c]:animate("end", false)
-										enemyNotes[id][c].sizeY = 7
+										enemyNotes[id][c].sizeY = 8
 									else
 										enemyNotes[id][c]:animate("hold", false)
 										if settings.downscroll then
-											enemyNotes[id][c].sizeY = -7
+											enemyNotes[id][c].sizeY = -8
 										else
-											enemyNotes[id][c].sizeY = 7
+											enemyNotes[id][c].sizeY = 8
 										end
 									end
 								end
@@ -724,7 +720,7 @@ return {
 								enemyNotes[id][c].offsetY = 1
 		
 								enemyNotes[id][c]:animate("end", false)
-								enemyNotes[id][c].sizeY = 7
+								enemyNotes[id][c].sizeY = 8
 							end
 						end
 					end
@@ -1601,9 +1597,9 @@ return {
 						end
 					else
 						if not settings.downscroll then
-							enemyArrows[i]:udraw(7, 7)
+							enemyArrows[i]:udraw(8, 8)
 						else
-							enemyArrows[i]:udraw(7, -7)
+							enemyArrows[i]:udraw(8, -8)
 						end
 					end
 					
@@ -1622,9 +1618,9 @@ return {
 						end
 					else
 						if not settings.downscroll then
-							boyfriendArrows[i]:udraw(7, 7)
+							boyfriendArrows[i]:udraw(8, 8)
 						else
-							boyfriendArrows[i]:udraw(7, -7)
+							boyfriendArrows[i]:udraw(8, -8)
 						end
 					end
 				end
@@ -1730,7 +1726,7 @@ return {
 								graphics.setColor(1, 1, 1, 0.5)
 							end
 							if pixel then
-								enemyNotes[i][j]:udraw(7, enemyNotes[i][j].sizeY)
+								enemyNotes[i][j]:udraw(8, enemyNotes[i][j].sizeY)
 							else
 								enemyNotes[i][j]:udraw(1, enemyNotes[i][j].sizeY)
 							end
@@ -1747,7 +1743,7 @@ return {
 								graphics.setColor(1, 1, 1, math.min(1, (500 + (boyfriendNotes[i][j].y - musicPos)) / 75))
 							end
 							if pixel then
-								boyfriendNotes[i][j]:udraw(7, boyfriendNotes[i][j].sizeY)
+								boyfriendNotes[i][j]:udraw(8, boyfriendNotes[i][j].sizeY)
 							else
 								boyfriendNotes[i][j]:udraw(1, boyfriendNotes[i][j].sizeY)
 							end
