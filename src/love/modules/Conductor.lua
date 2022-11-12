@@ -1,6 +1,6 @@
 local conductor = {}
 
-function conductor:load()
+function conductor:load(self)
     conductor.bpm = bpm or 120
     conductor.crochet = ((60/conductor.bpm) * 1000) -- Beats in milliseconds
     conductor.stepCrochet = conductor.crochet / 4 -- Steps in milliseconds
@@ -9,29 +9,29 @@ function conductor:load()
     conductor.offset = 0
     conductor.safeZoneOffset = (10 / 60) * 1000
 
-    Conductor.lateHitMult =1
-    Conductor.earlyHitMulti = 1
+    conductor.lateHitMult =1
+    conductor.earlyHitMulti = 1
 end
 
-function conductor.update(dt)
-    Conductor.lastSongPosition = Conductor.songPosition
-    Conductor.songPosition = musicTime + Conductor.offset
+function conductor:update(self, dt)
+    self.lastSongPosition = self.songPosition
+    self.songPosition = musicTime
 end
 
-function conductor.getCrochetAtTime(time)
-    conductor.lastChange = getBPMFromSeconds(time)
-    return conductor.lastChange.stepCrochet * 4
+function conductor:getCrochetAtTime(self, time)
+    self.lastChange = getBPMFromSeconds(time)
+    return self.lastChange.stepCrochet * 4
 end
 local function getBPMFromSeconds(time)
     lastChange = {
         stepTime = 0,
         songTime = 0,
-        bpm = conductor.bpm,
-        stepCrochet = conductor.stepCrochet
+        bpm = self.bpm,
+        stepCrochet = self.stepCrochet
     }
     for i, change in ipairs(bpmChanges) do
-        if time >= conductor.bpmChangeMap[i].songTime then
-            lastChange = conductor.bpmChangeMap[i]
+        if time >= self.bpmChangeMap[i].songTime then
+            lastChange = self.bpmChangeMap[i]
         end
     end
 
@@ -42,12 +42,12 @@ local function getBPMFromStep(step)
     lastChange = {
         stepTime = 0,
         songTime = 0,
-        bpm = Conductor.bpm,
-        stepCrochet = conductor.stepCrochet
+        bpm = self.bpm,
+        stepCrochet = self.stepCrochet
     }
     for i, change in ipairs(bpmChanges) do
-        if  conductor.bpmChangeMap[i].stepTime <= step then
-            lastChange = conductor.bpmChangeMap[i]
+        if self.bpmChangeMap[i].stepTime <= step then
+            lastChange = self.bpmChangeMap[i]
         end
     end
 
@@ -90,10 +90,10 @@ local function calculateCrochet(bpm)
     return ((60/bpm) * 1000)
 end
 
-function conductor.changeBPM(newBPM)
-    conductor.bpm = newBPM
+function conductor:changeBPM(self, newBPM)
+    self.bpm = newBPM
 
-    crochet = calculateCrochet(conductor.bpm)
+    crochet = calculateCrochet(self.bpm)
     stepCrochet = crochet / 4
 end
 
