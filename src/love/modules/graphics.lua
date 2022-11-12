@@ -300,15 +300,17 @@ return {
 			end,
 
 			update = function(self, dt)
-				if isAnimated then
-					frame = frame + anim.speed * dt
-				end
+				if not paused then
+					if isAnimated then
+						frame = frame + anim.speed * dt
+					end
 
-				if isAnimated and frame > anim.stop then
-					if isLooped then
-						frame = anim.start
-					else
-						isAnimated = false
+					if isAnimated and frame > anim.stop then
+						if isLooped then
+							frame = anim.start
+						else
+							isAnimated = false
+						end
 					end
 				end
 			end,

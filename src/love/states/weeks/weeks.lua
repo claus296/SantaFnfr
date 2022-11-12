@@ -999,20 +999,22 @@ return {
 
 		if paused then
 			musicTime = pauseTime
-			if input:pressed("confirm") and pauseMenuSelection == 1 then -- resume button
-				paused = false
-				love.audio.play(inst, voices)
-			elseif input:pressed("confirm") and pauseMenuSelection == 2 then -- restart button 
-				pauseRestart = true
-				Gamestate.push(gameOver)
-			elseif input:pressed("confirm") and pauseMenuSelection == 3 then --  exit button 
-				paused = false
-				if inst then inst:stop() end
-				voices:stop()
-				storyMode = false
+			if input:pressed("confirm") then
+				love.audio.stop(sounds.breakfast) -- since theres only 3 options, we can make the sound stop without an else statement
+				if pauseMenuSelection == 1 then
+					love.audio.play(voices)
+					love.audio.play(inst)
+					paused = false
+				elseif pauseMenuSelection == 2 then
+					pauseRestart = true
+					Gamestate.push(gameOver)
+				elseif pauseMenuSelection == 3 then
+					paused = false
+					if inst then inst:stop() end
+					voices:stop()
+					storyMode = false
+				end
 			end
-		else
-			love.audio.stop(sounds.breakfast)
 		end
 
 		if not doingDialogue and not cutscene then

@@ -137,11 +137,6 @@ return {
 			end
 		end
 
-		if input:pressed("confirm") then
-			love.audio.stop(inst)
-			love.audio.stop(voices)
-		end
-
 		if not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused then
 			if score and highscores[weekNum-1][song] then
 				if score > highscores[weekNum-1].scores[song] then
