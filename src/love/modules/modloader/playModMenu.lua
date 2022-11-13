@@ -25,7 +25,6 @@ local menuNum = 1
 
 local songNum, songAppend
 local songDifficulty = 2
-local pressedUp = 0
 
 local menuNames = {
 	"Story Mode",
@@ -43,13 +42,6 @@ local selectSound = love.audio.newSource("sounds/menu/select.ogg", "static")
 local confirmSound = love.audio.newSource("sounds/menu/confirm.ogg", "static")
 
 local function switchMenu(menu)
-	function upFunc()
-		if pressedUp ~= 10 then
-			pressedUp = pressedUp + 1
-		else
-			pressedUp = 0
-		end
-	end
 	if menu == 4 then
 		love.window.showMessageBox("lol", "Not implemented yet :P")
 
@@ -76,52 +68,32 @@ local function switchMenu(menu)
 			end
 		end
 		function confirmFunc()
-			if pressedUp ~= 10 then
-				if menuState == 3 then
+			if menuState == 3 then
 
-					status.setLoading(true)
-
-					graphics.fadeOut(
-						0.5,
-						function()
-							songAppend = difficultyStrs[songDifficulty]
-
-							storyMode = false
-							modFolderMod = true
-
-							music[1]:stop()
-
-							Gamestate.switch(mods.WeekData[modWeekNum], songNum, songAppend)
-
-							status.setLoading(false)
-						end
-					)
-				else
-					music[1]:stop()
-					if menuState == 1 then
-						songNum = 1
-					end
-
-					menuState = menuState + 1
-				end
-			else
 				status.setLoading(true)
 
 				graphics.fadeOut(
 					0.5,
 					function()
-						songAppend = "normal"
-						songNum = 1
+						songAppend = difficultyStrs[songDifficulty]
 
 						storyMode = false
+						modFolderMod = true
 
 						music[1]:stop()
 
-						Gamestate.switch(testSong, songNum, songAppend)
+						Gamestate.switch(mods.WeekData[modWeekNum], songNum, songAppend)
 
 						status.setLoading(false)
 					end
 				)
+			else
+				music[1]:stop()
+				if menuState == 1 then
+					songNum = 1
+				end
+
+				menuState = menuState + 1
 			end
 		end
 		function backFunc()
@@ -182,51 +154,31 @@ function rightFunc()
 	end
 end
 function confirmFunc()
-	if pressedUp ~= 10 then
-		if menuState == 3 then
+	if menuState == 3 then
 
-			status.setLoading(true)
-
-			graphics.fadeOut(
-				0.5,
-				function()
-					songAppend = difficultyStrs[songDifficulty]
-
-					storyMode = false
-					modFolderMod = true
-
-					music[1]:stop()
-
-					Gamestate.switch(mods.WeekData[modWeekNum], songNum, songAppend)
-
-					status.setLoading(false)
-				end
-			)
-		else
-			if menuState == 1 then
-				songNum = 1
-			end
-
-			menuState = menuState + 1
-		end
-	else
-		music[1]:stop()
 		status.setLoading(true)
 
 		graphics.fadeOut(
 			0.5,
 			function()
-				songAppend = "normal"
-				songNum = 1
+				songAppend = difficultyStrs[songDifficulty]
 
 				storyMode = false
+				modFolderMod = true
 
 				music[1]:stop()
-				Gamestate.switch(testSong, songNum, songAppend)
+
+				Gamestate.switch(mods.WeekData[modWeekNum], songNum, songAppend)
 
 				status.setLoading(false)
 			end
 		)
+	else
+		if menuState == 1 then
+			songNum = 1
+		end
+
+		menuState = menuState + 1
 	end
 end
 function backFunc()
@@ -238,55 +190,34 @@ function backFunc()
 end
 
 function drawFunc()
-	if pressedUp ~= 10 then
-		graphics.setColor(1, 1, 0)
-		if menuState == 3 then
-			if songDifficulty == 3 then
-				love.graphics.printf("Choose a difficulty: < Hard >", -640, 285, 853, "center", nil, 1.5, 1.5)
-			elseif songDifficulty == 2 then
-				love.graphics.printf("Choose a difficulty: < Normal >", -640, 285, 853, "center", nil, 1.5, 1.5)
-			else
-				love.graphics.printf("Choose a difficulty: < Easy >", -640, 285, 853, "center", nil, 1.5, 1.5)
-			end
-		elseif menuState == 2 then
-			love.graphics.printf("Choose a song: < " .. mods.weekMeta[modWeekNum][2][songNum] .. " >", -640, 285, 853, "center", nil, 1.5, 1.5)
+	graphics.setColor(1, 1, 0)
+	if menuState == 3 then
+		if songDifficulty == 3 then
+			love.graphics.printf("Choose a difficulty: < Hard >", -640, 285, 853, "center", nil, 1.5, 1.5)
+		elseif songDifficulty == 2 then
+			love.graphics.printf("Choose a difficulty: < Normal >", -640, 285, 853, "center", nil, 1.5, 1.5)
 		else
-			love.graphics.printf("Choose a week: < " .. mods.weekMeta[modWeekNum][1] .. " >", -640, 285, 853, "center", nil, 1.5, 1.5)
+			love.graphics.printf("Choose a difficulty: < Easy >", -640, 285, 853, "center", nil, 1.5, 1.5)
 		end
-		graphics.setColor(1, 1, 1)
-
-		if input:getActiveDevice() == "joy" then
-			love.graphics.printf("Left Stick/D-Pad: Select | A: Confirm | B: Back", -640, 350, 1280, "center", nil, 1, 1)
-		else
-			love.graphics.printf("Arrow Keys: Select | Enter: Confirm | Escape: Back", -640, 350, 1280, "center", nil, 1, 1)
-		end
+	elseif menuState == 2 then
+		love.graphics.printf("Choose a song: < " .. mods.weekMeta[modWeekNum][2][songNum] .. " >", -640, 285, 853, "center", nil, 1.5, 1.5)
 	else
-		graphics.setColor(1, 1, 1)
-		love.graphics.printf("Press enter to play the Test song", -640, 0, 1280, "center", nil, 1, 1)
+		love.graphics.printf("Choose a week: < " .. mods.weekMeta[modWeekNum][1] .. " >", -640, 285, 853, "center", nil, 1.5, 1.5)
+	end
+	graphics.setColor(1, 1, 1)
+
+	if input:getActiveDevice() == "joy" then
+		love.graphics.printf("Left Stick/D-Pad: Select | A: Confirm | B: Back", -640, 350, 1280, "center", nil, 1, 1)
+	else
+		love.graphics.printf("Arrow Keys: Select | Enter: Confirm | Escape: Back", -640, 350, 1280, "center", nil, 1, 1)
 	end
 		
-end
-
-function upFunc()
-	if pressedUp ~= 10 then
-		pressedUp = pressedUp + 1
-	else
-		pressedUp = 0
-	end
 end
 
 return {
 	enter = function(self, previous)
 		songNum = 0
-		modWeekNum = 1
-		bf = love.filesystem.load("sprites/boyfriend.lua")()
-		love.graphics.setDefaultFilter("nearest")
-		pbf = love.filesystem.load("sprites/pixel/boyfriend.lua")()
-		love.graphics.setDefaultFilter("linear")
-		bf:animate("idle", true)
-		
-		bf.x = 375
-		pbf.x, pbf.y = -375, -45
+		modWeekNum = 1	
 
 		cam.sizeX, cam.sizeY = 0.9, 0.9
 		camScale.x, camScale.y = 0.9, 0.9
@@ -320,8 +251,6 @@ return {
 				audio.playSound(selectSound)
 
 				rightFunc()
-			elseif input:pressed("up") then
-				upFunc()
 			elseif input:pressed("confirm") then
 				audio.playSound(confirmSound)
 
@@ -343,10 +272,6 @@ return {
 				
 			end
 		end
-		if pressedUp == 10 then
-			bf:update(dt)
-			pbf:update(dt)
-		end
 	end,
 
 	draw = function(self)
@@ -354,11 +279,6 @@ return {
 			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
 
 			menuBG:draw()
-
-			if pressedUp == 10 then
-				pbf:udraw(-6.2,6.2)
-				bf:udraw(0.9, 0.9)
-			end
 
 			love.graphics.push()
 				love.graphics.scale(cam.sizeX, cam.sizeY)
@@ -370,8 +290,6 @@ return {
 
 	leave = function(self)
 		menuBG = nil
-		bf = nil
-		pbf = nil
 		Timer.clear()
 	end
 }

@@ -1,4 +1,4 @@
-local upFunc, downFunc, confirmFunc, backFunc, drawFunc, menuFunc, menuDesc
+local downFunc, confirmFunc, backFunc, drawFunc, menuFunc, menuDesc
 
 local menuState
 

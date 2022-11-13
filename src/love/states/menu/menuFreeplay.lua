@@ -7,7 +7,6 @@ local songNum, weekNum
 
 local songNum, songAppend
 local songDifficulty = 2
-local pressedUp = 0
 
 local difficultyStrs
 local selectSound, confirmSound
