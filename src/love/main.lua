@@ -222,6 +222,7 @@ function love.load()
 		["sunset"] = require "stages.sunset",
 		["mall"] = require "stages.mall",
 		["school"] = require "stages.school",
+		["evilSchool"] = require "stages.evil-school",
 		["tank"] = require "stages.tank",
 	}
 

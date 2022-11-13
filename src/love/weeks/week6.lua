@@ -78,7 +78,11 @@ return {
 		else
 			doingDialogue = false
 		end
-		stages["school"]:load()
+		if song ~= 3 then
+			stages["school"]:load()
+		else
+			stages["evilSchool"]:load()
+		end
 		if song == 3 then
 			scaryDialogueBox = love.filesystem.load("sprites/week6/scaryDialogueBox.lua")()
 			spiritPortait = graphics.newImage(love.graphics.newImage(graphics.imagePath("week6/spiritFaceForward")))
@@ -105,8 +109,6 @@ return {
 				}
 			)
 			weeks:setIcon("enemy", "spirit")
-
-			healthBarColorEnemy = {255,60,110}
 		elseif song == 2 then
 			angrySenpaiBox = love.filesystem.load("sprites/week6/angrySenpaiBox.lua")()
 			angrySenpaiBox.x, angrySenpaiBox.y = 650, 375
@@ -117,7 +119,7 @@ return {
 				{
 					{"senpai angry", "Not bad for an ugly worm."},
 					{"senpai angry", "But this time I'll rip your nuts off right after your girlfriend finishes gargling mine."},
-					{"senpai angry", "Bop beep be be skdoo bep"}
+					{"boyfriend", "Bop beep be be skdoo bep"}
 				}
 			)
 			if storyMode then
@@ -129,7 +131,7 @@ return {
 				{
 					{"senpai", "Ah, a new fair maiden has come in search of true love!"},
 					{"senpai", "A serenade between gentlemen shall decide where her beautiful heart shall reside."},
-					{"senpai", "Beep bo bop"}
+					{"boyfriend", "Beep bo bop"}
 				}
 			)
 		end
@@ -139,6 +141,9 @@ return {
 		if song == 3 then
 			inst = love.audio.newSource("songs/week6/thorns/inst.ogg", "stream")
 			voices = love.audio.newSource("songs/week6/thorns/voices.ogg", "stream")
+			stages["school"]:leave()
+			stages["evilSchool"]:enter()
+			enemy.colours = {255,60,110}
 		elseif song == 2 then
 			inst = love.audio.newSource("songs/week6/roses/inst.ogg", "stream")
 			voices = love.audio.newSource("songs/week6/roses/voices.ogg", "stream")
@@ -173,7 +178,11 @@ return {
 
 	update = function(self, dt)
 		weeks:update(dt)
-		stages["school"]:update(dt)
+		if song ~= 3 then
+			stages["school"]:update(dt)
+		else
+			stages["evilSchool"]:update(dt)
+		end
 
 		if doingDialogue then
 			weeks:doDialogue(dt)
@@ -228,6 +237,10 @@ return {
 			end
 		end
 
+		if input:pressed("confirm") then
+			love.audio.stop(inst, voices)
+		end
+
 		weeks:updateUI(dt)
 	end,
 
@@ -238,20 +251,18 @@ return {
 			love.graphics.scale(extraCamZoom.sizeX, extraCamZoom.sizeY)
 			love.graphics.scale(cam.sizeX, cam.sizeY)
 
-			stages["school"]:draw()
+			if song ~= 3 then
+				stages["school"]:draw()
+			else
+				stages["evilSchool"]:draw()
+			end
 
 			weeks:drawRating(0.9)
 		love.graphics.pop()
 		if doingDialogue then -- Doing this cuz i'm stupid as shit
-			if song == 1 then
-				dialogueBox:draw()
-				weeks:drawDialogue()
-			end
 			if characterSpeaking == "senpai" then
+				dialogueBox:draw()
 				senpaiPortrait:draw()
-			end
-			if characterSpeaking == "boyfriend" then
-				bfPortrait:draw()
 			end
 			if characterSpeaking == "senpai angry" then
 				angrySenpaiBox:draw()
@@ -264,6 +275,7 @@ return {
 				scaryDialogueBox:draw()
 				spiritPortait:draw()
 			end
+			weeks:drawDialogue()
 		end
 		if not doingDialogue and not cutscene then
 			weeks:drawTimeLeftBar()
@@ -276,6 +288,7 @@ return {
 
 	leave = function(self)
 		stages["school"]:leave()
+		stages["evilSchool"]:leave()
 		pixel = false
 		song = nil
 		love.graphics.setDefaultFilter("linear")
