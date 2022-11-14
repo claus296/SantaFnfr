@@ -163,7 +163,7 @@ function love.load()
 	lovebpm = require "lib.lovebpm"
 	gamejolt = require "lib.gamejolt"
 	json = require "lib.json"
-	xml = require "lib.xml"
+	Object = require "lib.classic"
 	
 	highscores = {
 		[0] = {scores = {0}, accuracys = {0}},             -- Tutorial
@@ -197,7 +197,7 @@ function love.load()
 	graphics = require "modules.graphics"
 	modchartHandler = require "modules.modchart"
 	Conductor = require "modules.Conductor"
-	sprite = require "modules.sprite"
+	Sprite = require "modules.sprite"
 	paths = require "modules.paths"
 	Character = require "modules.Character"
 

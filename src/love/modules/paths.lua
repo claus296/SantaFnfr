@@ -1,43 +1,41 @@
+local function endsWith(str, ending)
+    return ending == "" or string.sub(str, -#ending) == ending
+end
+local function isFile(path)
+    local info = love.filesystem.getInfo(path)
+    return info and info.type == "file"
+end
+
 local paths = {}
 
-function paths.get(key) return key end
-
-function paths.file(key)
-    local contents = love.filesystem.read(paths.get(key))
-    return contents
+function paths.getText(key)
+    local path = key
+    if isFile(path) then
+        local contents = love.filesystem.read(path)
+        return contents
+    end
+    return nil
 end
 
-function paths.image(key)
-    return love.graphics.newImage(graphics.imagePath(key))
+function paths.getJSON(key) return decodeJson(paths.getText(key .. ".json")) end
+
+function paths.getImage(key)
+    local path = graphics.imagePath(key)
+    if isFile(path) then
+        return love.graphics.newImage(path)
+    end
+
+    return nil
 end
 
-function paths.json(key) return paths.file("data/" .. key .. ".json") end
+function paths.getSparrowFrames(key)
+    local xmlKey = "sprites/" .. key .. ".xml"
+    local img, path = paths.getImage(key), xmlKey
+    if img and isFile(path) then
+        return Sprite.getFramesFromSparrow(img, paths.getText(xmlKey))
+    end
 
-function paths.xml(key) return paths.file(key .. ".xml") end
-
-function paths.sprite(x, y, key)
-    return sprite(
-        x, y
-    ):load(
-        paths.image(key), 
-        paths.xml("sprites/" .. key)
-    )
+    return nil
 end
-
-function paths.soundPath(key, prefix)
-    return paths.get((prefix or "sounds") .. "/" .. key .. ".ogg")
-end
-
-function paths.sound(key, cache, mode, prefix)
-    if cache == nil then cache = true end
-
-    local sound = love.audio.newSource(paths.soundPath(key, prefix), mode or "static")
-
-    return sound
-end
-
-function paths.musicPath(key) return paths.soundPath(key, "music") end
-
-function paths.music(key, cache, mode) return paths.sound(key, cache, mode, "music") end
 
 return paths

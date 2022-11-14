@@ -32,17 +32,17 @@ return {
 		)
 		titleBG = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/titleBG")))
 		changingMenu = false
-		logo = paths.sprite(-800, -450, "logoBumpin")
-   		logo:addByPrefix("bump", "logo bumpin", 24, false)
+		logo = Sprite(-800, -450)
+		logo:setFrames(paths.getSparrowFrames("logoBumpin"))
+   		logo:addAnimByPrefix("bump", "logo bumpin", 24)
 		
-		girlfriendTitle = paths.sprite(-25, -275, "menu/girlfriend-title")
-		girlfriendTitle:addByIndices("danceLeft", "gfDance",
-                    {30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14}, 24,
-                    false)
+		girlfriendTitle = Sprite(-25, -275)
+		girlfriendTitle:setFrames(paths.getSparrowFrames("menu/girlfriend-title"))
+		girlfriendTitle:addAnimByIndices("danceLeft", "gfDance",
+                    {30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14}, 24)
 
-		girlfriendTitle:addByIndices("danceRight", "gfDance", {
-					15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29}, 24, 
-					false)
+		girlfriendTitle:addAnimByIndices("danceRight", "gfDance", {
+					15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29}, 24)
 
 		logo:animate("bumpin", false)
 		girlfriendTitle:animate("danceRight", false)
