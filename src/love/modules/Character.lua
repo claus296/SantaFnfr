@@ -1,5 +1,5 @@
 local character = {}
-
+-- NOTE: Basically all XML offsets are fucked rn
 function character.daddydearest(x, y)
     curEnemy = "daddydearest"
     local char = Sprite(x or 0, y or 0)
