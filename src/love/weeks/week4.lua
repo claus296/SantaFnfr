@@ -66,8 +66,10 @@ return {
 			weeks:generateNotes("songs/week4/milf/" .. difficulty .. ".json")
 		elseif song == 2 then
 			weeks:generateNotes("songs/week4/high/" .. difficulty .. ".json")
+			weeks:generateEventsOld("songs/week4/high/events.json")
 		else
 			weeks:generateNotes("songs/week4/satin-panties/" .. difficulty .. ".json")
+			weeks:generateEventsOld("songs/week4/satin-panties/events.json")
 		end
 	end,
 
