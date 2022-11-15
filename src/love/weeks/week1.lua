@@ -66,6 +66,7 @@ return {
 			weeks:generateNotes("songs/week1/fresh/" .. difficulty .. ".json")
 		else
 			weeks:generateNotes("songs/week1/bopeebo/" .. difficulty .. ".json")
+			weeks:generateEventsOld("songs/week1/bopeebo/events.json")
 		end
 	end,
 
@@ -74,7 +75,6 @@ return {
 		stages["stage"]:update(dt)
 
 		if song == 1 and musicThres ~= oldMusicThres and math.fmod(absMusicTime + 500, 480000 / bpm) < 100 then
-			weeks:safeAnimate(boyfriend, "hey", false, 3)
 			weeks:safeAnimate(girlfriend, "cheer", false, 1)
 		end
 

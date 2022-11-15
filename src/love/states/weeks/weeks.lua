@@ -54,6 +54,9 @@ local eventFuncs = {
 			"out-quad"
 		)
 	end,
+	["Hey!"] = function()
+		weeks:safeAnimate(boyfriend, "hey", false, 3)
+	end,
 }
 
 missCounter = 0
@@ -388,6 +391,27 @@ return {
 				}
 			)
 			print(songEvents[i].eventTime, songEvents[i].eventName, songEvents[i].eventValue1, songEvents[i].eventValue2)
+		end
+	end,
+	-- psych is dumb it has like several different event files for some dumb reason
+	generateEventsOld = function(self, ec)
+		ec = json.decode(love.filesystem.read(ec))
+		ec = ec["song"]
+		for i = 1, #ec["notes"] do
+			for j = 1, #ec["notes"][i]["sectionNotes"] do
+				sectionNotesE = ec["notes"][i]["sectionNotes"]
+				table.insert(
+					songEvents,
+					{
+						eventTime = sectionNotesE[j][1] or 0,
+						-- 2 is just the noteType (psych is strange)
+						eventName = sectionNotesE[j][3] or "Hey!",
+						eventValue1 = sectionNotesE[j][4] or "",
+						eventValue2 = sectionNotesE[j][5] or "",
+					}
+				)
+				--print(songEvents[i].eventTime, songEvents[i].eventName, songEvents[i].eventValue1, songEvents[i].eventValue2)
+			end
 		end
 	end,
 
