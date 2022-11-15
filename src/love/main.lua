@@ -733,6 +733,7 @@ function love.load()
 	camZoom = {sizeX = 1, sizeY = 1}
 	uiScale = {x = 1, y = 1, sizeX = 1, sizeY = 1}
 	extraCamZoom = {sizeX = 1, sizeY = 1}
+	eventZoom = {camSize = 1, uiSize = 1} -- same as extra cam zoom but used for the song event, aka it zooms out automatically
 	flash = {alpha = 0}
 	menuDetails = {
 		titleBG = {x = 0,y = 0,sizeX = 1,sizeY = 1},

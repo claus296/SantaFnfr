@@ -282,6 +282,8 @@ function character.boyfriendchristmas(x, y)
     char:addByPrefix("up", "BF NOTE UP", 24, false)
     char:addByPrefix("down", "BF NOTE DOWN", 24, false)
 
+    char:addByPrefix("hey", "BF HEY!!", 24, false)
+
     char:addByPrefix("miss left", "BF NOTE LEFT MISS", 24, false)
     char:addByPrefix("miss right", "BF NOTE RIGHT MISS", 24, false)
     char:addByPrefix("miss up", "BF NOTE UP MISS", 24, false)

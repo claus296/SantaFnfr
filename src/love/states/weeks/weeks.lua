@@ -37,10 +37,10 @@ local eventFuncs = {
 
 		Timer.tween(
 			(60/bpm)/4,
-			cam,
+			extraCamZoom,
 			{
-				sizeX = cam.sizeX + size,
-				sizeY = cam.sizeY + size
+				sizeX = extraCamZoom.sizeX + size,
+				sizeY = extraCamZoom.sizeY + size
 			},
 			"out-quad"
 		)
@@ -1211,6 +1211,10 @@ return {
 	end,
 
 	updateUI = function(self, dt)
+		if extraCamZoom.sizeX > 1 then
+			extraCamZoom.sizeX = extraCamZoom.sizeX - 0.01
+			extraCamZoom.sizeY = extraCamZoom.sizeY - 0.01
+		end
 		if not paused then
 			if not doingDialogue and not cutscene then
 				musicPos = musicTime * 0.6 * speed
