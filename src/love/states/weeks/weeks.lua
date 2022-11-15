@@ -57,6 +57,10 @@ local eventFuncs = {
 	["Hey!"] = function()
 		weeks:safeAnimate(boyfriend, "hey", false, 3)
 	end,
+	["Set GF Speed"] = function(speed)
+		--girlfriendSpeedMultiplier = tonumber(speed) or 1
+		print("Set GF Speed is not implemented yet")
+	end,
 }
 
 missCounter = 0
@@ -75,6 +79,7 @@ end
 
 return {
 	enter = function(self, isPixel)
+		girlfriendSpeedMultiplier = 1
 		isPixel = isPixel or "normal"
 		font = love.graphics.newFont("fonts/vcr.ttf", 24)
 		love.graphics.setDefaultFilter("nearest")
@@ -1147,7 +1152,11 @@ return {
 
 			for i = 1, #songEvents do
 				if songEvents[i].eventTime <= absMusicTime then
-					eventFuncs[songEvents[i].eventName](songEvents[i].eventValue1, songEvents.eventValue2)
+					if eventFuncs[songEvents[i].eventName] then
+						eventFuncs[songEvents[i].eventName](songEvents[i].eventValue1, songEvents.eventValue2)
+					else
+						print(songEvents[i].eventName .. " is not implemented!")
+					end
 
 					table.remove(songEvents, i)
 					break
@@ -1176,8 +1185,8 @@ return {
 					girlfriend:animate("idle", false)
 					if picoSpeaker then picoSpeaker:animate("idle", false) end
 	
-					girlfriend:setAnimSpeed(14.4 / (60 / bpm))
-					if picoSpeaker then picoSpeaker:setAnimSpeed(14.4 / (60 / bpm)) end
+					girlfriend:setAnimSpeed(14.4 / (60 / bpm) * girlfriendSpeedMultiplier)
+					if picoSpeaker then picoSpeaker:setAnimSpeed(14.4 / (60 / bpm) * girlfriendSpeedMultiplier) end
 				end
 				if spriteTimers[2] == 0 then
 					if enemy:getAnimName() == "good" then 
