@@ -257,6 +257,7 @@ return {
 			weeks:generateNotes("songs/week7/guns/" .. difficulty .. ".json")
 		else
 			weeks:generateNotes("songs/week7/ugh/" .. difficulty .. ".json")
+			weeks:generateEvents("songs/week7/ugh/events.json")
 		end
 	end,
 

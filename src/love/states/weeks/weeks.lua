@@ -30,6 +30,32 @@ local inputList = {
 	"gameRight"
 }
 
+local eventFuncs = {
+	["Add Camera Zoom"] = function(size, sizeHud)
+		size = tonumber(size) or 0.015
+		sizeHud = tonumber(sizeHud) or 0.03
+
+		Timer.tween(
+			(60/bpm)/4,
+			cam,
+			{
+				sizeX = cam.sizeX + size,
+				sizeY = cam.sizeY + size
+			},
+			"out-quad"
+		)
+		Timer.tween(
+			(60/bpm)/4,
+			uiScale,
+			{
+				sizeX = uiScale.sizeX + sizeHud,
+				sizeY = uiScale.sizeY + sizeHud
+			},
+			"out-quad"
+		)
+	end,
+}
+
 missCounter = 0
 noteCounter = 0
 altScore = 0
@@ -236,6 +262,7 @@ return {
 	initUI = function(self, isPixel)
 		isPixel = isPixel or "normal"
 		events = {}
+		songEvents = {}
 		eventsP = {}
 		enemyNotes = {}
 		boyfriendNotes = {}
@@ -343,6 +370,24 @@ return {
 			enemyNotes[i] = {}
 			boyfriendNotes[i] = {}
 			picoNotes[i] = {}
+		end
+	end,
+
+	generateEvents = function(self, ec) -- ec = events chart
+		ec = json.decode(love.filesystem.read(ec))
+		ec = ec["song"]
+		allEvents = ec["events"]
+		for i = 1, #allEvents do
+			table.insert(
+				songEvents,
+				{
+					eventTime = allEvents[i][1],
+					eventName = allEvents[i][2][1][1],
+					eventValue1 = allEvents[i][2][1][2],
+					eventValue2 = allEvents[i][2][1][3],
+				}
+			)
+			print(songEvents[i].eventTime, songEvents[i].eventName, songEvents[i].eventValue1, songEvents[i].eventValue2)
 		end
 	end,
 
@@ -1076,14 +1121,20 @@ return {
 				end
 			end
 
+			for i = 1, #songEvents do
+				if songEvents[i].eventTime <= absMusicTime then
+					eventFuncs[songEvents[i].eventName](songEvents[i].eventValue1, songEvents.eventValue2)
+
+					table.remove(songEvents, i)
+					break
+				end
+			end
+
 			if musicThres ~= oldMusicThres and math.fmod(absMusicTime, 240000 / bpm) < 100 then
+				if uiScaleTimer then Timer.cancel(uiScaleTimer) end
 				if camScaleTimer then Timer.cancel(camScaleTimer) end
 
 				camScaleTimer = Timer.tween((60 / bpm) / 16, cam, {sizeX = camScale.x * 1.05, sizeY = camScale.y * 1.05}, "out-quad", function() camScaleTimer = Timer.tween((60 / bpm), cam, {sizeX = camScale.x, sizeY = camScale.y}, "out-quad") end)
-			end
-			if musicThres ~= oldMusicThres and math.fmod(absMusicTime, (240000*2) / bpm) < 100 then
-				if uiScaleTimer then Timer.cancel(uiScaleTimer) end
-
 				uiScaleTimer = Timer.tween((60 / bpm) / 16, uiScale, {sizeX = uiScale.x * 1.05, sizeY = uiScale.y * 1.05}, "out-quad", function() uiScaleTimer = Timer.tween((60 / bpm), uiScale, {sizeX = uiScale.x, sizeY = uiScale.y}, "out-quad") end)
 			end
 
