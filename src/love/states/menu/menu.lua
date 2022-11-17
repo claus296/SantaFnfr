@@ -78,8 +78,6 @@ return {
 			}
 			nextPresenceUpdate = 0
 		end
-
-		music[1]:play()
 	end,
 	onBeat = function(self, n)
 		danceRight = not danceRight

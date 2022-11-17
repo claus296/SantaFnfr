@@ -208,6 +208,8 @@ function love.load()
 	music[1]:setVolume(music.vol)
 	music[1]:setLooping(true)
 
+	music[1]:play()
+
 	spongebirth = love.graphics.newImage(graphics.imagePath("spongebirth"))
 	
 	-- Load settings
