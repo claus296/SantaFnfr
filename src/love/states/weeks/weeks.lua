@@ -498,6 +498,7 @@ return {
 						end)
 					end
 				end
+				modchartHandler:onBeat(inst:getBeat())
 			end)
 		end
 		voices:parse()

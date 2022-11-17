@@ -16,6 +16,12 @@ function handler:onUpdate(dt)
     end
 end
 
+function handler:onBeat(n)
+    if mod and mod.onBeat then
+        mod:onBeat(n)
+    end
+end
+
 function handler:onKeyPressed(key)
     if mod and mod.onKeyPressed then
         mod:onKeyPressed(key)
