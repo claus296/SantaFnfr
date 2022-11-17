@@ -139,19 +139,18 @@ return {
 		weeks:load()
 
 		if song == 3 then
-			inst = love.audio.newSource("songs/week6/thorns/inst.ogg", "stream")
-			voices = love.audio.newSource("songs/week6/thorns/voices.ogg", "stream")
+			inst = waveAudio:newSource("songs/week6/thorns/inst.ogg", "stream")
+			voices = waveAudio:newSource("songs/week6/thorns/voices.ogg", "stream")
 			stages["school"]:leave()
 			stages["evilSchool"]:enter()
 			enemy.colours = {255,60,110}
 		elseif song == 2 then
-			inst = love.audio.newSource("songs/week6/roses/inst.ogg", "stream")
-			voices = love.audio.newSource("songs/week6/roses/voices.ogg", "stream")
+			inst = waveAudio:newSource("songs/week6/roses/inst.ogg", "stream")
+			voices = waveAudio:newSource("songs/week6/roses/voices.ogg", "stream")
 		else
-			inst = love.audio.newSource("songs/week6/senpai/inst.ogg", "stream")
-			voices = love.audio.newSource("songs/week6/senpai/voices.ogg", "stream")
+			inst = waveAudio:newSource("songs/week6/senpai/inst.ogg", "stream")
+			voices = waveAudio:newSource("songs/week6/senpai/voices.ogg", "stream")
 		end
-
 
 		if storyMode then
 			if song ~= 2 then
@@ -209,7 +208,7 @@ return {
 			end
 		end
 
-		if not doingDialogue and not cutscene and not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused then
+		if not doingDialogue and not cutscene and not (countingDown or graphics.isFading()) and not (inst:getDuration() > musicTime/1000) and not paused then
 			if storyMode and song < 3 then
 				if score > highscores[weekNum-1].scores[song] then
 					highscores[weekNum-1].scores[song] = score

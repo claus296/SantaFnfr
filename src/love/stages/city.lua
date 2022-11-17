@@ -29,6 +29,10 @@ return {
 		enemy.x, enemy.y = -60, -25
 		enemy.sizeX = -1 -- Reverse, reverse!
 		boyfriend.x, boyfriend.y = 200, 25
+		
+		daGoofyColours = {
+			1, 1, 1, 1
+		}
         
     end,
 
@@ -45,6 +49,16 @@ return {
 				winColor = 1
 			end
 		end
+		if phillyGlow then
+			daGoofyColours = {
+				0.25*255, 0.25*255, 0.25*255, 0.5
+			}
+		else
+			daGoofyColours = {
+				255, 255, 255, 1
+			}
+		end
+
         if winAlpha > 0 then
             winAlpha = winAlpha - ((bpm/260) * dt)
         end
@@ -56,27 +70,31 @@ return {
         love.graphics.push()
 			love.graphics.translate(cam.x * 0.25, cam.y * 0.25)
 
-			stageImages[1]:draw()
+			stageImages[1]:cdraw(daGoofyColours[1], daGoofyColours[2], daGoofyColours[3], daGoofyColours[4])
 		love.graphics.pop()
 		love.graphics.push()
 			love.graphics.translate(cam.x * 0.5, cam.y * 0.5)
 
-			stageImages[2]:draw()
+			stageImages[2]:cdraw(daGoofyColours[1], daGoofyColours[2], daGoofyColours[3], daGoofyColours[4])
 			stageImages[3]:cdraw(curWinColor[1], curWinColor[2], curWinColor[3], winAlpha)
 		love.graphics.pop()
 		love.graphics.push()
 			love.graphics.translate(cam.x * 0.9, cam.y * 0.9)
 
-			stageImages[4]:draw()
-			stageImages[5]:draw()
+			if phillyGlow then
+				gradient:cdraw(curColours[1], curColours[2], curColours[3], daGoofyColours[4])
+				graphics.setColor(1, 1, 1)
+			end
+			stageImages[4]:cdraw(daGoofyColours[1], daGoofyColours[2], daGoofyColours[3], daGoofyColours[4])
+			stageImages[5]:cdraw(daGoofyColours[1], daGoofyColours[2], daGoofyColours[3], daGoofyColours[4])
 
-			girlfriend:draw()
+			girlfriend:cdraw(curColours[1]/255, curColours[2]/255, curColours[3]/255)
 		love.graphics.pop()
 		love.graphics.push()
 			love.graphics.translate(cam.x, cam.y)
 
-			enemy:draw()
-			boyfriend:draw()
+			enemy:cdraw(curColours[1]/255, curColours[2]/255, curColours[3]/255)
+			boyfriend:cdraw(curColours[1]/255, curColours[2]/255, curColours[3]/255)
 		love.graphics.pop()
     end,
 

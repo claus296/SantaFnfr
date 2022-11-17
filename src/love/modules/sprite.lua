@@ -296,6 +296,64 @@ function Sprite:udraw(sizex, sizey)
     )
 end
 
+function Sprite:cdraw(r, g, b, a)
+    if self.alpha <= 0 then return end
+
+    local frame
+    if self.curAnim then
+        frame = self.curAnim.frames[math.floor(self.time)]
+    else
+        frame = self.lastAnimAdded.frames[1]
+    end
+
+    local x, y = self.x, self.y
+    local ox, oy = 0, 0
+
+    if frame.data.offset then
+        local mult = 2.5 / 5
+
+        if frame.data.offset and frame.data.offset.width == 0 then
+            ox = math.floor(frame.data.width / 2 - frame.data.width * mult)
+        else
+            ox = math.floor(frame.data.offset.width / 2 -
+                                frame.data.offset.width * mult) +
+                     frame.data.offset.x
+        end
+
+        if frame.data.offset and frame.data.offset.height == 0 then
+            oy = math.floor(frame.data.height / 2 - frame.data.height * mult)
+        else
+            oy = math.floor(frame.data.offset.height / 2 -
+                                frame.data.offset.height * mult) +
+                     frame.data.offset.y
+        end
+    end
+
+    local customOffset = self.animOffsets[self.curName]
+    if customOffset then
+        ox = ox + customOffset[1]
+        oy = oy + customOffset[2]
+    end
+
+    graphics.setColor(r, g, b, a)
+
+    love.graphics.draw(
+        self.image, 
+        frame.quad, 
+        x, 
+        y, 
+        self.orientation,
+        self.sizeX, 
+        self.sizeY, 
+        ox,
+        oy,
+        self.shearX, 
+        self.shearY
+    )
+
+    graphics.setColor(1,1,1)
+end
+
 function Sprite:isAnimated()
     return self.curAnimated or true
 end

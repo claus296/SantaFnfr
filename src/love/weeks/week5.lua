@@ -52,14 +52,14 @@ return {
 
 			weeks:setIcon("enemy", "monster")
 
-			inst = love.audio.newSource("songs/week5/winter-horrorland/inst.ogg", "stream")
-			voices = love.audio.newSource("songs/week5/winter-horrorland/voices.ogg", "stream")
+			inst = waveAudio:newSource("songs/week5/winter-horrorland/inst.ogg", "stream")
+			voices = waveAudio:newSource("songs/week5/winter-horrorland/voices.ogg", "stream")
 		elseif song == 2 then
-			inst = love.audio.newSource("songs/week5/eggnog/inst.ogg", "stream")
-			voices = love.audio.newSource("songs/week5/eggnog/voices.ogg", "stream")
+			inst = waveAudio:newSource("songs/week5/eggnog/inst.ogg", "stream")
+			voices = waveAudio:newSource("songs/week5/eggnog/voices.ogg", "stream")
 		else
-			inst = love.audio.newSource("songs/week5/cocoa/inst.ogg", "stream")
-			voices = love.audio.newSource("songs/week5/cocoa/voices.ogg", "stream")
+			inst = waveAudio:newSource("songs/week5/cocoa/inst.ogg", "stream")
+			voices = waveAudio:newSource("songs/week5/cocoa/voices.ogg", "stream")
 		end
 
 		self:initUI()
@@ -124,7 +124,7 @@ return {
 				end
 			end
 
-			if not (scaryIntro or countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused then
+			if not (scaryIntro or countingDown or graphics.isFading()) and not (inst:getDuration() > musicTime/1000) and not paused then
 				if storyMode and song < 3 then
 					if score > highscores[weekNum-1].scores[song] then
 						highscores[weekNum-1].scores[song] = score

@@ -233,7 +233,7 @@ return {
 			weeks:safeAnimate(boyfriend, "hey", false, 3)
 		end
 
-		if not (countingDown or graphics.isFading()) and not voices:isPlaying() and not paused then
+		if not (countingDown or graphics.isFading()) and not voices:getDuration() > musicTime/1000 and not paused then
 			if score > highscores[weekNum-1].scores[song] then
 				highscores[weekNum-1].scores[song] = score
 				saveHighscores()

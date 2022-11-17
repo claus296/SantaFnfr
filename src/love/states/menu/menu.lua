@@ -22,6 +22,10 @@ end
 
 return {
 	enter = function(self, previous)
+		
+		music[1]:onBeat(function()
+			self:onBeat(music[1]:getBeat())
+		end)
 		danceRight = false
 		transparency = {0}
 		Timer.tween(
@@ -95,9 +99,7 @@ return {
 		girlfriendTitle:update(dt)
 		logo:update(dt)
 
-		music[1]:on("beat", function(n)
-			self:onBeat(n)
-		end)
+		music[1]:updateBeat()
 
 		if not graphics.isFading() then
 			if input:pressed("confirm") then

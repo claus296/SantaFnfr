@@ -42,14 +42,14 @@ return {
 		stages["stage"]:load()
 
 		if song == 3 then
-			inst = love.audio.newSource("songs/week1/dadbattle/inst.ogg", "stream")
-			voices = love.audio.newSource("songs/week1/dadbattle/voices.ogg", "stream")
+			inst = waveAudio:newSource("songs/week1/dadbattle/inst.ogg", "stream")
+			voices = waveAudio:newSource("songs/week1/dadbattle/voices.ogg", "stream")
 		elseif song == 2 then
-			inst = love.audio.newSource("songs/week1/fresh/inst.ogg", "stream")
-			voices = love.audio.newSource("songs/week1/fresh/voices.ogg", "stream")
+			inst = waveAudio:newSource("songs/week1/fresh/inst.ogg", "stream")
+			voices = waveAudio:newSource("songs/week1/fresh/voices.ogg", "stream")
 		else
-			inst = love.audio.newSource("songs/week1/bopeebo/inst.ogg", "stream")
-			voices = love.audio.newSource("songs/week1/bopeebo/voices.ogg", "stream")
+			inst = waveAudio:newSource("songs/week1/bopeebo/inst.ogg", "stream")
+			voices = waveAudio:newSource("songs/week1/bopeebo/voices.ogg", "stream")
 		end
 
 		self:initUI()
@@ -89,7 +89,7 @@ return {
 			end
 		end
 
-		if not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused then
+		if not (countingDown or graphics.isFading()) and not (inst:getDuration() > musicTime/1000) and not paused then
 			if storyMode and song < 3 then
 				if score > highscores[weekNum-1].scores[song] then
 					highscores[weekNum-1].scores[song] = score

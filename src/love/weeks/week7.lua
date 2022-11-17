@@ -71,11 +71,11 @@ return {
 				end)
 			end
 
-			inst = love.audio.newSource("songs/week7/stress/inst.ogg", "stream")
-			voices = love.audio.newSource("songs/week7/stress/voices.ogg", "stream")
+			inst = waveAudio:newSource("songs/week7/stress/inst.ogg", "stream")
+			voices = waveAudio:newSource("songs/week7/stress/voices.ogg", "stream")
 		elseif song == 2 then
-			inst = love.audio.newSource("songs/week7/guns/inst.ogg", "stream")
-			voices = love.audio.newSource("songs/week7/guns/voices.ogg", "stream")
+			inst = waveAudio:newSource("songs/week7/guns/inst.ogg", "stream")
+			voices = waveAudio:newSource("songs/week7/guns/voices.ogg", "stream")
 			if storyMode and not died then
 				cutscene = true
 				tankCutsceneAudio = love.audio.newSource("sounds/cutscenes/tank/tankSong2.ogg", "static")
@@ -161,8 +161,8 @@ return {
 				)
 			end
 		else
-			inst = love.audio.newSource("songs/week7/ugh/inst.ogg", "stream")
-			voices = love.audio.newSource("songs/week7/ugh/voices.ogg", "stream")
+			inst = waveAudio:newSource("songs/week7/ugh/inst.ogg", "stream")
+			voices = waveAudio:newSource("songs/week7/ugh/voices.ogg", "stream")
 			if storyMode and not died then
 				tankCutsceneAudio = love.audio.newSource("sounds/cutscenes/tank/wellWellWell.ogg", "static")
 				tankCutsceneAudio2 = love.audio.newSource("sounds/cutscenes/tank/killYou.ogg", "static")
@@ -340,7 +340,7 @@ return {
 			end
 		end
 
-		if not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused and not cutscene then
+		if not (countingDown or graphics.isFading()) and not (inst:getDuration() > musicTime/1000) and not paused and not cutscene then
 			if storyMode and song < 3 then
 				song = song + 1
 				if score > highscores[weekNum-1].scores[song] then

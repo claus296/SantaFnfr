@@ -28,15 +28,24 @@ return {
 		weeks:enter()
 		stages["city"]:enter()
 
+		phillyGlowSize = {height = 1, width = 1}
+		phillyGlow = false
+
 		week = 3
 
 		song = songNum
 		difficulty = songAppend
 
+		gradient = graphics.newImage(love.graphics.newImage(graphics.imagePath("week3/gradient")))
+		gradient.sizeX = 800
+		gradient.x, gradient.y = -450, -140
+
 		cam.sizeX, cam.sizeY = 1, 1
 		camScale.x, camScale.y = 1, 1
 
 		weeks:setIcon("enemy", "pico")
+
+		phillyChoice = 1
 
 		self:load()
 	end,
@@ -46,14 +55,15 @@ return {
 		stages["city"]:load()
 
 		if song == 3 then
-			inst = love.audio.newSource("songs/week3/blammed/inst.ogg", "stream")
-			voices = love.audio.newSource("songs/week3/blammed/voices.ogg", "stream")
+			inst = waveAudio:newSource("songs/week3/blammed/inst.ogg", "stream")
+			voices = waveAudio:newSource("songs/week3/blammed/voices.ogg", "stream")
 		elseif song == 2 then
-			inst = love.audio.newSource("songs/week3/philly-nice/inst.ogg", "stream")
-			voices = love.audio.newSource("songs/week3/philly-nice/voices.ogg", "stream")
+			inst = waveAudio:newSource("songs/week3/philly-nice/inst.ogg", "stream")
+			voices = waveAudio:newSource("songs/week3/philly-nice/voices.ogg", "stream")
 		else
-			inst = love.audio.newSource("songs/week3/pico/inst.ogg", "stream")
-			voices = love.audio.newSource("songs/week3/pico/voices.ogg", "stream")
+			inst = waveAudio:newSource("songs/week3/pico/inst.ogg", "stream")
+			inst = waveAudio:newSource("songs/week3/pico/inst.ogg", "stream")
+			voices = waveAudio:newSource("songs/week3/pico/voices.ogg", "stream")
 		end
 
 		self:initUI()
@@ -89,7 +99,8 @@ return {
 			end
 		end
 
-		if not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused then
+		if not (countingDown or graphics.isFading()) and not (inst:getDuration() > musicTime/1000) and not paused then
+			print(inst:getDuration(), musicTime/1000)
 			if storyMode and song < 3 then
 				if score > highscores[weekNum-1].scores[song] then
 					highscores[weekNum-1].scores[song] = score
@@ -117,6 +128,9 @@ return {
 			end
 		end
 
+		-- as gradient.sizeY gets smaller, change the offset of the gradient
+		gradient.y = -140 - (gradient.sizeY - 1) * 180
+
 		weeks:updateUI(dt)
 	end,
 
@@ -128,7 +142,7 @@ return {
 			love.graphics.scale(camZoom.sizeX, camZoom.sizeY)
 
 			stages["city"]:draw()
-
+			
 			weeks:drawRating(0.9)
 		love.graphics.pop()
 		weeks:drawTimeLeftBar()

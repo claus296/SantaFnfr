@@ -153,6 +153,8 @@ function love.load()
 	local selectSound = love.audio.newSource("sounds/menu/select.ogg", "static")
 	local confirmSound = love.audio.newSource("sounds/menu/confirm.ogg", "static")
 
+	curMusicBeat = 0
+
 	-- Load libraries
 	baton = require "lib.baton"
 	--ini = require "lib.ini"
@@ -160,11 +162,11 @@ function love.load()
 	Gamestate = require "lib.gamestate"
 	Timer = require "lib.timer"
 	lume = require "lib.lume"
-	lovebpm = require "lib.lovebpm"
 	gamejolt = require "lib.gamejolt"
 	json = require "lib.json"
 	xml = require "lib.xml"
 	Object = require "lib.classic"
+	waveAudio = require "lib.wave"
 	
 	highscores = {
 		[0] = {scores = {0}, accuracys = {0}},             -- Tutorial
@@ -180,17 +182,6 @@ function love.load()
 	achievementProgress = {
 		["death"] = 0,
 	}
-
-	music = {
-		lovebpm.newTrack(),
-		--love.audio.newSource("songs/misc/menu.ogg", "stream"),
-		vol = 1
-	}
-
-	died = false
-	gamejoltLogin = {}
-
-	music[1]:load("songs/misc/menu.ogg"):setBPM(102):setVolume(music.vol):setLooping(true)
 	--music[1]:setVolume(music.vol)
 	-- Load modules
 	status = require "modules.status"
@@ -201,6 +192,21 @@ function love.load()
 	sprite = require "modules.sprite"
 	paths = require "modules.paths"
 	Character = require "modules.Character"
+
+	music = {
+		waveAudio:newSource("songs/misc/menu.ogg", "stream"),
+		--love.audio.newSource("songs/misc/menu.ogg", "stream"),
+		vol = 1
+	}
+
+	died = false
+	gamejoltLogin = {}
+
+	music[1]:parse()
+	music[1]:setBPM(102)
+	music[1]:setIntensity(20)
+	music[1]:setVolume(music.vol)
+	music[1]:setLooping(true)
 
 	spongebirth = love.graphics.newImage(graphics.imagePath("spongebirth"))
 	
@@ -841,7 +847,7 @@ function love.update(dt)
 		volFade = volFade - 0.4 * delta
 	end
 
-	music[1]:update()
+	music[1]:update(dt)
 	music[1]:setVolume(music.vol)
 
 	input:update()

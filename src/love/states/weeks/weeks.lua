@@ -29,6 +29,16 @@ local inputList = {
 	"gameUp",
 	"gameRight"
 }
+blammedColours = {
+	{49, 162, 253}, -- Blue
+	{49, 253, 140}, -- Green
+	{251, 51, 245}, -- Magenta
+	{253, 69, 49}, -- Orange
+	{251, 166, 51}, -- Yellow
+}
+curColours = {
+	255, 255, 255, 1
+}
 
 local eventFuncs = {
 	["Add Camera Zoom"] = function(size, sizeHud)
@@ -60,6 +70,44 @@ local eventFuncs = {
 	["Set GF Speed"] = function(speed)
 		--girlfriendSpeedMultiplier = tonumber(speed) or 1
 		print("Set GF Speed is not implemented yet")
+	end,
+	["Philly Glow"] = function(option)
+		-- 0 = off
+		-- 1 = on
+		-- 2 = reset
+		if option == "0" then
+			phillyGlow = false
+			Timer.tween(
+				(60/bpm)/4,
+				curColours,
+				{
+					255,
+					255,
+					255,
+					0
+				},
+				"out-quad"
+			)
+		elseif option == "1" then
+			if not phillyGlow then
+				weeks:doFlash()
+			end
+			phillyChoice = math.random(1, #blammedColours)
+			phillyGlow = true
+			Timer.tween(
+				(60/bpm)/4,
+				curColours,
+				{
+					blammedColours[phillyChoice][1],
+					blammedColours[phillyChoice][2],
+					blammedColours[phillyChoice][3],
+					0.15
+				},
+				"out-quad"
+			)
+		elseif option == "2" then
+			
+		end
 	end,
 }
 
@@ -436,6 +484,26 @@ return {
 		if not bpm then
 			bpm = 100
 		end
+		if inst then
+			inst:parse()
+			inst:setBPM(bpm)
+			inst:setIntensity(20)
+			inst:onBeat(function() 
+				if phillyGlow then
+					if not glowTween then
+						glowTween = Timer.tween(0.25, gradient, {sizeY = 1.2}, "out-quad", function()
+							Timer.tween(1.15, gradient, {sizeY = 0.1}, "out-quad", function()
+								glowTween = nil
+							end)
+						end)
+					end
+				end
+			end)
+		end
+		voices:parse()
+		voices:setBPM(bpm)
+		voices:setIntensity(20)
+		voices:onBeat(function() end)
 
 		if settings.customScrollSpeed == 1 then
 			speed = chart["speed"] or 1
@@ -1001,6 +1069,9 @@ return {
 		modchartHandler:onUpdate(dt)
 		hitCounter = (sicks + goods + bads + shits)
 
+		if inst then inst:update(dt) end
+		voices:update(dt)
+
 		if paused then
 			if input:pressed("gameDown") then
 				if pauseMenuSelection == 3 then
@@ -1044,7 +1115,7 @@ return {
 			end
 		end
 
-		currentSeconds = voices:tell("seconds")
+		currentSeconds = musicTime / 1000
 		songLength = voices:getDuration("seconds")
 		timeLeft = songLength - currentSeconds
 		--timeLeftFixed = math.floor(timeLeft)
@@ -1058,7 +1129,8 @@ return {
 			if not paused then
 				pauseTime = musicTime
 				paused = true
-				love.audio.pause(inst, voices)
+				if inst then inst:pause() end
+				voices:pause()
 				tweenPauseButtons()
 				love.audio.play(sounds.breakfast)
 			end
@@ -1069,8 +1141,8 @@ return {
 			if input:pressed("confirm") then
 				love.audio.stop(sounds.breakfast) -- since theres only 3 options, we can make the sound stop without an else statement
 				if pauseMenuSelection == 1 then
-					love.audio.play(voices)
-					love.audio.play(inst)
+					if inst then inst:play() end
+					voices:play()
 					paused = false
 				elseif pauseMenuSelection == 2 then
 					pauseRestart = true
@@ -1570,7 +1642,7 @@ return {
 
 	doFlash = function(self)
 		if not settings.noFlash then
-			Timer.tween((60/bpm), flash, {alpha = 1}, "linear", function() Timer.tween((60/bpm), flash, {alpha = 0}, "linear") end)
+			Timer.tween((60/bpm)/4, flash, {alpha = 1}, "linear", function() Timer.tween((60/bpm), flash, {alpha = 0}, "linear") end)
 		end
 	end,
 
