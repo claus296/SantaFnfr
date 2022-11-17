@@ -1091,6 +1091,23 @@ return {
 			end
 		end
 
+		status.setLoading(true)
+
+		if not graphics.isFading() then
+			if quitPressed then
+				quitPressed = false
+				music[1]:play()
+				graphics.fadeOut(
+					0.5,
+					function()
+						Gamestate.switch(menu)
+
+						status.setLoading(false)
+					end
+				)
+			end
+		end
+
 		convertedAcc = string.format(
 			"%.2f%%",
 			(altScore / (noteCounter + missCounter))
@@ -1152,7 +1169,9 @@ return {
 					paused = false
 					if inst then inst:stop() end
 					voices:stop()
+					if inst then inst:stop() end
 					storyMode = false
+					quitPressed = true
 				end
 			end
 		end
