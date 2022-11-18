@@ -131,7 +131,7 @@ return {
 			weeks:drawRating(0.9)
 		love.graphics.pop()
 		
-
+		weeks:drawTimeLeftBar()
 		weeks:drawHealthBar()
 		if not paused then
 			weeks:drawUI()
