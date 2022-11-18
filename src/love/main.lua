@@ -222,6 +222,7 @@ function love.load()
 	debugMenu = require "states.debug.debugMenu"
 	spriteDebug = require "states.debug.sprite-debug"
 	stageDebug = require "states.debug.stage-debug"
+	xmlDebug = require "states.debug.xml-debug"
 
 	-- Load stages
 	stages = {

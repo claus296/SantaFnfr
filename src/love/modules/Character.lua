@@ -155,10 +155,10 @@ function character.pico(x, y)
     -- redo these offsets later lmao
     char:addOffset("idle",  0, 0         )
 
-    char:addOffset("left",  -60, 9        )
-    char:addOffset("right", -10, -7      )
-    char:addOffset("up",    -39, 27      )
-    char:addOffset("down",  190, -70     )
+    char:addOffset("left",  -52, 0        )
+    char:addOffset("right", -82, -11      )
+    char:addOffset("up",    -78, 24      )
+    char:addOffset("down",  120, -79     )
 
     char:animate("idle", false)
 
@@ -534,5 +534,26 @@ function character.tankman(x, y)
 
     return char
 end
+
+character.list = {
+    {"Boyfriend", character.boyfriend},
+    {"Girlfriend", character.girlfriend},
+    {"Daddy Dearest", character.daddydearest},
+    {"Spooky Kids", character.spookykids},
+    {"Monster", character.monster},
+    {"Pico", character.pico},
+    {"Mom Car", character.momcar},
+    {"Boyfriend Car", character.boyfriendcar},
+    {"Girlfriend Car", character.girlfriendcar},
+    {"Dearest Duo", character.dearestduo},
+    {"Monster Christmas", character.monsterchristmas},
+    {"Senpai", character.senpai},
+    {"Senpai Angry", character.senpaiangry},
+    {"Boyfriend Pixel", character.boyfriendpixel},
+    {"Girlfriend Pixel", character.girlfriendpixel},
+    {"Boyfriend and Girlfriend", character.bfandgf},
+    {"Girlfriend Tankmen", character.girlfriendtankmen},
+    {"Tankman", character.tankman}
+}
 
 return character
