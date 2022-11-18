@@ -535,6 +535,17 @@ function character.tankman(x, y)
     return char
 end
 
+function character.luigi(x, y)
+    local char = paths.sprite(x or 0, y or 0, "luigi")
+    char:addByPrefix("idle", "luigi idle", 24, false)
+
+    char:addOffset("idle")
+
+    char:animate("idle", false)
+
+    return char
+end
+
 character.list = {
     {"Boyfriend", character.boyfriend},
     {"Girlfriend", character.girlfriend},
@@ -553,7 +564,8 @@ character.list = {
     {"Girlfriend Pixel", character.girlfriendpixel},
     {"Boyfriend and Girlfriend", character.bfandgf},
     {"Girlfriend Tankmen", character.girlfriendtankmen},
-    {"Tankman", character.tankman}
+    {"Tankman", character.tankman},
+    {"Luigi", character.luigi}
 }
 
 return character

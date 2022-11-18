@@ -193,7 +193,11 @@ return {
 		end
 
 		if isPixel ~= "pixel" then
-			girlfriend = Character.girlfriend(0,0, false)
+			if love.math.random(1,1000) == 500 then
+				girlfriend = Character.girlfriend(0,0, false)
+			else
+				girlfriend = Character.luigi(0,0, false)
+			end
 			boyfriend = Character.boyfriend(0,0)
 			rating = love.filesystem.load("sprites/rating.lua")()
 			rating.sizeX, rating.sizeY = 0.75, 0.75
