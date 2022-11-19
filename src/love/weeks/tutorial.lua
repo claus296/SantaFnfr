@@ -234,13 +234,14 @@ return {
 		end
 
 		if not (countingDown or graphics.isFading()) and not voices:getDuration() > musicTime/1000 and not paused then
-			if score > highscores[weekNum-1].scores[song] then
-				highscores[weekNum-1].scores[song] = score
+			if score > highscores[weekNum-1][difficulty].scores[song] then
+				highscores[weekNum-1][difficulty].scores[song] = score
 				saveHighscores()
 			end
 			newAccuracy = convertedAcc:gsub("%%", "")
-			if tonumber(newAccuracy) > highscores[weekNum-1].accuracys[song] then
-				highscores[weekNum-1].accuracys[song] = tonumber(newAccuracy)
+			if tonumber(newAccuracy) > highscores[weekNum-1][difficulty].accuracys[song] then
+				print("New accuracy: " .. newAccuracy)
+				highscores[weekNum-1][difficulty].accuracys[song] = tonumber(newAccuracy)
 				saveHighscores()
 			end
 			storyMode = false

@@ -1,13 +1,93 @@
 highscores = {
-    [0] = {scores = {0}, accuracys = {0}},             -- Tutorial
-    [1] = {scores = {0, 0, 0}, accuracys = {0, 0, 0}}, -- Week 1
-    [2] = {scores = {0, 0, 0}, accuracys = {0, 0, 0}}, -- Week 2
-    [3] = {scores = {0, 0, 0}, accuracys = {0, 0, 0}}, -- Week 3
-    [4] = {scores = {0, 0, 0}, accuracys = {0, 0, 0}}, -- Week 4
-    [5] = {scores = {0, 0, 0}, accuracys = {0, 0, 0}}, -- Week 5
-    [6] = {scores = {0, 0, 0}, accuracys = {0, 0, 0}}, -- Week 6
-    [7] = {scores = {0, 0, 0}, accuracys = {0, 0, 0}}, -- Week 7
-    version = 1
+    [0] = {
+        ["easy"] = {
+            scores = {0}, accuracys = {0}
+        },
+        ["normal"] = {
+            scores = {0}, accuracys = {0}
+        },
+        ["hard"] = {
+            scores = {0}, accuracys = {0}
+        }
+    },             -- Tutorial
+    [1] = {
+        ["easy"] = {
+            scores = {0, 0, 0}, accuracys = {0, 0, 0}
+        },
+        ["normal"] = {
+            scores = {0, 0, 0}, accuracys = {0, 0, 0}
+        },
+        ["hard"] = {
+            scores = {0, 0, 0}, accuracys = {0, 0, 0}
+        }
+    }, -- Week 1
+    [2] = {
+        ["easy"] = {
+            scores = {0, 0, 0}, accuracys = {0, 0, 0}
+        },
+        ["normal"] = {
+            scores = {0, 0, 0}, accuracys = {0, 0, 0}
+        },
+        ["hard"] = {
+            scores = {0, 0, 0}, accuracys = {0, 0, 0}
+        }
+    }, -- Week 2
+    [3] = {
+        ["easy"] = {
+            scores = {0, 0, 0}, accuracys = {0, 0, 0}
+        },
+        ["normal"] = {
+            scores = {0, 0, 0}, accuracys = {0, 0, 0}
+        },
+        ["hard"] = {
+            scores = {0, 0, 0}, accuracys = {0, 0, 0}
+        }
+    }, -- Week 3
+    [4] = {
+        ["easy"] = {
+            scores = {0, 0, 0}, accuracys = {0, 0, 0}
+        },
+        ["normal"] = {
+            scores = {0, 0, 0}, accuracys = {0, 0, 0}
+        },
+        ["hard"] = {
+            scores = {0, 0, 0}, accuracys = {0, 0, 0}
+        }
+    }, -- Week 4
+    [5] = {
+        ["easy"] = {
+            scores = {0, 0, 0}, accuracys = {0, 0, 0}
+        },
+        ["normal"] = {
+            scores = {0, 0, 0}, accuracys = {0, 0, 0}
+        },
+        ["hard"] = {
+            scores = {0, 0, 0}, accuracys = {0, 0, 0}
+        }
+    }, -- Week 5
+    [6] = {
+        ["easy"] = {
+            scores = {0, 0, 0}, accuracys = {0, 0, 0}
+        },
+        ["normal"] = {
+            scores = {0, 0, 0}, accuracys = {0, 0, 0}
+        },
+        ["hard"] = {
+            scores = {0, 0, 0}, accuracys = {0, 0, 0}
+        }
+    }, -- Week 6
+    [7] = {
+        ["easy"] = {
+            scores = {0, 0, 0}, accuracys = {0, 0, 0}
+        },
+        ["normal"] = {
+            scores = {0, 0, 0}, accuracys = {0, 0, 0}
+        },
+        ["hard"] = {
+            scores = {0, 0, 0}, accuracys = {0, 0, 0}
+        }
+    }, -- Week 7
+    version = 3
 }
 achievementProgress = {
     ["death"] = 0,
@@ -159,13 +239,120 @@ end
 if love.filesystem.getInfo("highscores") then
     local file = love.filesystem.read("highscores")
     local data = lume.deserialize(file)
+    if data.highscores.version ~= 3 then
+        print("hi")
+        highscores = {
+            [0] = {
+                ["easy"] = {
+                    scores = {0}, accuracys = {0}
+                },
+                ["normal"] = {
+                    scores = {0}, accuracys = {0}
+                },
+                ["hard"] = {
+                    scores = {0}, accuracys = {0}
+                }
+            },             -- Tutorial
+            [1] = {
+                ["easy"] = {
+                    scores = {0, 0, 0}, accuracys = {0, 0, 0}
+                },
+                ["normal"] = {
+                    scores = {0, 0, 0}, accuracys = {0, 0, 0}
+                },
+                ["hard"] = {
+                    scores = {0, 0, 0}, accuracys = {0, 0, 0}
+                }
+            }, -- Week 1
+            [2] = {
+                ["easy"] = {
+                    scores = {0, 0, 0}, accuracys = {0, 0, 0}
+                },
+                ["normal"] = {
+                    scores = {0, 0, 0}, accuracys = {0, 0, 0}
+                },
+                ["hard"] = {
+                    scores = {0, 0, 0}, accuracys = {0, 0, 0}
+                }
+            }, -- Week 2
+            [3] = {
+                ["easy"] = {
+                    scores = {0, 0, 0}, accuracys = {0, 0, 0}
+                },
+                ["normal"] = {
+                    scores = {0, 0, 0}, accuracys = {0, 0, 0}
+                },
+                ["hard"] = {
+                    scores = {0, 0, 0}, accuracys = {0, 0, 0}
+                }
+            }, -- Week 3
+            [4] = {
+                ["easy"] = {
+                    scores = {0, 0, 0}, accuracys = {0, 0, 0}
+                },
+                ["normal"] = {
+                    scores = {0, 0, 0}, accuracys = {0, 0, 0}
+                },
+                ["hard"] = {
+                    scores = {0, 0, 0}, accuracys = {0, 0, 0}
+                }
+            }, -- Week 4
+            [5] = {
+                ["easy"] = {
+                    scores = {0, 0, 0}, accuracys = {0, 0, 0}
+                },
+                ["normal"] = {
+                    scores = {0, 0, 0}, accuracys = {0, 0, 0}
+                },
+                ["hard"] = {
+                    scores = {0, 0, 0}, accuracys = {0, 0, 0}
+                }
+            }, -- Week 5
+            [6] = {
+                ["easy"] = {
+                    scores = {0, 0, 0}, accuracys = {0, 0, 0}
+                },
+                ["normal"] = {
+                    scores = {0, 0, 0}, accuracys = {0, 0, 0}
+                },
+                ["hard"] = {
+                    scores = {0, 0, 0}, accuracys = {0, 0, 0}
+                }
+            }, -- Week 6
+            [7] = {
+                ["easy"] = {
+                    scores = {0, 0, 0}, accuracys = {0, 0, 0}
+                },
+                ["normal"] = {
+                    scores = {0, 0, 0}, accuracys = {0, 0, 0}
+                },
+                ["hard"] = {
+                    scores = {0, 0, 0}, accuracys = {0, 0, 0}
+                }
+            }, -- Week 7
+            version = 3
+        }
+        saveHighscores()
+    end
     
     for i = 0, #data.highscores do
-        for j = 1, #data.highscores[i].scores do
-            highscores[i].scores[j] = data.highscores[i].scores[j]
+        for j = 1, #data.highscores[i]["easy"].scores do
+            highscores[i]["easy"].scores[j] = data.highscores[i]["easy"].scores[j]
         end
-        for j = 1, #data.highscores[i].accuracys do
-            highscores[i].accuracys[j] = data.highscores[i].accuracys[j]
+        for j = 1, #data.highscores[i]["normal"].scores do
+            highscores[i]["normal"].scores[j] = data.highscores[i]["normal"].scores[j] 
+        end
+        for j = 1, #data.highscores[i]["hard"].scores do
+            highscores[i]["hard"].scores[j] = data.highscores[i]["hard"].scores[j]
+        end
+        for j = 1, #data.highscores[i]["easy"].accuracys do
+            highscores[i]["easy"].accuracys[j] = data.highscores[i]["easy"].accuracys[j]
+        end
+        for j = 1, #data.highscores[i]["normal"].accuracys do
+            highscores[i]["normal"].accuracys[j] = data.highscores[i]["normal"].accuracys[j] 
+        end
+        for j = 1, #data.highscores[i]["hard"].accuracys do
+            highscores[i]["hard"].accuracys[j] = data.highscores[i]["hard"].accuracys[j]
         end
     end
 else

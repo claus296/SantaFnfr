@@ -42,8 +42,8 @@ return {
         averageAccuracy = 0
         ratingText = "???"
         for i = 1, #weekMeta[weekNum][2] do
-            curWeekScore = curWeekScore + highscores[weekNum-1].scores[i]
-            averageAccuracy = averageAccuracy + highscores[weekNum-1].accuracys[i]
+            curWeekScore = curWeekScore + highscores[weekNum-1][difficultyStrs[songDifficulty]].scores[i]
+            averageAccuracy = averageAccuracy + highscores[weekNum-1][difficultyStrs[songDifficulty]].accuracys[i]
         end
         averageAccuracy = averageAccuracy / #weekMeta[weekNum][2]
         if averageAccuracy >= 101 then
@@ -87,8 +87,8 @@ return {
                 curWeekScore = 0
                 averageAccuracy = 0
                 for i = 1, #weekMeta[weekNum][2] do
-                    curWeekScore = curWeekScore + highscores[weekNum-1].scores[i]
-                    averageAccuracy = averageAccuracy + highscores[weekNum-1].accuracys[i]
+                    curWeekScore = curWeekScore + highscores[weekNum-1][difficultyStrs[songDifficulty]].scores[i]
+                    averageAccuracy = averageAccuracy + highscores[weekNum-1][difficultyStrs[songDifficulty]].accuracys[i]
                 end
                 averageAccuracy = averageAccuracy / #weekMeta[weekNum][2]
                 if averageAccuracy >= 101 then
@@ -139,8 +139,8 @@ return {
                 curWeekScore = 0
                 averageAccuracy = 0
                 for i = 1, #weekMeta[weekNum][2] do
-                    curWeekScore = curWeekScore + highscores[weekNum-1].scores[i]
-                    averageAccuracy = averageAccuracy + highscores[weekNum-1].accuracys[i]
+                    curWeekScore = curWeekScore + highscores[weekNum-1][difficultyStrs[songDifficulty]].scores[i]
+                    averageAccuracy = averageAccuracy + highscores[weekNum-1][difficultyStrs[songDifficulty]].accuracys[i]
                 end
                 averageAccuracy = averageAccuracy / #weekMeta[weekNum][2]
                 if averageAccuracy >= 101 then
@@ -193,12 +193,84 @@ return {
                 songDifficulty = 3
             end
             audio.playSound(selectSound)
+            curWeekScore = 0
+            averageAccuracy = 0
+            ratingText = "???"
+            for i = 1, #weekMeta[weekNum][2] do
+                curWeekScore = curWeekScore + highscores[weekNum-1][difficultyStrs[songDifficulty]].scores[i]
+                averageAccuracy = averageAccuracy + highscores[weekNum-1][difficultyStrs[songDifficulty]].accuracys[i]
+            end
+            averageAccuracy = averageAccuracy / #weekMeta[weekNum][2]
+            if averageAccuracy >= 101 then
+                ratingText = "what"
+            elseif averageAccuracy >= 100 then
+                ratingText = "Perfect!!!"
+            elseif averageAccuracy >= 90 then
+                ratingText = "Marvolous!"
+            elseif averageAccuracy >= 70 then
+                ratingText = "Good!"
+            elseif averageAccuracy >= 69 then
+                ratingText = "Nice!"
+            elseif averageAccuracy >= 60 then
+                ratingText = "Okay"
+            elseif averageAccuracy >= 50 then
+                ratingText = "Meh..."
+            elseif averageAccuracy >= 40 then
+                ratingText = "Could be better..."
+            elseif averageAccuracy >= 30 then
+                ratingText = "It's an issue of skill."
+            elseif averageAccuracy >= 20 then
+                ratingText = "Bad."
+            elseif averageAccuracy >= 10 then
+                ratingText = "How."
+            elseif averageAccuracy >= 1 then
+                ratingText = "Bruh."
+            elseif averageAccuracy >= 0 then
+                ratingText = "???"
+            end
+            averageAccuracy = string.format("%.2f%%", averageAccuracy)
         elseif input:pressed("right") then
             songDifficulty = songDifficulty + 1
             if songDifficulty > 3 then
                 songDifficulty = 1
             end
             audio.playSound(selectSound)
+            curWeekScore = 0
+            averageAccuracy = 0
+            ratingText = "???"
+            for i = 1, #weekMeta[weekNum][2] do
+                curWeekScore = curWeekScore + highscores[weekNum-1][difficultyStrs[songDifficulty]].scores[i]
+                averageAccuracy = averageAccuracy + highscores[weekNum-1][difficultyStrs[songDifficulty]].accuracys[i]
+            end
+            averageAccuracy = averageAccuracy / #weekMeta[weekNum][2]
+            if averageAccuracy >= 101 then
+                ratingText = "what"
+            elseif averageAccuracy >= 100 then
+                ratingText = "Perfect!!!"
+            elseif averageAccuracy >= 90 then
+                ratingText = "Marvolous!"
+            elseif averageAccuracy >= 70 then
+                ratingText = "Good!"
+            elseif averageAccuracy >= 69 then
+                ratingText = "Nice!"
+            elseif averageAccuracy >= 60 then
+                ratingText = "Okay"
+            elseif averageAccuracy >= 50 then
+                ratingText = "Meh..."
+            elseif averageAccuracy >= 40 then
+                ratingText = "Could be better..."
+            elseif averageAccuracy >= 30 then
+                ratingText = "It's an issue of skill."
+            elseif averageAccuracy >= 20 then
+                ratingText = "Bad."
+            elseif averageAccuracy >= 10 then
+                ratingText = "How."
+            elseif averageAccuracy >= 1 then
+                ratingText = "Bruh."
+            elseif averageAccuracy >= 0 then
+                ratingText = "???"
+            end
+            averageAccuracy = string.format("%.2f%%", averageAccuracy)
         elseif input:pressed("confirm") then
             if menuNum == 1 then songNum = 1 end
             if menuNum == 2 then
