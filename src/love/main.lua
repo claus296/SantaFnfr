@@ -65,11 +65,6 @@ Edition: %s
 	end
 end
 
-if love.filesystem.isFused() and love.system.getOS() == "Windows" then
-	useDiscordRPC = true -- Set this to false if you don't want to use Discord RPC
-	discordRPC = require "lib.discordRPC"
-	appId = "924059160054755348"
-end
 love.graphics.color = {
 	print = function(text,x,y,r,sx,sy,R,G,B,A,ox,oy,kx,ky)
 		graphics.setColorF(R or 255,G or 255,B or 255,A or 1)
@@ -167,21 +162,7 @@ function love.load()
 	xml = require "lib.xml"
 	Object = require "lib.classic"
 	waveAudio = require "lib.wave"
-	
-	highscores = {
-		[0] = {scores = {0}, accuracys = {0}},             -- Tutorial
-		[1] = {scores = {0, 0, 0}, accuracys = {0, 0, 0}}, -- Week 1
-		[2] = {scores = {0, 0, 0}, accuracys = {0, 0, 0}}, -- Week 2
-		[3] = {scores = {0, 0, 0}, accuracys = {0, 0, 0}}, -- Week 3
-		[4] = {scores = {0, 0, 0}, accuracys = {0, 0, 0}}, -- Week 4
-		[5] = {scores = {0, 0, 0}, accuracys = {0, 0, 0}}, -- Week 5
-		[6] = {scores = {0, 0, 0}, accuracys = {0, 0, 0}}, -- Week 6
-		[7] = {scores = {0, 0, 0}, accuracys = {0, 0, 0}}, -- Week 7
-		version = 1
-	}
-	achievementProgress = {
-		["death"] = 0,
-	}
+
 	--music[1]:setVolume(music.vol)
 	-- Load modules
 	status = require "modules.status"
@@ -196,6 +177,7 @@ function love.load()
 	require "modules.saving"
 	input = require "input" -- LOAD INPUT HERE CUZ GOOFY AHH KEYBINDS MENU
 	require "modules.camera"
+	require "modules.discord"
 
 	music = {
 		waveAudio:newSource("songs/misc/menu.ogg", "stream"),
@@ -204,7 +186,6 @@ function love.load()
 	}
 
 	died = false
-	gamejoltLogin = {}
 
 	music[1]:parse()
 	music[1]:setBPM(102)
@@ -215,10 +196,6 @@ function love.load()
 	music[1]:play()
 
 	spongebirth = love.graphics.newImage(graphics.imagePath("spongebirth"))
-	
-	-- Load settings
-	--settings = require "settings"
-	settings = {}
 
 	-- Load states
 	clickStart = require "states.click-start"

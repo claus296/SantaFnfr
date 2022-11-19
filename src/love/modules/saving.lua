@@ -1,3 +1,21 @@
+highscores = {
+    [0] = {scores = {0}, accuracys = {0}},             -- Tutorial
+    [1] = {scores = {0, 0, 0}, accuracys = {0, 0, 0}}, -- Week 1
+    [2] = {scores = {0, 0, 0}, accuracys = {0, 0, 0}}, -- Week 2
+    [3] = {scores = {0, 0, 0}, accuracys = {0, 0, 0}}, -- Week 3
+    [4] = {scores = {0, 0, 0}, accuracys = {0, 0, 0}}, -- Week 4
+    [5] = {scores = {0, 0, 0}, accuracys = {0, 0, 0}}, -- Week 5
+    [6] = {scores = {0, 0, 0}, accuracys = {0, 0, 0}}, -- Week 6
+    [7] = {scores = {0, 0, 0}, accuracys = {0, 0, 0}}, -- Week 7
+    version = 1
+}
+achievementProgress = {
+    ["death"] = 0,
+}
+gamejoltLogin = {}
+
+settings = {}
+
 function saveHighscores()
     local file = love.filesystem.newFile("highscores")
     file:open("w")
