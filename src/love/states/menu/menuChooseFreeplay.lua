@@ -4,7 +4,7 @@ local menuState
 
 local menuNum = 1
 
-local weekNum = 1
+weekNum = 1
 local songNum, songAppend
 local songDifficulty = 2
 

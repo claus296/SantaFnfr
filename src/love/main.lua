@@ -309,16 +309,27 @@ function love.load()
 		"circles"
 	}
 
-	love.window.setMode(
-		settings.window.windowWidth,
-		settings.window.windowHeight,
-		{
-			vsync = settings.window.vsync,
-			fullscreen = settings.window.fullscreen,
-			fullscreentype = settings.window.fullscreentype,
-			resizable = true
-		}
-	)
+	if love.system.getOS() == "NX" then
+		love.window.setMode(1920, 1080)
+	else
+		love.window.setMode(
+			settings.window.windowWidth,
+			settings.window.windowHeight,
+			{
+				vsync = settings.window.vsync,
+				fullscreen = settings.window.fullscreen,
+				fullscreentype = settings.window.fullscreentype,
+				resizable = true
+			}
+		)
+	end
+	--[[
+	; Fullscreen settings, if you don't want Vsync (60 FPS cap), set "fullscreenType" to "exclusive" and "vsync" to "0"
+	fullscreen=false
+	fullscreenType=desktop
+	vsync=1
+	
+	]]
 
 	-- LÖVE init
 	if curOS == "OS X" then
