@@ -69,15 +69,7 @@ return {
 		graphics.setFade(0)
 		graphics.fadeIn(0.5)
 
-		if useDiscordRPC then
-			presence = {
-				state = "Press Enter", 
-				details = "In the Menu",
-				largeImageKey = "logo",
-				startTimestamp = now,
-			}
-			nextPresenceUpdate = 0
-		end
+		updatePres("Press Enter", "In the Menu")
 	end,
 	onBeat = function(self, n)
 		danceRight = not danceRight

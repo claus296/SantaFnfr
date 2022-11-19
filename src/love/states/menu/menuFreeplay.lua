@@ -33,15 +33,7 @@ return {
         songBefore = ""
         songAfter = ""
 
-        if useDiscordRPC then
-			presence = {
-				state = "Choosing a song",
-				details = "In the Freeplay Menu",
-				largeImageKey = "logo",
-				startTimestamp = now,
-			}
-			nextPresenceUpdate = 0
-		end
+        updatePres("Choosing a song", "In the Freeplay Menu")
 
         menuNum = 1
         songNum = 1

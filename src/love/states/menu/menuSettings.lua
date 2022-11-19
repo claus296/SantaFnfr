@@ -106,15 +106,7 @@ return {
 		graphics.setFade(0)
 		graphics.fadeIn(0.5)
 
-		if useDiscordRPC then
-			presence = {
-				state = "Changing Settings",
-				details = "In the Settings Menu",     -- yeah thats what you do in the settings menu   why tf else would you be in the settings menu
-				largeImageKey = "logo",
-				startTimestamp = now,
-			}
-			nextPresenceUpdate = 0
-		end
+        updatePres("Changing Settings", "In the Settings Menu")
 	end,
 
 	update = function(self, dt)

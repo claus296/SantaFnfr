@@ -1130,21 +1130,15 @@ return {
 
 		if useDiscordRPC then
 			if not modFolderMod then 
-				presence = {
-					state = "Week " .. weekNum-1 or "???" .. " | " .. weekMeta[weekNum][song] or "???",
-					details = "Score: " .. score or "???" .. " | Accuracy: " .. convertedAcc or "???",
-					largeImageKey = "logo",
-					startTimestamp = now,
-				}
-				nextPresenceUpdate = 0
+				updatePres(
+					"Week " .. weekNum-1 or "???" .. " | " .. weekMeta[weekNum][song] or "???", 
+					"Score: " .. score or "???" .. " | Accuracy: " .. convertedAcc or "???"
+				)
 			else
-				presence = {
-					state = "Mod Folder",
-					details = "Score: " .. score .. " | Accuracy: " .. convertedAcc,
-					largeImageKey = "logo",
-					startTimestamp = now,
-				}
-				nextPresenceUpdate = 0
+				updatePres(
+					"Mod Folder",
+					"Score: " .. score .. " | Accuracy: " .. convertedAcc
+				)
 			end
 		end
 

@@ -192,6 +192,10 @@ function love.load()
 	sprite = require "modules.sprite"
 	paths = require "modules.paths"
 	Character = require "modules.Character"
+	require "modules.volume"
+	require "modules.saving"
+	input = require "input" -- LOAD INPUT HERE CUZ GOOFY AHH KEYBINDS MENU
+	require "modules.camera"
 
 	music = {
 		waveAudio:newSource("songs/misc/menu.ogg", "stream"),
@@ -241,6 +245,7 @@ function love.load()
 		modNames = {},
 		WeekData = {}
 	}
+
 	modloader = require "modules.modloader"
 	modloader.load()
 
@@ -278,137 +283,6 @@ function love.load()
 		progress = 1
 		output = ""
 		isDone = false
-	end
-
-	function volumeControl()
-		-- Guglios's volume control stuff
-		-- (Some is ch's though)
-		love.graphics.setColor(1, 1, 1, volFade)
-		fixVol = tonumber(string.format(
-			"%.1f  ",
-			(love.audio.getVolume())
-		))
-		love.graphics.setColor(0.5, 0.5, 0.5, volFade - 0.3)
-
-		love.graphics.rectangle("fill", 1110, 0, 170, 50)
-
-		love.graphics.setColor(1, 1, 1, volFade)
-
-		if volTween then Timer.cancel(volTween) end
-		volTween = Timer.tween(
-			0.2, 
-			theBalls, 
-			{width = fixVol * 160}, 
-			"out-quad"
-		)
-		love.graphics.rectangle("fill", 1113, 10, theBalls.width, 30)
-		graphics.setColor(1, 1, 1, 1)
-	end
-
-	function saveHighscores()
-		local file = love.filesystem.newFile("highscores")
-		file:open("w")
-		file:write(lume.serialize({highscores = highscores}))
-		file:close()
-	end
-
-	function saveAchivementsProgress()
-		local file = love.filesystem.newFile("achivements")
-		file:open("w")
-		file:write(lume.serialize({achievementProgress = achievementProgress}))
-		file:close()
-	end
-
-	function saveSettings()
-		if settings.hardwareCompression ~= settingdata.saveSettingsMoment.hardwareCompression then
-			settingdata = {}
-			if settings.hardwareCompression then
-				imageTyppe = "dds" 
-			else
-				imageTyppe = "png"
-			end
-			settingdata.saveSettingsMoment = {
-				hardwareCompression = settings.hardwareCompression,
-				downscroll = settings.downscroll,
-				ghostTapping = settings.ghostTapping,
-				showDebug = settings.showDebug,
-				setImageType = "dds",
-				sideJudgements = settings.sideJudgements,
-				botPlay = settings.botPlay,
-				middleScroll = settings.middleScroll,
-				randomNotePlacements = settings.randomNotePlacements,
-				practiceMode = settings.practiceMode,
-				noMiss = settings.noMiss,
-				customScrollSpeed = settings.customScrollSpeed,
-				keystrokes = settings.keystrokes,
-				scrollUnderlayTrans = settings.scrollUnderlayTrans,
-				Hitsounds = settings.Hitsounds,
-				vocalsVol = settings.vocalsVol,
-				instVol = settings.instVol,
-				hitsoundVol = settings.hitsoundVol,
-				noteSkins = settings.noteSkins,
-				flashinglights = settings.flashinglights,
-				window = settings.window,
-				customBindDown = customBindDown,
-				customBindUp = customBindUp,
-				customBindLeft = customBindLeft,
-				customBindRight = customBindRight,
-				settingsVer = settingsVer
-			}
-			serialized = lume.serialize(settingdata)
-			love.filesystem.write("settings", serialized)
-			love.window.showMessageBox("Settings Saved!", "Settings saved. Vanilla Engine will now restart to make sure your settings saved")
-			love.event.quit("restart")
-		else
-			settingdata = {}
-			if settings.hardwareCompression then
-				imageTyppe = "dds" 
-			else
-				imageTyppe = "png"
-			end
-			settingdata.saveSettingsMoment = {
-				hardwareCompression = settings.hardwareCompression,
-				downscroll = settings.downscroll,
-				ghostTapping = settings.ghostTapping,
-				showDebug = settings.showDebug,
-				setImageType = "dds",
-				sideJudgements = settings.sideJudgements,
-				botPlay = settings.botPlay,
-				middleScroll = settings.middleScroll,
-				randomNotePlacements = settings.randomNotePlacements,
-				practiceMode = settings.practiceMode,
-				noMiss = settings.noMiss,
-				customScrollSpeed = settings.customScrollSpeed,
-				keystrokes = settings.keystrokes,
-				scrollUnderlayTrans = settings.scrollUnderlayTrans,
-				Hitsounds = settings.Hitsounds,
-				vocalsVol = settings.vocalsVol,
-				instVol = settings.instVol,
-				hitsoundVol = settings.hitsoundVol,
-				noteSkins = settings.noteSkins,
-				flashinglights = settings.flashinglights,
-				window = {
-					windowWidth = love.graphics.getWidth(),
-					windowHeight = love.graphics.getHeight(),
-					fullscreen = love.window.getFullscreen(),
-					vsync = love.window.getVSync(),
-				},
-				customBindDown = customBindDown,
-				customBindUp = customBindUp,
-				customBindLeft = customBindLeft,
-				customBindRight = customBindRight,
-				settingsVer = settingsVer
-			}
-			serialized = lume.serialize(settingdata)
-			love.filesystem.write("settings", serialized)
-			graphics.fadeOut(
-				0.3,
-				function()
-					Gamestate.switch(menuSelect)
-					status.setLoading(false)
-				end
-			)
-		end
 	end
 
 	-- Load week data
@@ -502,199 +376,6 @@ function love.load()
 		"circles"
 	}
 
-	if love.filesystem.getInfo("achivements") then
-		local file = love.filesystem.read("achivements")
-		local data = lume.deserialize(file)
-
-		achievementProgress["death"] = data.achievementProgress["death"]
-	else
-		local file = love.filesystem.newFile("achivements")
-		file:open("w")
-		file:write(lume.serialize({achievementProgress = achievementProgress}))
-		file:close()
-	end
-
-	if love.filesystem.getInfo("gamejoltLogin") then
-		local file = love.filesystem.read("gamejoltLogin")
-		local data = lume.deserialize(file)
-		gamejoltLogin["useGamejolt"] = data["useGamejolt"]
-		if gamejoltLogin["useGamejolt"] then
-			gamejoltLogin["username"] = data["username"]
-			gamejoltLogin["token"] = data["token"]
-			
-			gamejolt.authUser(gamejoltLogin["username"], gamejoltLogin["token"])
-		end
-		if gamejoltLogin["useGamejolt"] then
-			print("Signed in as " .. gamejoltLogin["username"])
-		else
-			print("Not using GameJolt")
-		end
-	else
-		local file = love.filesystem.newFile("gamejoltLogin")
-		file:open("w")
-		file:write(lume.serialize({gamejoltLogin = gamejoltLogin}))
-		notLoggedIn = true
-		file:close()
-	end
-
-	if love.filesystem.getInfo("highscores") then
-		local file = love.filesystem.read("highscores")
-		local data = lume.deserialize(file)
-		
-		for i = 0, #data.highscores do
-			for j = 1, #data.highscores[i].scores do
-				highscores[i].scores[j] = data.highscores[i].scores[j]
-			end
-			for j = 1, #data.highscores[i].accuracys do
-				highscores[i].accuracys[j] = data.highscores[i].accuracys[j]
-			end
-		end
-	else
-		local file = love.filesystem.newFile("highscores")
-		file:open("w")
-		file:write(lume.serialize({highscores = highscores}))
-		file:close()
-	end
-	-- You don't need to mess with this unless you are adding a custom setting (Will nil be default (AKA. False)) --
-	if love.filesystem.getInfo("settings") then 
-		settingdata = love.filesystem.read("settings")
-        settingdata = lume.deserialize(settingdata)
-
-		settings.hardwareCompression = settingdata.saveSettingsMoment.hardwareCompression
-		settings.downscroll = settingdata.saveSettingsMoment.downscroll
-		settings.ghostTapping = settingdata.saveSettingsMoment.ghostTapping
-		settings.showDebug = settingdata.saveSettingsMoment.showDebug
-		graphics.setImageType(settingdata.saveSettingsMoment.setImageType)
-		settings.sideJudgements = settingdata.saveSettingsMoment.sideJudgements
-		settings.botPlay = settingdata.saveSettingsMoment.botPlay
-		settings.middleScroll = settingdata.saveSettingsMoment.middleScroll
-		settings.randomNotePlacements = settingdata.saveSettingsMoment.randomNotePlacements
-		settings.practiceMode = settingdata.saveSettingsMoment.practiceMode
-		settings.noMiss = settingdata.saveSettingsMoment.noMiss
-		settings.customScrollSpeed = settingdata.saveSettingsMoment.customScrollSpeed
-		settings.keystrokes = settingdata.saveSettingsMoment.keystrokes
-		settings.scrollUnderlayTrans = settingdata.saveSettingsMoment.scrollUnderlayTrans
-		settings.instVol = settingdata.saveSettingsMoment.instVol
-		settings.vocalsVol = settingdata.saveSettingsMoment.vocalsVol
-		settings.Hitsounds = settingdata.saveSettingsMoment.Hitsounds
-		settings.hitsoundVol = settingdata.saveSettingsMoment.hitsoundVol
-		settings.noteSkins = settingdata.saveSettingsMoment.noteSkins
-		customBindDown = settingdata.saveSettingsMoment.customBindDown
-		customBindUp = settingdata.saveSettingsMoment.customBindUp
-		customBindLeft = settingdata.saveSettingsMoment.customBindLeft
-		customBindRight = settingdata.saveSettingsMoment.customBindRight
-		settings.flashinglights = settingdata.saveSettingsMoment.flashinglights
-		settings.window = settingdata.saveSettingsMoment.window
-
-		settingsVer = settingdata.saveSettingsMoment.settingsVer
-
-		settingdata.saveSettingsMoment = {
-			hardwareCompression = settings.hardwareCompression,
-			downscroll = settings.downscroll,
-			ghostTapping = settings.ghostTapping,
-			showDebug = settings.showDebug,
-			setImageType = "dds",
-			sideJudgements = settings.sideJudgements,
-			botPlay = settings.botPlay,
-			middleScroll = settings.middleScroll,
-			randomNotePlacements = settings.randomNotePlacements,
-			practiceMode = settings.practiceMode,
-			noMiss = settings.noMiss,
-			customScrollSpeed = settings.customScrollSpeed,
-			keystrokes = settings.keystrokes,
-			scrollUnderlayTrans = settings.scrollUnderlayTrans,
-			Hitsounds = settings.Hitsounds,
-			instVol = settings.instVol,
-			vocalsVol = settings.vocalsVol,
-			hitsoundVol = settings.hitsoundVol,
-			noteSkins = settings.noteSkins,
-			customBindDown = customBindDown,
-			customBindUp = customBindUp,
-			customBindLeft = customBindLeft,
-			customBindRight = customBindRight,
-			flashinglights = settings.flashinglights,
-			window = settings.window,
-			settingsVer = settingsVer
-		}
-		serialized = lume.serialize(settingdata)
-		love.filesystem.write("settings", serialized)
-	end
-	if settingsVer ~= 7 then
-		love.window.showMessageBox("Uh Oh!", "Settings have been reset.", "warning")
-		love.filesystem.remove("settings")
-	end
-	if not love.filesystem.getInfo("settings") or settingsVer ~= 7 then
-		settings.hardwareCompression = true
-		graphics.setImageType("dds")
-		settings.downscroll = false
-		settings.middleScroll = false
-		settings.ghostTapping = false
-		settings.showDebug = false
-		settings.sideJudgements = false
-		settings.botPlay = false
-		settings.randomNotePlacements = false
-		settings.practiceMode = false
-		settings.noMiss = false
-		settings.customScrollSpeed = 1
-		settings.keystrokes = false
-		settings.scrollUnderlayTrans = 0
-		settings.Hitsounds = false
-		settings.instVol = 1
-		settings.vocalsVol = 1
-		settings.hitsoundVol = 1
-		settings.noteSkins = 1
-		customBindLeft = "a"
-		customBindRight = "d"
-		customBindUp = "w"
-		customBindDown = "s"
-
-		settings.window = {
-			vsync = 1,
-			windowWidth = 1280,
-			windowHeight = 720,
-			fullscreen = false,
-			fullscreentype = "desktop"
-		}
-
-		settings.flashinglights = false
-		settingsVer = 7
-		settingdata = {}
-		settingdata.saveSettingsMoment = {
-			hardwareCompression = settings.hardwareCompression,
-			downscroll = settings.downscroll,
-			ghostTapping = settings.ghostTapping,
-			showDebug = settings.showDebug,
-			setImageType = "dds",
-			sideJudgements = settings.sideJudgements,
-			botPlay = settings.botPlay,
-			middleScroll = settings.middleScroll,
-			randomNotePlacements = settings.randomNotePlacements,
-			practiceMode = settings.practiceMode,
-			noMiss = settings.noMiss,
-			customScrollSpeed = settings.customScrollSpeed,
-			keystrokes = settings.keystrokes,
-			scrollUnderlayTrans = settings.scrollUnderlayTrans,
-			instVol = settings.instVol,
-			vocalsVol = settings.vocalsVol,
-			Hitsounds = settings.Hitsounds,
-			hitsoundVol = settings.hitsoundVol,
-			noteSkins = settings.noteSkins,
-			customBindLeft = customBindLeft,
-			customBindRight = customBindRight,
-			customBindUp = customBindUp,
-			customBindDown = customBindDown,
-			flashinglights = settings.flashinglights,
-			window = settings.window,
-			
-			settingsVer = settingsVer
-		}
-		serialized = lume.serialize(settingdata)
-		love.filesystem.write("settings", serialized)
-	end
-	input = require "input" -- LOAD INPUT HERE CUZ GOOFY AHH KEYBINDS MENU
-
-	-----------------------------------------------------------------------------------------
-
 	love.window.setMode(
 		settings.window.windowWidth,
 		settings.window.windowHeight,
@@ -736,14 +417,6 @@ function love.load()
 	storyMode = false
 	countingDown = false
 
-	cam = {x = 0, y = 0, sizeX = 0.9, sizeY = 0.9}
-	camEx = {x = 0, y = 0}
-	camScale = {x = 0.9, y = 0.9}
-	camZoom = {sizeX = 1, sizeY = 1}
-	uiScale = {x = 1, y = 1, sizeX = 1, sizeY = 1}
-	extraCamZoom = {sizeX = 1, sizeY = 1}
-	eventZoom = {camSize = 1, uiSize = 1} -- same as extra cam zoom but used for the song event, aka it zooms out automatically
-	flash = {alpha = 0}
 	menuDetails = {
 		titleBG = {x = 0,y = 0,sizeX = 1,sizeY = 1},
 		titleLogo = {x = 0,y = 0,sizeX = 1,sizeY = 1},
@@ -755,17 +428,6 @@ function love.load()
 
 	musicTime = 0
 	health = 0
-	if useDiscordRPC then 
-		discordRPC.initialize(appId, true)
-		local now = os.time(os.date("*t"))
-		presence = {
-			state = "Press Enter",
-			details = "In the menu",
-			largeImageKey = "logo",
-			startTimestamp = now,
-		}
-		nextPresenceUpdate = 0
-	end
 
 	if curOS == "Web" then
 		Gamestate.switch(clickStart)
@@ -806,29 +468,12 @@ function love.keypressed(key)
 		love.graphics.captureScreenshot("screenshots/" .. os.time() .. ".png")
 	elseif key == "7" then
 		Gamestate.switch(debugMenu)
-	elseif key == "0" then
-		volFade = 1
-		if fixVol == 0 then
-			love.audio.setVolume(lastAudioVolume)
-		else
-			lastAudioVolume = love.audio.getVolume()
-			love.audio.setVolume(0)
-		end
-	elseif key == "-" then
-		volFade = 1
-		if fixVol > 0 then
-			love.audio.setVolume(love.audio.getVolume() - 0.1)
-		end
-	elseif key == "=" then
-		volFade = 1
-		if fixVol <= 0.9 then
-			love.audio.setVolume(love.audio.getVolume() + 0.1)
-		end
 	elseif key == "f11" then
 		fullscreen = not fullscreen
 		love.window.setFullscreen(fullscreen, fstype)
 		love.resize(love.graphics.getDimensions())
 	else
+		volumeKeyPressed(key)
 		Gamestate.keypressed(key)
 	end
 end

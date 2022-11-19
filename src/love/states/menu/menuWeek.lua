@@ -64,15 +64,7 @@ return {
 		cam.sizeX, cam.sizeY = 0.9, 0.9
 		camScale.x, camScale.y = 0.9, 0.9
 
-		if useDiscordRPC then -- Set a custom RPC here
-			presence = {
-				state = "Choosing A Week",
-				details = "In the Week Select Menu",
-				largeImageKey = "logo",
-				startTimestamp = now,
-			}
-			nextPresenceUpdate = 0
-		end
+		updatePres("Choosing A Week", "In the Week Select Menu", "logo", now)
 
 		freeColour = {
 			255,255,255

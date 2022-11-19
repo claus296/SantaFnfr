@@ -228,15 +228,7 @@ return {
 
 		graphics.setFade(0)
 		graphics.fadeIn(0.5)
-		if useDiscordRPC then
-			presence = {
-				state = "Choosing a song",
-				details = "In the Freeplay Menu",
-				largeImageKey = "logo",
-				startTimestamp = now,
-			}
-			nextPresenceUpdate = 0
-		end
+		updatePres("Choosing a song", "In the Freeplay Menu")
 
 	end,
 
