@@ -82,7 +82,7 @@ love.graphics.color = {
 		love.graphics.setColorF(255,255,255,1)
 	end
 }
-function uitextf(text,x,y,limit,align,r,sx,sy,ox,oy,kx,ky)
+function uitextf(text,x,y,limit,align,r,sx,sy,ox,oy,kx,ky,alpha)
 	local x = x or 0
 	local y = y or 0
 	local r = r or 0
@@ -94,15 +94,15 @@ function uitextf(text,x,y,limit,align,r,sx,sy,ox,oy,kx,ky)
 	local oy = oy or 0
 	local kx = kx or 0
 	local ky = ky or 0
-	graphics.setColor(0,0,0)
+	graphics.setColor(0,0,0, alpha or 1)
 	love.graphics.printf(text,x-2,y,limit,align,r,sx,sy,ox,oy,kx,ky)
 	love.graphics.printf(text,x+2,y,limit,align,r,sx,sy,ox,oy,kx,ky)
 	love.graphics.printf(text,x,y-2,limit,align,r,sx,sy,ox,oy,kx,ky)
 	love.graphics.printf(text,x,y+2,limit,align,r,sx,sy,ox,oy,kx,ky)
-	graphics.setColor(1,1,1)
+	graphics.setColor(1,1,1, alpha or 1)
     love.graphics.printf(text,x,y,limit,align,r,sx,sy,ox,oy,kx,ky)
 end
-function uitext(text,x,y,r,sx,sy,ox,oy,kx,ky)
+function uitext(text,x,y,r,sx,sy,ox,oy,kx,ky,alpha)
 	local x = x or 0
 	local y = y or 0
 	local r = r or 0
@@ -112,12 +112,12 @@ function uitext(text,x,y,r,sx,sy,ox,oy,kx,ky)
 	local oy = oy or 0
 	local kx = kx or 0
 	local ky = ky or 0
-	graphics.setColor(0,0,0)
+	graphics.setColor(0,0,0, alpha or 1)
 	love.graphics.print(text,x-2,y,r,sx,sy,a,ox,oy,kx,ky)
 	love.graphics.print(text,x+2,y,r,sx,sy,a,ox,oy,kx,ky)
 	love.graphics.print(text,x,y-2,r,sx,sy,a,ox,oy,kx,ky)
 	love.graphics.print(text,x,y+2,r,sx,sy,a,ox,oy,kx,ky)
-	graphics.setColor(1,1,1)
+	graphics.setColor(1,1,1, alpha or 1)
     love.graphics.print(text,x,y,r,sx,sy,a,ox,oy,kx,ky)
 end
 function uitextflarge(text,x,y,limit,align,hovered,r,sx,sy,ox,oy,kx,ky)

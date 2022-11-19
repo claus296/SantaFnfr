@@ -139,6 +139,16 @@ return {
 		end
 		totalScore = 0
 
+		botplayAlpha = {1}
+		botplayY = -100
+
+		function boyPlayAlphaChange()
+			Timer.tween(1.25, botplayAlpha, {0}, "in-out-cubic", function()
+				Timer.tween(1.25, botplayAlpha, {1}, "in-out-cubic", boyPlayAlphaChange)
+			end)
+		end
+		boyPlayAlphaChange()
+
 		--PAUSE MENU IMAGES
 		pauseBG = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/pause_box")))
 		pauseShadow = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/pause_shadow")))
@@ -2087,6 +2097,11 @@ return {
 				else
 					uitextf("Score: " .. score .. " | Misses: " .. missCounter .. " | Accuracy: " .. convertedAcc .. " | Rating: " .. ratingText, -600, 400+downscrollOffset, 1200, "center")
 				end
+			end
+
+			if settings.botplay then
+				botplayY = botplayY + math.sin(love.timer.getTime()) * 0.15
+				uitext("BOTPLAY", -85, botplayY, 0, 2, 2, 0, 0, 0, 0, botplayAlpha[1])
 			end
 
 			if settings.sideJudgements then
