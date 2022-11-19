@@ -70,23 +70,24 @@ return {
         love.graphics.push()
 			love.graphics.translate(cam.x * 0.25, cam.y * 0.25)
 
-			stageImages[1]:cdraw(daGoofyColours[1], daGoofyColours[2], daGoofyColours[3], daGoofyColours[4])
+			stageImages[1]:cdraw(daGoofyColours[1], daGoofyColours[2], daGoofyColours[3])
 		love.graphics.pop()
 		love.graphics.push()
 			love.graphics.translate(cam.x * 0.5, cam.y * 0.5)
 
-			stageImages[2]:cdraw(daGoofyColours[1], daGoofyColours[2], daGoofyColours[3], daGoofyColours[4])
+			stageImages[2]:cdraw(daGoofyColours[1], daGoofyColours[2], daGoofyColours[3])
 			stageImages[3]:cdraw(curWinColor[1], curWinColor[2], curWinColor[3], winAlpha)
 		love.graphics.pop()
 		love.graphics.push()
 			love.graphics.translate(cam.x * 0.9, cam.y * 0.9)
 
 			if phillyGlow then
-				gradient:cdraw(curColours[1], curColours[2], curColours[3], daGoofyColours[4])
+				gradient:cdraw(curColours[1], curColours[2], curColours[3])
 				graphics.setColor(1, 1, 1)
 			end
-			stageImages[4]:cdraw(daGoofyColours[1], daGoofyColours[2], daGoofyColours[3], daGoofyColours[4])
-			stageImages[5]:cdraw(daGoofyColours[1], daGoofyColours[2], daGoofyColours[3], daGoofyColours[4])
+			
+			stageImages[4]:cdraw(daGoofyColours[1], daGoofyColours[2], daGoofyColours[3])
+			stageImages[5]:cdraw(daGoofyColours[1], daGoofyColours[2], daGoofyColours[3])
 
 			girlfriend:cdraw(curColours[1]/255, curColours[2]/255, curColours[3]/255)
 		love.graphics.pop()
