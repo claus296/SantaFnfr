@@ -194,9 +194,9 @@ return {
 
 		if isPixel ~= "pixel" then
 			if love.math.random(1,1000) == 500 then
-				girlfriend = Character.girlfriend(0,0, false)
-			else
 				girlfriend = Character.luigi(0,0, false)
+			else
+				girlfriend = Character.girlfriend(0,0, false)
 			end
 			boyfriend = Character.boyfriend(0,0)
 			rating = love.filesystem.load("sprites/rating.lua")()
@@ -288,6 +288,7 @@ return {
 		hitSick = false
 		paused = false
 		pauseMenuSelection = 1
+		judgements = {} -- clear our judgements
 		
 		for i = 1, 4 do
 			notMissed[i] = true
@@ -1621,6 +1622,62 @@ return {
 								if (not boyfriend:isAnimated()) or boyfriend:getAnimName() == "idle" then self:safeAnimate(boyfriend, curAnim, true, 2) end
 							else
 								self:safeAnimate(boyfriend, curAnim, false, 2)
+								score = score + 350
+								addJudgements("sickPlus")
+								altScore = altScore + 100.00
+								sicks = sicks + 1
+								noteCounter = noteCounter + 1
+								missCounter = 0
+								combo = combo + 1
+
+								numbers[1]:animate(tostring(math.floor(combo / 100 % 10), false)) -- 100's
+								numbers[2]:animate(tostring(math.floor(combo / 10 % 10), false)) -- 10's
+								numbers[3]:animate(tostring(math.floor(combo % 10), false)) -- 1's
+
+								for i = 3, 5 do
+									if ratingTimers[i] then Timer.cancel(ratingTimers[i]) end
+								end -- ratingTimer 1&2 is judgements
+
+								ratingVisibility[1] = 1
+								judgements[#judgements].img.y = girlfriend.y - 50
+								for i = 1, 3 do
+									numbers[i].y = girlfriend.y + 50
+								end
+
+								Timer.tween(
+									1.1, 
+									judgements[#judgements], 
+									{
+										transparency = 0
+									},
+									"linear"
+								)
+								Timer.tween(
+									1.25, 
+									judgements[#judgements].img, 
+									{
+										y = girlfriend.y - 100
+									}, 
+									"out-expo"
+								)
+								if combo >= 100 then
+									ratingTimers[3] = Timer.tween(2, numbers[1], {y = girlfriend.y + love.math.random(-10, 10)}, "out-elastic") -- 100's
+								end
+								if combo >= 10 then
+									ratingTimers[4] = Timer.tween(2, numbers[2], {y = girlfriend.y + love.math.random(-10, 10)}, "out-elastic") -- 10's
+								end
+								ratingTimers[5] = Timer.tween(2, numbers[3], {y = girlfriend.y + love.math.random(-10, 10)}, "out-elastic") -- 1's
+
+								if combo < 10 then
+									numbers[3].x = girlfriend.x
+								elseif combo < 100 then
+									numbers[2].x = girlfriend.x - 25
+									numbers[3].x = girlfriend.x + 25
+								else
+									numbers[1].x = girlfriend.x - 50
+									numbers[2].x = girlfriend.x
+									numbers[3].x = girlfriend.x + 50
+								end
 							end
 
 							table.remove(boyfriendNote, 1)
@@ -2018,34 +2075,32 @@ return {
 			elseif accForRatingText >= 0 then
 				ratingText = "Bruh."
 			end -- Marvellous 
-			if not settings.botPlay then
-				if noteCounter + missCounter <= 0 then
-					if (math.floor((altScore / (noteCounter + missCounter)) / 3.5)) >= 100 then
-						uitextf("Score: " .. score .. " | Misses: " .. missCounter .. " | Accuracy: 0% | Rating: ???", -600, 400+downscrollOffset, 1200, "center")
-					else
-						uitextf("Score: " .. score .. " | Misses: " .. missCounter .. " | Accuracy: 0% | Rating: ???", -600, 400+downscrollOffset, 1200, "center")
-					end
+			if noteCounter + missCounter <= 0 then
+				if (math.floor((altScore / (noteCounter + missCounter)) / 3.5)) >= 100 then
+					uitextf("Score: " .. score .. " | Misses: " .. missCounter .. " | Accuracy: 0% | Rating: ???", -600, 400+downscrollOffset, 1200, "center")
 				else
-					if (math.floor((altScore / (noteCounter + missCounter)) / 3.5)) >= 100 then
-						uitextf("Score: " .. score .. " | Misses: " .. missCounter .. " | Accuracy: 100% | Rating: PERFECT!!!", -600, 400+downscrollOffset, 1200, "center")
-					else
-						uitextf("Score: " .. score .. " | Misses: " .. missCounter .. " | Accuracy: " .. convertedAcc .. " | Rating: " .. ratingText, -600, 400+downscrollOffset, 1200, "center")
-					end
+					uitextf("Score: " .. score .. " | Misses: " .. missCounter .. " | Accuracy: 0% | Rating: ???", -600, 400+downscrollOffset, 1200, "center")
 				end
+			else
+				if (math.floor((altScore / (noteCounter + missCounter)) / 3.5)) >= 100 then
+				uitextf("Score: " .. score .. " | Misses: " .. missCounter .. " | Accuracy: 100% | Rating: PERFECT!!!", -600, 400+downscrollOffset, 1200, "center")
+				else
+					uitextf("Score: " .. score .. " | Misses: " .. missCounter .. " | Accuracy: " .. convertedAcc .. " | Rating: " .. ratingText, -600, 400+downscrollOffset, 1200, "center")
+				end
+			end
 
-				if settings.sideJudgements then
-					uitextf(
-						"Sicks: " .. sicks ..
-						"\n\nGoods: " .. goods ..
-						"\n\nBads: " .. bads ..
-						"\n\nShits: " .. shits ..
-						"\n\nTotal: " .. (sicks + goods + bads + shits),
-						-900,
-						0, 
-						750, -- annoying limit and i don't want to test if it works with nil 
-						"left"
-					)
-				end
+			if settings.sideJudgements then
+				uitextf(
+					"Sicks: " .. sicks ..
+					"\n\nGoods: " .. goods ..
+					"\n\nBads: " .. bads ..
+					"\n\nShits: " .. shits ..
+					"\n\nTotal: " .. (sicks + goods + bads + shits),
+					-900,
+					0, 
+					750, -- annoying limit and i don't want to test if it works with nil 
+					"left"
+				)
 			end
 		love.graphics.pop()
 		if settings.keystrokes then

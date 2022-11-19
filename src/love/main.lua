@@ -888,10 +888,6 @@ function love.draw()
 		love.graphics.setColor(1, 1, 1) -- Fade effect off
 		
 		love.graphics.setFont(font)
-
-		if status.getLoading() then
-			love.graphics.print("Loading...", lovesize.getWidth() - 175, lovesize.getHeight() - 50)
-		end
 		volumeControl()
 		
 		
