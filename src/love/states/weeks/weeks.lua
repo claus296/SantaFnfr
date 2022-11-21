@@ -1168,8 +1168,8 @@ return {
 			if input:pressed("confirm") then
 				love.audio.stop(sounds.breakfast) -- since theres only 3 options, we can make the sound stop without an else statement
 				if pauseMenuSelection == 1 then
-					if inst then inst:play() end
-					voices:play()
+					if inst then inst:resume() end
+					voices:resume()
 					paused = false
 				elseif pauseMenuSelection == 2 then
 					pauseRestart = true
