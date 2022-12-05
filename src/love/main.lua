@@ -213,7 +213,7 @@ function love.load()
 	healthBarColorPlayer = {49,176,209} -- BF's icon colour
 	healthBarColorEnemy = {165,0,77} -- GF's icon colour
 	pauseColor = {0,0,0} -- Pause screen colour
-	theBalls = {width = 160}
+	volumeWidth = {width = 160}
 
 	function setDialogue(strList)
 		dialogueList = strList
@@ -357,6 +357,8 @@ function love.load()
 
 	weekNum = 1
 	songDifficulty = 2
+
+	paused = false
 
 	spriteTimers = {
 		0, -- Girlfriend

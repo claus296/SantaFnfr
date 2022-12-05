@@ -22,7 +22,9 @@ end
 
 return {
 	enter = function(self, previous)
-		
+		if not music[1]:isPlaying() then
+			music[1]:play()
+		end
 		music[1]:onBeat(function()
 			self:onBeat(music[1]:getBeat())
 		end)
