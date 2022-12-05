@@ -213,7 +213,7 @@ function love.load()
 	healthBarColorPlayer = {49,176,209} -- BF's icon colour
 	healthBarColorEnemy = {165,0,77} -- GF's icon colour
 	pauseColor = {0,0,0} -- Pause screen colour
-	theBalls = {width = 1 * 160}
+	theBalls = {width = 160}
 
 	function setDialogue(strList)
 		dialogueList = strList
@@ -445,8 +445,10 @@ function love.update(dt)
 		volFade = volFade - 0.4 * delta
 	end
 
-	music[1]:update(dt)
-	music[1]:setVolume(music.vol)
+	if Gamestate.current() ~= gjlogin then
+		music[1]:update(dt)
+		music[1]:setVolume(music.vol)
+	end
 
 	input:update()
 
