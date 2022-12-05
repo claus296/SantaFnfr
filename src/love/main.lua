@@ -120,7 +120,9 @@ function love.load()
 	Object = require "lib.classic"
 	waveAudio = require "lib.wave"
 
-	require "gjkeys"
+	if love.filesystem.getInfo("gjkeys.lua") then
+		require "gjkeys"
+	end
 
 	status = require "modules.status"
 	audio = require "modules.audio"
@@ -195,7 +197,9 @@ function love.load()
 
 	gjlogin = require "states.gjlogin"
 
-	gamejolt.init(GAMEJOLT_ID, GAMEJOLT_TOKEN)
+	if GAMEJOLT_ID and GAMEJOLT_TOKEN then
+		gamejolt.init(GAMEJOLT_ID, GAMEJOLT_TOKEN)
+	end
 
 	-- Load weeks
 	weeks = require "states.weeks.weeks"
