@@ -42,3 +42,5 @@ art/*.xml
 # STOP UPLOADING SHORTCUTS CH
 *.lnk
 
+# slows down people from nabbing the api keys
+gjkeys.lua

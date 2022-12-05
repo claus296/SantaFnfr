@@ -120,6 +120,8 @@ function love.load()
 	Object = require "lib.classic"
 	waveAudio = require "lib.wave"
 
+	require "gjkeys"
+
 	status = require "modules.status"
 	audio = require "modules.audio"
 	graphics = require "modules.graphics"
@@ -193,7 +195,7 @@ function love.load()
 
 	gjlogin = require "states.gjlogin"
 
-	gamejolt.init("757896", "81a95b38f12f5a1c343c6a9e55ac890e")
+	gamejolt.init(GAMEJOLT_ID, GAMEJOLT_TOKEN)
 
 	-- Load weeks
 	weeks = require "states.weeks.weeks"
