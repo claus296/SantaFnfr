@@ -137,6 +137,7 @@ function love.load()
 	require "modules.camera"
 	require "modules.discord"
 	require "modules.errHandler"
+	cutscene = require "modules.cutscene"
 	input = require "input"
 
 	music = {

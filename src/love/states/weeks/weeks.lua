@@ -1152,7 +1152,7 @@ return {
 		-- format the timeLeft string
 		timeLeftString = string.format("%02d:%02d", timeLeftMinutes, timeLeftSeconds)
 
-		if input:pressed("pause") and not countingDown and not cutscene and not doingDialogue then
+		if input:pressed("pause") and not countingDown and not inCutscene and not doingDialogue then
 			if not paused then
 				pauseTime = musicTime
 				paused = true
@@ -1185,7 +1185,7 @@ return {
 			end
 		end
 
-		if not doingDialogue and not cutscene then
+		if not doingDialogue and not inCutscene then
 			oldMusicThres = musicThres
 			if countingDown or love.system.getOS() == "Web" then -- Source:tell() can't be trusted on love.js!
 				musicTime = musicTime + 1000 * dt
@@ -1317,7 +1317,7 @@ return {
 			extraCamZoom.sizeY = extraCamZoom.sizeY - 0.01
 		end
 		if not paused then
-			if not doingDialogue and not cutscene then
+			if not doingDialogue and not inCutscene then
 				musicPos = musicTime * 0.6 * speed
 
 				for i = 1, 4 do

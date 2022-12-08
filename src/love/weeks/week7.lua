@@ -31,7 +31,7 @@ return {
 		cutsceneTime, cutsceneTimeThres, oldcutsceneTimeThres = 0, 0, 0
 
 		if storyMode and not died then
-			cutscene = true
+			inCutscene = true
 			didCountdown = false
 			tankCutscene = {}
 			musicPos = 0
@@ -61,12 +61,12 @@ return {
 			fakeBoyfriend = love.filesystem.load("sprites/week7/gfdead.lua")()
 			fakeBoyfriend.x, fakeBoyfriend.y = 380, 410
 			if not died and storyMode then
-				cutscene = true
-				video = love.graphics.newVideo("videos/stressCutscene.ogv")
+				inCutscene = true
+				video = cutscene.video("videos/stressCutscene.ogv")
 				video:play()
 				Timer.after(35.20, function()
-					cutscene = false
-					video:release()
+					inCutscene = false
+					video:destroy()
 					weeks:setupCountdown()
 				end)
 			end
@@ -77,7 +77,7 @@ return {
 			inst = waveAudio:newSource("songs/week7/guns/inst.ogg", "stream")
 			voices = waveAudio:newSource("songs/week7/guns/voices.ogg", "stream")
 			if storyMode and not died then
-				cutscene = true
+				inCutscene = true
 				tankCutsceneAudio = love.audio.newSource("sounds/cutscenes/tank/tankSong2.ogg", "static")
 				tankCutscene[1] = love.filesystem.load("sprites/cutscenes/guns-talk.lua")()
 
@@ -154,7 +154,7 @@ return {
 					function()
 						tankCutscene[1] = nil
 						weeks:setupCountdown()
-						cutscene = false
+						inCutscene = false
 						cam.sizeX, cam.sizeY = 1, 1
 						camScale.x, camScale.y = 1, 1
 					end
@@ -218,7 +218,7 @@ return {
 																			tankCutscene[i] = nil
 																		end
 																		weeks:setupCountdown()
-																		cutscene = false
+																		inCutscene = false
 																		cam.sizeX, cam.sizeY = 1, 1
 																		camScale.x, camScale.y = 1, 1
 																	end
@@ -265,7 +265,7 @@ return {
 		weeks:update(dt)
 		stages["tank"]:update(dt)
 
-		if cutscene then
+		if inCutscene then
 			local timerBF = 0
 			
 			timerBF = timerBF + 1 * dt
@@ -340,7 +340,7 @@ return {
 			end
 		end
 
-		if not (countingDown or graphics.isFading()) and not (inst:getDuration() > musicTime/1000) and not paused and not cutscene then
+		if not (countingDown or graphics.isFading()) and not (inst:getDuration() > musicTime/1000) and not paused and not inCutscene then
 			if storyMode and song < 3 then
 				song = song + 1
 				if score > highscores[weekNum-1][difficulty].scores[song] then
@@ -384,7 +384,7 @@ return {
 			weeks:drawRating(0.9)
 		love.graphics.pop()
 
-		if not cutscene then
+		if not inCutscene then
 			weeks:drawTimeLeftBar()
 			weeks:drawHealthBar()
 			if not paused then
@@ -392,9 +392,9 @@ return {
 				weeks:drawUI()
 			end
 		end
-		if song == 3 and cutscene then
+		if song == 3 and inCutscene then
 			if video:isPlaying() then
-				love.graphics.draw(video)
+				video:draw()
 			end
 		end
 	end,
