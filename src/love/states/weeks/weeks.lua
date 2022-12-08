@@ -1194,7 +1194,7 @@ return {
 					local time = love.timer.getTime()
 					local seconds = voices:tell("seconds")
 
-					musicTime = musicTime + (time * 1000) - previousFrameTime
+					musicTime = musicTime + (time * 1000) - (previousFrameTime or 0)
 					previousFrameTime = time * 1000
 
 					if lastReportedPlaytime ~= seconds * 1000 then
