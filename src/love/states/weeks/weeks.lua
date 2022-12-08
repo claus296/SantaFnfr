@@ -1445,26 +1445,26 @@ return {
 								for i = 1, #boyfriendNote do
 									notePos = math.abs(boyfriendNote[i].y - musicTime) 
 									if boyfriendNote[i] and boyfriendNote[i]:getAnimName() == "on" then
-										if (notePos < 250) then
+										if (notePos < 150) then
 											local ratingAnim
 
 											notMissed[noteNum] = true
 
 											voices:setVolume(1)
 
-											if notePos <= 28 then -- "Sick Plus" Note: Just for a cooler looking rating. Does not give anything special
+											if notePos <= 20 then -- "Sick Plus" Note: Just for a cooler looking rating. Does not give anything special
                                                 score = score + 350
 												addJudgements("sickPlus")
                                                 altScore = altScore + 100.00
                                                 sicks = sicks + 1
                                                 hitSick = true
-                                            elseif notePos <= 78 then -- "Sick"
+                                            elseif notePos <= 50 then -- "Sick"
                                                 score = score + 350
 												addJudgements("sick")
                                                 altScore = altScore + 100.00
                                                 sicks = sicks + 1
                                                 hitSick = true
-                                            elseif notePos <= 98 then -- "Good"
+                                            elseif notePos <= 80 then -- "Good"
                                                 score = score + 200
 												addJudgements("good")
                                                 altScore = altScore + 66.66
