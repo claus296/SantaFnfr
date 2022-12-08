@@ -64,10 +64,10 @@ return {
     love.graphics.push()
         love.graphics.translate(cam.x, cam.y)
 
-        if not cutscene then
+        if not inCutscene then
             enemy:draw()
         end
-        if cutscene then
+        if inCutscene then
             if song ~= 3 then
                 if tankCutscene[1]:isAnimated() then
                     tankCutscene[1]:draw()
