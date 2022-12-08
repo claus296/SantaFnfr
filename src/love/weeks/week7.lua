@@ -242,7 +242,7 @@ return {
 
 		self:initUI()
 
-		if not cutscene then
+		if not inCutscene then
 			weeks:setupCountdown()
 		end
 	end,
