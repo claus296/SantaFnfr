@@ -26,7 +26,7 @@ return {
 		enemy = Character.pico(0, 0)
 
 		girlfriend.x, girlfriend.y = -200, -300
-		enemy.x, enemy.y = -60, -25
+		enemy.x, enemy.y = -800, -25
 		enemy.sizeX = -1 -- Reverse, reverse!
 		boyfriend.x, boyfriend.y = 200, 25
 		
@@ -57,6 +57,9 @@ return {
 			daGoofyColours = {
 				255, 255, 255, 1
 			}
+			boyfriend.color = {curColours[1]/255, curColours[2]/255, curColours[3]/255}
+			girlfriend.color = {curColours[1]/255, curColours[2]/255, curColours[3]/255}
+			enemy.color = {curColours[1]/255, curColours[2]/255, curColours[3]/255}
 		end
 
         if winAlpha > 0 then
@@ -89,13 +92,13 @@ return {
 			stageImages[4]:cdraw(daGoofyColours[1], daGoofyColours[2], daGoofyColours[3])
 			stageImages[5]:cdraw(daGoofyColours[1], daGoofyColours[2], daGoofyColours[3])
 
-			girlfriend:cdraw(curColours[1]/255, curColours[2]/255, curColours[3]/255)
+			girlfriend:draw()
 		love.graphics.pop()
 		love.graphics.push()
 			love.graphics.translate(cam.x, cam.y)
 
-			enemy:cdraw(curColours[1]/255, curColours[2]/255, curColours[3]/255)
-			boyfriend:cdraw(curColours[1]/255, curColours[2]/255, curColours[3]/255)
+			enemy:draw()
+			boyfriend:draw()
 		love.graphics.pop()
     end,
 
