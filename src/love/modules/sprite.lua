@@ -250,16 +250,16 @@ function Sprite:addAnimByIndices(name, prefix, indices, framerate, looped)
     self.__animations[name] = anim
 end
 
-function Sprite:animate(anim, force)
-    if not force and self.curAnim and self.curAnim.name == anim and
-        not self.animFinished then
-        self.animFinished = false
-        self.animPaused = false
-        return
-    end
+function Sprite:animate(anim, loop)
+    self.animFinished = false
+    self.animPaused = false
 
     self.curAnim = self.__animations[anim]
     self.curFrame = 1
+
+    if self.curAnim then
+        self.curAnim.looped = loop or false
+    end
     self.animFinished = false
     self.animPaused = false
 end
