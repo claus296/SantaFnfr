@@ -1443,8 +1443,8 @@ return {
 
 							if #boyfriendNote > 0 then
 								for i = 1, #boyfriendNote do
-									notePos = math.abs(boyfriendNote[i].y - musicTime) 
-									if boyfriendNote[i] and boyfriendNote[i]:getAnimName() == "on" then
+									notePos = math.abs(boyfriendNote[1].y - musicTime) 
+									if boyfriendNote[1] and boyfriendNote[1]:getAnimName() == "on" then
 										if (notePos < 150) then
 											local ratingAnim
 
@@ -1562,7 +1562,7 @@ return {
 
 												success = true
 											end
-											table.remove(boyfriendNote, i)
+											table.remove(boyfriendNote, 1)
 										else
 											break
 										end
