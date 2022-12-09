@@ -1442,130 +1442,128 @@ return {
 							modchartHandler:onKeyPressed(curInput)
 
 							if #boyfriendNote > 0 then
-								for i = 1, #boyfriendNote do
-									notePos = math.abs(boyfriendNote[1].y - musicTime) 
-									if boyfriendNote[1] and boyfriendNote[1]:getAnimName() == "on" then
-										if (notePos < 100) then
-											local ratingAnim
+								notePos = math.abs(boyfriendNote[1].y - musicTime) 
+								if boyfriendNote[1] and boyfriendNote[1]:getAnimName() == "on" then
+									if (notePos < 100) then
+										local ratingAnim
 
-											notMissed[noteNum] = true
+										notMissed[noteNum] = true
 
-											voices:setVolume(1)
+										voices:setVolume(1)
 
-											if notePos <= 15 then -- "Sick Plus" Note: Just for a cooler looking rating. Does not give anything special
-                                                score = score + 350
-												addJudgements("sickPlus")
-                                                altScore = altScore + 100.00
-                                                sicks = sicks + 1
-                                                hitSick = true
-                                            elseif notePos <= 35 then -- "Sick"
-                                                score = score + 350
-												addJudgements("sick")
-                                                altScore = altScore + 100.00
-                                                sicks = sicks + 1
-                                                hitSick = true
-                                            elseif notePos <= 50 then -- "Good"
-                                                score = score + 200
-												addJudgements("good")
-                                                altScore = altScore + 66.66
-                                                goods = goods + 1
-                                                hitSick = false
-                                            elseif notePos <= 80 then -- "Bad"
-                                                score = score + 100
-												addJudgements("bad")
-                                                altScore = altScore + 33.33
-                                                bads = bads + 1
-                                                hitSick = false
-                                            else -- "Shit"
-                                                if settings.ghostTapping then
-                                                    success = false
-                                                else
-                                                    score = score + 50
-                                                end
-                                                altScore = altScore + 1.11
-												addJudgements("shit")
-                                                shits = shits + 1
-                                                hitSick = false
-                                            end
+										if notePos <= 15 then -- "Sick Plus" Note: Just for a cooler looking rating. Does not give anything special
+                                            score = score + 350
+											addJudgements("sickPlus")
+                                            altScore = altScore + 100.00
+                                            sicks = sicks + 1
+                                            hitSick = true
+                                        elseif notePos <= 35 then -- "Sick"
+                                            score = score + 350
+											addJudgements("sick")
+                                            altScore = altScore + 100.00
+                                            sicks = sicks + 1
+                                            hitSick = true
+                                        elseif notePos <= 50 then -- "Good"
+                                            score = score + 200
+											addJudgements("good")
+                                            altScore = altScore + 66.66
+                                            goods = goods + 1
+                                            hitSick = false
+                                        elseif notePos <= 80 then -- "Bad"
+                                            score = score + 100
+											addJudgements("bad")
+                                            altScore = altScore + 33.33
+                                            bads = bads + 1
+                                            hitSick = false
+                                        else -- "Shit"
+                                            if settings.ghostTapping then
+                                                success = false
+                                            else
+                                                score = score + 50
+                                         	end
+                                            altScore = altScore + 1.11
+											addJudgements("shit")
+                                            shits = shits + 1
+                                            hitSick = false
+                                        end
 
-											combo = combo + 1
+										combo = combo + 1
 
-											--rating:animate(ratingAnim, false)
-											numbers[1]:animate(tostring(math.floor(combo / 100 % 10), false)) -- 100's
-											numbers[2]:animate(tostring(math.floor(combo / 10 % 10), false)) -- 10's
-											numbers[3]:animate(tostring(math.floor(combo % 10), false)) -- 1's
+										--rating:animate(ratingAnim, false)
+										numbers[1]:animate(tostring(math.floor(combo / 100 % 10), false)) -- 100's
+										numbers[2]:animate(tostring(math.floor(combo / 10 % 10), false)) -- 10's
+										numbers[3]:animate(tostring(math.floor(combo % 10), false)) -- 1's
 
-											for i = 3, 5 do
-												if ratingTimers[i] then Timer.cancel(ratingTimers[i]) end
-											end -- ratingTimer 1&2 is judgements
+										for i = 3, 5 do
+											if ratingTimers[i] then Timer.cancel(ratingTimers[i]) end
+										end -- ratingTimer 1&2 is judgements
 
-											ratingVisibility[1] = 1
-											judgements[#judgements].img.y = girlfriend.y - 50
-											for i = 1, 3 do
-												numbers[i].y = girlfriend.y + 50
-											end
-
-											--ratingTimers[1] = Timer.tween(2, ratingVisibility, {0})
-											Timer.tween(
-												1.1, 
-												judgements[#judgements], 
-												{
-													transparency = 0
-												},
-												"linear"
-											)
-											Timer.tween(
-												1.25, 
-												judgements[#judgements].img, 
-												{
-													y = girlfriend.y - 100
-												}, 
-												"out-expo"
-											)
-											--ratingTimers[2] = Timer.tween(2, rating, {y = girlfriend.y - 100}, "out-elastic")
-											if combo >= 100 then
-												ratingTimers[3] = Timer.tween(2, numbers[1], {y = girlfriend.y + love.math.random(-10, 10)}, "out-elastic") -- 100's
-											end
-											if combo >= 10 then
-												ratingTimers[4] = Timer.tween(2, numbers[2], {y = girlfriend.y + love.math.random(-10, 10)}, "out-elastic") -- 10's
-											end
-											ratingTimers[5] = Timer.tween(2, numbers[3], {y = girlfriend.y + love.math.random(-10, 10)}, "out-elastic") -- 1's
-
-											if combo < 10 then
-												numbers[3].x = girlfriend.x
-											elseif combo < 100 then
-												numbers[2].x = girlfriend.x - 25
-												numbers[3].x = girlfriend.x + 25
-											else
-												numbers[1].x = girlfriend.x - 50
-												numbers[2].x = girlfriend.x
-												numbers[3].x = girlfriend.x + 50
-											end
-											if not settings.ghostTapping or success then
-												boyfriendArrow:animate("confirm", false)
-
-												self:safeAnimate(boyfriend, curAnim, false, 3)
-												doingAnim = false
-
-												if not settings.noMiss then
-													if boyfriendNote[1]:getAnimName() ~= "hold" or boyfriendNote[1]:getAnimName() ~= "end" then
-														health = health + 1
-													end
-												else
-													health = 0
-												end
-
-												health = health + 1
-												if boyfriendNote[1]:getAnimName() ~= "hold" or boyfriendNote[1]:getAnimName() ~= "end" then
-													noteCounter = noteCounter + 1
-												end
-
-												success = true
-											end
-											table.remove(boyfriendNote, 1)
-										else
-											break
+										ratingVisibility[1] = 1
+										judgements[#judgements].img.y = girlfriend.y - 50
+										for i = 1, 3 do
+											numbers[i].y = girlfriend.y + 50
 										end
+
+										--ratingTimers[1] = Timer.tween(2, ratingVisibility, {0})
+										Timer.tween(
+											1.1, 
+											judgements[#judgements], 
+											{
+												transparency = 0
+											},
+											"linear"
+										)
+										Timer.tween(
+											1.25, 
+											judgements[#judgements].img, 
+											{
+												y = girlfriend.y - 100
+											}, 
+											"out-expo"
+										)
+										--ratingTimers[2] = Timer.tween(2, rating, {y = girlfriend.y - 100}, "out-elastic")
+										if combo >= 100 then
+											ratingTimers[3] = Timer.tween(2, numbers[1], {y = girlfriend.y + love.math.random(-10, 10)}, "out-elastic") -- 100's
+										end
+										if combo >= 10 then
+											ratingTimers[4] = Timer.tween(2, numbers[2], {y = girlfriend.y + love.math.random(-10, 10)}, "out-elastic") -- 10's
+										end
+										ratingTimers[5] = Timer.tween(2, numbers[3], {y = girlfriend.y + love.math.random(-10, 10)}, "out-elastic") -- 1's
+
+										if combo < 10 then
+										numbers[3].x = girlfriend.x
+										elseif combo < 100 then
+											numbers[2].x = girlfriend.x - 25
+											numbers[3].x = girlfriend.x + 25
+										else
+											numbers[1].x = girlfriend.x - 50
+											numbers[2].x = girlfriend.x
+										numbers[3].x = girlfriend.x + 50
+										end
+										if not settings.ghostTapping or success then
+											boyfriendArrow:animate("confirm", false)
+
+											self:safeAnimate(boyfriend, curAnim, false, 3)
+											doingAnim = false
+
+											if not settings.noMiss then
+												if boyfriendNote[1]:getAnimName() ~= "hold" or boyfriendNote[1]:getAnimName() ~= "end" then
+													health = health + 1
+												end
+											else
+												health = 0
+											end
+
+											health = health + 1
+											if boyfriendNote[1]:getAnimName() ~= "hold" or boyfriendNote[1]:getAnimName() ~= "end" then
+												noteCounter = noteCounter + 1
+											end
+
+											success = true
+										end
+										table.remove(boyfriendNote, 1)
+									else
+										break
 									end
 								end
 							end
