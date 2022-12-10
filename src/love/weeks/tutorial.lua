@@ -39,6 +39,14 @@ return {
 		stageFront = graphics.newImage(love.graphics.newImage(graphics.imagePath("week1/stage-front")))
 		curtains = graphics.newImage(love.graphics.newImage(graphics.imagePath("week1/curtains")))
 
+		-- set our moonshine effect
+		effect = moonshine(moonshine.effects.filmgrain)
+                    .chain(moonshine.effects.vignette)
+					.chain(moonshine.effects.crt)
+					.chain(moonshine.effects.scanlines)
+  		effect.filmgrain.size = 2
+		
+
 		stageFront.y = 400
 		curtains.y = -100
 
@@ -58,7 +66,7 @@ return {
 		zoom[1] = 1
 
 		inst = nil
-		voices = love.audio.newSource("songs/tutorial/inst.ogg", "stream")
+		voices = waveAudio:newSource("songs/tutorial/inst.ogg", "stream")
 
 		self:initUI()
 
@@ -233,7 +241,7 @@ return {
 			weeks:safeAnimate(boyfriend, "hey", false, 3)
 		end
 
-		if not (countingDown or graphics.isFading()) and not voices:getDuration() > musicTime/1000 and not paused then
+		if not (countingDown or graphics.isFading()) and not (voices:getDuration() > musicTime/1000) and not paused then
 			if score > highscores[weekNum-1][difficulty].scores[song] then
 				highscores[weekNum-1][difficulty].scores[song] = score
 				saveHighscores()
@@ -260,35 +268,37 @@ return {
 	end,
 
 	draw = function(self)
-		love.graphics.push()
-			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
-			love.graphics.scale(extraCamZoom.sizeX, extraCamZoom.sizeY)
-			love.graphics.scale(cam.sizeX * zoom[1], cam.sizeY * zoom[1])
-
+		effect(function()
 			love.graphics.push()
-				love.graphics.translate(cam.x * 0.9, cam.y * 0.9)
+				love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
+				love.graphics.scale(extraCamZoom.sizeX, extraCamZoom.sizeY)
+				love.graphics.scale(cam.sizeX * zoom[1], cam.sizeY * zoom[1])
 
-				stageBack:draw()
-				stageFront:draw()
-				girlfriend:draw()
-			love.graphics.pop()
-			love.graphics.push()
-				love.graphics.translate(cam.x, cam.y)
+				love.graphics.push()
+					love.graphics.translate(cam.x * 0.9, cam.y * 0.9)
 
-				boyfriend:draw()
-			love.graphics.pop()
-			love.graphics.push()
-				love.graphics.translate(cam.x * 1.1, cam.y * 1.1)
+					stageBack:draw()
+					stageFront:draw()
+					girlfriend:draw()
+				love.graphics.pop()
+				love.graphics.push()
+					love.graphics.translate(cam.x, cam.y)
 
-				curtains:draw()
+					boyfriend:draw()
+				love.graphics.pop()
+				love.graphics.push()
+					love.graphics.translate(cam.x * 1.1, cam.y * 1.1)
+
+					curtains:draw()
+				love.graphics.pop()
+				weeks:drawRating(0.9)
 			love.graphics.pop()
-			weeks:drawRating(0.9)
-		love.graphics.pop()
-		weeks:drawTimeLeftBar()
-		weeks:drawHealthBar()
-		if not paused then
-			weeks:drawUI()
-		end
+			weeks:drawTimeLeftBar()
+			weeks:drawHealthBar()
+			if not paused then
+				weeks:drawUI()
+			end
+		end)
 	end,
 
 	leave = function(self)

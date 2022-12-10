@@ -516,10 +516,12 @@ return {
 				modchartHandler:onBeat(inst:getBeat())
 			end)
 		end
-		voices:parse()
-		voices:setBPM(bpm)
-		voices:setIntensity(20)
-		voices:onBeat(function() end)
+		if voices then
+			voices:parse()
+			voices:setBPM(bpm)
+			voices:setIntensity(20)
+			voices:onBeat(function() end)
+		end
 
 		if settings.customScrollSpeed == 1 then
 			speed = chart["speed"] or 1
