@@ -57,10 +57,11 @@ return {
 			daGoofyColours = {
 				255, 255, 255, 1
 			}
-			boyfriend.color = {curColours[1]/255, curColours[2]/255, curColours[3]/255}
-			girlfriend.color = {curColours[1]/255, curColours[2]/255, curColours[3]/255}
-			enemy.color = {curColours[1]/255, curColours[2]/255, curColours[3]/255}
 		end
+
+		boyfriend.color = {curColours[1]/255, curColours[2]/255, curColours[3]/255}
+		girlfriend.color = {curColours[1]/255, curColours[2]/255, curColours[3]/255}
+		-enemy.color = {curColours[1]/255, curColours[2]/255, curColours[3]/255}
 
         if winAlpha > 0 then
             winAlpha = winAlpha - ((bpm/260) * dt)
