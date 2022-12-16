@@ -586,7 +586,7 @@ return {
 							if sectionNotes[j][3] > 0 then
 								local c
 
-								for k = 71 / speed, sectionNotes[j][3], 71 / speed do
+								for k = 71 / speed, sectionNotes[j][3], 71 / speed * 1.7 do
 									local c = #enemyNotes[id] + 1
 
 									table.insert(enemyNotes[id], sprite())
@@ -619,7 +619,7 @@ return {
 							if sectionNotes[j][3] > 0 then
 								local c
 
-								for k = 71 / speed, sectionNotes[j][3], 71 / speed do
+								for k = 71 / speed, sectionNotes[j][3], 71 / speed * 1.7 do
 									local c = #boyfriendNotes[id] + 1
 
 									table.insert(boyfriendNotes[id], sprite())
@@ -654,7 +654,7 @@ return {
 							if sectionNotes[j][3] > 0 then
 								local c
 
-								for k = 71 / speed, sectionNotes[j][3], 71 / speed do
+								for k = 71 / speed, sectionNotes[j][3], 71 / speed * 1.7 do
 									local c = #boyfriendNotes[id] + 1
 
 									table.insert(boyfriendNotes[id], sprite())
@@ -687,7 +687,7 @@ return {
 							if sectionNotes[j][3] > 0 then
 								local c
 
-								for k = 71 / speed, sectionNotes[j][3], 71 / speed do
+								for k = 71 / speed, sectionNotes[j][3], 71 / speed * 1.7 do
 									local c = #enemyNotes[id] + 1
 
 									table.insert(enemyNotes[id], sprite())
@@ -731,7 +731,7 @@ return {
 							if sectionNotes[j][3] > 0 then
 								local c
 	
-								for k = 56 / speed, sectionNotes[j][3], 56 / speed do
+								for k = 56 / speed, sectionNotes[j][3], 56 / speed * 1.7 do
 									local c = #enemyNotes[id] + 1
 		
 									table.insert(enemyNotes[id], sprite())
@@ -739,11 +739,6 @@ return {
 									enemyNotes[id][c].y = (noteTime + k)
 		
 									enemyNotes[id][c]:animate("hold", false)
-									if settings.downscroll then
-										enemyNotes[id][c].sizeY = -8
-									else
-										enemyNotes[id][c].sizeY = 8
-									end
 								end
 		
 								c = #enemyNotes[id]
@@ -772,7 +767,7 @@ return {
 							if sectionNotes[j][3] > 0 then
 								local c
 		
-								for k = 56 / speed, sectionNotes[j][3], 56 / speed do
+								for k = 56 / speed, sectionNotes[j][3], 56 / speed * 1.7 do
 									local c = #boyfriendNotes[id] + 1
 		
 									table.insert(boyfriendNotes[id], sprite())
@@ -780,11 +775,6 @@ return {
 									boyfriendNotes[id][c].y = (noteTime + k)
 		
 									boyfriendNotes[id][c]:animate("hold", false)
-									if settings.downscroll then
-										boyfriendNotes[id][c].sizeY = -8
-									else
-										boyfriendNotes[id][c].sizeY = 8
-									end
 								end
 		
 								c = #boyfriendNotes[id]
@@ -813,7 +803,7 @@ return {
 							if sectionNotes[j][3] > 0 then
 								local c
 
-								for k = 56 / speed, sectionNotes[j][3], 56 / speed do
+								for k = 56 / speed, sectionNotes[j][3], 56 / speed * 1.7 do
 									local c = #boyfriendNotes[id] + 1
 		
 									table.insert(boyfriendNotes[id], sprite())
@@ -821,11 +811,6 @@ return {
 									boyfriendNotes[id][c].y = (noteTime + k)
 		
 									boyfriendNotes[id][c]:animate("hold", false)
-									if settings.downscroll then
-										boyfriendNotes[id][c].sizeY = -8
-									else
-										boyfriendNotes[id][c].sizeY = 8
-									end
 								end
 		
 								c = #boyfriendNotes[id]
@@ -854,7 +839,7 @@ return {
 							if sectionNotes[j][3] > 0 then
 								local c
 		
-								for k = 56 / speed, sectionNotes[j][3], 56 / speed do
+								for k = 56 / speed, sectionNotes[j][3], 56 / speed * 1.7 do
 									local c = #enemyNotes[id] + 1
 		
 									table.insert(enemyNotes[id], sprite())
@@ -867,11 +852,6 @@ return {
 										enemyNotes[id][c].sizeY = 8
 									else
 										enemyNotes[id][c]:animate("hold", false)
-										if settings.downscroll then
-											enemyNotes[id][c].sizeY = -8
-										else
-											enemyNotes[id][c].sizeY = 8
-										end
 									end
 								end
 		
@@ -1354,9 +1334,9 @@ return {
 
 							if enemyNote[1]:getAnimName() == "hold" or enemyNote[1]:getAnimName() == "end" then
 								if useAltAnims then
-									if (not enemy:isAnimated()) or enemy:getAnimName() == "idle" then self:safeAnimate(enemy, curAnim .. " alt", true, 2) end
+									self:safeAnimate(enemy, curAnim .. " alt", true, 2)
 								else
-									if (not enemy:isAnimated()) or enemy:getAnimName() == "idle" then self:safeAnimate(enemy, curAnim, true, 2) end
+									self:safeAnimate(enemy, curAnim, true, 2) 
 								end
 							else
 								if useAltAnims then
@@ -1605,7 +1585,7 @@ return {
 
 							boyfriendArrow:animate("confirm", false)
 
-							if (not boyfriend:isAnimated()) or boyfriend:getAnimName() == "idle" then self:safeAnimate(boyfriend, curAnim, true, 3) end
+							self:safeAnimate(boyfriend, curAnim, true, 3)
 
 							--health = health + 1
 						end
@@ -1621,7 +1601,7 @@ return {
 							boyfriendArrow:animate("confirm", false)
 
 							if boyfriendNote[1]:getAnimName() == "hold" or boyfriendNote[1]:getAnimName() == "end" then
-								if (not boyfriend:isAnimated()) or boyfriend:getAnimName() == "idle" then self:safeAnimate(boyfriend, curAnim, true, 2) end
+								self:safeAnimate(boyfriend, curAnim, true, 2)
 							else
 								self:safeAnimate(boyfriend, curAnim, false, 2)
 								score = score + 350
@@ -1969,9 +1949,17 @@ return {
 								graphics.setColor(1, 1, 1, 0.5)
 							end
 							if pixel then
-								enemyNotes[i][j]:udraw(8, enemyNotes[i][j].sizeY, 0, -400 + enemyNotes[i][j].y * 0.6 * speed)
+								if enemyNotes[i][j]:getAnimName() == "hold" then
+									enemyNotes[i][j]:udraw(8, enemyNotes[i][j].sizeY * 1.7, 0, -400 + enemyNotes[i][j].y * 0.6 * speed)
+								else
+									enemyNotes[i][j]:udraw(8, enemyNotes[i][j].sizeY, 0, -400 + enemyNotes[i][j].y * 0.6 * speed)
+								end
 							else
-								enemyNotes[i][j]:udraw(1, enemyNotes[i][j].sizeY, 0, -400 + enemyNotes[i][j].y * 0.6 * speed)
+								if enemyNotes[i][j]:getAnimName() == "hold" then
+									enemyNotes[i][j]:udraw(1, enemyNotes[i][j].sizeY * 1.7, 0, -400 + enemyNotes[i][j].y * 0.6 * speed)
+								else
+									enemyNotes[i][j]:udraw(1, enemyNotes[i][j].sizeY, 0, -400 + enemyNotes[i][j].y * 0.6 * speed)
+								end
 							end
 							graphics.setColor(1, 1, 1)
 						end
@@ -1986,9 +1974,17 @@ return {
 								graphics.setColor(1, 1, 1, math.min(1, (500 + ((-400 + boyfriendNotes[i][j].y * 0.6 * speed) - musicPos)) / 75))
 							end
 							if pixel then
-								boyfriendNotes[i][j]:udraw(8, boyfriendNotes[i][j].sizeY, 0, -400 + boyfriendNotes[i][j].y * 0.6 * speed)
+								if boyfriendNotes[i][j]:getAnimName() == "hold" then
+									boyfriendNotes[i][j]:udraw(8, boyfriendNotes[i][j].sizeY * 1.7, 0, -400 + boyfriendNotes[i][j].y * 0.6 * speed)
+								else
+									boyfriendNotes[i][j]:udraw(8, boyfriendNotes[i][j].sizeY, 0, -400 + boyfriendNotes[i][j].y * 0.6 * speed)
+								end
 							else
-								boyfriendNotes[i][j]:udraw(1, boyfriendNotes[i][j].sizeY, 0, -400 + boyfriendNotes[i][j].y * 0.6 * speed)
+								if boyfriendNotes[i][j]:getAnimName() == "hold" then
+									boyfriendNotes[i][j]:udraw(1, boyfriendNotes[i][j].sizeY * 1.7, 0, -400 + boyfriendNotes[i][j].y * 0.6 * speed)
+								else
+									boyfriendNotes[i][j]:udraw(1, boyfriendNotes[i][j].sizeY, 0, -400 + boyfriendNotes[i][j].y * 0.6 * speed)
+								end
 							end
 						end
 					end
