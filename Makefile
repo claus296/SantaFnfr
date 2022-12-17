@@ -35,7 +35,7 @@ lovefile:
 	@rm -f build/release/vanilla-engine-lovefile.zip
 	@cd build/lovefile; zip -9 -r ../release/vanilla-engine-lovefile.zip .
 
-win64:
+win64: lovefile
 	@rm -rf build/win64
 	@mkdir -p build/win64
 
@@ -91,7 +91,7 @@ switch:
 	@rm -rf build/switch
 	@mkdir -p build/switch/switch/vanilla-engine
 
-	@nacptool --create "Friday Night Funkin' Vanilla Engine" "Guglio & Clothing Hanger" "$(shell cat src/love/version.txt)" build/switch/vanilla-engine.nacp
+	@nacptool --create "Friday Night Funkin' Vanilla Engine" "Vanilla Engine Devs" "$(shell cat src/love/version.txt)" build/switch/vanilla-engine.nacp
 
 	@mkdir build/switch/romfs
 	@cp build/lovefile/vanilla-engine.love build/switch/romfs/game.love

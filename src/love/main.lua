@@ -17,6 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
 __VERSION__ = love.filesystem.read("version.txt") or "UNKNOWN"
+__GIT_VERSION__ = love.filesystem.read("git-version.txt") or "UNKNOWN" 
 love.graphics.color = {
 	print = function(text,x,y,r,sx,sy,R,G,B,A,ox,oy,kx,ky)
 		graphics.setColorF(R or 255,G or 255,B or 255,A or 1)
@@ -476,6 +477,7 @@ function love.update(dt)
 	end
 
 	Timer.update(dt)
+
 end
 
 function love.draw()
