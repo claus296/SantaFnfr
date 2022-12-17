@@ -1,0 +1,4 @@
+name: Update git-version.txt everytime there is a push
+jobs:
+  runScript:
+    run : python .github/workflows/updateGitVer.py
