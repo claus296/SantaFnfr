@@ -1,6 +1,6 @@
-name: Update git-version.txt everytime there is a push
-jobs:
-  runGitUpdater:
-    steps:
-      - name: UpdateGitVer
-        run: python .github/workflows/updateGitVer.py
+#name: Update git-version.txt everytime there is a push
+#jobs:
+#  runGitUpdater:
+#    steps:
+#      - name: UpdateGitVer
+#        run: python .github/workflows/updateGitVer.py
