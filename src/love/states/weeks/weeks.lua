@@ -2135,10 +2135,10 @@ return {
 				love.graphics.rectangle("line", 131, 631, 30, 30) -- up
 				love.graphics.rectangle("line", 162, 631, 30, 30) -- right
 
-				love.graphics.color.printf(customBindLeft, 74, 626, 20, "left", nil, 1.5, 1.5, 255, 255, 255)  -- left
-				love.graphics.color.printf(customBindDown, 105, 626, 20, "left", nil, 1.5, 1.5, 255, 255, 255)  -- down
-				love.graphics.color.printf(customBindUp, 136, 626, 20, "left", nil, 1.5, 1.5, 255, 255, 255)  -- up
-				love.graphics.color.printf(customBindRight, 167, 626, 20, "left", nil, 1.5, 1.5, 255, 255, 255)  -- right
+				love.graphics.printf(customBindLeft, 74, 626, 20, "left", nil, 1.5, 1.5)  -- left
+				love.graphics.printf(customBindDown, 105, 626, 20, "left", nil, 1.5, 1.5)  -- down
+				love.graphics.printf(customBindUp, 136, 626, 20, "left", nil, 1.5, 1.5)  -- up
+				love.graphics.printf(customBindRight, 167, 626, 20, "left", nil, 1.5, 1.5)  -- right
 
 				graphics.setColor(1, 1, 1)
 			love.graphics.pop()

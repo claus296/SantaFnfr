@@ -18,18 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
 __VERSION__ = love.filesystem.read("version.txt") or "UNKNOWN"
 __GIT_VERSION__ = love.filesystem.read("git-version.txt") or "UNKNOWN" 
-love.graphics.color = {
-	print = function(text,x,y,r,sx,sy,R,G,B,A,ox,oy,kx,ky)
-		graphics.setColorF(R or 255,G or 255,B or 255,A or 1)
-		love.graphics.print(text or "",x or 0,y or 0,r or 0,sx or 1,sy or 1,a or 0,ox or 0,oy or 0,kx or 0,ky or 0)
-		love.graphics.setColorF(255,255,255,1)
-	end,
-	printf = function(text,x,y,limit,align,r,sx,sy,R,G,B,A,ox,oy,kx,ky)
-		graphics.setColorF(R or 255,G or 255,B or 255,A or 1)
-		love.graphics.printf(text or "",x or 0,y or 0,limit or 0,align or 0,r or 0,sx or 1,sy or 1,ox or 0,oy or 0,kx or 0,ky or 0)
-		love.graphics.setColorF(255,255,255,1)
-	end
-}
+
 function uitextf(text,x,y,limit,align,r,sx,sy,ox,oy,kx,ky,alpha)
 	local x = x or 0
 	local y = y or 0

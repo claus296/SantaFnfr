@@ -25,20 +25,6 @@ object:cudraw(R,G,B,A)
 Same as `object:cdraw(R,G,B,A)` but also for upscaling assets
 
 ```lua
-love.graphics.color.print("text",x,y,r,sx,sy,R,G,B,A,ox,oy,kx,ky)
-```
-> Alpha channel does not use 255 values
-
-This is for automatically recolouring text. Works exactly like love.graphics.print(). RGBA values come after sx and sy (sizeX and sizeY)
-
-```lua
-love.graphics.color.printf("text",x,y,limit,align,r,sx,sy,R,G,B,A,ox,oy,kx,ky)
-```
-> Alpha channel does not use 255 values
-
-This is for automatically recolouring text. Works exactly like love.graphics.printf(). RGBA values come after sx and sy (sizeX and sizeY)
-
-```lua
 love.graphics.setColorF(R,G,B,A)
 ```
 > Alpha channel does not use 255 values
