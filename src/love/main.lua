@@ -99,14 +99,12 @@ function love.load()
 
 	-- Load libraries
 	baton = require "lib.baton"
-	--ini = require "lib.ini"
 	lovesize = require "lib.lovesize"
 	Gamestate = require "lib.gamestate"
 	Timer = require "lib.timer"
 	lume = require "lib.lume"
 	gamejolt = require "lib.gamejolt"
 	json = require "lib.json"
-	xml = require "lib.xml"
 	Object = require "lib.classic"
 	waveAudio = require "lib.wave"
 	moonshine = require "lib.moonshine"
