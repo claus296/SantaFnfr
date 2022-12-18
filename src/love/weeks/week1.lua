@@ -77,6 +77,7 @@ return {
 
 		if song == 1 and musicThres ~= oldMusicThres and math.fmod(absMusicTime + 500, 480000 / bpm) < 100 then
 			weeks:safeAnimate(girlfriend, "cheer", false, 1)
+			weeks:changeNoteTransparency()
 		end
 
 		if health >= 80 then

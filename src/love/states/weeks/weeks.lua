@@ -120,6 +120,10 @@ ratingTimers = {}
 local useAltAnims1
 local notMissed = {}
 local judgements = {}
+local noteTransTweenReceptors = {enemy = {}, boyfriend = {}}
+local noteTransTweenNotes = {enemy = {}, boyfriend = {}}
+local noteTransparencyReceptors = {enemy = {}, boyfriend = {}}
+local noteTransparencyNotes = {enemy = {}, boyfriend = {}}
 
 function tweenPauseButtons()
 
@@ -347,6 +351,14 @@ return {
 		bads = 0
 		shits = 0
 		hitCounter = 0
+
+		for i = 1, 4 do 
+			noteTransparencyNotes.enemy[i] = 1
+			noteTransparencyNotes.boyfriend[i] = 1
+		
+			noteTransparencyReceptors.enemy[i] = 1
+			noteTransparencyReceptors.boyfriend[i] = 1
+		end
 
 		local curInput = inputList[i]
 
@@ -1709,6 +1721,63 @@ return {
 		end
 	end,
 
+	changeNoteTransparency = function(self, time, transparency, lane, who, withNotes, func)
+		print("CPCCC")
+		-- if lane is -1, do all lanes
+		-- if withNotes is true, make the notes change transparency with it
+		time = time or (60/bpm)
+		transparency = transparency or 0
+		withNotes = withNotes or false
+		lane = lane or -1
+		func = func or function() end
+		who = who or "enemy"
+		if who == "boyfriend" then
+			if lane == -1 then 
+				for i = 1, 4 do 
+					if noteTransTweenReceptors[i] then 
+						Timer.cancel(noteTransTweenReceptors[i])
+					end
+					if noteTransTweenNotes[i] then 
+						Timer.cancel(noteTransTweenNotes[i])
+					end
+					noteTransTweenReceptors[i] = Timer.tween(time, noteTransparencyReceptors.boyfriend, {[i] = transparency}, "out-quad", func)
+					if withNotes then noteTransTweenNotes[i] = Timer.tween(time, noteTransparencyNotes.boyfriend, {[i] = transparency}, "out-quad") end 
+				end
+			else
+				if noteTransTweenReceptors[1] then 
+					Timer.cancel(noteTransTweenReceptors[1])
+				end
+				if noteTransTweenNotes[1] then 
+					Timer.cancel(noteTransTweenNotes[1])
+				end
+				noteTransTweenNotes[lane] = Timer.tween(time, noteTransparencyReceptors.boyfriend, {[lane] = transparency}, "out-quad", func)
+				if withNotes then noteTransTweenNotes[lane] = Timer.tween(time, noteTransparencyNotes.boyfriend, {[lane] = transparency}, "out-quad") end 
+			end
+		else
+			if lane == -1 then 
+				for i = 1, 4 do 
+					if noteTransTweenReceptors[i] then 
+						Timer.cancel(noteTransTweenReceptors[i])
+					end
+					if noteTransTweenNotes[i] then 
+						Timer.cancel(noteTransTweenNotes[i])
+					end
+					noteTransTweenReceptors[i] = Timer.tween(time, noteTransparencyReceptors.enemy, {[i] = transparency}, "out-quad", func)
+					if withNotes then noteTransTweenNotes[i] = Timer.tween(time, noteTransparencyNotes.enemy, {[i] = transparency}, "out-quad") end 
+				end
+			else
+				if noteTransTweenReceptors[1] then 
+					Timer.cancel(noteTransTweenReceptors[1])
+				end
+				if noteTransTweenNotes[1] then 
+					Timer.cancel(noteTransTweenNotes[1])
+				end
+				noteTransTweenNotes[lane] = Timer.tween(time, noteTransparencyReceptors.enemy, {[lane] = transparency}, "out-quad", func)
+				if withNotes then noteTransTweenNotes[lane] = Timer.tween(time, noteTransparencyNotes.enemy, {[lane] = transparency}, "out-quad") end 
+			end
+		end
+	end,
+
 	zoomCamera = function(self, time, sizeX, sizeY, easeType, direct)
 		if extraCamZoom then
 			Timer.cancel(extraCamZoom)
@@ -1795,19 +1864,15 @@ return {
 
 			for i = 1, 4 do
 				if enemyArrows[i]:getAnimName() == "off" then
-					graphics.setColor(0.6, 0.6, 0.6)
+					graphics.setColor(0.6, 0.6, 0.6,noteTransparencyNotes.enemy[i])
 				end
 				if settings.middleScroll then
-					if paused then 
-						graphics.setColor(0.6,0.6,0.6,0.3)
-					else
-						graphics.setColor(0.6,0.6,0.6,0.3)
-					end
+					graphics.setColor(0.6,0.6,0.6,(noteTransparencyNotes.enemy[i]-0.7))
 				else
 					if paused then 
-						graphics.setColor(0.6,0.6,0.6,0.3)
+						graphics.setColor(0.6,0.6,0.6,(noteTransparencyNotes.enemy[i]-0.7))
 					else
-						graphics.setColor(1,1,1)
+						graphics.setColor(1,1,1,noteTransparencyNotes.enemy[i] )
 					end
 				end
 
@@ -1828,9 +1893,10 @@ return {
 					
 				end
 				if paused then 
-					graphics.setColor(0.6,0.6,0.6,0.3)
+					graphics.setColor(0.6,0.6,0.6,(noteTransparencyNotes.boyfriend[i]-0.7))
 				else
-					graphics.setColor(1, 1, 1, 1)
+					graphics.setColor(1, 1, 1, (noteTransparencyNotes.boyfriend[i]))
+					print(noteTransparencyNotes.boyfriend[i])
 				end
 				if not paused then
 					if not pixel then

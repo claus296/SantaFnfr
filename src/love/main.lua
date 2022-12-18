@@ -18,7 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
 __VERSION__ = love.filesystem.read("version.txt") or "UNKNOWN"
 __GIT_VERSION__ = love.filesystem.read("git-version.txt") or "UNKNOWN" 
-
+if love.filesystem.isFused() then function print() end end -- print functions tend the make the game lag when in update functions, so we do this just in
 function uitextf(text,x,y,limit,align,r,sx,sy,ox,oy,kx,ky,alpha)
 	local x = x or 0
 	local y = y or 0
