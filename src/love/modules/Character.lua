@@ -624,7 +624,7 @@ end
 function character.luigi(x, y)
     local char = sprite(x or 0, y or 0)
     char:setFrames(paths.getSparrowFrames("luigi"))
-    char:addByPrefix("idle", "luigi idle", 24, false)
+    char:addAnimByPrefix("idle", "luigi idle", 24, false)
 
     char:addOffset("idle")
 

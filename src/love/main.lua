@@ -442,7 +442,8 @@ function love.update(dt)
 		music[1]:setVolume(music.vol)
 	end
 
-	input:update()
+	input:update(dt)
+
 
 	if status.getNoResize() then
 		Gamestate.update(dt)

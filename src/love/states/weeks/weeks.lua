@@ -124,6 +124,7 @@ local noteTransTweenReceptors = {enemy = {}, boyfriend = {}}
 local noteTransTweenNotes = {enemy = {}, boyfriend = {}}
 local noteTransparencyReceptors = {enemy = {}, boyfriend = {}}
 local noteTransparencyNotes = {enemy = {}, boyfriend = {}}
+local textUIScale = {x = 1, y = 1}
 
 function tweenPauseButtons()
 
@@ -351,6 +352,7 @@ return {
 		bads = 0
 		shits = 0
 		hitCounter = 0
+		textUIScale = {x = 1, y = 1}
 
 		for i = 1, 4 do 
 			noteTransparencyNotes.enemy[i] = 1
