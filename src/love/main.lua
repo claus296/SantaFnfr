@@ -99,6 +99,9 @@ function love.load()
 
 	-- Load libraries
 	baton = require "lib.baton"
+	if love.system.getOS() == "Android" or love.system.getOS() == "iOS" then
+		paddy = require "lib.paddy"
+	end  
 	lovesize = require "lib.lovesize"
 	Gamestate = require "lib.gamestate"
 	Timer = require "lib.timer"
@@ -442,6 +445,33 @@ function love.update(dt)
 		music[1]:setVolume(music.vol)
 	end
 
+	if paddy then 
+		if paddy.dpad.isDown("gameLeft") then 
+			--love.keypressed("left")
+			input:setPressed("gameLeft")
+			input:setDown("left")
+		end
+		if paddy.dpad.isDown("gameDown") then 
+			--love.keypressed("down")
+			input:setPressed("gameDown")
+			input:setDown("down")
+		end
+		if paddy.dpad.isDown("gameUp") then 
+			--love.keypressed("up")
+			input:setPressed("gameUp")
+			input:setDown("up")
+		end
+		if paddy.dpad.isDown("gameRight") then 
+			--love.keypressed("right")
+			input:setPressed("gameRight")
+			input:setDown("right")
+		end
+		if paddy.dpad.isDown("enter") then 
+			--love.keypressed("return") 
+			input:setDown("confirm")
+		end
+		paddy.update(dt)
+	end
 	input:update(dt)
 
 
@@ -476,6 +506,7 @@ function love.draw()
 		graphics.setColor(1, 1, 1) -- Fade effect on
 		
 		Gamestate.draw()
+		if paddy then paddy.draw() end
 		love.graphics.setColor(1, 1, 1) -- Fade effect off
 		
 		love.graphics.setFont(font)
