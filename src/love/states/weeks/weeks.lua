@@ -1414,6 +1414,7 @@ return {
 						end
 
 						if input:pressed(curInput) then
+							boyfriendArrow:animate("press", false)
 							if settings.Hitsounds then
 								if sounds.Hitsounds[#sounds.Hitsounds]:isPlaying() then
 									sounds.Hitsounds[#sounds.Hitsounds] = sounds.Hitsounds[#sounds.Hitsounds]:clone()
@@ -1434,7 +1435,6 @@ return {
 								hitSick = false
 							end
 
-							boyfriendArrow:animate("press", false)
 							modchartHandler:onKeyPressed(curInput)
 
 							if #boyfriendNote > 0 then
