@@ -1438,9 +1438,9 @@ return {
 							modchartHandler:onKeyPressed(curInput)
 
 							if #boyfriendNote > 0 then
-								notePos = math.abs(boyfriendNote[1].y - musicTime) 
 								if boyfriendNote[1] and boyfriendNote[1]:getAnimName() == "on" then
-									if (notePos < 100) then
+									if (math.abs(boyfriendNote[1].y - musicTime) < 100) then
+										notePos = math.abs(boyfriendNote[1].y - musicTime)
 										local ratingAnim
 
 										notMissed[noteNum] = true
@@ -1559,7 +1559,9 @@ return {
 										end
 										table.remove(boyfriendNote, 1)
 									else
-										break
+										if not settings.ghostTapping then
+											success = false
+										end
 									end
 								end
 							end
