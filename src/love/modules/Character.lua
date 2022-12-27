@@ -441,6 +441,7 @@ function character.monsterchristmas(x, y)
 end
 
 function character.senpai(x, y) -- fix offsets later
+    love.graphics.setDefaultFilter("nearest")
     curEnemy = "senpai"
     local char = sprite(x or 0, y or 0)
     char:setFrames(paths.getSparrowFrames("week6/senpai"))
@@ -466,6 +467,7 @@ function character.senpai(x, y) -- fix offsets later
 end
 
 function character.senpaiangry(x, y) -- fix offsets later
+    love.graphics.setDefaultFilter("nearest")
     curEnemy = "senpaiangry"
     local char = sprite(x or 0, y or 0)
     char:setFrames(paths.getSparrowFrames("week6/senpai"))
@@ -491,6 +493,7 @@ function character.senpaiangry(x, y) -- fix offsets later
 end
 
 function character.boyfriendpixel(x, y)
+    love.graphics.setDefaultFilter("nearest")
     curPlayer = "boyfriendpixel"
     local char = sprite(x or 0, y or 0)
     char:setFrames(paths.getSparrowFrames("pixel/bfPixel"))
@@ -522,11 +525,12 @@ function character.boyfriendpixel(x, y)
     char:animate("idle", false)
 
     char.colours = {123,214,246}
-
     return char
+    
 end
 
 function character.girlfriendpixel(x, y)
+    love.graphics.setDefaultFilter("nearest")
     local char = sprite(x or 0, y or 0)
     char:setFrames(paths.getSparrowFrames("pixel/gfPixel"))
     char:addAnimByPrefix("idle", "GF IDLE", 24, false)

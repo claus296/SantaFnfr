@@ -24,6 +24,7 @@ local spiritPortait, angrySenpaiBox, scaryDialogueBox
 
 return {
 	enter = function(self, from, songNum, songAppend)
+		love.graphics.setDefaultFilter("nearest")
 		pauseColor = {225, 106, 169}
 		cam.sizeX, cam.sizeY = 0.78, 0.78
 		camScale.x, camScale.y = 0.78, 0.78
@@ -63,6 +64,9 @@ return {
 				dialogueMusic:setLooping(true)
 				dialogueMusic:play()
 			end
+		else
+			cutscene = false
+			doingDialogue = false
 		end
 
 		if song ~= 3 then
@@ -173,6 +177,11 @@ return {
 		else
 			weeks:generateNotes("songs/week6/senpai/" .. difficulty .. ".json")
 		end
+
+		for i = 1, 4 do 
+			notesPos.boyfriend[i].x = 300
+			notesPos.boyfriend[i].y = 300
+		end
 	end,
 
 	update = function(self, dt)
@@ -204,6 +213,7 @@ return {
 					dialogueMusic:stop()
 				end
 				doingDialogue = false
+				cutscene = false
 				weeks:setupCountdown()
 			end
 		end

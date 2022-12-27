@@ -472,8 +472,8 @@ function love.update(dt)
 		end
 		paddy.update(dt)
 	end
+	
 	input:update(dt)
-
 
 	if status.getNoResize() then
 		Gamestate.update(dt)
@@ -495,7 +495,6 @@ function love.update(dt)
 	end
 
 	Timer.update(dt)
-
 end
 
 function love.draw()

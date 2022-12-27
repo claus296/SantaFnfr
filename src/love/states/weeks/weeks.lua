@@ -39,6 +39,8 @@ blammedColours = {
 curColours = {
 	255, 255, 255, 1
 }
+local notePosTweenEnemy = {}
+local notePosTweenReceptors = {}
 
 local eventFuncs = {
 	["Add Camera Zoom"] = function(size, sizeHud)
@@ -140,6 +142,7 @@ return {
 		if isPixel ~= "pixel" then
 			love.graphics.setDefaultFilter("linear")
 		else
+			love.graphics.setDefaultFilter("nearest")
 			pixel = true
 		end
 		totalScore = 0
@@ -207,7 +210,7 @@ return {
 			}
 		end
 
-		if isPixel ~= "pixel" then
+		if not pixel then
 			if love.math.random(1,1000) == 500 then
 				girlfriend = Character.luigi(0,0, false)
 			else
@@ -311,6 +314,21 @@ return {
 		useAltAnims = false
 
 		cam.x, cam.y = -boyfriend.x - 75, -boyfriend.y - 25
+
+		notesPos = {
+			enemy = {
+				{x=0, y=0},
+				{x=0, y=0},
+				{x=0, y=0},
+				{x=0, y=0}
+			},
+			boyfriend = {
+				{x=0, y=0},
+				{x=0, y=0},
+				{x=0, y=0},
+				{x=0, y=0}
+			}
+		}
 
 		rating.x = girlfriend.x
 		if not pixel then
@@ -1725,6 +1743,63 @@ return {
 		end
 	end,
 
+	changeNotePos = function(self, who, note, time, x, y)
+		time = time or (60/bpm)
+		if time == -1 then
+			if who == "enemy" then
+				if note == -1 then 
+					for i = 1, 4 do 
+						notesPos.enemy[i].x = x
+						notesPos.enemy[i].y = y
+					end
+				else
+					notesPos.enemy[note].x = x
+					notesPos.enemy[note].y = y
+				end
+			elseif who == "boyfriend" then
+				if note == -1 then 
+					for i = 1, 4 do 
+						notesPos.boyfriend[i].x = x
+						notesPos.boyfriend[i].y = y
+					end
+				else
+					notesPos.boyfriend[note].x = x
+					notesPos.boyfriend[note].y = y
+				end
+			end
+		else
+			if who == "enemy" then
+				if note == -1 then 
+					for i = 1, 4 do 
+						if notePosTweenEnemy[i] then 
+							Timer.cancel(notePosTweenEnemy[i])
+						end
+						notePosTweenEnemy[i] = Timer.tween(time, notesPos.enemy[i], {x = x, y = y}, "out-quad")
+					end
+				else
+					if notePosTweenEnemy[note] then 
+						Timer.cancel(notePosTweenEnemy[note])
+					end
+					notePosTweenEnemy[note] = Timer.tween(time, notesPos.enemy[note], {x = x, y = y}, "out-quad")
+				end
+			elseif who == "boyfriend" then
+				if note == -1 then 
+					for i = 1, 4 do 
+						if notePosTweenReceptors[i] then 
+							Timer.cancel(notePosTweenReceptors[i])
+						end
+						notePosTweenReceptors[i] = Timer.tween(time, notesPos.boyfriend[i], {x = x, y = y}, "out-quad")
+					end
+				else
+					if notePosTweenReceptors[note] then 
+						Timer.cancel(notePosTweenReceptors[note])
+					end
+					notePosTweenReceptors[note] = Timer.tween(time, notesPos.boyfriend[note], {x = x, y = y}, "out-quad")
+				end
+			end
+		end
+	end,
+
 	changeNoteTransparency = function(self, time, transparency, lane, who, withNotes, func)
 		print("CPCCC")
 		-- if lane is -1, do all lanes
@@ -1883,15 +1958,15 @@ return {
 				if not paused then
 					if not pixel then
 						if not settings.downscroll then
-							enemyArrows[i]:udraw(1, 1)
+							enemyArrows[i]:udraw(1, 1, enemyArrows[i].x + notesPos.enemy[i].x, enemyArrows[i].y + notesPos.enemy[i].y)
 						else
-							enemyArrows[i]:udraw(1, -1)
+							enemyArrows[i]:udraw(1, -1, enemyArrows[i].x + notesPos.enemy[i].x, enemyArrows[i].y + notesPos.enemy[i].y)
 						end
 					else
 						if not settings.downscroll then
-							enemyArrows[i]:udraw(8, 8)
+							enemyArrows[i]:udraw(8, 8, enemyArrows[i].x + notesPos.enemy[i].x, enemyArrows[i].y + notesPos.enemy[i].y)
 						else
-							enemyArrows[i]:udraw(8, -8)
+							enemyArrows[i]:udraw(8, -8, enemyArrows[i].x + notesPos.enemy[i].x, enemyArrows[i].y + notesPos.enemy[i].y)
 						end
 					end
 					
@@ -1900,20 +1975,19 @@ return {
 					graphics.setColor(0.6,0.6,0.6,(noteTransparencyNotes.boyfriend[i]-0.7))
 				else
 					graphics.setColor(1, 1, 1, (noteTransparencyNotes.boyfriend[i]))
-					print(noteTransparencyNotes.boyfriend[i])
 				end
 				if not paused then
 					if not pixel then
 						if not settings.downscroll then
-							boyfriendArrows[i]:udraw(1, 1)
+							boyfriendArrows[i]:udraw(1, 1, boyfriendArrows[i].x + notesPos.boyfriend[i].x, boyfriendArrows[i].y + notesPos.boyfriend[i].y)
 						else
-							boyfriendArrows[i]:udraw(1, -1)
+							boyfriendArrows[i]:udraw(1, -1, boyfriendArrows[i].x + notesPos.boyfriend[i].x, boyfriendArrows[i].y + notesPos.boyfriend[i].y)
 						end
 					else
 						if not settings.downscroll then
-							boyfriendArrows[i]:udraw(8, 8)
+							boyfriendArrows[i]:udraw(8, 8, boyfriendArrows[i].x + notesPos.boyfriend[i].x, boyfriendArrows[i].y + notesPos.boyfriend[i].y)
 						else
-							boyfriendArrows[i]:udraw(8, -8)
+							boyfriendArrows[i]:udraw(8, -8, boyfriendArrows[i].x + notesPos.boyfriend[i].x, boyfriendArrows[i].y + notesPos.boyfriend[i].y)
 						end
 					end
 				end
@@ -1977,29 +2051,29 @@ return {
 					if not paused then
 						if not pixel then
 							if leftArrowSplash:isAnimated() then
-								leftArrowSplash:draw()
+								leftArrowSplash:draw(leftArrowSplash.x+notesPos.boyfriend[i].x, leftArrowSplash.y+notesPos.boyfriend[i].y)
 							end
 							if rightArrowSplash:isAnimated() then
-								rightArrowSplash:draw()
+								rightArrowSplash:draw(rightArrowSplash.x+notesPos.boyfriend[i].x, rightArrowSplash.y+notesPos.boyfriend[i].y)
 							end
 							if upArrowSplash:isAnimated() then
-								upArrowSplash:draw()
+								upArrowSplash:draw(upArrowSplash.x+notesPos.boyfriend[i].x, upArrowSplash.y+notesPos.boyfriend[i].y)
 							end
 							if downArrowSplash:isAnimated() then
-								downArrowSplash:draw()
+								downArrowSplash:draw(downArrowSplash.x+notesPos.boyfriend[i].x, downArrowSplash.y+notesPos.boyfriend[i].y)
 							end
 						else
 							if leftArrowSplash:isAnimated() then
-								leftArrowSplash:udraw()
+								leftArrowSplash:udraw(7, 7, leftArrowSplash.x+notesPos.boyfriend[i].x, leftArrowSplash.y+notesPos.boyfriend[i].y)
 							end
 							if rightArrowSplash:isAnimated() then
-								rightArrowSplash:udraw()
+								rightArrowSplash:udraw(7, 7, rightArrowSplash.x+notesPos.boyfriend[i].x, rightArrowSplash.y+notesPos.boyfriend[i].y)
 							end
 							if upArrowSplash:isAnimated() then
-								upArrowSplash:udraw()
+								upArrowSplash:udraw(7, 7, upArrowSplash.x+notesPos.boyfriend[i].x, upArrowSplash.y+notesPos.boyfriend[i].y)
 							end
 							if downArrowSplash:isAnimated() then
-								downArrowSplash:udraw()
+								downArrowSplash:udraw(7, 7, downArrowSplash.x+notesPos.boyfriend[i].x, downArrowSplash.y+notesPos.boyfriend[i].y)
 							end
 						end
 					end
@@ -2020,15 +2094,15 @@ return {
 							end
 							if pixel then
 								if enemyNotes[i][j]:getAnimName() == "hold" then
-									enemyNotes[i][j]:udraw(8, enemyNotes[i][j].sizeY * 1.7, 0, -400 + enemyNotes[i][j].y * 0.6 * speed)
+									enemyNotes[i][j]:udraw(8, enemyNotes[i][j].sizeY * 1.7, enemyNotes[i][j].x + notesPos.enemy[i].x, -400 + enemyNotes[i][j].y * 0.6 * speed + notesPos.enemy[i].y)
 								else
-									enemyNotes[i][j]:udraw(8, enemyNotes[i][j].sizeY, 0, -400 + enemyNotes[i][j].y * 0.6 * speed)
+									enemyNotes[i][j]:udraw(8, enemyNotes[i][j].sizeY, enemyNotes[i][j].x + notesPos.enemy[i].x, -400 + enemyNotes[i][j].y * 0.6 * speed)
 								end
 							else
 								if enemyNotes[i][j]:getAnimName() == "hold" then
-									enemyNotes[i][j]:udraw(1, enemyNotes[i][j].sizeY * 1.7, 0, -400 + enemyNotes[i][j].y * 0.6 * speed)
+									enemyNotes[i][j]:udraw(1, enemyNotes[i][j].sizeY * 1.7, enemyNotes[i][j].x + notesPos.enemy[i].x, -400 + enemyNotes[i][j].y * 0.6 * speed + notesPos.enemy[i].y)
 								else
-									enemyNotes[i][j]:udraw(1, enemyNotes[i][j].sizeY, 0, -400 + enemyNotes[i][j].y * 0.6 * speed)
+									enemyNotes[i][j]:udraw(1, enemyNotes[i][j].sizeY, enemyNotes[i][j].x + notesPos.enemy[i].x, -400 + enemyNotes[i][j].y * 0.6 * speed + notesPos.enemy[i].y)
 								end
 							end
 							graphics.setColor(1, 1, 1)
@@ -2045,15 +2119,15 @@ return {
 							end
 							if pixel then
 								if boyfriendNotes[i][j]:getAnimName() == "hold" then
-									boyfriendNotes[i][j]:udraw(8, boyfriendNotes[i][j].sizeY * 1.7, 0, -400 + boyfriendNotes[i][j].y * 0.6 * speed)
+									boyfriendNotes[i][j]:udraw(8, boyfriendNotes[i][j].sizeY * 1.7, boyfriendNotes[i][j].x + notesPos.boyfriend[i].x, -400 + boyfriendNotes[i][j].y * 0.6 * speed + notesPos.boyfriend[i].y)
 								else
-									boyfriendNotes[i][j]:udraw(8, boyfriendNotes[i][j].sizeY, 0, -400 + boyfriendNotes[i][j].y * 0.6 * speed)
+									boyfriendNotes[i][j]:udraw(8, boyfriendNotes[i][j].sizeY, boyfriendNotes[i][j].x + notesPos.boyfriend[i].x, -400 + boyfriendNotes[i][j].y * 0.6 * speed + notesPos.boyfriend[i].y)
 								end
 							else
 								if boyfriendNotes[i][j]:getAnimName() == "hold" then
-									boyfriendNotes[i][j]:udraw(1, boyfriendNotes[i][j].sizeY * 1.7, 0, -400 + boyfriendNotes[i][j].y * 0.6 * speed)
+									boyfriendNotes[i][j]:udraw(1, boyfriendNotes[i][j].sizeY * 1.7, boyfriendNotes[i][j].x + notesPos.boyfriend[i].x, -400 + boyfriendNotes[i][j].y * 0.6 * speed + notesPos.boyfriend[i].y)
 								else
-									boyfriendNotes[i][j]:udraw(1, boyfriendNotes[i][j].sizeY, 0, -400 + boyfriendNotes[i][j].y * 0.6 * speed)
+									boyfriendNotes[i][j]:udraw(1, boyfriendNotes[i][j].sizeY, boyfriendNotes[i][j].x + notesPos.boyfriend[i].x, -400 + boyfriendNotes[i][j].y * 0.6 * speed + notesPos.boyfriend[i].y)
 								end
 							end
 						end
