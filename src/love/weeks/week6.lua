@@ -177,11 +177,6 @@ return {
 		else
 			weeks:generateNotes("songs/week6/senpai/" .. difficulty .. ".json")
 		end
-
-		for i = 1, 4 do 
-			notesPos.boyfriend[i].x = 300
-			notesPos.boyfriend[i].y = 300
-		end
 	end,
 
 	update = function(self, dt)
