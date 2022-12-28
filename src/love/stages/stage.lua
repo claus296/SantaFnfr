@@ -4,11 +4,11 @@ return {
 
         }
 
-        enemy = Character.santa(0,0)
-        love.graphics.setBackgroundColor(255,255,255)
+        enemy = love.filesystem.load("sprites/Santa.lua")()
+        enemy.colours = {175,102,206}
 
         girlfriend.x, girlfriend.y = -550, -500
-        enemy.x, enemy.y = -150, -500
+        enemy.x, enemy.y = 120, 0
     end,
 
     load = function()
@@ -36,6 +36,6 @@ return {
     end,
 
     leave = function()
-        love.graphics.setBackgroundColor(0,0,0)
+    
     end
 }

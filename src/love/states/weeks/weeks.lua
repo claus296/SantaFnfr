@@ -1722,13 +1722,6 @@ return {
 						boyfriendIconTimer = Timer.tween((60 / bpm) / 16, boyfriendIcon, {sizeX = -1.75, sizeY = 1.75, orientation = -0.15}, "out-quad", function() boyfriendIconTimer = Timer.tween((60 / bpm), boyfriendIcon, {sizeX = -1.5, sizeY = 1.5, orientation = 0}, "out-quad") end)
 					end
 				end
-
-				if not countingDown and input:pressed("gameBack") then
-					if inst then inst:stop() end
-					voices:stop()
-
-					storyMode = false
-				end
 			end
 		end
 	end,

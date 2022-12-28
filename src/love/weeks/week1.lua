@@ -26,6 +26,9 @@ return {
 		pauseColor = {129, 100, 223}
 		weeks:enter()
 		stages["stage"]:enter()
+		cam.sizeX, cam.sizeY = 0.7, 0.7
+		camScale.x, camScale.y = 0.7, 0.7
+		bgFade = 1
 
 		week = 1
 
@@ -57,6 +60,15 @@ return {
 	update = function(self, dt)
 		weeks:update(dt)
 		stages["stage"]:update(dt)
+
+		if musicTime >= 73714.2857142858 then
+			if musicTime <= 73714.2857142858 + 50 then
+				enemy:animate("shoot", false)
+			end
+		end
+		if musicTime >= 73714.2857142858 + 1700 then
+			bgFade = bgFade - 0.01
+		end
 
 		if health >= 80 then
 			if enemyIcon:getAnimName() == "daddy dearest" then
@@ -106,14 +118,25 @@ return {
 			love.graphics.scale(extraCamZoom.sizeX, extraCamZoom.sizeY)
 			love.graphics.scale(cam.sizeX, cam.sizeY)
 
-			stages["stage"]:draw()
-			weeks:drawRating(0.9)
+			love.graphics.setColor(255, 255, 255, bgFade)
+
+			love.graphics.rectangle("fill", -1000,-700, 9999,9999)
+
+			love.graphics.setColor(1, 1, 1, 1)
+
+			if musicTime <= 73714.2857142858 + 1700 then
+				stages["stage"]:draw()
+
+				weeks:drawRating(0.9)
+			end
 		love.graphics.pop()
+		if musicTime <= 73714.2857142858 + 1700 then
 		
-		weeks:drawTimeLeftBar()
-		weeks:drawHealthBar()
-		if not paused then
-			weeks:drawUI()
+			weeks:drawTimeLeftBar()
+			weeks:drawHealthBar()
+			if not paused then
+				weeks:drawUI()
+			end
 		end
 	end,
 

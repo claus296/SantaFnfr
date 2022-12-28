@@ -1,0 +1,167 @@
+return graphics.newSprite(
+	love.graphics.newImage(graphics.imagePath("SantaPissedOff")), -- Do not add the .png extension
+	{
+		{x = 0, y = 0, width = 1531, height = 435, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 1: Down0000
+		{x = 0, y = 0, width = 1531, height = 435, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 2: Down0001
+		{x = 1536, y = 0, width = 1531, height = 435, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 3: Down0002
+		{x = 1536, y = 0, width = 1531, height = 435, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 4: Down0003
+		{x = 3072, y = 0, width = 1531, height = 435, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 5: Down0004
+		{x = 3072, y = 0, width = 1531, height = 435, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 6: Down0005
+		{x = 3072, y = 0, width = 1531, height = 435, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 7: Down0006
+		{x = 3072, y = 0, width = 1531, height = 435, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 8: Down0007
+		{x = 3072, y = 0, width = 1531, height = 435, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 9: Down0008
+		{x = 3072, y = 0, width = 1531, height = 435, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 10: Down0009
+		{x = 4608, y = 0, width = 1153, height = 798, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 11: Idle0000
+		{x = 5766, y = 0, width = 1153, height = 798, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 12: Idle0001
+		{x = 6924, y = 0, width = 1153, height = 798, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 13: Idle0002
+		{x = 0, y = 803, width = 1153, height = 798, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 14: Idle0003
+		{x = 1158, y = 803, width = 1153, height = 798, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 15: Idle0004
+		{x = 2316, y = 803, width = 1153, height = 798, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 16: Idle0005
+		{x = 3474, y = 803, width = 1153, height = 798, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 17: Idle0006
+		{x = 4632, y = 803, width = 1153, height = 798, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 18: Idle0007
+		{x = 4632, y = 803, width = 1153, height = 798, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 19: Idle0008
+		{x = 4632, y = 803, width = 1153, height = 798, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 20: Idle0009
+		{x = 5790, y = 803, width = 1448, height = 798, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 21: Left0000
+		{x = 5790, y = 803, width = 1448, height = 798, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 22: Left0001
+		{x = 0, y = 1606, width = 1448, height = 798, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 23: Left0002
+		{x = 0, y = 1606, width = 1448, height = 798, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 24: Left0003
+		{x = 1453, y = 1606, width = 1448, height = 798, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 25: Left0004
+		{x = 1453, y = 1606, width = 1448, height = 798, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 26: Left0005
+		{x = 1453, y = 1606, width = 1448, height = 798, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 27: Left0006
+		{x = 2906, y = 1606, width = 1528, height = 798, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 28: Right0000
+		{x = 2906, y = 1606, width = 1528, height = 798, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 29: Right0001
+		{x = 4439, y = 1606, width = 1528, height = 798, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 30: Right0002
+		{x = 4439, y = 1606, width = 1528, height = 798, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 31: Right0003
+		{x = 5972, y = 1606, width = 1528, height = 798, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 32: Right0004
+		{x = 5972, y = 1606, width = 1528, height = 798, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 33: Right0005
+		{x = 5972, y = 1606, width = 1528, height = 798, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 34: Right0006
+		{x = 0, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 35: Shoot0000
+		{x = 1305, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 36: Shoot0001
+		{x = 2610, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 37: Shoot0002
+		{x = 2610, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 38: Shoot0003
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 39: Shoot0004
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 40: Shoot0005
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 41: Shoot0006
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 42: Shoot0007
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 43: Shoot0008
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 44: Shoot0009
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 45: Shoot0010
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 46: Shoot0011
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 47: Shoot0012
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 48: Shoot0013
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 49: Shoot0014
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 50: Shoot0015
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 51: Shoot0016
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 52: Shoot0017
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 53: Shoot0018
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 54: Shoot0019
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 55: Shoot0020
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 56: Shoot0021
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 57: Shoot0022
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 58: Shoot0023
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 59: Shoot0024
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 60: Shoot0025
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 61: Shoot0026
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 62: Shoot0027
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 63: Shoot0028
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 64: Shoot0029
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 65: Shoot0030
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 66: Shoot0031
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 67: Shoot0032
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 68: Shoot0033
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 69: Shoot0034
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 70: Shoot0035
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 71: Shoot0036
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 72: Shoot0037
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 73: Shoot0038
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 74: Shoot0039
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 75: Shoot0040
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 76: Shoot0041
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 77: Shoot0042
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 78: Shoot0043
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 79: Shoot0044
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 80: Shoot0045
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 81: Shoot0046
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 82: Shoot0047
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 83: Shoot0048
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 84: Shoot0049
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 85: Shoot0050
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 86: Shoot0051
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 87: Shoot0052
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 88: Shoot0053
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 89: Shoot0054
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 90: Shoot0055
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 91: Shoot0056
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 92: Shoot0057
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 93: Shoot0058
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 94: Shoot0059
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 95: Shoot0060
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 96: Shoot0061
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 97: Shoot0062
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 98: Shoot0063
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 99: Shoot0064
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 100: Shoot0065
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 101: Shoot0066
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 102: Shoot0067
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 103: Shoot0068
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 104: Shoot0069
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 105: Shoot0070
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 106: Shoot0071
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 107: Shoot0072
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 108: Shoot0073
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 109: Shoot0074
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 110: Shoot0075
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 111: Shoot0076
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 112: Shoot0077
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 113: Shoot0078
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 114: Shoot0079
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 115: Shoot0080
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 116: Shoot0081
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 117: Shoot0082
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 118: Shoot0083
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 119: Shoot0084
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 120: Shoot0085
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 121: Shoot0086
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 122: Shoot0087
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 123: Shoot0088
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 124: Shoot0089
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 125: Shoot0090
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 126: Shoot0091
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 127: Shoot0092
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 128: Shoot0093
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 129: Shoot0094
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 130: Shoot0095
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 131: Shoot0096
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 132: Shoot0097
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 133: Shoot0098
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 134: Shoot0099
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 135: Shoot0100
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 136: Shoot0101
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 137: Shoot0102
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 138: Shoot0103
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 139: Shoot0104
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 140: Shoot0105
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 141: Shoot0106
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 142: Shoot0107
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 143: Shoot0108
+		{x = 3915, y = 2409, width = 1300, height = 1087, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 144: Shoot0109
+		{x = 5220, y = 2409, width = 1036, height = 937, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 145: Up0000
+		{x = 5220, y = 2409, width = 1036, height = 937, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 146: Up0001
+		{x = 6261, y = 2409, width = 1036, height = 937, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 147: Up0002
+		{x = 6261, y = 2409, width = 1036, height = 937, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 148: Up0003
+		{x = 0, y = 3501, width = 1036, height = 937, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 149: Up0004
+		{x = 0, y = 3501, width = 1036, height = 937, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 150: Up0005
+		{x = 0, y = 3501, width = 1036, height = 937, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 151: Up0006
+		{x = 0, y = 3501, width = 1036, height = 937, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0} -- 152: Up0007
+	},
+	{
+		["down"] = {start = 1, stop = 10, speed = 24, offsetX = -1, offsetY = -181},
+		["left"] = {start = 21, stop = 27, speed = 24, offsetX = 182, offsetY = 0},
+		["right"] = {start = 28, stop = 34, speed = 24, offsetX = -230, offsetY = 0},
+		["up"] = {start = 145, stop = 152, speed = 24, offsetX = -1, offsetY = 67},
+		["shoot"] = {start = 35, stop = 144, speed = 24, offsetX = 10, offsetY = 0},
+		["idle"] = {start = 11, stop = 20, speed = 24, offsetX = 0, offsetY = 0}
+	},
+	"idle",
+	false
+)
