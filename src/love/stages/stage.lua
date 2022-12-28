@@ -5,7 +5,7 @@ return {
         }
 
         enemy = love.filesystem.load("sprites/Santa.lua")()
-        enemy.colours = {175,102,206}
+        enemy.colours = {255,0,0}
 
         girlfriend.x, girlfriend.y = -550, -500
         enemy.x, enemy.y = 120, 0

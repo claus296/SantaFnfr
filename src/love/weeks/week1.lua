@@ -81,7 +81,7 @@ return {
 		end
 
 		if not (countingDown or graphics.isFading()) and not (inst:getDuration() > musicTime/1000) and not paused then
-			if storyMode and song < 3 then
+			if storyMode and song < 1 then
 				if score > highscores[weekNum-1][difficulty].scores[song] then
 					highscores[weekNum-1][difficulty].scores[song] = score
 					saveHighscores()
@@ -141,6 +141,7 @@ return {
 	end,
 
 	leave = function(self)
+		bgFade = 1
 		stages["stage"]:leave()
 		weeks:leave()
 	end

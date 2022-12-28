@@ -1300,7 +1300,7 @@ return {
 					if picoSpeaker then picoSpeaker:setAnimSpeed(14.4 / (60 / bpm) * girlfriendSpeedMultiplier) end
 				end
 				if spriteTimers[2] == 0 then
-					if enemy:getAnimName() == "good" then 
+					if enemy:getAnimName() == "shoot" then 
 						if not enemy:isAnimated() then
 							self:safeAnimate(enemy, "idle", false, 2)
 						end
