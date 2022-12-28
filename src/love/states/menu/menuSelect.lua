@@ -20,20 +20,17 @@ return {
         selectBGOverlay = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/selectBGOverlay")))
 
         options = love.filesystem.load("sprites/menu/menuButtons.lua")()
-        story = love.filesystem.load("sprites/menu/menuButtons.lua")()
         freeplay = love.filesystem.load("sprites/menu/menuButtons.lua")()
         credits = love.filesystem.load("sprites/menu/credits.lua")()
-        story:animate("story hover", true)
-        freeplay:animate("freeplay", true)
+        freeplay:animate("freeplay hover", true)
         options:animate("options", true)
         credits:animate("credits", true)
-        story.y,freeplay.y,options.y,credits.y = -200, -50, 100, 250
-        story.sizeX, story.sizeY = 0.75, 0.75
+        freeplay.y,options.y,credits.y = -200, -50, 100
         freeplay.sizeX, freeplay.sizeY = 0.75, 0.75
         options.sizeX, options.sizeY = 0.75, 0.75
         credits.sizeX, credits.sizeY = 0.75, 0.75
 
-        story.x, freeplay.x, options.x, credits.x = -295, -320, -345, -370
+        freeplay.x, options.x, credits.x = -295, -320, -345
         --Timer.tween(1, story, {y = -200}, "out-expo")
         --Timer.tween(1, freeplay, {y = -50}, "out-expo")
         --Timer.tween(1, options, {y = 100}, "out-expo")
@@ -67,25 +64,16 @@ return {
 
         function changeSelect()
             if menuButton == 1 then
-                story:animate("story hover", true)
-                freeplay:animate("freeplay", true)
-                options:animate("options", true)
-                credits:animate("credits", true)
-
-            elseif menuButton == 2 then
-                story:animate("story", true)
                 freeplay:animate("freeplay hover", true)
                 options:animate("options", true)
                 credits:animate("credits", true)
 
-            elseif menuButton == 3 then
-                story:animate("story", true)
+            elseif menuButton == 2 then
                 freeplay:animate("freeplay", true)
                 options:animate("options hover", true)
                 credits:animate("credits", true)
 
-            elseif menuButton == 4 then
-                story:animate("story", true)
+            elseif menuButton == 3 then
                 freeplay:animate("freeplay", true)
                 options:animate("options", true)
                 credits:animate("credits hover", true)
@@ -98,12 +86,11 @@ return {
                 graphics.fadeOut(
                     0.3,
                     function()
-                        Gamestate.switch(menuWeek)
+                        Gamestate.switch(menuFreeplay)
                         status.setLoading(false)
                     end
                 )
-                Timer.tween(0.9, story, {y = 0}, "out-expo")
-                Timer.tween(0.9, freeplay, {y = 700}, "out-expo")
+                Timer.tween(0.9, freeplay, {y = 0}, "out-expo")
                 Timer.tween(0.9, options, {y = 700}, "out-expo")
                 Timer.tween(0.9, credits, {y = 700}, "out-expo")
             elseif menuButton == 2 then
@@ -111,44 +98,25 @@ return {
                 graphics.fadeOut(
                     0.3,
                     function()
-                        if mods.weekMeta[1] then
-                            Gamestate.switch(menuChooseFreeplay)
-                        else
-                            Gamestate.switch(menuFreeplay)
-                        end
+                        Gamestate.switch(menuSettings)
                         status.setLoading(false)
                     end
                 )
-                Timer.tween(0.9, freeplay, {y = 0}, "out-expo")
-                Timer.tween(0.9, story, {y = -700}, "out-expo")
-                Timer.tween(0.9, options, {y = 700}, "out-expo")
+                Timer.tween(0.9, freeplay, {y = -700}, "out-expo")
+                Timer.tween(0.9, options, {y = 0}, "out-expo")
                 Timer.tween(0.9, credits, {y = 700}, "out-expo")
             elseif menuButton == 3 then
                 status.setLoading(true)
                 graphics.fadeOut(
                     0.3,
                     function()
-                        Gamestate.push(menuSettings)
+                        Gamestate.push(menuCredits)
                         status.setLoading(false)
                     end
                 )
                 Timer.tween(0.9, freeplay, {y = -700}, "out-expo")
-                Timer.tween(0.9, options, {y = 0}, "out-expo")
-                Timer.tween(0.9, story, {y = -700}, "out-expo")
-                Timer.tween(0.9, credits, {y = 700}, "out-expo")
-            elseif menuButton == 4 then
-                status.setLoading(true)
-                graphics.fadeOut(
-                    0.3,
-                    function()
-                        Gamestate.switch(menuCredits)
-                        status.setLoading(false)
-                    end
-                )
-                Timer.tween(0.9, credits, {y = 0}, "out-expo")
                 Timer.tween(0.9, options, {y = -700}, "out-expo")
-                Timer.tween(0.9, freeplay, {y = -700}, "out-expo")
-                Timer.tween(0.9, story, {y = -700}, "out-expo")
+                Timer.tween(0.9, credits, {y = 0}, "out-expo")
             end
             Timer.tween(1.1, cam, {sizeX = 4, sizeY = 4}, "linear")
         end
@@ -164,7 +132,6 @@ return {
 
 	update = function(self, dt)
         options:update(dt)
-        story:update(dt)
         freeplay:update(dt)
         credits:update(dt)
 
@@ -172,14 +139,14 @@ return {
 			if input:pressed("up") then
 				audio.playSound(selectSound)
 
-                menuButton = menuButton ~= 1 and menuButton - 1 or 4
+                menuButton = menuButton ~= 1 and menuButton - 1 or 3
 
                 changeSelect()
 
 			elseif input:pressed("down") then
 				audio.playSound(selectSound)
 
-                menuButton = menuButton ~= 4 and menuButton + 1 or 1
+                menuButton = menuButton ~= 3 and menuButton + 1 or 1
 
                 changeSelect()
 
@@ -212,7 +179,6 @@ return {
                 love.graphics.translate(menuDetails.selectUIElements.x, menuDetails.selectUIElements.y)
                 love.graphics.print("Vanilla Engine " .. __VERSION__ .. "\nBuilt on: Funkin Rewritten v1.1.0 Beta 2", -635, -360)
                 graphics.setColor(1,1,1)
-                story:draw()
                 freeplay:draw()
                 options:draw()
                 credits:draw()
@@ -224,7 +190,6 @@ return {
 
 	leave = function(self)
         titleBG = nil
-        story = nil
         freeplay = nil
         options = nil
         credits = nil

@@ -127,7 +127,6 @@ return {
 			if musicTime <= 73714.2857142858 + 1700 then
 				stages["stage"]:draw()
 
-				weeks:drawRating(0.9)
 			end
 		love.graphics.pop()
 		if musicTime <= 73714.2857142858 + 1700 then
