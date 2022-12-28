@@ -226,8 +226,9 @@ return {
 				numbers[i].sizeX, numbers[i].sizeY = 0.5, 0.5
 			end
 		else
-			girlfriend = Character.girlfriendpixel(0,0)
-			boyfriend = Character.boyfriendpixel(0, 0)
+			love.graphics.setDefaultFilter("nearest")
+			girlfriend = Character.girlfriendpixel(0,0, {antialiasing=false})
+			boyfriend = Character.boyfriendpixel(0, 0, {antialiasing=false})
 			fakeBoyfriend = love.filesystem.load("sprites/pixel/boyfriend-dead.lua")()
 
 			rating = love.filesystem.load("sprites/pixel/rating.lua")()

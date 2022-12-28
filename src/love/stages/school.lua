@@ -11,7 +11,7 @@ return {
 			love.filesystem.load("sprites/week6/petals.lua")(), -- petals
 			love.filesystem.load("sprites/week6/freaks.lua")() -- freaks
         }
-		enemy = Character.senpai(0,0)
+		enemy = Character.senpai(0,0, {antialiasing=false})
 		--fakeBoyfriend = love.filesystem.load("sprites/pixel/boyfriend.lua")() -- Used for game over
         girlfriend.x, girlfriend.y = -375, -250
 		boyfriend.x, boyfriend.y = 100, 25
@@ -25,7 +25,7 @@ return {
             stageImages[2] = love.filesystem.load("sprites/week6/evil-school.lua")()
 			enemy.x, enemy.y = -700, -375
         elseif song == 2 then
-            enemy = Character.senpaiangry(0,0)
+            enemy = Character.senpaiangry(0,0, {antialiasing=false})
             stageImages[7]:animate("dissuaded", true)
 			enemy.x, enemy.y = -700, -375
         end

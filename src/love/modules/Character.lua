@@ -440,11 +440,11 @@ function character.monsterchristmas(x, y)
     return char
 end
 
-function character.senpai(x, y) -- fix offsets later
-    love.graphics.setDefaultFilter("nearest")
+function character.senpai(x, y, settings) -- fix offsets later
     curEnemy = "senpai"
-    local char = sprite(x or 0, y or 0)
-    char:setFrames(paths.getSparrowFrames("week6/senpai"))
+    local settings = settings or {}
+    local char = sprite(x or 0, y or 0, settings)
+    char:setFrames(paths.getSparrowFrames("week6/senpai", settings))
     char:addAnimByPrefix("idle", "Senpai Idle", 24, false)
 
     char:addAnimByPrefix("left", "SENPAI LEFT NOTE", 24, false)
@@ -466,11 +466,11 @@ function character.senpai(x, y) -- fix offsets later
     return char
 end
 
-function character.senpaiangry(x, y) -- fix offsets later
-    love.graphics.setDefaultFilter("nearest")
+function character.senpaiangry(x, y, settings) -- fix offsets later
     curEnemy = "senpaiangry"
-    local char = sprite(x or 0, y or 0)
-    char:setFrames(paths.getSparrowFrames("week6/senpai"))
+    local settings = settings or {}
+    local char = sprite(x or 0, y or 0, settings)
+    char:setFrames(paths.getSparrowFrames("week6/senpai", settings))
     char:addAnimByPrefix("idle", "Angry Senpai Idle", 24, false)
 
     char:addAnimByPrefix("left", "Angry Senpai LEFT NOTE", 24, false)
@@ -492,11 +492,11 @@ function character.senpaiangry(x, y) -- fix offsets later
     return char
 end
 
-function character.boyfriendpixel(x, y)
-    love.graphics.setDefaultFilter("nearest")
+function character.boyfriendpixel(x, y, settings)
     curPlayer = "boyfriendpixel"
-    local char = sprite(x or 0, y or 0)
-    char:setFrames(paths.getSparrowFrames("pixel/bfPixel"))
+    local settings = settings or {}
+    local char = sprite(x or 0, y or 0, settings)
+    char:setFrames(paths.getSparrowFrames("pixel/bfPixel", settings))
     
     char:addAnimByPrefix("idle", "BF IDLE", 24, false)
 
@@ -529,10 +529,10 @@ function character.boyfriendpixel(x, y)
     
 end
 
-function character.girlfriendpixel(x, y)
-    love.graphics.setDefaultFilter("nearest")
-    local char = sprite(x or 0, y or 0)
-    char:setFrames(paths.getSparrowFrames("pixel/gfPixel"))
+function character.girlfriendpixel(x, y, settings)
+    local settings = settings or {}
+    local char = sprite(x or 0, y or 0, settings)
+    char:setFrames(paths.getSparrowFrames("pixel/gfPixel", settings))
     char:addAnimByPrefix("idle", "GF IDLE", 24, false)
 
     char:addOffset("idle")
