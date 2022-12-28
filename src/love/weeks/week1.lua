@@ -39,18 +39,9 @@ return {
 
 	load = function(self)
 		weeks:load()
-		stages["stage"]:load()
 
-		if song == 3 then
-			inst = waveAudio:newSource("songs/week1/dadbattle/inst.ogg", "stream")
-			voices = waveAudio:newSource("songs/week1/dadbattle/voices.ogg", "stream")
-		elseif song == 2 then
-			inst = waveAudio:newSource("songs/week1/fresh/inst.ogg", "stream")
-			voices = waveAudio:newSource("songs/week1/fresh/voices.ogg", "stream")
-		else
-			inst = waveAudio:newSource("songs/week1/bopeebo/inst.ogg", "stream")
-			voices = waveAudio:newSource("songs/week1/bopeebo/voices.ogg", "stream")
-		end
+		inst = waveAudio:newSource("songs/pissed-off/inst.ogg", "stream")
+		voices = waveAudio:newSource("songs/pissed-off/voices.ogg", "stream")
 
 		self:initUI()
 
@@ -60,25 +51,12 @@ return {
 	initUI = function(self)
 		weeks:initUI()
 
-		if song == 3 then
-			weeks:generateNotes("songs/week1/dadbattle/" .. difficulty .. ".json")
-		elseif song == 2 then
-			weeks:generateNotes("songs/week1/fresh/" .. difficulty .. ".json")
-			weeks:generateEventsOld("songs/week1/fresh/events.json")
-		else
-			weeks:generateNotes("songs/week1/bopeebo/" .. difficulty .. ".json")
-			weeks:generateEventsOld("songs/week1/bopeebo/events.json")
-		end
+		weeks:generateNotes("songs/pissed-off/pissed-off.json")
 	end,
 
 	update = function(self, dt)
 		weeks:update(dt)
 		stages["stage"]:update(dt)
-
-		if song == 1 and musicThres ~= oldMusicThres and math.fmod(absMusicTime + 500, 480000 / bpm) < 100 then
-			weeks:safeAnimate(girlfriend, "cheer", false, 1)
-			weeks:changeNoteTransparency()
-		end
 
 		if health >= 80 then
 			if enemyIcon:getAnimName() == "daddy dearest" then

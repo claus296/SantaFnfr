@@ -88,6 +88,32 @@ function character.daddydearest(x, y)
     return char
 end
 
+function character.santa(x, y)
+    curEnemy = "santa"
+    local char = sprite(x or 0, y or 0)
+    char:setFrames(paths.getSparrowFrames("SantaPissedOff"))
+    char:addAnimByPrefix("idle", "Idle", 24, false)
+
+    char:addAnimByPrefix("left", "Left", 24, false)
+    char:addAnimByPrefix("right", "Right", 24, false)
+    char:addAnimByPrefix("up", "Up", 24, false)
+    char:addAnimByPrefix("down", "Down", 24, false)
+    char:addAnimByPrefix("shoot", "Shoot", 24, false)
+
+    char:addOffset("idle",  0, 0   )
+
+    char:addOffset("left", 0, 0  )
+    char:addOffset("right", 0, 0  )
+    char:addOffset("up",   0, 0  )
+    char:addOffset("down",  0, 0 )
+
+    char:animate("idle", false)
+
+    char.colours = {175,102,206}
+
+    return char
+end
+
 function character.boyfriend(x, y)
     curPlayer = "boyfriend"
     local char = sprite(x or 0, y or 0)

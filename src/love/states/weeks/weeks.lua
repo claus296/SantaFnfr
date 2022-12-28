@@ -1238,8 +1238,6 @@ return {
 						Timer.cancel(camTimer)
 					end
 					if events[i].mustHitSection then
-						camTimer = Timer.tween(1.25, cam, {x = -boyfriend.x - 75, y = -boyfriend.y - 25}, "out-quad")
-					else
 						if curEnemy == "pico" then
 							camTimer = Timer.tween(1.25, cam, {x = -enemy.x - 500, y = -enemy.y - 50}, "out-quad")
 						elseif curEnemy == "monsterchristmas" or curEnemy == "dearestduo" then
@@ -1248,8 +1246,6 @@ return {
 							camTimer = Timer.tween(1.25, cam, {x = -enemy.x - 500, y = -enemy.y - 400}, "out-quad")
 						elseif curEnemy == "tankman" then
 							camTimer = Timer.tween(1.25, cam, {x = -enemy.x + 75, y = -enemy.y - 100}, "out-quad")
-						else
-							camTimer = Timer.tween(1.25, cam, {x = -enemy.x - 300, y = -enemy.y - 275}, "out-quad")
 						end
 					end
 

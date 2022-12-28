@@ -1,19 +1,14 @@
 return {
     enter = function()
         stageImages = {
-            graphics.newImage(love.graphics.newImage(graphics.imagePath("week1/stage-back"))), -- stage-back
-		    graphics.newImage(love.graphics.newImage(graphics.imagePath("week1/stage-front"))), -- stage-front
-		    graphics.newImage(love.graphics.newImage(graphics.imagePath("week1/curtains"))) -- curtains
+
         }
 
-        stageImages[2].y = 400
-        stageImages[3].y = -100
+        enemy = Character.santa(0,0)
+        love.graphics.setBackgroundColor(255,255,255)
 
-        enemy = Character.daddydearest(0,0)
-
-        girlfriend.x, girlfriend.y = -200, -445
-        enemy.x, enemy.y = -550, -500
-        boyfriend.x, boyfriend.y = 260, -125
+        girlfriend.x, girlfriend.y = -550, -500
+        enemy.x, enemy.y = -150, -500
     end,
 
     load = function()
@@ -28,27 +23,19 @@ return {
         love.graphics.push()
 			love.graphics.translate(cam.x * 0.9, cam.y * 0.9)
 
-			stageImages[1]:draw()
-			stageImages[2]:draw()
-
-			girlfriend:draw()
 		love.graphics.pop()
 		love.graphics.push()
 			love.graphics.translate(cam.x, cam.y)
 
 			enemy:draw()
-			boyfriend:draw()
 		love.graphics.pop()
 		love.graphics.push()
 			love.graphics.translate(cam.x * 1.1, cam.y * 1.1)
 
-			stageImages[3]:draw()
 		love.graphics.pop()
     end,
 
     leave = function()
-        stageImages[1] = nil
-        stageImages[2] = nil
-        stageImages[3] = nil
+        love.graphics.setBackgroundColor(0,0,0)
     end
 }

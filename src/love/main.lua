@@ -219,86 +219,16 @@ function love.load()
 
 	-- Load week data
 	weekData = {
-		require "weeks.tutorial",
 		require "weeks.week1",
-		require "weeks.week2",
-		require "weeks.week3",
-		require "weeks.week4",
-		require "weeks.week5",
-		require "weeks.week6",
-		require "weeks.week7",
 	}
 	weekDesc = { -- Add your week description here
-		"LEARN TO FUNK",
-		"DADDY DEAREST",
-		"SPOOKY MONTH",
-		"PICO",
-		"MOMMY MUST MURDER",
-		"RED SNOW",
-		"HATING SIMULATOR FT. MOAWLING",
-		"TANKMAN"
+		"LEARN TO FUNK"
 	}
 	weekMeta = { -- Add/remove weeks here
 		{
-			"Tutorial",
+			"Santa",
 			{
-				"Tutorial"
-			}
-		},
-		{
-			"Week 1",
-			{
-				"Bopeebo",
-				"Fresh",
-				"Dadbattle"
-			}
-		},
-		{
-			"Week 2",
-			{
-				"Spookeez",
-				"South",
-				"Monster"
-			}
-		},
-		{
-			"Week 3",
-			{
-				"Pico",
-				"Philly Nice",
-				"Blammed"
-			}
-		},
-		{
-			"Week 4",
-			{
-				"Satin Panties",
-				"High",
-				"M.I.L.F"
-			}
-		},
-		{
-			"Week 5",
-			{
-				"Cocoa",
-				"Eggnog",
-				"Winter Horrorland"
-			}
-		},
-		{
-			"Week 6",
-			{
-				"Senpai",
-				"Roses",
-				"Thorns"
-			},
-		},
-		{
-			"Week 7",
-			{
-				"Ugh",
-				"Guns",
-				"Stress"
+				"Pissed Off"
 			}
 		}
 	}
