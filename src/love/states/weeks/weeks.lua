@@ -1744,7 +1744,12 @@ return {
 	end,
 
 	changeNotePos = function(self, who, note, time, x, y)
+		who = who or "enemy"
+		note = note or -1
 		time = time or (60/bpm)
+		x = x or 0
+		y = y or 0
+
 		if time == -1 then
 			if who == "enemy" then
 				if note == -1 then 
