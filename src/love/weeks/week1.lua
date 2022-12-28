@@ -69,8 +69,6 @@ return {
 			weeks:generateNotes("songs/week1/bopeebo/" .. difficulty .. ".json")
 			weeks:generateEventsOld("songs/week1/bopeebo/events.json")
 		end
-
-		
 	end,
 
 	update = function(self, dt)
