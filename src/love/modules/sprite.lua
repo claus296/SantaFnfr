@@ -32,8 +32,16 @@ function Sprite.newFrame(name, x, y, w, h, sw, sh, ox, oy, ow, oh)
     }
 end
 
-function Sprite.getFramesFromSparrow(texture, description)
+function Sprite.getFramesFromSparrow(texture, description, settings)
+    local settings = settings or {}
     if type(texture) == "string" then
+        if settings.antialiasing == nil or settings.antialiasing then
+            love.graphics.setDefaultFilter("linear", "linear")
+            print("linear")
+        else
+            love.graphics.setDefaultFilter("nearest", "nearest")
+            print("nearest")
+        end
         texture = love.graphics.newImage(texture)
     end
 
@@ -56,11 +64,12 @@ function Sprite.getFramesFromSparrow(texture, description)
     return frames
 end
 
-function Sprite:new(x, y, texture)
+function Sprite:new(x, y, settings, texture)
     if x == nil then x = 0 end
     if y == nil then y = 0 end
     self.x = x
     self.y = y
+    self.settings = settings or {}
 
     self.texture = nil
     self.width, self.height = 0, 0
@@ -90,9 +99,16 @@ function Sprite:new(x, y, texture)
     if texture then self:load(texture) end
 end
 
-function Sprite:load(texture, width, height)
+function Sprite:load(texture, width, height, settings)
+    local settings = settings or {}
     if type(texture) == "string" then
+        if settings.antialiasing == nil or settings.antialiasing then
+            love.graphics.setDefaultFilter("linear", "linear")
+        else
+            love.graphics.setDefaultFilter("nearest", "nearest")
+        end
         texture = love.graphics.newImage(texture)
+        love.graphics.setDefaultFilter("linear", "linear")
     end
     self.texture = texture
 
@@ -111,7 +127,7 @@ function Sprite:setFrames(frames)
     self.texture = frames.texture
 
     local f = frames.frames[1]
-    self:load(frames.texture, f.width, f.height)
+    self:load(frames.texture, f.width, f.height, self.settings)
     self:centerOrigin()
 end
 

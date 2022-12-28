@@ -331,11 +331,6 @@ return {
 
 				love.graphics.setColor(0, 0, 0, 0.4)
 
-				love.graphics.rectangle("fill", -240, -700, 480, 500)
-				love.graphics.rectangle("fill", -240, 300, 480, 500)
-
-
-
 				love.graphics.setColor(1, 1, 1)
 				arrowUp:draw()
 				arrowLeft:draw()

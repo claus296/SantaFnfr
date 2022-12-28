@@ -226,8 +226,9 @@ return {
 				numbers[i].sizeX, numbers[i].sizeY = 0.5, 0.5
 			end
 		else
-			girlfriend = Character.girlfriendpixel(0,0)
-			boyfriend = Character.boyfriendpixel(0, 0)
+			love.graphics.setDefaultFilter("nearest")
+			girlfriend = Character.girlfriendpixel(0,0, {antialiasing=false})
+			boyfriend = Character.boyfriendpixel(0, 0, {antialiasing=false})
 			fakeBoyfriend = love.filesystem.load("sprites/pixel/boyfriend-dead.lua")()
 
 			rating = love.filesystem.load("sprites/pixel/rating.lua")()
@@ -2088,13 +2089,13 @@ return {
 							end
 							if pixel then
 								if enemyNotes[i][j]:getAnimName() == "hold" then
-									enemyNotes[i][j]:udraw(8, enemyNotes[i][j].sizeY * 1.7, enemyNotes[i][j].x + notesPos.enemy[i].x, -400 + enemyNotes[i][j].y * 0.6 * speed + notesPos.enemy[i].y)
+									enemyNotes[i][j]:udraw(8, 8 * 1.7, enemyNotes[i][j].x + notesPos.enemy[i].x, -400 + enemyNotes[i][j].y * 0.6 * speed + notesPos.enemy[i].y)
 								else
 									enemyNotes[i][j]:udraw(8, enemyNotes[i][j].sizeY, enemyNotes[i][j].x + notesPos.enemy[i].x, -400 + enemyNotes[i][j].y * 0.6 * speed)
 								end
 							else
 								if enemyNotes[i][j]:getAnimName() == "hold" then
-									enemyNotes[i][j]:udraw(1, enemyNotes[i][j].sizeY * 1.7, enemyNotes[i][j].x + notesPos.enemy[i].x, -400 + enemyNotes[i][j].y * 0.6 * speed + notesPos.enemy[i].y)
+									enemyNotes[i][j]:udraw(1, 1 * 1.7, enemyNotes[i][j].x + notesPos.enemy[i].x, -400 + enemyNotes[i][j].y * 0.6 * speed + notesPos.enemy[i].y)
 								else
 									enemyNotes[i][j]:udraw(1, enemyNotes[i][j].sizeY, enemyNotes[i][j].x + notesPos.enemy[i].x, -400 + enemyNotes[i][j].y * 0.6 * speed + notesPos.enemy[i].y)
 								end
@@ -2113,13 +2114,13 @@ return {
 							end
 							if pixel then
 								if boyfriendNotes[i][j]:getAnimName() == "hold" then
-									boyfriendNotes[i][j]:udraw(8, boyfriendNotes[i][j].sizeY * 1.7, boyfriendNotes[i][j].x + notesPos.boyfriend[i].x, -400 + boyfriendNotes[i][j].y * 0.6 * speed + notesPos.boyfriend[i].y)
+									boyfriendNotes[i][j]:udraw(8, 8 * 1.7, boyfriendNotes[i][j].x + notesPos.boyfriend[i].x, -400 + boyfriendNotes[i][j].y * 0.6 * speed + notesPos.boyfriend[i].y)
 								else
 									boyfriendNotes[i][j]:udraw(8, boyfriendNotes[i][j].sizeY, boyfriendNotes[i][j].x + notesPos.boyfriend[i].x, -400 + boyfriendNotes[i][j].y * 0.6 * speed + notesPos.boyfriend[i].y)
 								end
 							else
 								if boyfriendNotes[i][j]:getAnimName() == "hold" then
-									boyfriendNotes[i][j]:udraw(1, boyfriendNotes[i][j].sizeY * 1.7, boyfriendNotes[i][j].x + notesPos.boyfriend[i].x, -400 + boyfriendNotes[i][j].y * 0.6 * speed + notesPos.boyfriend[i].y)
+									boyfriendNotes[i][j]:udraw(1, 1 * 1.7, boyfriendNotes[i][j].x + notesPos.boyfriend[i].x, -400 + boyfriendNotes[i][j].y * 0.6 * speed + notesPos.boyfriend[i].y)
 								else
 									boyfriendNotes[i][j]:udraw(1, boyfriendNotes[i][j].sizeY, boyfriendNotes[i][j].x + notesPos.boyfriend[i].x, -400 + boyfriendNotes[i][j].y * 0.6 * speed + notesPos.boyfriend[i].y)
 								end
