@@ -2056,29 +2056,29 @@ return {
 					if not paused then
 						if not pixel then
 							if leftArrowSplash:isAnimated() then
-								leftArrowSplash:draw(leftArrowSplash.x+notesPos.boyfriend[i].x, leftArrowSplash.y+notesPos.boyfriend[i].y)
+								leftArrowSplash:draw(leftArrowSplash.x+notesPos.boyfriend[1].x, leftArrowSplash.y+notesPos.boyfriend[1].y)
 							end
 							if rightArrowSplash:isAnimated() then
-								rightArrowSplash:draw(rightArrowSplash.x+notesPos.boyfriend[i].x, rightArrowSplash.y+notesPos.boyfriend[i].y)
+								rightArrowSplash:draw(rightArrowSplash.x+notesPos.boyfriend[2].x, rightArrowSplash.y+notesPos.boyfriend[2].y)
 							end
 							if upArrowSplash:isAnimated() then
-								upArrowSplash:draw(upArrowSplash.x+notesPos.boyfriend[i].x, upArrowSplash.y+notesPos.boyfriend[i].y)
+								upArrowSplash:draw(upArrowSplash.x+notesPos.boyfriend[3].x, upArrowSplash.y+notesPos.boyfriend[3].y)
 							end
 							if downArrowSplash:isAnimated() then
-								downArrowSplash:draw(downArrowSplash.x+notesPos.boyfriend[i].x, downArrowSplash.y+notesPos.boyfriend[i].y)
+								downArrowSplash:draw(downArrowSplash.x+notesPos.boyfriend[4].x, downArrowSplash.y+notesPos.boyfriend[4].y)
 							end
 						else
 							if leftArrowSplash:isAnimated() then
-								leftArrowSplash:udraw(7, 7, leftArrowSplash.x+notesPos.boyfriend[i].x, leftArrowSplash.y+notesPos.boyfriend[i].y)
+								leftArrowSplash:udraw(7, 7, leftArrowSplash.x+notesPos.boyfriend[1].x, leftArrowSplash.y+notesPos.boyfriend[1].y)
 							end
 							if rightArrowSplash:isAnimated() then
-								rightArrowSplash:udraw(7, 7, rightArrowSplash.x+notesPos.boyfriend[i].x, rightArrowSplash.y+notesPos.boyfriend[i].y)
+								rightArrowSplash:udraw(7, 7, rightArrowSplash.x+notesPos.boyfriend[2].x, rightArrowSplash.y+notesPos.boyfriend[2].y)
 							end
 							if upArrowSplash:isAnimated() then
-								upArrowSplash:udraw(7, 7, upArrowSplash.x+notesPos.boyfriend[i].x, upArrowSplash.y+notesPos.boyfriend[i].y)
+								upArrowSplash:udraw(7, 7, upArrowSplash.x+notesPos.boyfriend[3].x, upArrowSplash.y+notesPos.boyfriend[3].y)
 							end
 							if downArrowSplash:isAnimated() then
-								downArrowSplash:udraw(7, 7, downArrowSplash.x+notesPos.boyfriend[i].x, downArrowSplash.y+notesPos.boyfriend[i].y)
+								downArrowSplash:udraw(7, 7, downArrowSplash.x+notesPos.boyfriend[4].x, downArrowSplash.y+notesPos.boyfriend[4].y)
 							end
 						end
 					end
